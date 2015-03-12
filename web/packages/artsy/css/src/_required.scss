@@ -1,0 +1,53 @@
+@import url(//fonts.googleapis.com/css?family=Oswald:400,300,700);
+
+// Custom
+$package-path:                  '/packages/artsy/';
+$icomoon-font-path:             '#{$package-path}css/fonts';
+$image-path:                    '#{$package-path}images';
+$font-family-icomoon:           'icomoon';
+$nav-sidebar-width:             320px;
+$mask-animate-time:             0.5s;
+
+// Palette
+$theme-primary-color:           #6DB844;
+$theme-light-color:             #838383;
+$theme-dark-color:              #000000;
+$theme-font-family:             'Oswald', sans-serif;
+$theme-font-size:               16px;
+$theme-section-spacing:         90px;
+
+// Bootstrap
+$body-bg:                       #f1f1f1;
+
+$gray-darker:                   lighten($theme-dark-color, 20%);
+$gray-dark:                     lighten($theme-dark-color, 40%);
+$gray:                          $theme-light-color;
+$gray-light:                    lighten($theme-dark-color, 70%);
+$gray-lighter:                  lighten($theme-dark-color, 90%);
+
+$brand-primary:                 $theme-primary-color;
+$brand-success:                 $theme-primary-color;
+$brand-info:                    lighten($theme-primary-color, 12.5%);
+
+$link-hover-color:              lighten($theme-primary-color, 12.5%);
+
+$text-color:                    $theme-dark-color;
+$font-family-base:              $theme-font-family;
+$font-size-base:                $theme-font-size;
+
+$border-radius-base:            0;
+$border-radius-large:           0;
+$border-radius-small:           0;
+
+$grid-gutter-width:             60px;
+$container-sm:                  100%;
+
+// Imports
+@import 'compass';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/variables';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins';
+
+// Mixins
+@mixin scrollOverflow {
+  overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}

@@ -1,0 +1,42 @@
+@import 'required';
+
+* {-webkit-font-smoothing:antialiased;}
+html, body {height:100%;font-size:100%;}
+img {@include img-responsive(inline-block);padding-bottom:1rem;}
+
+video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;}
+
+// Page wrapper
+#c-level-1 {height:100%;
+  input, textarea, button, a {&:focus, &:active {outline:0 !important;@include box-shadow(none !important);}}
+  a, a:hover, a:active {cursor:pointer;/*text-decoration:none;*/}
+  h3,h4,h5 {
+    &:first-of-type {margin-top:0;}
+  }
+
+  .tabular {display:table;width:100%;height:100%;
+    .cellular {display:table-cell;width:100%;height:100%;vertical-align:middle;}
+  }
+
+  .row.padless {margin:0;
+    [class*="col-"]{padding:$grid-gutter-width/4;}
+  }
+
+  .theme-text-huge {font-size:3.9rem;}
+  .theme-highlight-color {color:$theme-primary-color;}
+  .theme-light-color {color:$theme-light-color;}
+  .theme-dark-color {color:$theme-dark-color;}
+
+  main {height:100%;width:100%;position:relative;padding-left:180px;overflow-x:hidden;}
+
+  .btn-transparent {@include button-variant(#fff, rgba(255,255,255,0.1), #fff);}
+}
+
+@import 'components/logo';
+@import 'components/nav';
+@import 'components/header';
+@import 'components/footer';
+@import 'components/calendar';
+@import 'components/icomoon';
+@import 'page_types/home';
+@import 'page_types/default';
