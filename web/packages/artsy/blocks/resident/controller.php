@@ -42,12 +42,31 @@
         }
 
 
+        public function edit(){
+//            $this->requireAsset('core/file-manager');
+//            $this->set('fileListResults', $this->fileListObj()->getResults());
+//            $this->set('availableFileSets', array('' => 'Choose A File Set') + $this->availableFileSets());
+        }
+
+
         /**
          * Called automatically by framework
          * @param array $args
          */
         public function save( $args ){
             parent::save( $args );
+        }
+
+
+        /**
+         * Make sure to delete all files associated w/ the block record in secondary table.
+         * @return void
+         */
+        public function delete(){
+//            Loader::db()->Execute("DELETE FROM {$this->btTableSecondary} WHERE bID = ?", array(
+//                $this->bID
+//            ));
+//            return parent::delete();
         }
 
     }
