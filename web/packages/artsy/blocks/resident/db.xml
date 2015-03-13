@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+    <table name="btResident">
+        <field name="bID" type="I">
+            <key />
+            <unsigned />
+        </field>
+
+        <field name="logoFileID" type="I">
+            <unsigned />
+        </field>
+
+        <field name="email" type="C" size="255" />
+        <field name="phone" type="C" size="255" />
+        <field name="mailingAddress" type="C" size="255" />
+        <field name="url" type="C" size="255" />
+
+    </table>
+</schema>

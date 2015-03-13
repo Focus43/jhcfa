@@ -268,26 +268,26 @@ body.pg-home #c-level-1 header {
     display: block;
     padding: 1rem; }
 
-body.pg-default #c-level-1 header {
+body.pg-default #c-level-1 header, body.pg-resident #c-level-1 header {
   position: relative;
   padding: 9rem 0;
   background: url("/packages/artsy/images/_scratch/blur.jpg") no-repeat 50% 50%;
   background-size: cover; }
-  body.pg-default #c-level-1 header .logo {
+  body.pg-default #c-level-1 header .logo, body.pg-resident #c-level-1 header .logo {
     display: block;
     padding: 1rem;
     position: absolute;
     top: 0;
     right: 0; }
-  body.pg-default #c-level-1 header .container-fluid {
+  body.pg-default #c-level-1 header .container-fluid, body.pg-resident #c-level-1 header .container-fluid {
     font-size: 140%;
     color: #fff;
     text-align: center;
     max-width: 979px;
     text-transform: uppercase; }
-  body.pg-default #c-level-1 header h1 {
+  body.pg-default #c-level-1 header h1, body.pg-resident #c-level-1 header h1 {
     font-size: 220%; }
-  body.pg-default #c-level-1 header .breadcrumbs {
+  body.pg-default #c-level-1 header .breadcrumbs, body.pg-resident #c-level-1 header .breadcrumbs {
     z-index: 2;
     list-style: none;
     padding: 0;
@@ -296,12 +296,12 @@ body.pg-default #c-level-1 header {
     top: 0;
     left: 0;
     background: rgba(35, 25, 32, 0.35); }
-    body.pg-default #c-level-1 header .breadcrumbs li {
+    body.pg-default #c-level-1 header .breadcrumbs li, body.pg-resident #c-level-1 header .breadcrumbs li {
       display: inline-block;
       position: relative;
       font-size: 80%;
       text-transform: uppercase; }
-      body.pg-default #c-level-1 header .breadcrumbs li::after {
+      body.pg-default #c-level-1 header .breadcrumbs li::after, body.pg-resident #c-level-1 header .breadcrumbs li::after {
         color: #fff;
         font-size: 40px;
         display: block;
@@ -315,13 +315,13 @@ body.pg-default #c-level-1 header {
         -ms-transform: translateX(-50%);
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%); }
-      body.pg-default #c-level-1 header .breadcrumbs li:last-of-type::after {
+      body.pg-default #c-level-1 header .breadcrumbs li:last-of-type::after, body.pg-resident #c-level-1 header .breadcrumbs li:last-of-type::after {
         display: none; }
-      body.pg-default #c-level-1 header .breadcrumbs li a {
+      body.pg-default #c-level-1 header .breadcrumbs li a, body.pg-resident #c-level-1 header .breadcrumbs li a {
         color: #fff;
         display: block;
         padding: 0.5rem 1rem; }
-        body.pg-default #c-level-1 header .breadcrumbs li a:hover {
+        body.pg-default #c-level-1 header .breadcrumbs li a:hover, body.pg-resident #c-level-1 header .breadcrumbs li a:hover {
           text-decoration: none;
           color: #6DB844; }
 
@@ -548,6 +548,15 @@ body.pg-default footer {
 
 .icon-check:before {
   content: "\e618"; }
+
+.icon-phone:before {
+  content: "\e60b"; }
+
+.icon-paperplane:before {
+  content: "\e619"; }
+
+.icon-world:before {
+  content: "\e61a"; }
 
 .pg-home #c-level-1 main::after {
   display: block;

@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('fonts/icomoon.eot?vb2xx1');
-	src:url('fonts/icomoon.eot?#iefixvb2xx1') format('embedded-opentype'),
-		url('fonts/icomoon.woff?vb2xx1') format('woff'),
-		url('fonts/icomoon.ttf?vb2xx1') format('truetype'),
-		url('fonts/icomoon.svg?vb2xx1#icomoon') format('svg');
+	src:url('../../../../../../../Downloads/icomoon%20(5)/fonts/icomoon.eot?w7763p');
+	src:url('../../../../../../../Downloads/icomoon%20(5)/fonts/icomoon.eot?#iefixw7763p') format('embedded-opentype'),
+		url('../../../../../../../Downloads/icomoon%20(5)/fonts/icomoon.woff?w7763p') format('woff'),
+		url('../../../../../../../Downloads/icomoon%20(5)/fonts/icomoon.ttf?w7763p') format('truetype'),
+		url('../../../../../../../Downloads/icomoon%20(5)/fonts/icomoon.svg?w7763p#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -133,5 +133,17 @@
 
 .icon-check:before {
 	content: "\e618";
+}
+
+.icon-phone:before {
+	content: "\e60b";
+}
+
+.icon-paperplane:before {
+	content: "\e619";
+}
+
+.icon-world:before {
+	content: "\e61a";
 }
 

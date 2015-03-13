@@ -1,0 +1,9 @@
+.resident { padding: 15px 0; }
+
+.resident-info { padding-bottom: 20px; }
+.resident-info img { margin: 10px auto;border: none; }
+/*.resident-info a { color: #000; }*/
+
+@media (min-width: 992px) {
+    #c-level-1 .container { width: 100%; }
+}

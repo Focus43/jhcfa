@@ -31,7 +31,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.04';
+        protected $pkgVersion 			        = '0.06';
 
 
         /**
@@ -205,6 +205,10 @@
                 PageTemplate::add('home', t('Home'), 'full.png', $this->packageObject());
             }
 
+            if( ! PageTemplate::getByHandle('resident') ){
+                PageTemplate::add('resident', t('Resident'), 'full.png', $this->packageObject());
+            }
+
             return $this;
         }
 
@@ -305,9 +309,9 @@
             if(!is_object(BlockType::getByHandle('photo_wall'))) {
                 BlockType::installBlockTypeFromPackage('photo_wall', $this->packageObject());
             }
-//            if(!is_object(BlockType::getByHandle('accordion'))) {
-//                BlockType::installBlockTypeFromPackage('accordion', $this->packageObject());
-//            }
+            if(!is_object(BlockType::getByHandle('resident'))) {
+                BlockType::installBlockTypeFromPackage('resident', $this->packageObject());
+            }
 //
 //            if(!is_object(BlockType::getByHandle('quotes'))) {
 //                BlockType::installBlockTypeFromPackage('quotes', $this->packageObject());

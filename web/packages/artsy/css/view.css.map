@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACI,6BAAI;EAAE,MAAM,EAAE,SAAS;EAAC,MAAM,EAAE,IAAI;AAEhC,gDAAQ;EAAE,eAAe,EAAE,IAAI",
+"sources": ["../view.scss"],
+"names": [],
+"file": "view.css"
+}
