@@ -312,14 +312,6 @@
             if(!is_object(BlockType::getByHandle('resident'))) {
                 BlockType::installBlockTypeFromPackage('resident', $this->packageObject());
             }
-//
-//            if(!is_object(BlockType::getByHandle('quotes'))) {
-//                BlockType::installBlockTypeFromPackage('quotes', $this->packageObject());
-//            }
-//
-//            if(!is_object(BlockType::getByHandle('statistic'))) {
-//                BlockType::installBlockTypeFromPackage('statistic', $this->packageObject());
-//            }
 
             return $this;
         }
