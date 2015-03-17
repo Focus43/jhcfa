@@ -15,6 +15,10 @@ $form = Loader::helper('form');
                     <label>Phone Number</label>
                     <input name="phone" type="text" class="form-control" placeholder="" value="<?php echo $phone; ?>" />
                 </div>
+                <div class="form-group col-sm-12">
+                    <label>Site Url</label>
+                    <input name="url" type="text" class="form-control" placeholder="" value="<?php echo $url; ?>" />
+                </div>
             </div>
         </div>
         <div class="form-group col-sm-4">
@@ -27,14 +31,10 @@ $form = Loader::helper('form');
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-sm-6">
+        <div class="form-group col-sm-12">
             <label>Address</label>
 <!--            <textarea id="address" rows="4" name="mailingAddress" type="text" class="form-control" placeholder="" value="--><?php //echo $mailingAddress; ?><!--" />-->
             <?php echo $form->textarea("mailingAddress", $mailingAddress, array('rows' => '4')); ?>
-        </div>
-        <div class="form-group col-sm-6">
-            <label>Site Url</label>
-            <input name="url" type="text" class="form-control" placeholder="" value="<?php echo $url; ?>" />
         </div>
     </div>
 
