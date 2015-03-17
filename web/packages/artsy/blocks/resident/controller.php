@@ -26,9 +26,9 @@
 
 
         public function view(){
-            $this->requireAsset('redactor');
-            $this->requireAsset('core/file-manager');
-            $this->addFooterItem('<script type="text/javascript">var CCM_EDITOR_SECURITY_TOKEN = \''.Loader::helper('validation/token')->generate('editor').'\'</script>');
+//            $this->requireAsset('redactor');
+//            $this->requireAsset('core/file-manager');
+//            $this->addFooterItem('<script type="text/javascript">var CCM_EDITOR_SECURITY_TOKEN = \''.Loader::helper('validation/token')->generate('editor').'\'</script>');
         }
 
 
@@ -43,9 +43,9 @@
 
 
         public function edit(){
-//            $this->requireAsset('core/file-manager');
-//            $this->set('fileListResults', $this->fileListObj()->getResults());
-//            $this->set('availableFileSets', array('' => 'Choose A File Set') + $this->availableFileSets());
+            $this->requireAsset('redactor');
+            $this->requireAsset('core/file-manager');
+            $this->addFooterItem('<script type="text/javascript">var CCM_EDITOR_SECURITY_TOKEN = \''.Loader::helper('validation/token')->generate('editor').'\'</script>');
         }
 
 
