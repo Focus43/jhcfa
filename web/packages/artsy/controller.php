@@ -31,7 +31,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.06';
+        protected $pkgVersion 			        = '0.07';
 
 
         /**
@@ -217,47 +217,44 @@
          * @return Controller
          */
         private function setupPageTypes(){
-            /** @var $pageType \Concrete\Core\Page\Type\Type */
-            $pageType = PageType::getByHandle('page');
+            // "Page" page type
+            $this->createPageType(array(
+                'configs' => array(
+                    'handle'            => 'page',
+                    'name'              => 'Page',
+                    'defaultTemplate'   => PageTemplate::getByHandle('default')
+                ),
+                'controls' => array(
+                    'core_page_property' => array(
+                        'name'           => true,
+                        'publish_target' => true,
+                        'page_template'  => true,
+                        'description'    => false
+                    )
+                )
+            ));
 
-            // Delete it?
-            if( is_object($pageType) && !((int)$pageType->getPackageID() >= 1) ){
-                $pageType->delete();
-            }
-
-            if( !is_object(PageType::getByHandle('page')) ){
-                /** @var $ptPage \Concrete\Core\Page\Type\Type */
-                $ptPage = PageType::add(array(
-                    'handle'                => 'page',
-                    'name'                  => t('Page'),
-                    'defaultTemplate'       => PageTemplate::getByHandle('default'),
-                    'ptIsFrequentlyAdded'   => 1,
-                    'ptLaunchInComposer'    => 1
-                ), $this->packageObject());
-
-                // Set configured publish target
-                $ptPage->setConfiguredPageTypePublishTargetObject(
-                    PublishTargetType::getByHandle('all')->configurePageTypePublishTarget($ptPage, array(
-                        'ptID' => $ptPage->getPageTypeID()
-                    ))
-                );
-
-                /** @var $layoutSet \Concrete\Core\Page\Type\Composer\FormLayoutSet */
-                $layoutSet = $ptPage->addPageTypeComposerFormLayoutSet('Basics', 'Basics');
-
-                /** @var $controlTypeCorePageProperty \Concrete\Core\Page\Type\Composer\Control\Type\CorePagePropertyType */
-                $controlTypeCorePageProperty = \Concrete\Core\Page\Type\Composer\Control\Type\Type::getByHandle('core_page_property');
-
-                /** @var $controlTypeName \Concrete\Core\Page\Type\Composer\Control\CorePageProperty\NameCorePageProperty */
-                $controlTypeName = $controlTypeCorePageProperty->getPageTypeComposerControlByIdentifier('name');
-                $controlTypeName->addToPageTypeComposerFormLayoutSet($layoutSet)
-                    ->updateFormLayoutSetControlRequired(true);
-
-                /** @var $controlTypePublishTarget \Concrete\Core\Page\Type\Composer\Control\CorePageProperty\PublishTargetCorePageProperty */
-                $controlTypePublishTarget = $controlTypeCorePageProperty->getPageTypeComposerControlByIdentifier('publish_target');
-                $controlTypePublishTarget->addToPageTypeComposerFormLayoutSet($layoutSet)
-                    ->updateFormLayoutSetControlRequired(true);
-            }
+            // "News" Page Type
+            $this->createPageType(array(
+                'configs' => array(
+                    'handle'            => 'resident',
+                    'name'              => t('Resident'),
+                    'defaultTemplate'   => PageTemplate::getByHandle('resident'),
+                    'allowedTemplates'  => 'C',
+                    'templates'         => array(
+                        PageTemplate::getByHandle('resident')
+                    )
+                ),
+                'controls' => array(
+                    'core_page_property' => array(
+                        'name'           => true,
+                        'publish_target' => true,
+                        'page_template'  => true,
+                        'description'    => false
+                    ),
+                    'block' => array('content')
+                )
+            ));
 
             return $this;
         }
@@ -340,6 +337,93 @@
                 }
             }
             return $this->{"at_{$handle}"};
+        }
+
+
+        /**
+         * Create a page type and assign defaults and shit
+         */
+        private function createPageType( array $settings ){
+            // Cast to an object
+            $settings = (object) $settings;
+
+            // Get the page type if it exists previously
+            $pageType = PageType::getByHandle($settings->configs['handle']);
+
+            // Delete it? Only works if the $pageType isn't assigned to this package already
+            if( is_object($pageType) && !((int)$pageType->getPackageID() >= 1) ){
+                $pageType->delete();
+            }
+
+            if( !is_object(PageType::getByHandle($settings->configs['handle'])) ){
+                /** @var $ptPage \Concrete\Core\Page\Type\Type */
+                $ptPage = PageType::add(array_merge(array(
+                    'ptIsFrequentlyAdded'   => 1,
+                    'ptLaunchInComposer'    => 1
+                ), $settings->configs), $this->packageObject());
+
+                // Set configured publish target
+                $ptPage->setConfiguredPageTypePublishTargetObject(
+                    PublishTargetType::getByHandle('all')->configurePageTypePublishTarget($ptPage, array(
+                        'ptID' => $ptPage->getPageTypeID()
+                    ))
+                );
+
+                /** @var $layoutSet \Concrete\Core\Page\Type\Composer\FormLayoutSet */
+                $layoutSet = $ptPage->addPageTypeComposerFormLayoutSet('Basics', 'Basics');
+
+                // Are we adding composer controls?
+                if( property_exists($settings, 'controls') && is_array($settings->controls) ){
+                    // Core page properties
+                    $corePageProperties = $settings->controls['core_page_property'];
+                    if( is_array($corePageProperties) ){
+                        /** @var $controlTypeObj \Concrete\Core\Page\Type\Composer\Control\Type\CorePagePropertyType */
+                        $controlTypeObj = \Concrete\Core\Page\Type\Composer\Control\Type\Type::getByHandle('core_page_property');
+
+                        if( is_object($controlTypeObj) ){
+                            foreach($corePageProperties AS $controlName => $isRequired){
+                                $control = $controlTypeObj->getPageTypeComposerControlByIdentifier($controlName);
+                                $control->addToPageTypeComposerFormLayoutSet($layoutSet)
+                                    ->updateFormLayoutSetControlRequired($isRequired);
+                            }
+                        }
+                    }
+
+                    // Blocks
+                    $pageBlocks = $settings->controls['block'];
+                    if( is_array($pageBlocks) ){
+                        /** @var $controlTypeObj \Concrete\Core\Page\Type\Composer\Control\Type\CollectionAttributeType */
+                        $controlTypeObj = \Concrete\Core\Page\Type\Composer\Control\Type\Type::getByHandle('block');
+
+                        if( is_object($controlTypeObj) ){
+                            foreach($pageBlocks AS $controlName){
+                                $blockTypeObj = BlockType::getByHandle($controlName);
+                                if( is_object($blockTypeObj) ){
+                                    $control = $controlTypeObj->getPageTypeComposerControlByIdentifier($blockTypeObj->getBlockTypeID());
+                                    $control->addToPageTypeComposerFormLayoutSet($layoutSet);
+                                }
+                            }
+                        }
+                    }
+
+                    // Attributes
+                    $pageAttributes = $settings->controls['collection_attribute'];
+                    if( is_array($pageAttributes) ){
+                        /** @var $controlTypeObj \Concrete\Core\Page\Type\Composer\Control\Type\CollectionAttributeType */
+                        $controlTypeObj = \Concrete\Core\Page\Type\Composer\Control\Type\Type::getByHandle('collection_attribute');
+
+                        if( is_object($controlTypeObj) ){
+                            foreach($pageAttributes AS $controlName){
+                                $collectionAttrKey = CollectionAttributeKey::getByHandle($controlName);
+                                if( is_object($collectionAttrKey) ){
+                                    $control = $controlTypeObj->getPageTypeComposerControlByIdentifier($collectionAttrKey->getAttributeKeyID());
+                                    $control->addToPageTypeComposerFormLayoutSet($layoutSet);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }
