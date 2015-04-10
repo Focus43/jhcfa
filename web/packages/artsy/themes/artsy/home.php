@@ -38,7 +38,12 @@
                     <div class="container-fluid" style="max-width:1300px;">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div calendar>
+                                <?php
+                                    /** @var $a \Concrete\Core\Area\Area */
+                                    $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
+                                    $a->display($c);
+                                ?>
+                                <!--<div calendar>
                                     <div calendar-header>
                                         <h1>Current &amp; Coming Up @ The Center</h1>
                                         <ul class="list-inline">
@@ -54,7 +59,9 @@
                                                 <li style="background-image:url('<?php echo ARTSY_IMAGE_PATH; ?>_scratch/emmylou.jpg');"><a>EmmyLou Harris<span>w/ Dan Ackroyd : 7:30 PM : Main Room : $35</span></a></li>
                                                 <li style="background-image:url('<?php echo ARTSY_IMAGE_PATH; ?>_scratch/hoot.jpg');"><a>EmmyLou Harris<span>And The Range : 9:00 PM : Tickets Available 4/17/15</span></a></li>
                                                 <li style="background-image:url('<?php echo ARTSY_IMAGE_PATH; ?>_scratch/hornsby.jpg');"><a>Bruce Hornsby<span>w/ Dan Ackroyd : 7:30 PM : Main Room : $35</span></a></li>
-                                                <li style="background-image:url('<?php echo ARTSY_IMAGE_PATH; ?>_scratch/hornsby.jpg');"><a>Bruce Hornsby<span>And The Range : 9:00 PM : Tickets Available 4/17/15</span></a></li>
+                                                <li style="background-image:url('<?php echo ARTSY_IMAGE_PATH; ?>_scratch/hornsby.jpg');">
+                                                    <a>Bruce Hornsby<span>And The Range : 9:00 PM : Tickets Available 4/17/15</span></a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div column>
@@ -106,7 +113,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
