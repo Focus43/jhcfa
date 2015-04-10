@@ -19,7 +19,7 @@
         <section class="sxn-1">
             <div class="tabular">
                 <div class="cellular">
-                    <?php $a = new Area('Main'); $a->display($c); ?>
+                    <?php //$a = new Area('Main'); $a->display($c); ?>
                     <div class="intro-text">
                         <div class="tagline">
                             <span class="top">We are a</span>
@@ -130,7 +130,7 @@
                                 <h1>The Center is home to over 20 <a href="">residents</a>, providing a wide array of expertise in different artistic endeavors.</h1>
                             </div>
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-sm-4">
                                 <a class="feature">
                                     <div class="circ" style="background-image:url('/packages/artsy/images/_scratch/hoot2.jpg');"></div>
@@ -149,7 +149,7 @@
                                     <span>Exhibits</span>
                                 </a>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
