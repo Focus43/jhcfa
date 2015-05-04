@@ -31,7 +31,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.07';
+        protected $pkgVersion 			        = '0.08';
 
 
         /**
@@ -207,6 +207,10 @@
 
             if( ! PageTemplate::getByHandle('resident') ){
                 PageTemplate::add('resident', t('Resident'), 'full.png', $this->packageObject());
+            }
+
+            if( ! PageTemplate::getByHandle('event') ){
+                PageTemplate::add('event', t('Event'), 'full.png', $this->packageObject());
             }
 
             return $this;

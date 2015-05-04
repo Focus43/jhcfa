@@ -1,4 +1,4 @@
-#c-level-1 svg[logo]{max-width:240px;padding:10px 0;
+#c-level-1 svg[logo]{max-width:240px;
   circle {opacity:0;@include animation(bounce-in-down 1s ease forwards 0.25s);}
   g {
     &[data-stroke] path {stroke-dasharray:250;stroke-dashoffset:250;@include animation(logo-stroke 3s linear forwards 0.45s);}

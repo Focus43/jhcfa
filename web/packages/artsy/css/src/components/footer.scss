@@ -1,14 +1,14 @@
-footer {color:#fff;position:relative;padding-left:3rem;padding-right:3rem;padding-top:2rem;padding-bottom:15%;background:rgba(35, 25, 32, 0.5);//@include gradient-vertical(rgba(0,0,0,0),rgba(0,0,0,1));
+footer {color:#000;position:relative;margin-top:3rem;padding:2rem 3rem 15% 3rem;background:transparent;
   &::after {display:block;content:'';position:absolute;bottom:0;right:0;bottom:0;left:0;width:100%;height:55%;background:transparent url('#{$image-path}/mtn_footer4.png') no-repeat 50% 100%;background-size:cover;}
   .inner {position:relative;z-index:2;}
   .container-fluid {}
   .col-inner {border-top:3px solid $theme-primary-color;padding:1rem 0 0;}
   h3 {font-size:140%;}
   .footer-logo {max-height:105px;}
-  .socialize {font-size:200%;color:#fff;}
+  .socialize {font-size:200%;color:$theme-primary-color;}
   .legalese {text-align:center;font-size:12px;color:$theme-light-color;position:absolute;bottom:0;left:0;right:0;width:100%;padding:1rem;z-index:1;}
 }
 
-body.pg-default footer {margin-top:3rem;background:transparent;color:#000;
-  .socialize {color:$theme-primary-color;}
+.pg-home footer {background:rgba(35,25,32,0.5);margin-top:0;color:#fff;
+  .socialize {color:#fff;}
 }
