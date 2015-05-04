@@ -8,8 +8,17 @@
     use Loader; /** @see \Concrete\Core\Legacy\Loader */
     use BlockType; /** @see \Concrete\Core\Block\BlockType\BlockType */
     use SinglePage; /** @see \Concrete\Core\Page\Single */
-    use \DateTime; /** @see \DateTime */
-    use \DateTimeZone; /** @see \DateTimeZone */
+    use Route;
+    use Router;
+    use \DateTime;
+    use \DateTimeZone;
+    use \Concrete\Core\Attribute\Key\Category AS AttributeKeyCategory;
+    use \Concrete\Core\Attribute\Type AS AttributeType;
+    use \Concrete\Package\Schedulizer\Src\Api\ApiOnStart;
+    use PermissionKeyCategory; /** @see \Concrete\Core\Permission\Category */
+    use \Concrete\Core\Permission\Access\Entity\Type AS PermissionAccessEntityType;
+    use \Concrete\Package\Schedulizer\Src\Permission\Key\SchedulizerKey AS SchedulizerPermissionKey;
+    use \Concrete\Package\Schedulizer\Src\Permission\Key\SchedulizerCalendarKey AS SchedulizerCalendarPermissionKey;
 
     /**
      * Class Controller
@@ -25,7 +34,7 @@
 
         protected $pkgHandle                = self::PACKAGE_HANDLE;
         protected $appVersionRequired       = '5.7.3.2';
-        protected $pkgVersion               = '0.37';
+        protected $pkgVersion               = '0.55';
 
         public function getPackageName(){ return t('Schedulizer'); }
         public function getPackageDescription(){ return t('Schedulizer Calendar Package'); }
@@ -56,6 +65,14 @@
                 return Database::connection(Database::getDefaultConnection())->getWrappedConnection();
             }, true);
 
+            // Core file's \Concrete\Core\Permission\Access\Access getByID() method doesn't
+            // account for namespacing to packages, so we have to bind this here.
+            \Core::bind('\\Concrete\\Core\\Permission\\Access\\SchedulizerAccess', '\\Concrete\\Package\\Schedulizer\\Src\\Permission\\Access\\SchedulizerAccess');
+            \Core::bind('\\Concrete\\Core\\Permission\\Access\\SchedulizerCalendarAccess', '\\Concrete\\Package\\Schedulizer\\Src\\Permission\\Access\\SchedulizerCalendarAccess');
+
+            // Same thing but for Calendar Owner Access Entity Type
+            \Core::bind('\\Concrete\\Core\\Permission\\Access\\Entity\\CalendarOwnerEntity', '\\Concrete\\Package\\Schedulizer\\Src\\Permission\\Access\\Entity\\CalendarOwnerEntity');
+
             // Composer Autoloader
             require __DIR__ . '/vendor/autoload.php';
 
@@ -64,63 +81,92 @@
                 @date_default_timezone_set('UTC');
             }
 
-            new \Concrete\Package\Schedulizer\Src\Api\OnStart(function( $routes ){
-                $routes->add('schedulizer_event_list', new \Symfony\Component\Routing\Route('/_schedulizer/event/list/{calendarID}{trailingSlash}', array(
-                    '_controller'   => '\Concrete\Package\Schedulizer\Src\Api\EventListHandler::dispatch',
-                    'calendarID'    => null,
-                    'trailingSlash' => '/'
-                ), array('calendarID' => '\d+|[/]{0,1}', 'trailingSlash' => '[/]{0,1}')));
-
-                $routes->add('schedulizer_calendar', new \Symfony\Component\Routing\Route('/_schedulizer/calendar/{id}{trailingSlash}', array(
-                    '_controller'   => '\Concrete\Package\Schedulizer\Src\Api\CalendarHandler::dispatch',
-                    'id'            => null,
-                    'trailingSlash' => '/'
-                ), array('id' => '\d+|[/]{0,1}', 'trailingSlash' => '[/]{0,1}'), array(), '', array(), array('GET','POST','PUT','DELETE')));
-
-                $routes->add('schedulizer_calendar_events', new \Symfony\Component\Routing\Route('/_schedulizer/calendar/events/{calendarID}/{verbosity}{trailingSlash}', array(
-                    '_controller'   => '\Concrete\Package\Schedulizer\Src\Api\CalendarEventsHandler::dispatch',
-                    'calendarID'    => null,
-                    'verbosity'     => 'simple',
-                    'trailingSlash' => '/'
-                ), array('calendarID' => '\d+|[/]{0,1}', 'verbosity' => '[a-zA-Z1-9\-_]+|[/]{0,1}', 'trailingSlash' => '[/]{0,1}'), array(), '', array(), array('GET')));
-
-                $routes->add('schedulizer_event', new \Symfony\Component\Routing\Route('/_schedulizer/event/{id}{trailingSlash}', array(
-                    '_controller'   => '\Concrete\Package\Schedulizer\Src\Api\EventHandler::dispatch',
-                    'id'            => null,
-                    'trailingSlash' => '/'
-                ), array('id' => '\d+|[/]{0,1}', 'trailingSlash' => '[/]{0,1}'), array(), '', array(), array('GET','POST','PUT','DELETE')));
-
-                $routes->add('schedulizer_event_tags', new \Symfony\Component\Routing\Route('/_schedulizer/event/tag/{id}{trailingSlash}', array(
-                    '_controller'   => '\Concrete\Package\Schedulizer\Src\Api\EventTagHandler::dispatch',
-                    'id'            => null,
-                    'trailingSlash' => '/'
-                ), array('id' => '\d+|[/]{0,1}', 'trailingSlash' => '[/]{0,1}'), array(), '', array(), array('GET','POST','PUT','DELETE')));
-
-                $routes->add('schedulizer_event_time_nullify', new \Symfony\Component\Routing\Route('/_schedulizer/event/nullify/{id}{trailingSlash}', array(
-                    '_controller'   => '\Concrete\Package\Schedulizer\Src\Api\EventTimeNullifyHandler::dispatch',
-                    'id'            => null,
-                    'trailingSlash' => '/'
-                ), array('id' => '\d+|[/]{0,1}', 'trailingSlash' => '[/]{0,1}'), array(), '', array(), array('GET','POST','PUT','DELETE')));
-
-                $routes->add('schedulizer_timezones', new \Symfony\Component\Routing\Route('/_schedulizer/timezones{trailingSlash}', array(
-                    '_controller'   => '\Concrete\Package\Schedulizer\Src\Api\TimezonesHandler::getList',
-                    'trailingSlash' => '/'
-                ), array('trailingSlash' => '[/]{0,1}'), array(), '', array(), array('GET')));
+            // API requests
+            ApiOnStart::execute(function( $apiOnStart ){
+                /** @var $apiOnStart \Concrete\Package\Schedulizer\Src\Api\OnStart */
+                // GET,POST,PUT,DELETE
+                $apiOnStart->addRoute('calendar', 'CalendarResource');
+                // GET,POST,PUT,DELETE
+                $apiOnStart->addRoute('event', 'EventResource');
+                // GET,POST,DELETE
+                $apiOnStart->addRoute('event_time_nullify', 'EventTimeNullifyResource');
+                // GET,POST,PUT,DELETE
+                $apiOnStart->addRoute('event_tags', 'EventTagsResource');
+                // GET
+                $apiOnStart->addRoute('event_list', 'EventListResource');
+                // GET
+                $apiOnStart->addRoute('timezones', 'TimezoneResource');
             });
+
+            // Normal old ajax calls: note, C5's router fails to implement the full
+            // Symfony routing options (hence why we customize the API stuff above),
+            // so to pass an optional parameter we have to register the route twice :(
+            Route::register(
+                Router::route(array('event_attributes_form/{id}', self::PACKAGE_HANDLE)),
+                '\Concrete\Package\Schedulizer\Controller\EventAttributesForm::view'
+            );
+            Route::register(
+                Router::route(array('event_attributes_form', self::PACKAGE_HANDLE)),
+                '\Concrete\Package\Schedulizer\Controller\EventAttributesForm::view'
+            );
+
+            // Permission dialogs
+            Route::register(
+                Router::route(array('permission/dialog/schedulizer', self::PACKAGE_HANDLE)),
+                '\Concrete\Package\Schedulizer\Controller\Permission\Dialog\Schedulizer::view'
+            );
+
+            Route::register(
+                Router::route(array('permission/dialog/schedulizer_calendar', self::PACKAGE_HANDLE)),
+                '\Concrete\Package\Schedulizer\Controller\Permission\Dialog\SchedulizerCalendar::view'
+            );
+
+            // Permission Category routes
+            Route::register(
+                Router::route(array('permission/category/schedulizer', self::PACKAGE_HANDLE)),
+                '\Concrete\Package\Schedulizer\Controller\Permission\Category\Schedulizer::view'
+            );
+
+            Route::register(
+                Router::route(array('permission/category/schedulizer_calendar', self::PACKAGE_HANDLE)),
+                '\Concrete\Package\Schedulizer\Controller\Permission\Category\SchedulizerCalendar::view'
+            );
+
+            // Calendar Owner permissionable entity type
+            Route::register(
+                Router::route(array('permission/access/entity/types/calendar_owner', self::PACKAGE_HANDLE)),
+                'Concrete\Package\Schedulizer\Controller\Permission\Access\Entity\Types\CalendarOwner::view'
+            );
         }
 
 
         public function uninstall(){
             parent::uninstall();
 
+            // Uninstall permission key categories
+            /** @var $pkc1 \Concrete\Core\Permission\Category */
+//            if( $pkc1 = PermissionKeyCategory::getByHandle('schedulizer') ){
+//                $pkc1->delete();
+//            }
+//
+//            /** @var $pkc2 \Concrete\Core\Permission\Category */
+//            if( $pkc2 = PermissionKeyCategory::getByHandle('schedulizer_calendar') ){
+//                $pkc2->delete();
+//            }
+
             $tables   = array(
+                'btSchedulizer',
+                'btSchedulizerEvent',
                 'SchedulizerCalendar',
                 'SchedulizerEvent',
+                'SchedulizerEventVersion',
                 'SchedulizerEventTag',
                 'SchedulizerTaggedEvents',
                 'SchedulizerEventTime',
                 'SchedulizerEventTimeWeekdays',
-                'SchedulizerEventTimeNullify'
+                'SchedulizerEventTimeNullify',
+                'SchedulizerEventAttributeValues',
+                'SchedulizerEventSearchIndexAttributes'
             );
             try {
                 $database = Loader::db();
@@ -188,14 +234,22 @@
          */
         private function installAndUpdate(){
             $this->setupBlocks()
-                 ->setupSinglePages();
+                 ->setupSinglePages()
+                 ->setupAttributeCategories()
+                 ->setupPermissions();
 
             /** @var $connection \PDO :: Setup foreign key associations */
-            $connection = Database::connection(Database::getDefaultConnection())->getWrappedConnection();
-            $connection->query("ALTER TABLE SchedulizerEvent ADD CONSTRAINT FK_calendar FOREIGN KEY (calendarID) REFERENCES SchedulizerCalendar(id) ON UPDATE CASCADE ON DELETE CASCADE");
-            $connection->query("ALTER TABLE SchedulizerEventTime ADD CONSTRAINT FK_event FOREIGN KEY (eventID) REFERENCES SchedulizerEvent(id) ON UPDATE CASCADE ON DELETE CASCADE");
-            $connection->query("ALTER TABLE SchedulizerEventTimeWeekdays ADD CONSTRAINT FK_eventTime FOREIGN KEY (eventTimeID) REFERENCES SchedulizerEventTime(id) ON UPDATE CASCADE ON DELETE CASCADE");
-            $connection->query("ALTER TABLE SchedulizerEventTimeNullify ADD CONSTRAINT FK_eventTime2 FOREIGN KEY (eventTimeID) REFERENCES SchedulizerEventTime(id) ON UPDATE CASCADE ON DELETE CASCADE");
+            try {
+                $connection = Database::connection(Database::getDefaultConnection())->getWrappedConnection();
+                $connection->query("ALTER TABLE SchedulizerEvent ADD CONSTRAINT FK_calendar FOREIGN KEY (calendarID) REFERENCES SchedulizerCalendar(id) ON UPDATE CASCADE ON DELETE CASCADE");
+                $connection->query("ALTER TABLE SchedulizerEventVersion ADD CONSTRAINT FK_event FOREIGN KEY (eventID) REFERENCES SchedulizerEvent(id) ON DELETE CASCADE");
+                $connection->query("ALTER TABLE SchedulizerEventTime ADD CONSTRAINT FK_event2 FOREIGN KEY (eventID) REFERENCES SchedulizerEvent(id) ON UPDATE CASCADE ON DELETE CASCADE");
+                $connection->query("ALTER TABLE SchedulizerEventTimeWeekdays ADD CONSTRAINT FK_eventTime FOREIGN KEY (eventTimeID) REFERENCES SchedulizerEventTime(id) ON UPDATE CASCADE ON DELETE CASCADE");
+                $connection->query("ALTER TABLE SchedulizerEventTimeNullify ADD CONSTRAINT FK_eventTime2 FOREIGN KEY (eventTimeID) REFERENCES SchedulizerEventTime(id) ON UPDATE CASCADE ON DELETE CASCADE");
+                // Tag associations
+                $connection->query("ALTER TABLE SchedulizerTaggedEvents ADD CONSTRAINT FK_taggedEvent FOREIGN KEY (eventID) REFERENCES SchedulizerEvent(id) ON DELETE CASCADE");
+                $connection->query("ALTER TABLE SchedulizerTaggedEvents ADD CONSTRAINT FK_taggedEvent2 FOREIGN KEY (eventTagID) REFERENCES SchedulizerEventTag(id) ON DELETE CASCADE");
+            }catch(\Exception $e){ /** @todo: log out */ }
         }
 
 
@@ -216,6 +270,7 @@
             if(!is_object(BlockType::getByHandle('schedulizer'))) {
                 BlockType::installBlockTypeFromPackage('schedulizer', $this->packageObject());
             }
+
             if(!is_object(BlockType::getByHandle('schedulizer_event'))) {
                 BlockType::installBlockTypeFromPackage('schedulizer_event', $this->packageObject());
             }
@@ -230,11 +285,107 @@
             // Dashboard pages
             SinglePage::add('/dashboard/schedulizer/', $this->packageObject());
             SinglePage::add('/dashboard/schedulizer/calendars', $this->packageObject());
+            SinglePage::add('/dashboard/schedulizer/attributes', $this->packageObject());
+            SinglePage::add('/dashboard/schedulizer/permissions', $this->packageObject());
             SinglePage::add('/dashboard/schedulizer/settings', $this->packageObject());
             // Hidden
             $spManage = SinglePage::add('/dashboard/schedulizer/calendars/manage', $this->packageObject());
             if( is_object($spManage) ){
                 $spManage->setAttribute('exclude_nav', 1);
+            }
+
+            return $this;
+        }
+
+
+        /**
+         * @return $this
+         */
+        private function setupAttributeCategories(){
+            if( ! AttributeKeyCategory::getByHandle('schedulizer_event') ){
+                $attrKeyCat = AttributeKeyCategory::add('schedulizer_event', AttributeKeyCategory::ASET_ALLOW_MULTIPLE, $this->packageObject());
+                $attrKeyCat->associateAttributeKeyType( $this->attributeType('text') );
+                $attrKeyCat->associateAttributeKeyType( $this->attributeType('boolean') );
+                $attrKeyCat->associateAttributeKeyType( $this->attributeType('number') );
+                $attrKeyCat->associateAttributeKeyType( $this->attributeType('select') );
+                $attrKeyCat->associateAttributeKeyType( $this->attributeType('textarea') );
+                $attrKeyCat->associateAttributeKeyType( $this->attributeType('image_file') );
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return $this
+         */
+        private function setupPermissions(){
+            // Calendar permissions: first, we need to create a new permission entity type for "calendar owner"!
+            if( ! PermissionAccessEntityType::getByHandle('calendar_owner') ){
+                PermissionAccessEntityType::add('calendar_owner', 'Calendar Owner', $this->packageObject());
+            }
+
+            // These would be "task" permissions, NOT related to specific entities.
+            // The fucking PermissionKeyCategory class's getByHandle() implementation attempts
+            // to create an inline cache by storing results in a static class property in the category
+            // class, which means we can't rely on getByHandle() to accurately tell us whether
+            // it exists or not as a check. So execute a database query to tell reliably.
+
+            //if( ! PermissionKeyCategory::getByHandle('schedulizer') ){
+            if( empty(Loader::db()->GetOne("SELECT pkCategoryID FROM PermissionKeyCategories WHERE pkCategoryHandle = 'schedulizer'")) ){
+                /** @var $permKeyCategory PermissionCategory */
+                $permKeyCategory = PermissionKeyCategory::add('schedulizer', $this->packageObject());
+                // Associate access entity types
+                foreach(array('group', 'user', 'group_set', 'group_combination', 'calendar_owner') AS $paetHandle){
+                    if( $paet = PermissionAccessEntityType::getByHandle($paetHandle) ){
+                        $permKeyCategory->associateAccessEntityType($paet);
+                    }
+                }
+            }
+
+            // Setup keys
+            foreach(array(
+                    'create_tag'    => array(
+                        'name'      => t('Create Tags'),
+                        'descr'     => t('Is Allowed To Create New Tags')
+                    ),
+                    'create_calendar' => array(
+                        'name'      => t('Add Calendars'),
+                        'descr'     => t('Is Allowed To Create New Calendars')
+                    ),
+                    'manage_calendar_permissions' => array(
+                        'name'      => t('Manage Calendar Permissions'),
+                        'descr'     => t('Can Manage Calendar Permissions')
+                    )
+            ) AS $keyHandle => $keyData){
+                if( ! SchedulizerPermissionKey::getByHandle($keyHandle) ){
+                    SchedulizerPermissionKey::add('schedulizer', $keyHandle, $keyData['name'], $keyData['descr'], 1, 0, $this->packageObject());
+                }
+            }
+
+            // Calendar entity-specific permissions
+            //if( ! PermissionKeyCategory::getByHandle('schedulizer_calendar') ){
+            if( empty(Loader::db()->GetOne("SELECT pkCategoryID FROM PermissionKeyCategories WHERE pkCategoryHandle = 'schedulizer_calendar'")) ){
+                $schedCalPermKeyCategory = PermissionKeyCategory::add('schedulizer_calendar', $this->packageObject());
+                foreach(array('group', 'user', 'group_set', 'group_combination', 'calendar_owner') AS $paetHandle){
+                    if( $paetObj = PermissionAccessEntityType::getByHandle($paetHandle) ){
+                        $schedCalPermKeyCategory->associateAccessEntityType($paetObj);
+                    }
+                }
+            }
+
+            foreach(array(
+                'add_events'    => array(
+                    'name'      => t('Add Events'),
+                    'descr'     => t('Can Add Events To The Calendar')
+                ),
+                'delete_events' => array(
+                    'name'      => t('Delete Events'),
+                    'descr'     => t('Can Delete Events From Calendar')
+                )
+            ) AS $keyHandle => $keyData){
+                if( ! SchedulizerCalendarPermissionKey::getByHandle($keyHandle) ){
+                    SchedulizerCalendarPermissionKey::add('schedulizer_calendar', $keyHandle, $keyData['name'], $keyData['descr'], 1, 0, $this->packageObject());
+                }
             }
 
             return $this;
@@ -261,6 +412,20 @@
                 $this->_packageObj = Package::getByHandle( $this->pkgHandle );
             }
             return $this->_packageObj;
+        }
+
+
+        /**
+         * @return AttributeType
+         */
+        private function attributeType( $handle ){
+            if( is_null($this->{"at_{$handle}"}) ){
+                $attributeType = AttributeType::getByHandle($handle);
+                if( is_object($attributeType) ){
+                    $this->{"at_{$handle}"} = $attributeType;
+                }
+            }
+            return $this->{"at_{$handle}"};
         }
 
     }

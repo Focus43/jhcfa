@@ -1,9 +1,10 @@
 <?php namespace Concrete\Package\Schedulizer\Src {
 
-    use DateTime;
-    use DateTimeZone;
-    use Concrete\Package\Schedulizer\Src\Persistable\Contracts\Persistant;
-    use Concrete\Package\Schedulizer\Src\Persistable\Mixins\Crud;
+    use \DateTime;
+    use \DateTimeZone;
+    use \Concrete\Package\Schedulizer\Src\EventTimeNullify;
+    use \Concrete\Package\Schedulizer\Src\Persistable\Contracts\Persistant;
+    use \Concrete\Package\Schedulizer\Src\Persistable\Mixins\Crud;
 
     /**
      * @package Concrete\Package\Schedulizer\Src
@@ -40,6 +41,9 @@
         /** @definition({"cast":"int"}) */
         protected $eventID;
 
+        /** @definition({"cast":"int"}) */
+        protected $versionID;
+
         /** @definition({"cast":"datetime","nullable":false}) */
         protected $startUTC;
 
@@ -56,19 +60,19 @@
         protected $isRepeating = self::IS_REPEATING_FALSE;
 
         /** @definition({"cast":"string","nullable":true}) */
-        protected $repeatTypeHandle = null; //self::REPEAT_TYPE_HANDLE_DAILY;
+        protected $repeatTypeHandle = null;
 
         /** @definition({"cast":"int","nullable":true}) */
         protected $repeatEvery = null;
 
         /** @definition({"cast":"bool","nullable":true}) */
-        protected $repeatIndefinite = null; //self::REPEAT_INDEFINITE_TRUE;
+        protected $repeatIndefinite = null;
 
         /** @definition({"cast":"datetime","nullable":true}) */
         protected $repeatEndUTC = null;
 
         /** @definition({"cast":"string","nullable":true}) */
-        protected $repeatMonthlyMethod = null; //self::REPEAT_MONTHLY_METHOD_SPECIFIC;
+        protected $repeatMonthlyMethod = null;
 
         /** @definition({"cast":"int","nullable":true}) */
         protected $repeatMonthlySpecificDay = null;
@@ -163,6 +167,11 @@
         /** @return int|null */
         public function getRepeatMonthlyOrdinalWeekday(){ return $this->repeatMonthlyOrdinalWeekday; }
 
+        /** @return array Get all nullifiers */
+        public function getEventTimeNullifiers(){
+            return (array) EventTimeNullify::fetchAllByEventTimeID($this->id);
+        }
+
 
         /**
          * Pass in event time data, and if it has weeklyDays set as an array, this'll create it.
@@ -170,6 +179,7 @@
          * @return $this
          */
         public static function createWithWeeklyRepeatSettings( $data ){
+            // Does the EventTime have weekly day settings? Handle them
             if( is_array($data->weeklyDays) && !empty($data->weeklyDays) ){
                 $eventTimeObj = self::create($data);
                 foreach($data->weeklyDays AS $weekdayValue){
@@ -182,8 +192,32 @@
                 }
                 return $eventTimeObj;
             }
+
             // No weekly repeat settings, just create and return as normal
             return self::create($data);
+        }
+
+
+        public function updateWithWeeklyRepeatSettings( $data ){
+            $eventTimeObj = $this->update($data);
+            // Does the EventTime have weekly day settings? Handle them
+            if( is_array($data->weeklyDays) && !empty($data->weeklyDays) ){
+                // We're updating, so purge first and then we'll recreate after
+                self::adhocQuery(function(\PDO $connection) use($eventTimeObj){
+                    $statement = $connection->prepare("DELETE FROM SchedulizerEventTimeWeekdays WHERE eventTimeID=:eventTimeID");
+                    $statement->bindvalue(':eventTimeID', $eventTimeObj->getID());
+                    return $statement;
+                });
+                foreach($data->weeklyDays AS $weekdayValue){
+                    self::adhocQuery(function(\PDO $connection) use ($eventTimeObj, $weekdayValue){
+                        $statement = $connection->prepare("INSERT INTO SchedulizerEventTimeWeekdays (eventTimeID, repeatWeeklyDay) VALUES (:eventTimeID,:repeatWeeklyDay)");
+                        $statement->bindValue(':eventTimeID', $eventTimeObj->getID());
+                        $statement->bindValue(':repeatWeeklyDay', (int)$weekdayValue);
+                        return $statement;
+                    });
+                }
+            }
+            return $eventTimeObj;
         }
 
 
@@ -248,15 +282,16 @@
          * @param $eventID
          * @return array|null [$this, $this]
          */
-        public static function fetchAllByEventID( $eventID ){
-            return self::fetchMultipleBy(function( \PDO $connection, $tableName ) use ($eventID){
+        public static function fetchAllByEventID( $eventID, $versionID ){
+            return self::fetchMultipleBy(function( \PDO $connection, $tableName ) use ($eventID, $versionID){
                 $statement = $connection->prepare("SELECT tblEt.*, tblEtw.weeklyDays FROM {$tableName} tblEt
                 LEFT JOIN (
                   SELECT _wd.eventTimeID, GROUP_CONCAT(repeatWeeklyDay SEPARATOR ',') AS weeklyDays FROM
                   SchedulizerEventTimeWeekdays _wd GROUP BY _wd.eventTimeID
                 ) AS tblEtw ON tblEtw.eventTimeID = tblEt.id
-                WHERE tblEt.eventID=:eventID");
+                WHERE tblEt.eventID=:eventID AND tblEt.versionID=:versionID");
                 $statement->bindValue(':eventID', $eventID);
+                $statement->bindValue(':versionID', $versionID);
                 return $statement;
             });
         }

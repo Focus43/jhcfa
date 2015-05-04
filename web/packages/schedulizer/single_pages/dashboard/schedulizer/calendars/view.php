@@ -2,13 +2,27 @@
 <?php Loader::packageElement('templates/calendar_form', 'schedulizer'); ?>
 </script>
 
-<div class="ccm-dashboard-header-buttons">
-    <button class="btn btn-primary" modalize="/calendar_form"><?php echo t("Create Calendar"); ?></button>
-</div>
+<div class="schedulizer-app">
+    <div class="ccm-dashboard-content-full">
+        <div class="not-stupid-header-style">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="pull-left">
+                            <h3><?php echo $pageTitle; ?></h3>
+                        </div>
+                        <?php if($permissionsObj->canCreateCalendar()): ?>
+                        <div class="pull-right">
+                            <button class="btn btn-primary" modalize="/calendar_form"><?php echo t("Create Calendar"); ?></button>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="ccm-dashboard-content-full">
-    <table border="0" cellspacing="0" cellpadding="0" class="ccm-search-results-table">
-        <thead>
+        <table border="0" cellspacing="0" cellpadding="0" class="ccm-search-results-table">
+            <thead>
             <tr>
                 <th><span class="ccm-search-results-checkbox"><input type="checkbox" data-search-checkbox="select-all" class="ccm-flat-checkbox" /></span></th>
                 <th><a>Calendar</a></th>
@@ -17,8 +31,8 @@
                 <th><a>Modified</a></th>
                 <th><a>Owner</a></th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <?php foreach($calendars AS $calendarObj): ?>
                 <tr>
                     <td><span class="ccm-search-results-checkbox"><input type="checkbox" class="ccm-flat-checkbox" /></span></td>
@@ -29,6 +43,7 @@
                     <td><?php echo 'todo'; ?></td>
                 </tr>
             <?php endforeach; ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,23 +1,21 @@
 <?php namespace Concrete\Package\Schedulizer\Src {
 
-    use DateTime,
-        DateTimeZone,
-        Concrete\Package\Schedulizer\Src\EventTime,
-        Concrete\Package\Schedulizer\Src\Persistable\Contracts\Persistant,
-        Concrete\Package\Schedulizer\Src\Persistable\Mixins\Crud;
+    use \Concrete\Package\Schedulizer\Src\EventVersion,
+        \Concrete\Package\Schedulizer\Src\Persistable\Mixins\Crud,
+        \Concrete\Package\Schedulizer\Src\Attribute\Mixins\AttributableEntity;
 
     /**
+     * Class EventVersion
      * @package Concrete\Package\Schedulizer\Src
      * @definition({"table":"SchedulizerEvent"})
      */
-    class Event extends Persistant {
+    class Event extends EventVersion {
 
-        use Crud;
+        use Crud, AttributableEntity;
 
-        const USE_CALENDAR_TIMEZONE_TRUE    = true,
-              USE_CALENDAR_TIMEZONE_FALSE   = false,
-              DEFAULT_TIMEZONE              = 'UTC',
-              EVENT_COLOR_DEFAULT           = '#E1E1E1';
+        // Required for AttributableEntity trait
+        const ATTR_KEY_CLASS    = '\Concrete\Package\Schedulizer\Src\Attribute\Key\SchedulizerEventKey',
+              ATTR_VALUE_CLASS  = '\Concrete\Package\Schedulizer\Src\Attribute\Value\SchedulizerEventValue';
 
         /** @definition({"cast":"datetime", "declarable":false, "autoSet":["onCreate"]}) */
         protected $createdUTC;
@@ -28,39 +26,8 @@
         /** @definition({"cast":"int"}) */
         protected $calendarID;
 
-        /** @definition({"cast":"string","nullable":true}) */
-        protected $title;
-
-        /** @definition({"cast":"string","nullable":true}) */
-        protected $description;
-
-        /** @definition({"cast":"bool","nullable":false}) */
-        protected $useCalendarTimezone = self::USE_CALENDAR_TIMEZONE_TRUE;
-
-        /** @definition({"cast":"string","nullable":false}) */
-        protected $timezoneName = self::DEFAULT_TIMEZONE;
-
-        /** @definition({"cast":"string","nullable":true}) */
-        protected $eventColor = self::EVENT_COLOR_DEFAULT;
-
         /** @definition({"cast":"int","nullable":false}) */
         protected $ownerID;
-
-        /** @definition({"cast":"int","nullable":true}) */
-        protected $fileID;
-
-        /**
-         * @param $setters
-         */
-        public function __construct( $setters = null ){
-            $this->mergePropertiesFrom($setters);
-        }
-
-        /** @return string */
-        public function __toString(){ return ucwords( $this->title ); }
-
-        /** @return int|null */
-        public function getCalendarID(){ return $this->calendarID; }
 
         /** @return DateTime|null */
         public function getModifiedUTC(){ return $this->modifiedUTC; }
@@ -68,53 +35,58 @@
         /** @return DateTime|null */
         public function getCreatedUTC(){ return $this->createdUTC; }
 
-        /** @return string|null */
-        public function getTitle(){ return $this->title; }
-
-        /** @return string|null */
-        public function getDescription(){ return $this->description; }
-
-        /** @return bool|null */
-        public function getUseCalendarTimezone(){ return $this->useCalendarTimezone; }
-
-        /** @return string|null */
-        public function getTimezoneName(){ return $this->timezoneName; }
-
-        /** @return string|null */
-        public function getEventColor(){ return $this->eventColor; }
+        /** @return int|null */
+        public function getCalendarID(){ return $this->calendarID; }
 
         /** @return Int */
         public function getOwnerID(){ return $this->ownerID; }
 
-        /** @return int|null */
-        public function getFileID(){ return $this->fileID; }
-
-        public static function createWithEventTimes( $postData ){
-            $eventObj = self::create($postData);
-            if( is_array($postData->_timeEntities) && !empty($postData->_timeEntities) ){
-                foreach($postData->_timeEntities AS $timeEntityData){
-                    $timeEntityData->eventID = $eventObj->getID();
-                    EventTime::createWithWeeklyRepeatSettings($timeEntityData);
-                }
-            }
-            return $eventObj;
-        }
-
-        public function updateWithEventTimes( $postData ){
-            $this->update($postData);
-            if( is_array($postData->_timeEntities) && !empty($postData->_timeEntities) ){
-                EventTime::purgeAllByEventID($this->getID());
-                foreach($postData->_timeEntities AS $timeEntityData){
-                    $timeEntityData->eventID = $this->getID();
-                    EventTime::createWithWeeklyRepeatSettings($timeEntityData);
-                }
-            }
+        /**
+         * On after persist is only called after the canonical Event record
+         * gets created, never after an EventVersion row gets created.
+         */
+        protected function onAfterPersist(){
+            $this->eventID = $this->id;
+            parent::save_version();
         }
 
         /**
-         * Return properties for JSON serialization
-         * @return array|mixed
+         * When returning an event, we have to join the SchedulizerEvent
+         * with the APPROVED SchedulizerEventVersion
+         * @param $id
+         * @param $versionID int|null Null indicates "latest"
+         * @return $this|void
          */
+        public static function getByID( $id, $versionID = null ){
+            return static::fetchOneBy(function(\PDO $connection) use ($id, $versionID){
+                // Are we getting a specific event version? Append to where clause if so
+                $versionSpecificity = ((int)$versionID > 0) ? "AND sev.versionID = :versionID" : '';
+                // Prepare query
+                $statement = $connection->prepare("SELECT se.*, sev.eventID, sev.versionID,
+                sev.title, sev.description, sev.useCalendarTimezone,
+                sev.timezoneName, sev.eventColor, sev.fileID
+                FROM SchedulizerEvent se LEFT JOIN SchedulizerEventVersion sev
+                ON se.id = sev.eventID
+                WHERE se.id = :id {$versionSpecificity} ORDER BY sev.versionID DESC LIMIT 1");
+                $statement->bindValue(':id', $id);
+                if( (int)$versionID > 0 ){
+                    $statement->bindValue(':versionID', (int)$versionID);
+                }
+                return $statement;
+            });
+        }
+
+        /** @return array Get all associated event times */
+        public function getEventTimes(){
+            return (array) EventTime::fetchAllByEventID($this->id, $this->versionID);
+        }
+
+        /** @return array Get all associated tags */
+        public function getEventTags(){
+            return (array) EventTag::fetchTagsByEventID($this->id, $this->versionID);
+        }
+
+        /** @return array|mixed */
         public function jsonSerialize(){
             if( ! $this->isPersisted() ){
                 $properties = (object) get_object_vars($this);
@@ -122,8 +94,29 @@
                 return $properties;
             }
             $properties                 = (object) get_object_vars($this);
-            $properties->_timeEntities  = (array) EventTime::fetchAllByEventID($this->id);
+            $properties->_timeEntities  = $this->getEventTimes();
+            $properties->_tags          = $this->getEventTags();
             return $properties;
+        }
+
+        /**
+         * Callback from the Persistable stuff, executed before entity gets
+         * removed entirely. We use this to clear out any attribute stuff.
+         */
+        protected function onBeforeDelete(){
+            $id = $this->id;
+            // Delete from primary attribute values table
+            self::adhocQuery(function(\PDO $connection) use ($id){
+                $statement = $connection->prepare("DELETE FROM SchedulizerEventAttributeValues WHERE eventID=:eventID");
+                $statement->bindValue(':eventID', $id);
+                return $statement;
+            });
+            // Delete from search indexed table
+            self::adhocQuery(function(\PDO $connection) use ($id){
+                $statement = $connection->prepare("DELETE FROM SchedulizerEventSearchIndexAttributes WHERE eventID=:eventID");
+                $statement->bindValue(':eventID', $id);
+                return $statement;
+            });
         }
 
         /****************************************************************
@@ -155,8 +148,7 @@
         }
 
         /**
-         * Return a SIMPLE list of the events (eg. not through the big query, just the records)
-         * associated with a calendar.
+         * Gets full data for an event; (includes serializing _timeEntity sub-resources).
          * @param $calendarID
          * @return $this|void
          */
@@ -168,7 +160,14 @@
             });
         }
 
-        public static function fetchSimplebyCalendarID( $calendarID ){
+        /**
+         * Return a SIMPLE list of the events (ie. just the records) associated with a calendar.
+         * This returns straight table results as opposed to the above where it will return a
+         * list that gets serialized via jsonSerializable on all the instaniated event objects.
+         * @param $calendarID
+         * @return $this|void
+         */
+        public static function fetchSimpleByCalendarID( $calendarID ){
             /** @var $executedStatement \PDOStatement */
             $executedStatement = self::adhocQuery(function( \PDO $connection, $tableName ) use ($calendarID){
                 $statement = $connection->prepare("SELECT * FROM {$tableName} WHERE calendarID=:calendarID");

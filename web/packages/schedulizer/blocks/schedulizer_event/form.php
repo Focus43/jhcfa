@@ -32,7 +32,7 @@
 
         function _fetch( calendarID ){
             if( ! _eventCache[calendarID] ){
-                _eventCache[calendarID] = $.get('/_schedulizer/calendar/events/' + calendarID);
+                _eventCache[calendarID] = $.get('/_schedulizer/calendar/' + calendarID + '/events');
             }
             return _eventCache[calendarID];
         }
