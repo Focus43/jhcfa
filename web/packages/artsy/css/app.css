@@ -252,6 +252,23 @@ video.fullscreen {
           background: none; }
     #c-level-1 nav .level-1 .majority li:hover .sub {
       display: block; }
+    #c-level-1 nav .level-1 a[box-office], #c-level-1 nav .level-1 a[contact] {
+      line-height: 1;
+      font-size: 70%;
+      padding: 0.75rem 0;
+      position: absolute;
+      bottom: 0;
+      width: 50%;
+      display: inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      background: rgba(50, 50, 50, 0.1); }
+      #c-level-1 nav .level-1 a[box-office]:hover, #c-level-1 nav .level-1 a[contact]:hover {
+        background: rgba(25, 25, 25, 0.15); }
+    #c-level-1 nav .level-1 [box-office] {
+      left: 0; }
+    #c-level-1 nav .level-1 [contact] {
+      right: 0; }
   #c-level-1 nav ul.sub {
     background: rgba(0, 0, 0, 0.75);
     padding: 1rem; }

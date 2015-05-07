@@ -28,6 +28,12 @@
     }
 
     .majority li:hover .sub {display:block;}
+
+    a[box-office], a[contact]{line-height:1;font-size:70%;padding:0.75rem 0;position:absolute;bottom:0;width:50%;display:inline-block;text-align:center;text-transform:uppercase;background:rgba(50,50,50,0.1);
+      &:hover {background:rgba(25,25,25,0.15);}
+    }
+    [box-office]{left:0;}
+    [contact]{right:0;}
   }
 
   ul.sub {background:rgba(0,0,0,0.75);padding:1rem;
