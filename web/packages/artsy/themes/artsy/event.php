@@ -24,29 +24,23 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h1><?php echo Page::getCurrentPage()->getCollectionName(); ?></h1>
+                        <h1><?php echo $eventObj; ?></h1>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6 col-sm-offset-6 event-info">
                         <div class="event-info-inner">
-                            <img event-img src="/packages/artsy/images/_scratch/hoot.jpg" />
-                            <p>Presented by <a>Black Box Theater</a></p>
+                            <?php
+                                /** @var $fileObj \Concrete\Core\File\File */
+                                $fileObj = File::getByID($eventObj->getFileID());
+                                if( is_object($fileObj) ){ ?>
+                                    <img event-img src="<?php echo $fileObj->getRelativePath(); ?>" />
+                                <?php } ?>
+                            <p>Presented by <a><?php echo $calendarObj->getTitle(); ?></a></p>
                             <p>May 8, 2015 - May 9, 2015<br/>8:00 - 10:00 pm</p>
+<!--                            <p><br/><br/></p>-->
                         </div>
                     </div>
-<!--                    <div class="col-sm-12">-->
-<!--                        <div class="container-fluid event-info">-->
-<!--                            <div class="col-sm-4">-->
-<!--                                <div class="event-img">-->
-<!--                                    <img src="/packages/artsy/images/_scratch/hoot.jpg" />-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="col-sm-8">-->
-<!--                                <p>Presented by <span rounder>Black Box Theater</span></p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </header>
@@ -55,21 +49,21 @@
             <div class="container">
                 <div class="col-sm-9">
                     <?php
+                        echo $eventObj->getDescription();
                         /** @var $a \Concrete\Core\Area\Area */
-                        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
-                        $a->display($c);
+//                        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
+//                        $a->display($c);
                     ?>
                 </div>
                 <div class="col-sm-3">
-                    <p><a class="btn btn-lg btn-block btn-primary">Buy Tickets</a></p>
                     <p><strong>General Admission</strong><br/>$10 (includes processing fee)</p>
                     <p><strong>Show Times</strong></p>
                     <ul>
-                        <li>May 8, 8:00 PM</li>
-                        <li>May 9, 8:15 PM</li>
-                        <li>May 10, 8:00 PM</li>
-                        <li>May 11, 8:00 PM</li>
+                        <?php foreach($eventTimes AS $row): ?>
+                            <li><?php echo (new \DateTime($row['computedStartLocal']))->format('g:i a (n/j/y)'); ?></li>
+                        <?php endforeach; ?>
                     </ul>
+                    <a class="btn btn-lg btn-block btn-primary">Buy Tickets</a>
                 </div>
             </div>
 

@@ -33,7 +33,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.08';
+        protected $pkgVersion 			        = '0.09';
 
 
         /**
@@ -240,7 +240,7 @@
                 )
             ));
 
-            // "News" Page Type
+            // "Resident" Page Type
             $this->createPageType(array(
                 'configs' => array(
                     'handle'            => 'resident',
@@ -259,6 +259,27 @@
                         'description'    => false
                     ),
                     'block' => array('content')
+                )
+            ));
+
+            // "Event" Page Type
+            $this->createPageType(array(
+                'configs' => array(
+                    'handle'            => 'event',
+                    'name'              => t('Event'),
+                    'defaultTemplate'   => PageTemplate::getByHandle('event'),
+                    'allowedTemplates'  => 'C',
+                    'templates'         => array(
+                        PageTemplate::getByHandle('event')
+                    )
+                ),
+                'controls' => array(
+                    'core_page_property' => array(
+                        'name'           => true,
+                        'publish_target' => true,
+                        'page_template'  => true,
+                        'description'    => false
+                    )
                 )
             ));
 

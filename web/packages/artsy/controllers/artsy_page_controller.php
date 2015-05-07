@@ -3,6 +3,10 @@
     use PageController;
     use Concrete\Package\Artsy\Controller AS PackageController;
 
+    /**
+     * Class ArtsyPageController
+     * @package Concrete\Package\Artsy\Controller
+     */
     class ArtsyPageController extends PageController {
 
         protected $_includeThemeAssets = false;
