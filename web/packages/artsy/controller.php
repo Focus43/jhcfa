@@ -8,6 +8,7 @@
     use Package; /** @see \Concrete\Core\Package\Package */
     use BlockType; /** @see \Concrete\Core\Block\BlockType\BlockType */
     use BlockTypeSet; /** @see \Concrete\Core\Block\BlockType\Set */
+    use Page;
     use PageType; /** @see \Concrete\Core\Page\Type\Type */
     use PageTemplate; /** @see \Concrete\Core\Page\Template */
     use PageTheme; /** @see \Concrete\Core\Page\Theme\Theme */
@@ -19,6 +20,7 @@
     use GroupSet; /** @see \Concrete\Core\User\Group\GroupSet */
     use Stack; /** @see \Concrete\Core\Page\Stack\Stack */
     use Concrete\Core\Page\Type\PublishTarget\Type\Type as PublishTargetType;
+    use Events;
 
     class Controller extends Package {
 
