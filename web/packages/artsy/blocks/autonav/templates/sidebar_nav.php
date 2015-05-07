@@ -91,12 +91,12 @@ foreach ($navItems as $ni) {
     }
     */
 
-    /*
+
     if ($ni->isHome) {
         //home page
         $classes[] = 'nav-home';
     }
-    */
+
 
     /*
     //unique class for every single menu item
