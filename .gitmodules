@@ -1,3 +1,7 @@
 [submodule "vagrant"]
 	path = vagrant
 	url = https://github.com/jhartman86/vagrant-ansible.git
+[submodule "web/packages/schedulizer"]
+	path = web/packages/schedulizer
+	url = https://github.com/jhartman86/schedulizer-package-57.git
+	branch = master
