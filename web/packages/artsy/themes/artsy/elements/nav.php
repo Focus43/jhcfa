@@ -1,5 +1,5 @@
 <nav>
-    <a trigger ng-click="toggle()"><i class="icon-menu"></i></a>
+    <a trigger ng-click="toggle()" class="icon-menu"></a>
     <div class="level-1">
         <?php
             $blockTypeNav                                       = BlockType::getByHandle('autonav');

@@ -42,8 +42,8 @@
 
 @media screen and (min-width:$screen-sm){
   .pg-home #c-level-1 {
-    .intro-text {display:block;font-size:100%;max-width:600px;
-      .tagline {padding-bottom:4rem;}
+    .intro-text {font-size:100%;//display:block;font-size:100%;max-width:600px;
+      .tagline {padding-bottom:3rem;}
     }
   }
 }

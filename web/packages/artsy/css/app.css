@@ -190,6 +190,7 @@ video.fullscreen {
     transform: none;
     opacity: 1; } }
 #c-level-1 nav {
+  font-size: 140%;
   z-index: 3;
   width: 100%;
   position: fixed;
@@ -205,15 +206,51 @@ video.fullscreen {
   -ms-transform: translateX(0);
   -webkit-transform: translateX(0);
   transform: translateX(0); }
-  #c-level-1 nav a:hover {
-    text-decoration: none; }
-  #c-level-1 nav a[trigger] {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    font-size: 2rem;
-    padding: 1rem;
-    line-height: 1; }
+  #c-level-1 nav a {
+    color: #fff; }
+    #c-level-1 nav a:hover {
+      text-decoration: none; }
+    #c-level-1 nav a[trigger] {
+      margin: 0.75rem;
+      position: absolute;
+      top: 1.1rem;
+      left: 100%;
+      font-size: 2rem;
+      line-height: 1;
+      z-index: 2; }
+  #c-level-1 nav .level-1 {
+    width: 100%;
+    height: 100%;
+    display: table;
+    z-index: 1;
+    position: relative; }
+    #c-level-1 nav .level-1 ul {
+      list-style: none;
+      margin: 0;
+      padding: 2rem;
+      width: 100%;
+      height: 100%;
+      display: table-cell;
+      vertical-align: middle; }
+    #c-level-1 nav .level-1 a[box-office], #c-level-1 nav .level-1 a[contact] {
+      line-height: 1;
+      font-size: 70%;
+      padding: 0.75rem 0;
+      position: absolute;
+      bottom: 0;
+      width: 50%;
+      display: inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      background: rgba(50, 50, 50, 0.1); }
+      #c-level-1 nav .level-1 a[box-office]:hover, #c-level-1 nav .level-1 a[contact]:hover {
+        background: rgba(25, 25, 25, 0.15); }
+    #c-level-1 nav .level-1 [box-office] {
+      left: 0; }
+    #c-level-1 nav .level-1 [contact] {
+      right: 0; }
+    #c-level-1 nav .level-1 .sub {
+      display: none; }
 
 #c-level-1 main {
   -webkit-transition: all 0.25s ease;
@@ -225,6 +262,13 @@ body.nav-open #c-level-1 nav {
   -ms-transform: translateX(100%);
   -webkit-transform: translateX(100%);
   transform: translateX(100%); }
+  body.nav-open #c-level-1 nav a[trigger] {
+    left: auto;
+    right: 0;
+    top: 0;
+    color: #fff; }
+    body.nav-open #c-level-1 nav a[trigger]:before {
+      content: "\e600"; }
 body.nav-open #c-level-1 main {
   -moz-transform: translateX(100%);
   -ms-transform: translateX(100%);
@@ -237,10 +281,8 @@ body.nav-open #c-level-1 main {
     font-size: 135%;
     right: auto;
     left: 0; }
-    #c-level-1 nav a {
-      color: #fff; }
-      #c-level-1 nav a:hover {
-        text-decoration: none; }
+    #c-level-1 nav a[trigger] {
+      display: none; }
     #c-level-1 nav .level-1 {
       width: 100%;
       height: 100%;
@@ -311,23 +353,6 @@ body.nav-open #c-level-1 main {
             background: none; }
       #c-level-1 nav .level-1 .majority li:hover .sub {
         display: block; }
-      #c-level-1 nav .level-1 a[box-office], #c-level-1 nav .level-1 a[contact] {
-        line-height: 1;
-        font-size: 70%;
-        padding: 0.75rem 0;
-        position: absolute;
-        bottom: 0;
-        width: 50%;
-        display: inline-block;
-        text-align: center;
-        text-transform: uppercase;
-        background: rgba(50, 50, 50, 0.1); }
-        #c-level-1 nav .level-1 a[box-office]:hover, #c-level-1 nav .level-1 a[contact]:hover {
-          background: rgba(25, 25, 25, 0.15); }
-      #c-level-1 nav .level-1 [box-office] {
-        left: 0; }
-      #c-level-1 nav .level-1 [contact] {
-        right: 0; }
     #c-level-1 nav ul.sub {
       background: rgba(0, 0, 0, 0.75);
       padding: 1rem; }
@@ -339,6 +364,9 @@ header {
   background: transparent no-repeat 50% 50%;
   background-size: cover; }
   header .logo {
+    position: absolute;
+    top: -0.25rem;
+    right: 1rem;
     display: block;
     max-width: 140px;
     height: auto;
@@ -402,7 +430,6 @@ header {
   padding: 0 1rem; }
   .pg-home header .logo {
     display: block;
-    /*padding:1rem;*/
     position: relative; }
 
 .cms-admin .pg-home header {
@@ -411,9 +438,7 @@ header {
 @media screen and (min-width: 768px) {
   header .logo {
     max-width: 185px;
-    position: absolute;
-    top: 0;
-    right: 0; }
+    top: 0; }
     header .logo svg {
       max-height: 75px; } }
 footer {
@@ -781,11 +806,9 @@ footer {
 
 @media screen and (min-width: 768px) {
   .pg-home #c-level-1 .intro-text {
-    display: block;
-    font-size: 100%;
-    max-width: 600px; }
+    font-size: 100%; }
     .pg-home #c-level-1 .intro-text .tagline {
-      padding-bottom: 4rem; } }
+      padding-bottom: 3rem; } }
 .pg-default #c-level-1 .area-main {
   padding: 3rem 0; }
   .pg-default #c-level-1 .area-main h2:first-of-type {
