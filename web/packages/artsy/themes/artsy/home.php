@@ -24,7 +24,7 @@
                         <div class="tagline">
                             <span class="top">We are a</span>
                             <span class="mid">Hub</span>
-                            <span class="bot">for the artistic, cultural and creative activity in jackson hole</span>
+                            <span class="bot">for the artistic,<br/>cultural and <br/>creative activity <br/>in jackson hole</span>
                         </div>
                         <b><i class="icon-angle-down"></i></b>
                     </div>

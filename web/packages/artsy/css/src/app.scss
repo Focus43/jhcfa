@@ -23,13 +23,19 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   .theme-light-color {color:$theme-light-color;}
   .theme-dark-color {color:$theme-dark-color;}
 
-  main {height:100%;width:100%;position:relative;padding-left:180px;overflow-x:hidden;
+  main {height:100%;width:100%;position:relative;
     .area-main {
       .container {@include container-fixed();max-width:100%;}
     }
   }
 
   .btn-transparent {@include button-variant(#fff, rgba(255,255,255,0.1), #fff);}
+}
+
+@media screen and (min-width:$screen-sm){
+  #c-level-1 {
+    main {padding-left:180px;@include scrollOverflow;}
+  }
 }
 
 @media screen and (min-width:1300px){

@@ -23,9 +23,31 @@
             FastClick.attach(document.body);
         }]);
 
+    // Initialize manually instead of binding via HTML
+    angular.element(document).ready(function(){
+        angular.bootstrap(document, ['artsy']);
+    });
+
 })(window, window.angular);
-angular.module('artsy.common', []);
 angular.module('artsy.elements', []);
+angular.module('artsy.common', []);
+angular.module('artsy.common').
+
+    directive('nav', [function(){
+
+        function _link( scope, $elem, attrs ){
+
+            scope.toggle = function(){
+                angular.element(document.body).toggleClass('nav-open');
+            };
+
+        }
+
+        return {
+            restrict: 'E',
+            link:     _link
+        };
+    }]);
 /* global Modernizr */
 /* global FastClick */
 angular.module('artsy.common').
