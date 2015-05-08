@@ -26,6 +26,7 @@
 
         const PACKAGE_HANDLE                    = 'artsy';
         const ATTR_COLLECTION_BACKGROUND_IMG    = 'header_background';
+        const ATTR_FILE_LINK                    = 'link';
         const FILESET_BACKGROUND_IMG            = 'Random Header Backgrounds';
         const STACK_HOMEPAGE_VIDEO              = 'Homepage_Video';
         const AREA_MAIN                         = 'Main';
@@ -33,7 +34,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.09';
+        protected $pkgVersion 			        = '0.14';
 
 
         /**
@@ -109,7 +110,8 @@
          * @return void
          */
         private function installAndUpdate(){
-            $this->setupAttributeTypeAssociations()
+            $this->setupAttributeTypes()
+                ->setupAttributeTypeAssociations()
                 ->setupCollectionAttributes()
                 ->setupFileAttributes()
                 ->setupFileSets()
@@ -121,6 +123,20 @@
                 ->setupSinglePages()
                 ->setupBlockTypeSets()
                 ->setupBlocks();
+        }
+
+
+        /**
+         * @return Controller
+         */
+        private function setupAttributeTypes(){
+            $atPageSelector = $this->attributeType('page_selector');
+            if( !($atPageSelector instanceof \Concrete\Core\Attribute\Type) ){
+                \Concrete\Core\Attribute\Type::add('page_selector', t('Page Selector'), $this->packageObject());
+                $this->attributeKeyCategory('file')->associateAttributeKeyType( $this->attributeType('page_selector') );
+            }
+
+            return $this;
         }
 
 
@@ -151,6 +167,13 @@
          * @return Controller
          */
         private function setupFileAttributes(){
+            if( !is_object(FileAttributeKey::getByHandle(self::ATTR_FILE_LINK)) ){
+                FileAttributeKey::add($this->attributeType('page_selector'), array(
+                    'akHandle'  => self::ATTR_FILE_LINK,
+                    'akName'    => 'Link'
+                ), $this->packageObject());
+            }
+
             return $this;
         }
 
@@ -364,6 +387,20 @@
                 }
             }
             return $this->{"at_{$handle}"};
+        }
+
+
+        /**
+         * @return mixed \Concrete\Core\Attribute\Key\Category || null
+         */
+        private function attributeKeyCategory( $handle ){
+            if( is_null($this->{"akc_{$handle}"}) ){
+                $attributeCategory = \Concrete\Core\Attribute\Key\Category::getByHandle($handle);
+                if( is_object($attributeCategory) && $attributeCategory->getAttributeKeyCategoryID() >= 1 ){
+                    $this->{"akc_{$handle}"} = $attributeCategory;
+                }
+            }
+            return $this->{"akc_{$handle}"};
         }
 
 

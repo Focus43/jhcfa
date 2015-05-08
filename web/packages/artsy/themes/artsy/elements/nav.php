@@ -11,7 +11,7 @@
             $blockTypeNav->render('templates/sidebar_nav');
         ?>
 
-        <a box-office>Box Office</a>
-        <a contact>Contact</a>
+        <a box-office href="/box-office">Box Office</a>
+        <a contact href="/contact">Contact</a>
     </div>
 </nav>
