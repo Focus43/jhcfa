@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=Oswald:400,300,700);
+//@import url(//fonts.googleapis.com/css?family=Oswald:400,300,700);
 
 // Custom
 $package-path:                  '/packages/artsy/';
@@ -10,6 +10,7 @@ $mask-animate-time:             0.5s;
 
 // Palette
 $theme-primary-color:           #6DB844;
+$theme-extra-light-color:       darken(#f1f1f1, 4%);
 $theme-light-color:             #838383;
 $theme-dark-color:              #000000;
 $theme-font-family:             'Oswald', sans-serif;

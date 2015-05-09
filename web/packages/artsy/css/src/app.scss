@@ -24,8 +24,30 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   .theme-dark-color {color:$theme-dark-color;}
 
   main {height:100%;width:100%;position:relative;
-    .area-main {
+    .area-main {padding:3rem 0;
       .container {@include container-fixed();max-width:100%;}
+    }
+    // Page sections
+    [class*="wrap-theme-"]{position:relative;padding:5rem 0;margin:2rem 0;
+      &::before {display:block;content:'';position:absolute;top:0;left:-100%;right:-100%;bottom:0;z-index:-1;}
+      h2,h3,h4,h5 {color:inherit;}
+      a {text-decoration:underline;}
+    }
+    .wrap-theme-highlight {background:$theme-primary-color;color:#fff;
+      &::before {background:$theme-primary-color;}
+      a {color:#000;}
+    }
+    .wrap-theme-extra-light {background:$theme-extra-light-color;color:#000;
+      &::before {background:$theme-extra-light-color;}
+      a {color:#000;}
+    }
+    .wrap-theme-light {background:$theme-light-color;color:#000;
+      &::before {background:$theme-light-color;}
+      a {color:#000;}
+    }
+    .wrap-theme-dark {background:$theme-dark-color;color:$theme-light-color;
+      &::before {background:$theme-dark-color;}
+      a {color:$theme-light-color;}
     }
   }
 

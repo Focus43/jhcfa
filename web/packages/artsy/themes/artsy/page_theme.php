@@ -5,23 +5,12 @@
         protected $pThemeGridFrameworkHandle = 'bootstrap3';
 
         protected static $contentBlockClasses = array(
-            'block-theme-green'
-//            'iconified',
-//            'anglified',
-//            'custom-icon-1',
-//            'custom-icon-2',
-//            'custom-icon-3',
-//            'custom-icon-4',
-//            'custom-icon-5',
-//            'custom-icon-6',
-//            'custom-icon-7',
-//            'custom-icon-8',
-//            'custom-icon-9'
+            'wrap-theme-highlight'
         );
 
         protected static $sectionClasses = array(
-            'wrap-custom',
             'wrap-theme-highlight',
+            'wrap-theme-extra-light',
             'wrap-theme-light',
             'wrap-theme-dark'
         );
@@ -40,6 +29,7 @@
          */
         public function getThemeAreaClasses(){
             return array(
+                'Main'   => self::$sectionClasses,
                 'Main 1' => self::$sectionClasses,
                 'Main 2' => self::$sectionClasses,
                 'Main 3' => self::$sectionClasses,

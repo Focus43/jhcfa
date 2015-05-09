@@ -48,7 +48,7 @@ body.nav-open {
         }
       }
 
-      .sub {width:auto;white-space:nowrap;display:none;left:100%;top:50%;position:absolute;height:auto;@include transform(translateY(-50%));
+      .sub {width:auto;white-space:nowrap;display:none;left:100%;top:-1rem;position:absolute;height:auto;//top:50%;@include transform(translateY(-50%));
         li {border-bottom:1px dotted #fff;
           &::before {display:none;}
           &:hover {background:none;}
