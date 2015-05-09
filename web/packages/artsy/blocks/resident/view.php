@@ -1,9 +1,23 @@
 <div class="resident-details">
     <div class="resident-logo"><?php $f = File::getByID((int)$logoFileID); if ($f) { echo $f->getListingThumbnailImage(); }?></div>
     <div class="resident-info">
-        <a href="tel:+1<?php echo preg_replace('/\W/', '', $phone) ?>"><span class="icon-phone"></span>&nbsp;<?php echo $phone ?></a><br>
-        <a href="mailto:<?php echo $email ?>"><span class="icon-paperplane"></span>&nbsp;<?php echo $email ?></a><br>
-        <a href="<?php echo $url ?>"><span class="icon-world"></span>&nbsp;<?php echo str_replace("http://", "", $url); ?></a><br><br>
-        <span><?php echo $mailingAddress ?></span>
+        <address>
+            <?php echo !empty($mailingAddress) ? $mailingAddress : ''; ?>
+            <?php if( !empty($phone) ): ?>
+                <a href="tel:+1<?php echo preg_replace('/\W/', '', $phone) ?>">
+                    <abbr title="Phone">P:</abbr> <?php echo $phone ?>
+                </a>
+            <?php endif; ?>
+            <?php if( !empty($email) ): ?>
+                <a href="mailto:<?php echo $email ?>">
+                    <abbr title="Email">Em:</abbr> <?php echo $email ?>
+                </a>
+            <?php endif; ?>
+        </address>
+        <?php if( !empty($url) ): ?>
+            <a href="<?php echo $url ?>">
+                <?php echo str_replace("http://", "", $url); ?>
+            </a>
+        <?php endif; ?>
     </div>
 </div>

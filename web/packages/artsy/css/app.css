@@ -899,10 +899,11 @@ footer {
       padding-bottom: 3rem; } }
 .pg-resident #c-level-1 .resident-details {
   background: #e7e7e7;
-  margin-top: -5rem;
+  /*margin-top:-5rem;*/
   position: relative;
   z-index: 1; }
   .pg-resident #c-level-1 .resident-details .resident-logo {
+    padding: 1rem;
     text-align: center;
     background-image: -webkit-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.15) 100%);
     background-image: -o-linear-gradient(top, transparent 0%, rgba(0, 0, 0, 0.15) 100%);
@@ -918,6 +919,10 @@ footer {
       margin: 0 auto; }
   .pg-resident #c-level-1 .resident-details .resident-info {
     padding: 1rem; }
+    .pg-resident #c-level-1 .resident-details .resident-info address {
+      margin-bottom: 0.35rem; }
+      .pg-resident #c-level-1 .resident-details .resident-info address a {
+        display: block; }
 
 .pg-event #c-level-1 header {
   padding: 8rem 0 0; }
