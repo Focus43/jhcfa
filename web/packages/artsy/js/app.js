@@ -29,25 +29,8 @@
     });
 
 })(window, window.angular);
-angular.module('artsy.elements', []);
 angular.module('artsy.common', []);
-angular.module('artsy.common').
-
-    directive('nav', [function(){
-
-        function _link( scope, $elem, attrs ){
-
-            scope.toggle = function(){
-                angular.element(document.body).toggleClass('nav-open');
-            };
-
-        }
-
-        return {
-            restrict: 'E',
-            link:     _link
-        };
-    }]);
+angular.module('artsy.elements', []);
 /* global Modernizr */
 /* global FastClick */
 angular.module('artsy.common').
@@ -107,3 +90,20 @@ angular.module('artsy.common').
             }
         ];
     });
+angular.module('artsy.common').
+
+    directive('nav', [function(){
+
+        function _link( scope, $elem, attrs ){
+
+            scope.toggle = function(){
+                angular.element(document.body).toggleClass('nav-open');
+            };
+
+        }
+
+        return {
+            restrict: 'E',
+            link:     _link
+        };
+    }]);
