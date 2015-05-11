@@ -35,7 +35,9 @@ module.exports = function( gulp ){
                     _pathTo('bower_components/angular/angular.js'),
                     _pathTo('bower_components/gsap/src/uncompressed/TweenMax.js'),
                     _pathTo('bower_components/gsap/src/uncompressed/plugins/ScrollToPlugin.js'),
+                    _pathTo('bower_components/imagesloaded/imagesloaded.pkgd.js'),
                     _pathTo('bower_components/isotope/dist/isotope.pkgd.js'),
+                    _pathTo('bower_components/isotope-cells-by-column/cells-by-column.js'),
                     _pathTo('bower_components/svg.js/dist/svg.min.js'),
                     _pathTo('js/3rd_party/*.js')
                 ],

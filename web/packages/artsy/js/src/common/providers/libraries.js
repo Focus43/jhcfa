@@ -36,13 +36,27 @@ angular.module('artsy.common').
      * @param $log
      * @returns Isotope | false
      */
-    //provider('Isotope', function(){
-    //    this.$get = ['$window', '$log',
-    //        function( $window, $log ){
-    //            return $window['Isotope'] || ($log.warn('Isotope unavailable!'), false);
-    //        }
-    //    ];
-    //}).
+    provider('Isotope', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Isotope'] || ($log.warn('Isotope unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description imagesLoaded provider
+     * @param $window
+     * @param $log
+     * @returns imagesLoaded | false
+     */
+    provider('imagesLoaded', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
+            }
+        ];
+    }).
 
     /**
      * @description FastClick provider

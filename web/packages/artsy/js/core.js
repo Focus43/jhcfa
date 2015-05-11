@@ -33938,6 +33938,900 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 }); if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); }
 /*!
+ * imagesLoaded PACKAGED v3.1.8
+ * JavaScript is all like "You images are done yet or what?"
+ * MIT License
+ */
+
+
+/*!
+ * EventEmitter v4.2.6 - git.io/ee
+ * Oliver Caldwell
+ * MIT license
+ * @preserve
+ */
+
+(function () {
+	
+
+	/**
+	 * Class for managing events.
+	 * Can be extended to provide event functionality in other classes.
+	 *
+	 * @class EventEmitter Manages event registering and emitting.
+	 */
+	function EventEmitter() {}
+
+	// Shortcuts to improve speed and size
+	var proto = EventEmitter.prototype;
+	var exports = this;
+	var originalGlobalValue = exports.EventEmitter;
+
+	/**
+	 * Finds the index of the listener for the event in it's storage array.
+	 *
+	 * @param {Function[]} listeners Array of listeners to search through.
+	 * @param {Function} listener Method to look for.
+	 * @return {Number} Index of the specified listener, -1 if not found
+	 * @api private
+	 */
+	function indexOfListener(listeners, listener) {
+		var i = listeners.length;
+		while (i--) {
+			if (listeners[i].listener === listener) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Alias a method while keeping the context correct, to allow for overwriting of target method.
+	 *
+	 * @param {String} name The name of the target method.
+	 * @return {Function} The aliased method
+	 * @api private
+	 */
+	function alias(name) {
+		return function aliasClosure() {
+			return this[name].apply(this, arguments);
+		};
+	}
+
+	/**
+	 * Returns the listener array for the specified event.
+	 * Will initialise the event object and listener arrays if required.
+	 * Will return an object if you use a regex search. The object contains keys for each matched event. So /ba[rz]/ might return an object containing bar and baz. But only if you have either defined them with defineEvent or added some listeners to them.
+	 * Each property in the object response is an array of listener functions.
+	 *
+	 * @param {String|RegExp} evt Name of the event to return the listeners from.
+	 * @return {Function[]|Object} All listener functions for the event.
+	 */
+	proto.getListeners = function getListeners(evt) {
+		var events = this._getEvents();
+		var response;
+		var key;
+
+		// Return a concatenated array of all matching events if
+		// the selector is a regular expression.
+		if (typeof evt === 'object') {
+			response = {};
+			for (key in events) {
+				if (events.hasOwnProperty(key) && evt.test(key)) {
+					response[key] = events[key];
+				}
+			}
+		}
+		else {
+			response = events[evt] || (events[evt] = []);
+		}
+
+		return response;
+	};
+
+	/**
+	 * Takes a list of listener objects and flattens it into a list of listener functions.
+	 *
+	 * @param {Object[]} listeners Raw listener objects.
+	 * @return {Function[]} Just the listener functions.
+	 */
+	proto.flattenListeners = function flattenListeners(listeners) {
+		var flatListeners = [];
+		var i;
+
+		for (i = 0; i < listeners.length; i += 1) {
+			flatListeners.push(listeners[i].listener);
+		}
+
+		return flatListeners;
+	};
+
+	/**
+	 * Fetches the requested listeners via getListeners but will always return the results inside an object. This is mainly for internal use but others may find it useful.
+	 *
+	 * @param {String|RegExp} evt Name of the event to return the listeners from.
+	 * @return {Object} All listener functions for an event in an object.
+	 */
+	proto.getListenersAsObject = function getListenersAsObject(evt) {
+		var listeners = this.getListeners(evt);
+		var response;
+
+		if (listeners instanceof Array) {
+			response = {};
+			response[evt] = listeners;
+		}
+
+		return response || listeners;
+	};
+
+	/**
+	 * Adds a listener function to the specified event.
+	 * The listener will not be added if it is a duplicate.
+	 * If the listener returns true then it will be removed after it is called.
+	 * If you pass a regular expression as the event name then the listener will be added to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to attach the listener to.
+	 * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addListener = function addListener(evt, listener) {
+		var listeners = this.getListenersAsObject(evt);
+		var listenerIsWrapped = typeof listener === 'object';
+		var key;
+
+		for (key in listeners) {
+			if (listeners.hasOwnProperty(key) && indexOfListener(listeners[key], listener) === -1) {
+				listeners[key].push(listenerIsWrapped ? listener : {
+					listener: listener,
+					once: false
+				});
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of addListener
+	 */
+	proto.on = alias('addListener');
+
+	/**
+	 * Semi-alias of addListener. It will add a listener that will be
+	 * automatically removed after it's first execution.
+	 *
+	 * @param {String|RegExp} evt Name of the event to attach the listener to.
+	 * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addOnceListener = function addOnceListener(evt, listener) {
+		return this.addListener(evt, {
+			listener: listener,
+			once: true
+		});
+	};
+
+	/**
+	 * Alias of addOnceListener.
+	 */
+	proto.once = alias('addOnceListener');
+
+	/**
+	 * Defines an event name. This is required if you want to use a regex to add a listener to multiple events at once. If you don't do this then how do you expect it to know what event to add to? Should it just add to every possible match for a regex? No. That is scary and bad.
+	 * You need to tell it what event names should be matched by a regex.
+	 *
+	 * @param {String} evt Name of the event to create.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.defineEvent = function defineEvent(evt) {
+		this.getListeners(evt);
+		return this;
+	};
+
+	/**
+	 * Uses defineEvent to define multiple events.
+	 *
+	 * @param {String[]} evts An array of event names to define.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.defineEvents = function defineEvents(evts) {
+		for (var i = 0; i < evts.length; i += 1) {
+			this.defineEvent(evts[i]);
+		}
+		return this;
+	};
+
+	/**
+	 * Removes a listener function from the specified event.
+	 * When passed a regular expression as the event name, it will remove the listener from all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to remove the listener from.
+	 * @param {Function} listener Method to remove from the event.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeListener = function removeListener(evt, listener) {
+		var listeners = this.getListenersAsObject(evt);
+		var index;
+		var key;
+
+		for (key in listeners) {
+			if (listeners.hasOwnProperty(key)) {
+				index = indexOfListener(listeners[key], listener);
+
+				if (index !== -1) {
+					listeners[key].splice(index, 1);
+				}
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of removeListener
+	 */
+	proto.off = alias('removeListener');
+
+	/**
+	 * Adds listeners in bulk using the manipulateListeners method.
+	 * If you pass an object as the second argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
+	 * You can also pass it a regular expression to add the array of listeners to all events that match it.
+	 * Yeah, this function does quite a bit. That's probably a bad thing.
+	 *
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add to multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to add.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addListeners = function addListeners(evt, listeners) {
+		// Pass through to manipulateListeners
+		return this.manipulateListeners(false, evt, listeners);
+	};
+
+	/**
+	 * Removes listeners in bulk using the manipulateListeners method.
+	 * If you pass an object as the second argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	 * You can also pass it an event name and an array of listeners to be removed.
+	 * You can also pass it a regular expression to remove the listeners from all events that match it.
+	 *
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to remove from multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to remove.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeListeners = function removeListeners(evt, listeners) {
+		// Pass through to manipulateListeners
+		return this.manipulateListeners(true, evt, listeners);
+	};
+
+	/**
+	 * Edits listeners in bulk. The addListeners and removeListeners methods both use this to do their job. You should really use those instead, this is a little lower level.
+	 * The first argument will determine if the listeners are removed (true) or added (false).
+	 * If you pass an object as the second argument you can add/remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	 * You can also pass it an event name and an array of listeners to be added/removed.
+	 * You can also pass it a regular expression to manipulate the listeners of all events that match it.
+	 *
+	 * @param {Boolean} remove True if you want to remove listeners, false if you want to add.
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add/remove from multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to add/remove.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.manipulateListeners = function manipulateListeners(remove, evt, listeners) {
+		var i;
+		var value;
+		var single = remove ? this.removeListener : this.addListener;
+		var multiple = remove ? this.removeListeners : this.addListeners;
+
+		// If evt is an object then pass each of it's properties to this method
+		if (typeof evt === 'object' && !(evt instanceof RegExp)) {
+			for (i in evt) {
+				if (evt.hasOwnProperty(i) && (value = evt[i])) {
+					// Pass the single listener straight through to the singular method
+					if (typeof value === 'function') {
+						single.call(this, i, value);
+					}
+					else {
+						// Otherwise pass back to the multiple function
+						multiple.call(this, i, value);
+					}
+				}
+			}
+		}
+		else {
+			// So evt must be a string
+			// And listeners must be an array of listeners
+			// Loop over it and pass each one to the multiple method
+			i = listeners.length;
+			while (i--) {
+				single.call(this, evt, listeners[i]);
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Removes all listeners from a specified event.
+	 * If you do not specify an event then all listeners will be removed.
+	 * That means every event will be emptied.
+	 * You can also pass a regex to remove all events that match it.
+	 *
+	 * @param {String|RegExp} [evt] Optional name of the event to remove all listeners for. Will remove from every event if not passed.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeEvent = function removeEvent(evt) {
+		var type = typeof evt;
+		var events = this._getEvents();
+		var key;
+
+		// Remove different things depending on the state of evt
+		if (type === 'string') {
+			// Remove all listeners for the specified event
+			delete events[evt];
+		}
+		else if (type === 'object') {
+			// Remove all events matching the regex.
+			for (key in events) {
+				if (events.hasOwnProperty(key) && evt.test(key)) {
+					delete events[key];
+				}
+			}
+		}
+		else {
+			// Remove all listeners in all events
+			delete this._events;
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of removeEvent.
+	 *
+	 * Added to mirror the node API.
+	 */
+	proto.removeAllListeners = alias('removeEvent');
+
+	/**
+	 * Emits an event of your choice.
+	 * When emitted, every listener attached to that event will be executed.
+	 * If you pass the optional argument array then those arguments will be passed to every listener upon execution.
+	 * Because it uses `apply`, your array of arguments will be passed as if you wrote them out separately.
+	 * So they will not arrive within the array on the other side, they will be separate.
+	 * You can also pass a regular expression to emit to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	 * @param {Array} [args] Optional array of arguments to be passed to each listener.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.emitEvent = function emitEvent(evt, args) {
+		var listeners = this.getListenersAsObject(evt);
+		var listener;
+		var i;
+		var key;
+		var response;
+
+		for (key in listeners) {
+			if (listeners.hasOwnProperty(key)) {
+				i = listeners[key].length;
+
+				while (i--) {
+					// If the listener returns true then it shall be removed from the event
+					// The function is executed either with a basic call or an apply if there is an args array
+					listener = listeners[key][i];
+
+					if (listener.once === true) {
+						this.removeListener(evt, listener.listener);
+					}
+
+					response = listener.listener.apply(this, args || []);
+
+					if (response === this._getOnceReturnValue()) {
+						this.removeListener(evt, listener.listener);
+					}
+				}
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of emitEvent
+	 */
+	proto.trigger = alias('emitEvent');
+
+	/**
+	 * Subtly different from emitEvent in that it will pass its arguments on to the listeners, as opposed to taking a single array of arguments to pass on.
+	 * As with emitEvent, you can pass a regex in place of the event name to emit to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	 * @param {...*} Optional additional arguments to be passed to each listener.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.emit = function emit(evt) {
+		var args = Array.prototype.slice.call(arguments, 1);
+		return this.emitEvent(evt, args);
+	};
+
+	/**
+	 * Sets the current value to check against when executing listeners. If a
+	 * listeners return value matches the one set here then it will be removed
+	 * after execution. This value defaults to true.
+	 *
+	 * @param {*} value The new value to check for when executing listeners.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.setOnceReturnValue = function setOnceReturnValue(value) {
+		this._onceReturnValue = value;
+		return this;
+	};
+
+	/**
+	 * Fetches the current value to check against when executing listeners. If
+	 * the listeners return value matches this one then it should be removed
+	 * automatically. It will return true by default.
+	 *
+	 * @return {*|Boolean} The current value to check for or the default, true.
+	 * @api private
+	 */
+	proto._getOnceReturnValue = function _getOnceReturnValue() {
+		if (this.hasOwnProperty('_onceReturnValue')) {
+			return this._onceReturnValue;
+		}
+		else {
+			return true;
+		}
+	};
+
+	/**
+	 * Fetches the events object and creates one if required.
+	 *
+	 * @return {Object} The events storage object.
+	 * @api private
+	 */
+	proto._getEvents = function _getEvents() {
+		return this._events || (this._events = {});
+	};
+
+	/**
+	 * Reverts the global {@link EventEmitter} to its previous value and returns a reference to this version.
+	 *
+	 * @return {Function} Non conflicting EventEmitter class.
+	 */
+	EventEmitter.noConflict = function noConflict() {
+		exports.EventEmitter = originalGlobalValue;
+		return EventEmitter;
+	};
+
+	// Expose the class either via AMD, CommonJS or the global object
+	if (typeof define === 'function' && define.amd) {
+		define('eventEmitter/EventEmitter',[],function () {
+			return EventEmitter;
+		});
+	}
+	else if (typeof module === 'object' && module.exports){
+		module.exports = EventEmitter;
+	}
+	else {
+		this.EventEmitter = EventEmitter;
+	}
+}.call(this));
+
+/*!
+ * eventie v1.0.4
+ * event binding helper
+ *   eventie.bind( elem, 'click', myFn )
+ *   eventie.unbind( elem, 'click', myFn )
+ */
+
+/*jshint browser: true, undef: true, unused: true */
+/*global define: false */
+
+( function( window ) {
+
+
+
+var docElem = document.documentElement;
+
+var bind = function() {};
+
+function getIEEvent( obj ) {
+  var event = window.event;
+  // add event.target
+  event.target = event.target || event.srcElement || obj;
+  return event;
+}
+
+if ( docElem.addEventListener ) {
+  bind = function( obj, type, fn ) {
+    obj.addEventListener( type, fn, false );
+  };
+} else if ( docElem.attachEvent ) {
+  bind = function( obj, type, fn ) {
+    obj[ type + fn ] = fn.handleEvent ?
+      function() {
+        var event = getIEEvent( obj );
+        fn.handleEvent.call( fn, event );
+      } :
+      function() {
+        var event = getIEEvent( obj );
+        fn.call( obj, event );
+      };
+    obj.attachEvent( "on" + type, obj[ type + fn ] );
+  };
+}
+
+var unbind = function() {};
+
+if ( docElem.removeEventListener ) {
+  unbind = function( obj, type, fn ) {
+    obj.removeEventListener( type, fn, false );
+  };
+} else if ( docElem.detachEvent ) {
+  unbind = function( obj, type, fn ) {
+    obj.detachEvent( "on" + type, obj[ type + fn ] );
+    try {
+      delete obj[ type + fn ];
+    } catch ( err ) {
+      // can't delete window object properties
+      obj[ type + fn ] = undefined;
+    }
+  };
+}
+
+var eventie = {
+  bind: bind,
+  unbind: unbind
+};
+
+// transport
+if ( typeof define === 'function' && define.amd ) {
+  // AMD
+  define( 'eventie/eventie',eventie );
+} else {
+  // browser global
+  window.eventie = eventie;
+}
+
+})( this );
+
+/*!
+ * imagesLoaded v3.1.8
+ * JavaScript is all like "You images are done yet or what?"
+ * MIT License
+ */
+
+( function( window, factory ) { 
+  // universal module definition
+
+  /*global define: false, module: false, require: false */
+
+  if ( typeof define === 'function' && define.amd ) {
+    // AMD
+    define( [
+      'eventEmitter/EventEmitter',
+      'eventie/eventie'
+    ], function( EventEmitter, eventie ) {
+      return factory( window, EventEmitter, eventie );
+    });
+  } else if ( typeof exports === 'object' ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('wolfy87-eventemitter'),
+      require('eventie')
+    );
+  } else {
+    // browser global
+    window.imagesLoaded = factory(
+      window,
+      window.EventEmitter,
+      window.eventie
+    );
+  }
+
+})( window,
+
+// --------------------------  factory -------------------------- //
+
+function factory( window, EventEmitter, eventie ) {
+
+
+
+var $ = window.jQuery;
+var console = window.console;
+var hasConsole = typeof console !== 'undefined';
+
+// -------------------------- helpers -------------------------- //
+
+// extend objects
+function extend( a, b ) {
+  for ( var prop in b ) {
+    a[ prop ] = b[ prop ];
+  }
+  return a;
+}
+
+var objToString = Object.prototype.toString;
+function isArray( obj ) {
+  return objToString.call( obj ) === '[object Array]';
+}
+
+// turn element or nodeList into an array
+function makeArray( obj ) {
+  var ary = [];
+  if ( isArray( obj ) ) {
+    // use object if already an array
+    ary = obj;
+  } else if ( typeof obj.length === 'number' ) {
+    // convert nodeList to array
+    for ( var i=0, len = obj.length; i < len; i++ ) {
+      ary.push( obj[i] );
+    }
+  } else {
+    // array of single index
+    ary.push( obj );
+  }
+  return ary;
+}
+
+  // -------------------------- imagesLoaded -------------------------- //
+
+  /**
+   * @param {Array, Element, NodeList, String} elem
+   * @param {Object or Function} options - if function, use as callback
+   * @param {Function} onAlways - callback function
+   */
+  function ImagesLoaded( elem, options, onAlways ) {
+    // coerce ImagesLoaded() without new, to be new ImagesLoaded()
+    if ( !( this instanceof ImagesLoaded ) ) {
+      return new ImagesLoaded( elem, options );
+    }
+    // use elem as selector string
+    if ( typeof elem === 'string' ) {
+      elem = document.querySelectorAll( elem );
+    }
+
+    this.elements = makeArray( elem );
+    this.options = extend( {}, this.options );
+
+    if ( typeof options === 'function' ) {
+      onAlways = options;
+    } else {
+      extend( this.options, options );
+    }
+
+    if ( onAlways ) {
+      this.on( 'always', onAlways );
+    }
+
+    this.getImages();
+
+    if ( $ ) {
+      // add jQuery Deferred object
+      this.jqDeferred = new $.Deferred();
+    }
+
+    // HACK check async to allow time to bind listeners
+    var _this = this;
+    setTimeout( function() {
+      _this.check();
+    });
+  }
+
+  ImagesLoaded.prototype = new EventEmitter();
+
+  ImagesLoaded.prototype.options = {};
+
+  ImagesLoaded.prototype.getImages = function() {
+    this.images = [];
+
+    // filter & find items if we have an item selector
+    for ( var i=0, len = this.elements.length; i < len; i++ ) {
+      var elem = this.elements[i];
+      // filter siblings
+      if ( elem.nodeName === 'IMG' ) {
+        this.addImage( elem );
+      }
+      // find children
+      // no non-element nodes, #143
+      var nodeType = elem.nodeType;
+      if ( !nodeType || !( nodeType === 1 || nodeType === 9 || nodeType === 11 ) ) {
+        continue;
+      }
+      var childElems = elem.querySelectorAll('img');
+      // concat childElems to filterFound array
+      for ( var j=0, jLen = childElems.length; j < jLen; j++ ) {
+        var img = childElems[j];
+        this.addImage( img );
+      }
+    }
+  };
+
+  /**
+   * @param {Image} img
+   */
+  ImagesLoaded.prototype.addImage = function( img ) {
+    var loadingImage = new LoadingImage( img );
+    this.images.push( loadingImage );
+  };
+
+  ImagesLoaded.prototype.check = function() {
+    var _this = this;
+    var checkedCount = 0;
+    var length = this.images.length;
+    this.hasAnyBroken = false;
+    // complete if no images
+    if ( !length ) {
+      this.complete();
+      return;
+    }
+
+    function onConfirm( image, message ) {
+      if ( _this.options.debug && hasConsole ) {
+        console.log( 'confirm', image, message );
+      }
+
+      _this.progress( image );
+      checkedCount++;
+      if ( checkedCount === length ) {
+        _this.complete();
+      }
+      return true; // bind once
+    }
+
+    for ( var i=0; i < length; i++ ) {
+      var loadingImage = this.images[i];
+      loadingImage.on( 'confirm', onConfirm );
+      loadingImage.check();
+    }
+  };
+
+  ImagesLoaded.prototype.progress = function( image ) {
+    this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
+    // HACK - Chrome triggers event before object properties have changed. #83
+    var _this = this;
+    setTimeout( function() {
+      _this.emit( 'progress', _this, image );
+      if ( _this.jqDeferred && _this.jqDeferred.notify ) {
+        _this.jqDeferred.notify( _this, image );
+      }
+    });
+  };
+
+  ImagesLoaded.prototype.complete = function() {
+    var eventName = this.hasAnyBroken ? 'fail' : 'done';
+    this.isComplete = true;
+    var _this = this;
+    // HACK - another setTimeout so that confirm happens after progress
+    setTimeout( function() {
+      _this.emit( eventName, _this );
+      _this.emit( 'always', _this );
+      if ( _this.jqDeferred ) {
+        var jqMethod = _this.hasAnyBroken ? 'reject' : 'resolve';
+        _this.jqDeferred[ jqMethod ]( _this );
+      }
+    });
+  };
+
+  // -------------------------- jquery -------------------------- //
+
+  if ( $ ) {
+    $.fn.imagesLoaded = function( options, callback ) {
+      var instance = new ImagesLoaded( this, options, callback );
+      return instance.jqDeferred.promise( $(this) );
+    };
+  }
+
+
+  // --------------------------  -------------------------- //
+
+  function LoadingImage( img ) {
+    this.img = img;
+  }
+
+  LoadingImage.prototype = new EventEmitter();
+
+  LoadingImage.prototype.check = function() {
+    // first check cached any previous images that have same src
+    var resource = cache[ this.img.src ] || new Resource( this.img.src );
+    if ( resource.isConfirmed ) {
+      this.confirm( resource.isLoaded, 'cached was confirmed' );
+      return;
+    }
+
+    // If complete is true and browser supports natural sizes,
+    // try to check for image status manually.
+    if ( this.img.complete && this.img.naturalWidth !== undefined ) {
+      // report based on naturalWidth
+      this.confirm( this.img.naturalWidth !== 0, 'naturalWidth' );
+      return;
+    }
+
+    // If none of the checks above matched, simulate loading on detached element.
+    var _this = this;
+    resource.on( 'confirm', function( resrc, message ) {
+      _this.confirm( resrc.isLoaded, message );
+      return true;
+    });
+
+    resource.check();
+  };
+
+  LoadingImage.prototype.confirm = function( isLoaded, message ) {
+    this.isLoaded = isLoaded;
+    this.emit( 'confirm', this, message );
+  };
+
+  // -------------------------- Resource -------------------------- //
+
+  // Resource checks each src, only once
+  // separate class from LoadingImage to prevent memory leaks. See #115
+
+  var cache = {};
+
+  function Resource( src ) {
+    this.src = src;
+    // add to cache
+    cache[ src ] = this;
+  }
+
+  Resource.prototype = new EventEmitter();
+
+  Resource.prototype.check = function() {
+    // only trigger checking once
+    if ( this.isChecked ) {
+      return;
+    }
+    // simulate loading on detached element
+    var proxyImage = new Image();
+    eventie.bind( proxyImage, 'load', this );
+    eventie.bind( proxyImage, 'error', this );
+    proxyImage.src = this.src;
+    // set flag
+    this.isChecked = true;
+  };
+
+  // ----- events ----- //
+
+  // trigger specified handler for event type
+  Resource.prototype.handleEvent = function( event ) {
+    var method = 'on' + event.type;
+    if ( this[ method ] ) {
+      this[ method ]( event );
+    }
+  };
+
+  Resource.prototype.onload = function( event ) {
+    this.confirm( true, 'onload' );
+    this.unbindProxyEvents( event );
+  };
+
+  Resource.prototype.onerror = function( event ) {
+    this.confirm( false, 'onerror' );
+    this.unbindProxyEvents( event );
+  };
+
+  // ----- confirm ----- //
+
+  Resource.prototype.confirm = function( isLoaded, message ) {
+    this.isConfirmed = true;
+    this.isLoaded = isLoaded;
+    this.emit( 'confirm', this, message );
+  };
+
+  Resource.prototype.unbindProxyEvents = function( event ) {
+    eventie.unbind( event.target, 'load', this );
+    eventie.unbind( event.target, 'error', this );
+  };
+
+  // -----  ----- //
+
+  return ImagesLoaded;
+
+});
+
+/*!
  * Isotope PACKAGED v2.1.0
  * Filter & sort magical layouts
  * http://isotope.metafizzy.co
@@ -37984,6 +38878,79 @@ if ( typeof define === 'function' && define.amd ) {
 
 })( window );
 
+
+/*!
+ * cellsByColumn layout mode for Isotope
+ * v1.1.2
+ * http://isotope.metafizzy.co/layout-modes/cellsbycolumn.html
+ */
+
+/*jshint browser: true, devel: false, strict: true, undef: true, unused: true */
+
+( function( window ) {
+
+'use strict';
+
+function cellsByColumnDefinition( LayoutMode ) {
+
+  var CellsByColumn = LayoutMode.create( 'cellsByColumn' );
+
+  CellsByColumn.prototype._resetLayout = function() {
+    // reset properties
+    this.itemIndex = 0;
+    // measurements
+    this.getColumnWidth();
+    this.getRowHeight();
+    // set rows
+    this.rows = Math.floor( this.isotope.size.innerHeight / this.rowHeight );
+    this.rows = Math.max( this.rows, 1 );
+  };
+
+  CellsByColumn.prototype._getItemLayoutPosition = function( item ) {
+    item.getSize();
+    var col = Math.floor( this.itemIndex / this.rows );
+    var row = this.itemIndex % this.rows;
+    // center item within cell
+    var x = ( col + 0.5 ) * this.columnWidth - item.size.outerWidth / 2;
+    var y = ( row + 0.5 ) * this.rowHeight - item.size.outerHeight / 2;
+    this.itemIndex++;
+    return { x: x, y: y };
+  };
+
+  CellsByColumn.prototype._getContainerSize = function() {
+    return {
+      width: Math.ceil( this.itemIndex / this.rows ) * this.columnWidth
+    };
+  };
+
+  CellsByColumn.prototype.needsResizeLayout = function() {
+    return this.needsVerticalResizeLayout();
+  };
+
+  return CellsByColumn;
+
+}
+
+if ( typeof define === 'function' && define.amd ) {
+  // AMD
+  define( [
+      'isotope/js/layout-mode'
+    ],
+    cellsByColumnDefinition );
+} else if ( typeof exports === 'object' ) {
+  // CommonJS
+  module.exports = cellsByColumnDefinition(
+    require('isotope-layout/js/layout-mode')
+  );
+} else {
+  // browser global
+  cellsByColumnDefinition(
+    window.Isotope.LayoutMode
+  );
+}
+
+
+})( window );
 
 /* svg.js 1.0.0-1-g04c734f - svg selector inventor polyfill regex default color array pointarray patharray number viewbox bbox rbox element parent container fx relative event defs group arrange mask clip gradient pattern doc shape symbol use rect ellipse line poly path image text textpath nested hyperlink marker sugar set data memory loader helpers - svgjs.com/license */
 (function(e,t){typeof define=="function"&&define.amd?define(t):typeof exports=="object"?module.exports=t():e.SVG=t()})(this,function(){function r(e){return e.toLowerCase().replace(/-(.)/g,function(e,t){return t.toUpperCase()})}function i(e){return e.length==4?["#",e.substring(1,2),e.substring(1,2),e.substring(2,3),e.substring(2,3),e.substring(3,4),e.substring(3,4)].join(""):e}function s(e){var t=e.toString(16);return t.length==1?"0"+t:t}function o(e,t,n){if(t==null||n==null)n==null?n=e.height/e.width*t:t==null&&(t=e.width/e.height*n);return{width:t,height:n}}function u(t,n){return typeof t.from=="number"?t.from+(t.to-t.from)*n:t instanceof e.Color||t instanceof e.Number?t.at(n):n<1?t.from:t.to}function a(e){for(var t=0,n=e.length,r="";t<n;t++)r+=e[t][0],e[t][1]!=null&&(r+=e[t][1],e[t][2]!=null&&(r+=" ",r+=e[t][2],e[t][3]!=null&&(r+=" ",r+=e[t][3],r+=" ",r+=e[t][4],e[t][5]!=null&&(r+=" ",r+=e[t][5],r+=" ",r+=e[t][6],e[t][7]!=null&&(r+=" ",r+=e[t][7])))));return r+" "}function f(e){e.x2=e.x+e.width,e.y2=e.y+e.height,e.cx=e.x+e.width/2,e.cy=e.y+e.height/2}function l(e){if(e.matrix){var t=e.matrix.replace(/\s/g,"").split(",");t.length==6&&(e.a=parseFloat(t[0]),e.b=parseFloat(t[1]),e.c=parseFloat(t[2]),e.d=parseFloat(t[3]),e.e=parseFloat(t[4]),e.f=parseFloat(t[5]))}return e}function c(t){var n=t.toString().match(e.regex.reference);if(n)return n[1]}var e=this.SVG=function(t){if(e.supported)return t=new e.Doc(t),e.parser||e.prepare(t),t};e.ns="http://www.w3.org/2000/svg",e.xmlns="http://www.w3.org/2000/xmlns/",e.xlink="http://www.w3.org/1999/xlink",e.did=1e3,e.eid=function(t){return"Svgjs"+t.charAt(0).toUpperCase()+t.slice(1)+e.did++},e.create=function(e){var t=document.createElementNS(this.ns,e);return t.setAttribute("id",this.eid(e)),t},e.extend=function(){var t,n,r,i;t=[].slice.call(arguments),n=t.pop();for(i=t.length-1;i>=0;i--)if(t[i])for(r in n)t[i].prototype[r]=n[r];e.Set&&e.Set.inherit&&e.Set.inherit()},e.prepare=function(t){var n=document.getElementsByTagName("body")[0],r=(n?new e.Doc(n):t.nested()).size(2,0),i=e.create("path");r.node.appendChild(i),e.parser={body:n||t.parent,draw:r.style("opacity:0;position:fixed;left:100%;top:100%;overflow:hidden"),poly:r.polyline().node,path:i}},e.supported=function(){return!!document.createElementNS&&!!document.createElementNS(e.ns,"svg").createSVGRect}();if(!e.supported)return!1;e.get=function(e){var t=document.getElementById(c(e)||e);if(t)return t.instance},e.invent=function(t){var n=typeof t.create=="function"?t.create:function(){this.constructor.call(this,e.create(t.create))};return t.inherit&&(n.prototype=new t.inherit),t.extend&&e.extend(n,t.extend),t.construct&&e.extend(t.parent||e.Container,t.construct),n};if(typeof t!="function"){function t(e,t){t=t||{bubbles:!1,cancelable:!1,detail:undefined};var n=document.createEvent("CustomEvent");return n.initCustomEvent(e,t.bubbles,t.cancelable,t.detail),n}t.prototype=window.Event.prototype,window.CustomEvent=t}e.regex={unit:/^(-?[\d\.]+)([a-z%]{0,2})$/,hex:/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i,rgb:/rgb\((\d+),(\d+),(\d+)\)/,reference:/#([a-z0-9\-_]+)/i,isHex:/^#[a-f0-9]{3,6}$/i,isRgb:/^rgb\(/,isCss:/[^:]+:[^;]+;?/,isBlank:/^(\s+)?$/,isNumber:/^-?[\d\.]+$/,isPercent:/^-?[\d\.]+%$/,isImage:/\.(jpg|jpeg|png|gif)(\?[^=]+.*)?/i,isEvent:/^[\w]+:[\w]+$/},e.defaults={matrix:"1 0 0 1 0 0",attrs:{"fill-opacity":1,"stroke-opacity":1,"stroke-width":0,"stroke-linejoin":"miter","stroke-linecap":"butt",fill:"#000000",stroke:"#000000",opacity:1,x:0,y:0,cx:0,cy:0,width:0,height:0,r:0,rx:0,ry:0,offset:0,"stop-opacity":1,"stop-color":"#000000","font-size":16,"font-family":"Helvetica, Arial, sans-serif","text-anchor":"start"},trans:function(){return{x:0,y:0,scaleX:1,scaleY:1,rotation:0,skewX:0,skewY:0,matrix:this.matrix,a:1,b:0,c:0,d:1,e:0,f:0}}},e.Color=function(t){var n;this.r=0,this.g=0,this.b=0,typeof t=="string"?e.regex.isRgb.test(t)?(n=e.regex.rgb.exec(t.replace(/\s/g,"")),this.r=parseInt(n[1]),this.g=parseInt(n[2]),this.b=parseInt(n[3])):e.regex.isHex.test(t)&&(n=e.regex.hex.exec(i(t)),this.r=parseInt(n[1],16),this.g=parseInt(n[2],16),this.b=parseInt(n[3],16)):typeof t=="object"&&(this.r=t.r,this.g=t.g,this.b=t.b)},e.extend(e.Color,{toString:function(){return this.toHex()},toHex:function(){return"#"+s(this.r)+s(this.g)+s(this.b)},toRgb:function(){return"rgb("+[this.r,this.g,this.b].join()+")"},brightness:function(){return this.r/255*.3+this.g/255*.59+this.b/255*.11},morph:function(t){return this.destination=new e.Color(t),this},at:function(t){return this.destination?(t=t<0?0:t>1?1:t,new e.Color({r:~~(this.r+(this.destination.r-this.r)*t),g:~~(this.g+(this.destination.g-this.g)*t),b:~~(this.b+(this.destination.b-this.b)*t)})):this}}),e.Color.test=function(t){return t+="",e.regex.isHex.test(t)||e.regex.isRgb.test(t)},e.Color.isRgb=function(e){return e&&typeof e.r=="number"&&typeof e.g=="number"&&typeof e.b=="number"},e.Color.isColor=function(t){return e.Color.isRgb(t)||e.Color.test(t)},e.Array=function(e,t){e=(e||[]).valueOf(),e.length==0&&t&&(e=t.valueOf()),this.value=this.parse(e)},e.extend(e.Array,{morph:function(e){this.destination=this.parse(e);if(this.value.length!=this.destination.length){var t=this.value[this.value.length-1],n=this.destination[this.destination.length-1];while(this.value.length>this.destination.length)this.destination.push(n);while(this.value.length<this.destination.length)this.value.push(t)}return this},settle:function(){for(var e=0,t=this.value.length,n=[];e<t;e++)n.indexOf(this.value[e])==-1&&n.push(this.value[e]);return this.value=n},at:function(t){if(!this.destination)return this;for(var n=0,r=this.value.length,i=[];n<r;n++)i.push(this.value[n]+(this.destination[n]-this.value[n])*t);return new e.Array(i)},toString:function(){return this.value.join(" ")},valueOf:function(){return this.value},parse:function(e){return e=e.valueOf(),Array.isArray(e)?e:this.split(e)},split:function(e){return e.replace(/\s+/g," ").replace(/^\s+|\s+$/g,"").split(" ")},reverse:function(){return this.value.reverse(),this}}),e.PointArray=function(){this.constructor.apply(this,arguments)},e.PointArray.prototype=new e.Array,e.extend(e.PointArray,{toString:function(){for(var e=0,t=this.value.length,n=[];e<t;e++)n.push(this.value[e].join(","));return n.join(" ")},at:function(t){if(!this.destination)return this;for(var n=0,r=this.value.length,i=[];n<r;n++)i.push([this.value[n][0]+(this.destination[n][0]-this.value[n][0])*t,this.value[n][1]+(this.destination[n][1]-this.value[n][1])*t]);return new e.PointArray(i)},parse:function(e){e=e.valueOf();if(Array.isArray(e))return e;e=this.split(e);for(var t=0,n=e.length,r,i=[];t<n;t++)r=e[t].split(","),i.push([parseFloat(r[0]),parseFloat(r[1])]);return i},move:function(e,t){var n=this.bbox();e-=n.x,t-=n.y;if(!isNaN(e)&&!isNaN(t))for(var r=this.value.length-1;r>=0;r--)this.value[r]=[this.value[r][0]+e,this.value[r][1]+t];return this},size:function(e,t){var n,r=this.bbox();for(n=this.value.length-1;n>=0;n--)this.value[n][0]=(this.value[n][0]-r.x)*e/r.width+r.x,this.value[n][1]=(this.value[n][1]-r.y)*t/r.height+r.y;return this},bbox:function(){return e.parser.poly.setAttribute("points",this.toString()),e.parser.poly.getBBox()}}),e.PathArray=function(e,t){this.constructor.call(this,e,t)},e.PathArray.prototype=new e.Array,e.extend(e.PathArray,{toString:function(){return a(this.value)},move:function(e,t){var n=this.bbox();e-=n.x,t-=n.y;if(!isNaN(e)&&!isNaN(t))for(var r,i=this.value.length-1;i>=0;i--)r=this.value[i][0],r=="M"||r=="L"||r=="T"?(this.value[i][1]+=e,this.value[i][2]+=t):r=="H"?this.value[i][1]+=e:r=="V"?this.value[i][1]+=t:r=="C"||r=="S"||r=="Q"?(this.value[i][1]+=e,this.value[i][2]+=t,this.value[i][3]+=e,this.value[i][4]+=t,r=="C"&&(this.value[i][5]+=e,this.value[i][6]+=t)):r=="A"&&(this.value[i][6]+=e,this.value[i][7]+=t);return this},size:function(e,t){var n,r,i=this.bbox();for(n=this.value.length-1;n>=0;n--)r=this.value[n][0],r=="M"||r=="L"||r=="T"?(this.value[n][1]=(this.value[n][1]-i.x)*e/i.width+i.x,this.value[n][2]=(this.value[n][2]-i.y)*t/i.height+i.y):r=="H"?this.value[n][1]=(this.value[n][1]-i.x)*e/i.width+i.x:r=="V"?this.value[n][1]=(this.value[n][1]-i.y)*t/i.height+i.y:r=="C"||r=="S"||r=="Q"?(this.value[n][1]=(this.value[n][1]-i.x)*e/i.width+i.x,this.value[n][2]=(this.value[n][2]-i.y)*t/i.height+i.y,this.value[n][3]=(this.value[n][3]-i.x)*e/i.width+i.x,this.value[n][4]=(this.value[n][4]-i.y)*t/i.height+i.y,r=="C"&&(this.value[n][5]=(this.value[n][5]-i.x)*e/i.width+i.x,this.value[n][6]=(this.value[n][6]-i.y)*t/i.height+i.y)):r=="A"&&(this.value[n][1]=this.value[n][1]*e/i.width,this.value[n][2]=this.value[n][2]*t/i.height,this.value[n][6]=(this.value[n][6]-i.x)*e/i.width+i.x,this.value[n][7]=(this.value[n][7]-i.y)*t/i.height+i.y);return this},parse:function(t){if(t instanceof e.PathArray)return t.valueOf();var n,r,i,s,o,u,f,l,c,h,p,d=0,v=0;e.parser.path.setAttribute("d",typeof t=="string"?t:a(t)),p=e.parser.path.pathSegList;for(n=0,r=p.numberOfItems;n<r;++n){h=p.getItem(n),c=h.pathSegTypeAsLetter;if(c=="M"||c=="L"||c=="H"||c=="V"||c=="C"||c=="S"||c=="Q"||c=="T"||c=="A")"x"in h&&(d=h.x),"y"in h&&(v=h.y);else{"x1"in h&&(o=d+h.x1),"x2"in h&&(f=d+h.x2),"y1"in h&&(u=v+h.y1),"y2"in h&&(l=v+h.y2),"x"in h&&(d+=h.x),"y"in h&&(v+=h.y);if(c=="m")p.replaceItem(e.parser.path.createSVGPathSegMovetoAbs(d,v),n);else if(c=="l")p.replaceItem(e.parser.path.createSVGPathSegLinetoAbs(d,v),n);else if(c=="h")p.replaceItem(e.parser.path.createSVGPathSegLinetoHorizontalAbs(d),n);else if(c=="v")p.replaceItem(e.parser.path.createSVGPathSegLinetoVerticalAbs(v),n);else if(c=="c")p.replaceItem(e.parser.path.createSVGPathSegCurvetoCubicAbs(d,v,o,u,f,l),n);else if(c=="s")p.replaceItem(e.parser.path.createSVGPathSegCurvetoCubicSmoothAbs(d,v,f,l),n);else if(c=="q")p.replaceItem(e.parser.path.createSVGPathSegCurvetoQuadraticAbs(d,v,o,u),n);else if(c=="t")p.replaceItem(e.parser.path.createSVGPathSegCurvetoQuadraticSmoothAbs(d,v),n);else if(c=="a")p.replaceItem(e.parser.path.createSVGPathSegArcAbs(d,v,h.r1,h.r2,h.angle,h.largeArcFlag,h.sweepFlag),n);else if(c=="z"||c=="Z")d=i,v=s}if(c=="M"||c=="m")i=d,s=v}t=[],p=e.parser.path.pathSegList;for(n=0,r=p.numberOfItems;n<r;++n)h=p.getItem(n),c=h.pathSegTypeAsLetter,d=[c],c=="M"||c=="L"||c=="T"?d.push(h.x,h.y):c=="H"?d.push(h.x):c=="V"?d.push(h.y):c=="C"?d.push(h.x1,h.y1,h.x2,h.y2,h.x,h.y):c=="S"?d.push(h.x2,h.y2,h.x,h.y):c=="Q"?d.push(h.x1,h.y1,h.x,h.y):c=="A"&&d.push(h.r1,h.r2,h.angle,h.largeArcFlag|0,h.sweepFlag|0,h.x,h.y),t.push(d);return t},bbox:function(){return e.parser.path.setAttribute("d",this.toString()),e.parser.path.getBBox()}}),e.Number=function(t){this.value=0,this.unit="";if(typeof t=="number")this.value=isNaN(t)?0:isFinite(t)?t:t<0?-3.4e38:3.4e38;else if(typeof t=="string"){var n=t.match(e.regex.unit);n&&(this.value=parseFloat(n[1]),n[2]=="%"?this.value/=100:n[2]=="s"&&(this.value*=1e3),this.unit=n[2])}else t instanceof e.Number&&(this.value=t.value,this.unit=t.unit)},e.extend(e.Number,{toString:function(){return(this.unit=="%"?~~(this.value*1e8)/1e6:this.unit=="s"?this.value/1e3:this.value)+this.unit},valueOf:function(){return this.value},plus:function(t){return this.value=this+new e.Number(t),this},minus:function(t){return this.plus(-(new e.Number(t)))},times:function(t){return this.value=this*new e.Number(t),this},divide:function(t){return this.value=this/new e.Number(t),this},to:function(e){return typeof e=="string"&&(this.unit=e),this},morph:function(t){return this.destination=new e.Number(t),this},at:function(t){return this.destination?(new e.Number(this.destination)).minus(this).times(t).plus(this):this}}),e.ViewBox=function(t){var n,r,i,s,o=1,u=1,a=t.bbox(),f=(t.attr("viewBox")||"").match(/-?[\d\.]+/g),l=t,c=t;i=new e.Number(t.width()),s=new e.Number(t.height());while(i.unit=="%")o*=i.value,i=new e.Number(l instanceof e.Doc?l.parent.offsetWidth:l.parent.width()),l=l.parent;while(s.unit=="%")u*=s.value,s=new e.Number(c instanceof e.Doc?c.parent.offsetHeight:c.parent.height()),c=c.parent;this.x=a.x,this.y=a.y,this.width=i*o,this.height=s*u,this.zoom=1,f&&(n=parseFloat(f[0]),r=parseFloat(f[1]),i=parseFloat(f[2]),s=parseFloat(f[3]),this.zoom=this.width/this.height>i/s?this.height/s:this.width/i,this.x=n,this.y=r,this.width=i,this.height=s)},e.extend(e.ViewBox,{toString:function(){return this.x+" "+this.y+" "+this.width+" "+this.height}}),e.BBox=function(e){var t;this.x=0,this.y=0,this.width=0,this.height=0;if(e){try{t=e.node.getBBox()}catch(n){t={x:e.node.clientLeft,y:e.node.clientTop,width:e.node.clientWidth,height:e.node.clientHeight}}this.x=t.x+e.trans.x,this.y=t.y+e.trans.y,this.width=t.width*e.trans.scaleX,this.height=t.height*e.trans.scaleY}f(this)},e.extend(e.BBox,{merge:function(t){var n=new e.BBox;return n.x=Math.min(this.x,t.x),n.y=Math.min(this.y,t.y),n.width=Math.max(this.x+this.width,t.x+t.width)-n.x,n.height=Math.max(this.y+this.height,t.y+t.height)-n.y,f(n),n}}),e.RBox=function(e){var t,n,r={};this.x=0,this.y=0,this.width=0,this.height=0;if(e){t=e.doc().parent,n=e.doc().viewbox().zoom,r=e.node.getBoundingClientRect(),this.x=r.left,this.y=r.top,this.x-=t.offsetLeft,this.y-=t.offsetTop;while(t=t.offsetParent)this.x-=t.offsetLeft,this.y-=t.offsetTop;t=e;while(t=t.parent)t.type=="svg"&&t.viewbox&&(n*=t.viewbox().zoom,this.x-=t.x()||0,this.y-=t.y()||0)}this.x/=n,this.y/=n,this.width=r.width/=n,this.height=r.height/=n,this.x+=typeof window.scrollX=="number"?window.scrollX:window.pageXOffset,this.y+=typeof window.scrollY=="number"?window.scrollY:window.pageYOffset,f(this)},e.extend(e.RBox,{merge:function(t){var n=new e.RBox;return n.x=Math.min(this.x,t.x),n.y=Math.min(this.y,t.y),n.width=Math.max(this.x+this.width,t.x+t.width)-n.x,n.height=Math.max(this.y+this.height,t.y+t.height)-n.y,f(n),n}}),e.Element=e.invent({create:function(t){this._stroke=e.defaults.attrs.stroke,this.trans=e.defaults.trans();if(this.node=t)this.type=t.nodeName,this.node.instance=this},extend:{x:function(t){return t!=null&&(t=new e.Number(t),t.value/=this.trans.scaleX),this.attr("x",t)},y:function(t){return t!=null&&(t=new e.Number(t),t.value/=this.trans.scaleY),this.attr("y",t)},cx:function(e){return e==null?this.x()+this.width()/2:this.x(e-this.width()/2)},cy:function(e){return e==null?this.y()+this.height()/2:this.y(e-this.height()/2)},move:function(e,t){return this.x(e).y(t)},center:function(e,t){return this.cx(e).cy(t)},width:function(e){return this.attr("width",e)},height:function(e){return this.attr("height",e)},size:function(t,n){var r=o(this.bbox(),t,n);return this.width(new e.Number(r.width)).height(new e.Number(r.height))},clone:function(){var e,t,n=this.type;return e=n=="rect"||n=="ellipse"?this.parent[n](0,0):n=="line"?this.parent[n](0,0,0,0):n=="image"?this.parent[n](this.src):n=="text"?this.parent[n](this.content):n=="path"?this.parent[n](this.attr("d")):n=="polyline"||n=="polygon"?this.parent[n](this.attr("points")):n=="g"?this.parent.group():this.parent[n](),t=this.attr(),delete t.id,e.attr(t),e.trans=this.trans,e.transform({})},remove:function(){return this.parent&&this.parent.removeElement(this),this},replace:function(e){return this.after(e).remove(),e},addTo:function(e){return e.put(this)},putIn:function(e){return e.add(this)},doc:function(t){return this._parent(t||e.Doc)},attr:function(t,n,r){if(t==null){t={},n=this.node.attributes;for(r=n.length-1;r>=0;r--)t[n[r].nodeName]=e.regex.isNumber.test(n[r].nodeValue)?parseFloat(n[r].nodeValue):n[r].nodeValue;return t}if(typeof t=="object")for(n in t)this.attr(n,t[n]);else if(n===null)this.node.removeAttribute(t);else{if(n==null)return n=this.node.attributes[t],n==null?e.defaults.attrs[t]:e.regex.isNumber.test(n.nodeValue)?parseFloat(n.nodeValue):n.nodeValue;if(t=="style")return this.style(n);t=="stroke-width"?this.attr("stroke",parseFloat(n)>0?this._stroke:null):t=="stroke"&&(this._stroke=n);if(t=="fill"||t=="stroke")e.regex.isImage.test(n)&&(n=this.doc().defs().image(n,0,0)),n instanceof e.Image&&(n=this.doc().defs().pattern(0,0,function(){this.add(n)}));typeof n=="number"?n=new e.Number(n):e.Color.isColor(n)?n=new e.Color(n):Array.isArray(n)&&(n=new e.Array(n)),t=="leading"?this.leading&&this.leading(n):typeof r=="string"?this.node.setAttributeNS(r,t,n.toString()):this.node.setAttribute(t,n.toString()),this.rebuild&&(t=="font-size"||t=="x")&&this.rebuild(t,n)}return this},transform:function(t,n){if(arguments.length==0)return this.trans;if(typeof t=="string"){if(arguments.length<2)return this.trans[t];var r={};return r[t]=n,this.transform(r)}var r=[];t=l(t);for(n in t)t[n]!=null&&(this.trans[n]=t[n]);return this.trans.matrix=this.trans.a+" "+this.trans.b+" "+this.trans.c+" "+this.trans.d+" "+this.trans.e+" "+this.trans.f,t=this.trans,t.matrix!=e.defaults.matrix&&r.push("matrix("+t.matrix+")"),t.rotation!=0&&r.push("rotate("+t.rotation+" "+(t.cx==null?this.bbox().cx:t.cx)+" "+(t.cy==null?this.bbox().cy:t.cy)+")"),(t.scaleX!=1||t.scaleY!=1)&&r.push("scale("+t.scaleX+" "+t.scaleY+")"),t.skewX!=0&&r.push("skewX("+t.skewX+")"),t.skewY!=0&&r.push("skewY("+t.skewY+")"),(t.x!=0||t.y!=0)&&r.push("translate("+new e.Number(t.x/t.scaleX)+" "+new e.Number(t.y/t.scaleY)+")"),r.length==0?this.node.removeAttribute("transform"):this.node.setAttribute("transform",r.join(" ")),this},style:function(t,n){if(arguments.length==0)return this.node.style.cssText||"";if(arguments.length<2)if(typeof t=="object")for(n in t)this.style(n,t[n]);else{if(!e.regex.isCss.test(t))return this.node.style[r(t)];t=t.split(";");for(var i=0;i<t.length;i++)n=t[i].split(":"),this.style(n[0].replace(/\s+/g,""),n[1])}else this.node.style[r(t)]=n===null||e.regex.isBlank.test(n)?"":n;return this},id:function(e){return this.attr("id",e)},bbox:function(){return new e.BBox(this)},rbox:function(){return new e.RBox(this)},inside:function(e,t){var n=this.bbox();return e>n.x&&t>n.y&&e<n.x+n.width&&t<n.y+n.height},show:function(){return this.style("display","")},hide:function(){return this.style("display","none")},visible:function(){return this.style("display")!="none"},toString:function(){return this.attr("id")},classes:function(){var e=this.node.getAttribute("class");return e===null?[]:e.trim().split(/\s+/)},hasClass:function(e){return this.classes().indexOf(e)!=-1},addClass:function(e){var t;return this.hasClass(e)||(t=this.classes(),t.push(e),this.node.setAttribute("class",t.join(" "))),this},removeClass:function(e){var t;return this.hasClass(e)&&(t=this.classes().filter(function(t){return t!=e}),this.node.setAttribute("class",t.join(" "))),this},toggleClass:function(e){return this.hasClass(e)?this.removeClass(e):this.addClass(e),this},reference:function(t){return e.get(this.attr()[t])},_parent:function(e){var t=this;while(t!=null&&!(t instanceof e))t=t.parent;return t}}}),e.Parent=e.invent({create:function(e){this.constructor.call(this,e)},inherit:e.Element,extend:{children:function(){return this._children||(this._children=[])},add:function(e,t){return this.has(e)||(t=t==null?this.children().length:t,e.parent&&e.parent.children().splice(e.parent.index(e),1),this.children().splice(t,0,e),this.node.insertBefore(e.node,this.node.childNodes[t]||null),e.parent=this),this._defs&&(this.node.removeChild(this._defs.node),this.node.appendChild(this._defs.node)),this},put:function(e,t){return this.add(e,t),e},has:function(e){return this.index(e)>=0},index:function(e){return this.children().indexOf(e)},get:function(e){return this.children()[e]},first:function(){return this.children()[0]},last:function(){return this.children()[this.children().length-1]},each:function(t,n){var r,i,s=this.children();for(r=0,i=s.length;r<i;r++)s[r]instanceof e.Element&&t.apply(s[r],[r,s]),n&&s[r]instanceof e.Container&&s[r].each(t,n);return this},removeElement:function(e){return this.children().splice(this.index(e),1),this.node.removeChild(e.node),e.parent=null,this},clear:function(){for(var e=this.children().length-1;e>=0;e--)this.removeElement(this.children()[e]);return this._defs&&this._defs.clear(),this},defs:function(){return this.doc().defs()}}}),e.Container=e.invent({create:function(e){this.constructor.call(this,e)},inherit:e.Parent,extend:{viewbox:function(t){return arguments.length==0?new e.ViewBox(this):(t=arguments.length==1?[t.x,t.y,t.width,t.height]:[].slice.call(arguments),this.attr("viewBox",t))}}}),e.FX=e.invent({create:function(e){this.target=e},extend:{animate:function(t,n,r){var i,s,o,a,f=this.target,l=this;return typeof t=="object"&&(r=t.delay,n=t.ease,t=t.duration),t=t=="="?t:t==null?1e3:(new e.Number(t)).valueOf(),n=n||"<>",l.to=function(e){var t;e=e<0?0:e>1?1:e;if(i==null){i=[];for(a in l.attrs)i.push(a);if(f.morphArray&&(l._plot||i.indexOf("points")>-1)){var r,c=new f.morphArray(l._plot||l.attrs.points||f.array);l._size&&c.size(l._size.width.to,l._size.height.to),r=c.bbox(),l._x?c.move(l._x.to,r.y):l._cx&&c.move(l._cx.to-r.width/2,r.y),r=c.bbox(),l._y?c.move(r.x,l._y.to):l._cy&&c.move(r.x,l._cy.to-r.height/2),delete l._x,delete l._y,delete l._cx,delete l._cy,delete l._size,l._plot=f.array.morph(c)}}if(s==null){s=[];for(a in l.trans)s.push(a)}if(o==null){o=[];for(a in l.styles)o.push(a)}e=n=="<>"?-Math.cos(e*Math.PI)/2+.5:n==">"?Math.sin(e*Math.PI/2):n=="<"?-Math.cos(e*Math.PI/2)+1:n=="-"?e:typeof n=="function"?n(e):e,l._plot?f.plot(l._plot.at(e)):(l._x?f.x(l._x.at(e)):l._cx&&f.cx(l._cx.at(e)),l._y?f.y(l._y.at(e)):l._cy&&f.cy(l._cy.at(e)),l._size&&f.size(l._size.width.at(e),l._size.height.at(e))),l._viewbox&&f.viewbox(l._viewbox.x.at(e),l._viewbox.y.at(e),l._viewbox.width.at(e),l._viewbox.height.at(e)),l._leading&&f.leading(l._leading.at(e));for(t=i.length-1;t>=0;t--)f.attr(i[t],u(l.attrs[i[t]],e));for(t=s.length-1;t>=0;t--)f.transform(s[t],u(l.trans[s[t]],e));for(t=o.length-1;t>=0;t--)f.style(o[t],u(l.styles[o[t]],e));l._during&&l._during.call(f,e,function(t,n){return u({from:t,to:n},e)})},typeof t=="number"&&(this.timeout=setTimeout(function(){var i=(new Date).getTime();l.situation={interval:1e3/60,start:i,play:!0,finish:i+t,duration:t},l.render=function(){if(l.situation.play===!0){var i=(new Date).getTime(),s=i>l.situation.finish?1:(i-l.situation.start)/t;l.to(s),i>l.situation.finish?(l._plot&&f.plot((new e.PointArray(l._plot.destination)).settle()),l._loop===!0||typeof l._loop=="number"&&l._loop>1?(typeof l._loop=="number"&&--l._loop,l.animate(t,n,r)):l._after?l._after.apply(f,[l]):l.stop()):requestAnimFrame(l.render)}else requestAnimFrame(l.render)},l.render()},(new e.Number(r)).valueOf())),this},bbox:function(){return this.target.bbox()},attr:function(t,n){if(typeof t=="object")for(var r in t)this.attr(r,t[r]);else{var i=this.target.attr(t);this.attrs[t]=e.Color.isColor(i)?(new e.Color(i)).morph(n):e.regex.unit.test(i)?(new e.Number(i)).morph(n):{from:i,to:n}}return this},transform:function(e,t){if(arguments.length==1){e=l(e),delete e.matrix;for(t in e)this.trans[t]={from:this.target.trans[t],to:e[t]}}else{var n={};n[e]=t,this.transform(n)}return this},style:function(e,t){if(typeof e=="object")for(var n in e)this.style(n,e[n]);else this.styles[e]={from:this.target.style(e),to:t};return this},x:function(t){return this._x=(new e.Number(this.target.x())).morph(t),this},y:function(t){return this._y=(new e.Number(this.target.y())).morph(t),this},cx:function(t){return this._cx=(new e.Number(this.target.cx())).morph(t),this},cy:function(t){return this._cy=(new e.Number(this.target.cy())).morph(t),this},move:function(e,t){return this.x(e).y(t)},center:function(e,t){return this.cx(e).cy(t)},size:function(t,n){if(this.target instanceof e.Text)this.attr("font-size",t);else{var r=this.target.bbox();this._size={width:(new e.Number(r.width)).morph(t),height:(new e.Number(r.height)).morph(n)}}return this},plot:function(e){return this._plot=e,this},leading:function(t){return this.target._leading&&(this._leading=(new e.Number(this.target._leading)).morph(t)),this},viewbox:function(t,n,r,i){if(this.target instanceof e.Container){var s=this.target.viewbox();this._viewbox={x:(new e.Number(s.x)).morph(t),y:(new e.Number(s.y)).morph(n),width:(new e.Number(s.width)).morph(r),height:(new e.Number(s.height)).morph(i)}}return this},update:function(t){return this.target instanceof e.Stop&&(t.opacity!=null&&this.attr("stop-opacity",t.opacity),t.color!=null&&this.attr("stop-color",t.color),t.offset!=null&&this.attr("offset",new e.Number(t.offset))),this},during:function(e){return this._during=e,this},after:function(e){return this._after=e,this},loop:function(e){return this._loop=e||!0,this},stop:function(e){return e===!0?(this.animate(0),this._after&&this._after.apply(this.target,[this])):(clearTimeout(this.timeout),this.attrs={},this.trans={},this.styles={},this.situation={},delete this._x,delete this._y,delete this._cx,delete this._cy,delete this._size,delete this._plot,delete this._loop,delete this._after,delete this._during,delete this._leading,delete this._viewbox),this},pause:function(){return this.situation.play===!0&&(this.situation.play=!1,this.situation.pause=(new Date).getTime()),this},play:function(){if(this.situation.play===!1){var e=(new Date).getTime()-this.situation.pause;this.situation.finish+=e,this.situation.start+=e,this.situation.play=!0}return this}},parent:e.Element,construct:{animate:function(t,n,r){return(this.fx||(this.fx=new e.FX(this))).stop().animate(t,n,r)},stop:function(e){return this.fx&&this.fx.stop(e),this},pause:function(){return this.fx&&this.fx.pause(),this},play:function(){return this.fx&&this.fx.play(),this}}}),e.extend(e.Element,e.FX,{dx:function(e){return this.x((this.target||this).x()+e)},dy:function(e){return this.y((this.target||this).y()+e)},dmove:function(e,t){return this.dx(e).dy(t)}}),["click","dblclick","mousedown","mouseup","mouseover","mouseout","mousemove","touchstart","touchmove","touchleave","touchend","touchcancel"].forEach(function(t){e.Element.prototype[t]=function(e){var n=this;return this.node["on"+t]=typeof e=="function"?function(){return e.apply(n,arguments)}:null,this}}),e.events={},e.listeners={},e.registerEvent=function(n){e.events[n]||(e.events[n]=new t(n))},e.on=function(t,n,r){var i=r.bind(t.instance||t);e.listeners[t]=e.listeners[t]||{},e.listeners[t][n]=e.listeners[t][n]||{},e.listeners[t][n][r]=i,t.addEventListener(n,i,!1)},e.off=function(t,n,r){if(r)e.listeners[t]&&e.listeners[t][n]&&(t.removeEventListener(n,e.listeners[t][n][r],!1),delete e.listeners[t][n][r]);else if(n){if(e.listeners[t][n]){for(r in e.listeners[t][n])e.off(t,n,r);delete e.listeners[t][n]}}else if(e.listeners[t]){for(n in e.listeners[t])e.off(t,n);delete e.listeners[t]}},e.extend(e.Element,{on:function(t,n){return e.on(this.node,t,n),this},off:function(t,n){return e.off(this.node,t,n),this},fire:function(t,n){return e.events[t].detail=n,this.node.dispatchEvent(e.events[t]),delete e.events[t].detail,this}}),e.Defs=e.invent({create:"defs",inherit:e.Container}),e.G=e.invent({create:"g",inherit:e.Container,extend:{x:function(e){return e==null?this.trans.x:this.transform("x",e)},y:function(e){return e==null?this.trans.y:this.transform("y",e)},cx:function(e){return e==null?this.bbox().cx:this.x(e-this.bbox().width/2)},cy:function(e){return e==null?this.bbox().cy:this.y(e-this.bbox().height/2)}},construct:{group:function(){return this.put(new e.G)}}}),e.extend(e.Element,{siblings:function(){return this.parent.children()},position:function(){return this.parent.index(this)},next:function(){return this.siblings()[this.position()+1]},previous:function(){return this.siblings()[this.position()-1]},forward:function(){var e=this.position();return this.parent.removeElement(this).put(this,e+1)},backward:function(){var e=this.position();return e>0&&this.parent.removeElement(this).add(this,e-1),this},front:function(){return this.parent.removeElement(this).put(this)},back:function(){return this.position()>0&&this.parent.removeElement(this).add(this,0),this},before:function(e){e.remove();var t=this.position();return this.parent.add(e,t),this},after:function(e){e.remove();var t=this.position();return this.parent.add(e,t+1),this}}),e.Mask=e.invent({create:function(){this.constructor.call(this,e.create("mask")),this.targets=[]},inherit:e.Container,extend:{remove:function(){for(var e=this.targets.length-1;e>=0;e--)this.targets[e]&&this.targets[e].unmask();return delete this.targets,this.parent.removeElement(this),this}},construct:{mask:function(){return this.defs().put(new e.Mask)}}}),e.extend(e.Element,{maskWith:function(t){return this.masker=t instanceof e.Mask?t:this.parent.mask().add(t),this.masker.targets.push(this),this.attr("mask",'url("#'+this.masker.attr("id")+'")')},unmask:function(){return delete this.masker,this.attr("mask",null)}}),e.Clip=e.invent({create:function(){this.constructor.call(this,e.create("clipPath")),this.targets=[]},inherit:e.Container,extend:{remove:function(){for(var e=this.targets.length-1;e>=0;e--)this.targets[e]&&this.targets[e].unclip();return delete this.targets,this.parent.removeElement(this),this}},construct:{clip:function(){return this.defs().put(new e.Clip)}}}),e.extend(e.Element,{clipWith:function(t){return this.clipper=t instanceof e.Clip?t:this.parent.clip().add(t),this.clipper.targets.push(this),this.attr("clip-path",'url("#'+this.clipper.attr("id")+'")')},unclip:function(){return delete this.clipper,this.attr("clip-path",null)}}),e.Gradient=e.invent({create:function(t){this.constructor.call(this,e.create(t+"Gradient")),this.type=t},inherit:e.Container,extend:{from:function(t,n){return this.type=="radial"?this.attr({fx:new e.Number(t),fy:new e.Number(n)}):this.attr({x1:new e.Number(t),y1:new e.Number(n)})},to:function(t,n){return this.type=="radial"?this.attr({cx:new e.Number(t),cy:new e.Number(n)}):this.attr({x2:new e.Number(t),y2:new e.Number(n)})},radius:function(t){return this.type=="radial"?this.attr({r:new e.Number(t)}):this},at:function(t,n,r){return this.put(new e.Stop).update(t,n,r)},update:function(e){return this.clear(),typeof e=="function"&&e.call(this,this),this},fill:function(){return"url(#"+this.id()+")"},toString:function(){return this.fill()}},construct:{gradient:function(e,t){return this.defs().gradient(e,t)}}}),e.extend(e.Defs,{gradient:function(t,n){return this.put(new e.Gradient(t)).update(n)}}),e.Stop=e.invent({create:"stop",inherit:e.Element,extend:{update:function(t){if(typeof t=="number"||t instanceof e.Number)t={offset:arguments[0],color:arguments[1],opacity:arguments[2]};return t.opacity!=null&&this.attr("stop-opacity",t.opacity),t.color!=null&&this.attr("stop-color",t.color),t.offset!=null&&this.attr("offset",new e.Number(t.offset)),this}}}),e.Pattern=e.invent({create:"pattern",inherit:e.Container,extend:{fill:function(){return"url(#"+this.id()+")"},update:function(e){return this.clear(),typeof e=="function"&&e.call(this,this),this},toString:function(){return this.fill()}},construct:{pattern:function(e,t,n){return this.defs().pattern(e,t,n)}}}),e.extend(e.Defs,{pattern:function(t,n,r){return this.put(new e.Pattern).update(r).attr({x:0,y:0,width:t,height:n,patternUnits:"userSpaceOnUse"})}}),e.Doc=e.invent({create:function(t){this.parent=typeof t=="string"?document.getElementById(t):t,this.constructor.call(this,this.parent.nodeName=="svg"?this.parent:e.create("svg")),this.attr({xmlns:e.ns,version:"1.1",width:"100%",height:"100%"}).attr("xmlns:xlink",e.xlink,e.xmlns),this._defs=new e.Defs,this._defs.parent=this,this.node.appendChild(this._defs.node),this.doSpof=!1,this.parent!=this.node&&this.stage()},inherit:e.Container,extend:{stage:function(){var t=this;return this.parent.appendChild(this.node),t.spof(),e.on(window,"resize",function(){t.spof()}),this},defs:function(){return this._defs},spof:function(){if(this.doSpof){var e=this.node.getScreenCTM();e&&this.style("left",-e.e%1+"px").style("top",-e.f%1+"px")}return this},fixSubPixelOffset:function(){return this.doSpof=!0,this}}}),e.Shape=e.invent({create:function(e){this.constructor.call(this,e)},inherit:e.Element}),e.Symbol=e.invent({create:"symbol",inherit:e.Container,construct:{symbol:function(){return this.defs().put(new e.Symbol)}}}),e.Use=e.invent({create:"use",inherit:e.Shape,extend:{element:function(t){return this.target=t,this.attr("href","#"+t,e.xlink)}},construct:{use:function(t){return this.put(new e.Use).element(t)}}}),e.Rect=e.invent({create:"rect",inherit:e.Shape,construct:{rect:function(t,n){return this.put((new e.Rect).size(t,n))}}}),e.Ellipse=e.invent({create:"ellipse",inherit:e.Shape,extend:{x:function(e){return e==null?this.cx()-this.attr("rx"):this.cx(e+this.attr("rx"))},y:function(e){return e==

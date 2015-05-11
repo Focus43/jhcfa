@@ -32,7 +32,8 @@ $brand-primary:                 $theme-primary-color;
 $brand-success:                 $theme-primary-color;
 $brand-info:                    lighten($theme-primary-color, 12.5%);
 
-$link-hover-color:              lighten($theme-primary-color, 12.5%);
+$link-color:                    darken($theme-primary-color, 8%);
+$link-hover-color:              lighten($theme-primary-color, 8%);
 
 $text-color:                    $theme-dark-color;
 $font-family-base:              $theme-font-family;

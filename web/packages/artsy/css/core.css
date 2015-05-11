@@ -65,10 +65,10 @@ textarea {
   line-height: inherit; }
 
 a {
-  color: #6DB844;
+  color: #5b9a39;
   text-decoration: none; }
   a:hover, a:focus {
-    color: #91cb71;
+    color: #84c460;
     text-decoration: underline; }
   a:focus {
     outline: thin dotted;
@@ -1414,7 +1414,7 @@ address {
     background-color: #fff; }
 
 .btn-link {
-  color: #6DB844;
+  color: #5b9a39;
   font-weight: normal;
   cursor: pointer;
   border-radius: 0; }
@@ -1425,7 +1425,7 @@ address {
   .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
     border-color: transparent; }
   .btn-link:hover, .btn-link:focus {
-    color: #91cb71;
+    color: #84c460;
     text-decoration: underline;
     background-color: transparent; }
   .btn-link[disabled]:hover, .btn-link[disabled]:focus, fieldset[disabled] .btn-link:hover, fieldset[disabled] .btn-link:focus {
