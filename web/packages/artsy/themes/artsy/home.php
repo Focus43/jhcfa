@@ -19,16 +19,7 @@
         <section class="sxn-1">
             <div class="tabular">
                 <div class="cellular">
-                    <svg hub-spoke></svg>
-
-<!--                    <div class="intro-text">-->
-<!--                        <div class="tagline">-->
-<!--                            <span class="top">We are a</span>-->
-<!--                            <span class="mid">Hub</span>-->
-<!--                            <span class="bot">for the artistic, cultural and <br/>creative activity in jackson hole</span>-->
-<!--                        </div>-->
-<!--                        <b><i class="icon-angle-down"></i></b>-->
-<!--                    </div>-->
+                    <svg svgize></svg>
                 </div>
             </div>
         </section>

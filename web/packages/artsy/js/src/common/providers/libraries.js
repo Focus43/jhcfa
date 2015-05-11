@@ -70,4 +70,18 @@ angular.module('artsy.common').
                 return $window['d3'] || ($log.warn('D3-JS unavailable!'), false);
             }
         ];
+    }).
+
+    /**
+     * @description svg.js provider
+     * @param $window
+     * @param $log
+     * @returns D3 | false
+     */
+    provider('SVG', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
+            }
+        ];
     });
