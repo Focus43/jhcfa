@@ -19,6 +19,15 @@
         <section class="sxn-1">
             <div class="tabular">
                 <div class="cellular">
+                    <div id="test" class="hubspoke-nodes">
+                        <ul hub-spoke>
+                            <!--<a href="">Base Node</a>-->
+                            <li><a href="">Art</a></li>
+                            <li><a href="">Culture</a></li>
+                            <li><a href="">Education</a></li>
+                        </ul>
+                    </div>
+
                     <?php //$a = new Area('Main'); $a->display($c); ?>
                     <div class="intro-text">
                         <div class="tagline">

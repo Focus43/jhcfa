@@ -40,6 +40,13 @@
   }
 }
 
+//[hub-spoke]{position:absolute;top:0;right:0;bottom:0;left:0;}
+.hubspoke-nodes{z-index:1;position:absolute;top:0;right:0;height:100%;width:100%;display:block;
+  svg { width:100%;height:100%;
+    .node-circle, .node-label { cursor: pointer; }
+  }
+}
+
 @media screen and (min-width:$screen-sm){
   .pg-home #c-level-1 {
     .intro-text {font-size:100%;//display:block;font-size:100%;max-width:600px;

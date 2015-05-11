@@ -892,6 +892,20 @@ footer {
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%); }
 
+.hubspoke-nodes {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: block; }
+  .hubspoke-nodes svg {
+    width: 100%;
+    height: 100%; }
+    .hubspoke-nodes svg .node-circle, .hubspoke-nodes svg .node-label {
+      cursor: pointer; }
+
 @media screen and (min-width: 768px) {
   .pg-home #c-level-1 .intro-text {
     font-size: 100%; }

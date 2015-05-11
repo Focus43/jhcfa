@@ -36,13 +36,13 @@ angular.module('artsy.common').
      * @param $log
      * @returns Isotope | false
      */
-    provider('Isotope', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Isotope'] || ($log.warn('Isotope unavailable!'), false);
-            }
-        ];
-    }).
+    //provider('Isotope', function(){
+    //    this.$get = ['$window', '$log',
+    //        function( $window, $log ){
+    //            return $window['Isotope'] || ($log.warn('Isotope unavailable!'), false);
+    //        }
+    //    ];
+    //}).
 
     /**
      * @description FastClick provider
@@ -54,6 +54,20 @@ angular.module('artsy.common').
         this.$get = ['$window', '$log',
             function( $window, $log ){
                 return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description D3 provider
+     * @param $window
+     * @param $log
+     * @returns D3 | false
+     */
+    provider('d3', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['d3'] || ($log.warn('D3-JS unavailable!'), false);
             }
         ];
     });
