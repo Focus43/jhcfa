@@ -131,7 +131,7 @@ video.fullscreen {
 
 @media screen and (min-width: 768px) {
   #c-level-1 main {
-    padding-left: 180px;
+    padding-left: 220px;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch; } }
@@ -298,7 +298,7 @@ video.fullscreen {
   transform: translateX(0); }
   #c-level-1 nav a {
     color: #fff; }
-    #c-level-1 nav a:hover {
+    #c-level-1 nav a:hover, #c-level-1 nav a:focus, #c-level-1 nav a:active {
       text-decoration: none; }
     #c-level-1 nav a[trigger] {
       margin: 0.75rem;
@@ -322,6 +322,8 @@ video.fullscreen {
       height: 100%;
       display: table-cell;
       vertical-align: middle; }
+      #c-level-1 nav .level-1 ul li {
+        border-top: 1px solid #64a93e; }
     #c-level-1 nav .level-1 a[box-office], #c-level-1 nav .level-1 a[contact] {
       line-height: 1;
       font-size: 70%;
@@ -367,10 +369,12 @@ body.nav-open #c-level-1 main {
 
 @media screen and (min-width: 768px) {
   #c-level-1 nav {
-    width: 180px;
+    width: 220px;
     font-size: 135%;
     right: auto;
-    left: 0; }
+    left: 0;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35); }
     #c-level-1 nav a[trigger] {
       display: none; }
     #c-level-1 nav .level-1 {
@@ -386,7 +390,7 @@ body.nav-open #c-level-1 main {
         width: 100%;
         height: 100%;
         display: table-cell;
-        vertical-align: middle; }
+        vertical-align: top; }
         #c-level-1 nav .level-1 ul li {
           display: block;
           position: relative; }
@@ -424,26 +428,36 @@ body.nav-open #c-level-1 main {
           #c-level-1 nav .level-1 ul li.nav-home {
             display: none; }
       #c-level-1 nav .level-1 .sub {
+        display: block;
         width: auto;
         white-space: nowrap;
-        display: none;
+        visibility: hidden;
+        opacity: 0;
         left: 100%;
-        top: -1rem;
+        top: 0;
+        margin-left: 1px;
         position: absolute;
-        height: auto; }
+        height: auto;
+        z-index: -1;
+        -webkit-transition: all 0.15s ease;
+        -o-transition: all 0.15s ease;
+        transition: all 0.15s ease; }
         #c-level-1 nav .level-1 .sub li {
-          border-bottom: 1px dotted #fff; }
+          border-top: 1px dotted #fff; }
           #c-level-1 nav .level-1 .sub li::before {
             display: none; }
           #c-level-1 nav .level-1 .sub li:hover {
             background: none; }
       #c-level-1 nav .level-1 .majority li:hover .sub {
-        display: block; }
+        top: -1rem;
+        visibility: visible;
+        opacity: 1;
+        z-index: 1; }
     #c-level-1 nav ul.sub {
       background: rgba(0, 0, 0, 0.75);
       padding: 1rem; }
-      #c-level-1 nav ul.sub li:last-of-type {
-        border-bottom: 0; } }
+      #c-level-1 nav ul.sub li:first-of-type {
+        border-top: 0; } }
 header {
   position: relative;
   padding: 9rem 0;

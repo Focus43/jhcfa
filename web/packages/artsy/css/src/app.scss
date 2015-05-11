@@ -56,7 +56,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 
 @media screen and (min-width:$screen-sm){
   #c-level-1 {
-    main {padding-left:180px;@include scrollOverflow;}
+    main {padding-left:$nav-sidebar-width;@include scrollOverflow;}
   }
 }
 
