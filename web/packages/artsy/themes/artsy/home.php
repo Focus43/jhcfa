@@ -53,29 +53,8 @@
                                     $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN_2);
                                     $a->display($c);
                                 ?>
-                                <!--<h1>The Center is home to over 20 <a href="">residents</a>, providing a wide array of expertise in different artistic endeavors.</h1>-->
                             </div>
                         </div>
-                        <!--<div class="row">
-                            <div class="col-sm-4">
-                                <a class="feature">
-                                    <div class="circ" style="background-image:url('/packages/artsy/images/_scratch/hoot2.jpg');"></div>
-                                    <span>Events</span>
-                                </a>
-                            </div>
-                            <div class="col-sm-4">
-                                <a class="feature">
-                                    <div class="circ" style="background-image:url('/packages/artsy/images/_scratch/hornsby.jpg');"></div>
-                                    <span>Classes</span>
-                                </a>
-                            </div>
-                            <div class="col-sm-4">
-                                <a class="feature">
-                                    <div class="circ" style="background-image:url('/packages/artsy/images/_scratch/emmylou.jpg');"></div>
-                                    <span>Exhibits</span>
-                                </a>
-                            </div>
-                        </div>-->
                     </div>
                 </div>
             </div>

@@ -50,6 +50,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   }
 
   .btn-transparent {@include button-variant(#fff, rgba(255,255,255,0.1), #fff);}
+  .btn-dark {@include button-variant(lighten($theme-dark-color, 40%), lighten($theme-dark-color, 10%), $theme-dark-color);}
 }
 
 @media screen and (min-width:$screen-sm){

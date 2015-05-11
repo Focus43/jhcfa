@@ -12,10 +12,10 @@
         ?>
 
         <div class="bottom">
-            <a class="btn btn-block btn-lg btn-donate">Donate</a>
+            <a class="btn btn-block btn-lg btn-primary">Donate</a>
             <div class="btn-group btn-group-justified">
-                <a class="btn btn-primary" href="/box-office">Box Office</a>
-                <a class="btn btn-primary" href="/contact">Contact</a>
+                <a class="btn btn-dark" href="/box-office">Box Office</a>
+                <a class="btn btn-dark" href="/contact">Contact</a>
             </div>
         </div>
     </div>

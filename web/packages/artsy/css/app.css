@@ -165,6 +165,22 @@ video.fullscreen {
     #c-level-1 .btn-transparent .badge {
       color: rgba(255, 255, 255, 0.1);
       background-color: #fff; }
+  #c-level-1 .btn-dark {
+    color: #666666;
+    background-color: #1a1a1a;
+    border-color: #000000; }
+    #c-level-1 .btn-dark:hover, #c-level-1 .btn-dark:focus, #c-level-1 .btn-dark:active, #c-level-1 .btn-dark.active, .open > #c-level-1 .btn-dark.dropdown-toggle {
+      color: #666666;
+      background-color: black;
+      border-color: black; }
+    #c-level-1 .btn-dark:active, #c-level-1 .btn-dark.active, .open > #c-level-1 .btn-dark.dropdown-toggle {
+      background-image: none; }
+    #c-level-1 .btn-dark.disabled, #c-level-1 .btn-dark.disabled:hover, #c-level-1 .btn-dark.disabled:focus, #c-level-1 .btn-dark.disabled:active, #c-level-1 .btn-dark.disabled.active, #c-level-1 .btn-dark[disabled], #c-level-1 .btn-dark[disabled]:hover, #c-level-1 .btn-dark[disabled]:focus, #c-level-1 .btn-dark[disabled]:active, #c-level-1 .btn-dark[disabled].active, fieldset[disabled] #c-level-1 .btn-dark, fieldset[disabled] #c-level-1 .btn-dark:hover, fieldset[disabled] #c-level-1 .btn-dark:focus, fieldset[disabled] #c-level-1 .btn-dark:active, fieldset[disabled] #c-level-1 .btn-dark.active {
+      background-color: #1a1a1a;
+      border-color: #000000; }
+    #c-level-1 .btn-dark .badge {
+      color: #1a1a1a;
+      background-color: #666666; }
 
 @media screen and (min-width: 768px) {
   #c-level-1 main {
@@ -464,8 +480,6 @@ body.nav-open #c-level-1 main {
             -webkit-transition: all 0.25s ease;
             -o-transition: all 0.25s ease;
             transition: all 0.25s ease; }
-          #c-level-1 nav .level-1 ul li.nav-home {
-            display: none; }
           #c-level-1 nav .level-1 ul li:hover, #c-level-1 nav .level-1 ul li.active, #c-level-1 nav .level-1 ul li.nav-selected, #c-level-1 nav .level-1 ul li.nav-path-selected {
             background: #5b9a39; }
             #c-level-1 nav .level-1 ul li:hover::before, #c-level-1 nav .level-1 ul li.active::before, #c-level-1 nav .level-1 ul li.nav-selected::before, #c-level-1 nav .level-1 ul li.nav-path-selected::before {
@@ -513,28 +527,8 @@ body.nav-open #c-level-1 main {
     border-top: 1px solid #1f1f1f; }
     #c-level-1 nav .level-1 ul li::before {
       background: #416e28; }
-  #c-level-1 nav .level-1 .bottom .btn-donate {
-    color: #e7e7e7;
-    background-color: #1f1f1f;
-    border-color: #000000;
+  #c-level-1 nav .level-1 .bottom .btn {
     border: 0; }
-    #c-level-1 nav .level-1 .bottom .btn-donate:hover, #c-level-1 nav .level-1 .bottom .btn-donate:focus, #c-level-1 nav .level-1 .bottom .btn-donate:active, #c-level-1 nav .level-1 .bottom .btn-donate.active, .open > #c-level-1 nav .level-1 .bottom .btn-donate.dropdown-toggle {
-      color: #e7e7e7;
-      background-color: #050505;
-      border-color: black; }
-    #c-level-1 nav .level-1 .bottom .btn-donate:active, #c-level-1 nav .level-1 .bottom .btn-donate.active, .open > #c-level-1 nav .level-1 .bottom .btn-donate.dropdown-toggle {
-      background-image: none; }
-    #c-level-1 nav .level-1 .bottom .btn-donate.disabled, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:hover, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:focus, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:active, #c-level-1 nav .level-1 .bottom .btn-donate.disabled.active, #c-level-1 nav .level-1 .bottom .btn-donate[disabled], #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:hover, #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:focus, #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:active, #c-level-1 nav .level-1 .bottom .btn-donate[disabled].active, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:hover, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:focus, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:active, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate.active {
-      background-color: #1f1f1f;
-      border-color: #000000; }
-    #c-level-1 nav .level-1 .bottom .btn-donate .badge {
-      color: #1f1f1f;
-      background-color: #e7e7e7; }
-  #c-level-1 nav .level-1 .bottom .btn-primary {
-    background: #333333;
-    border: 0; }
-    #c-level-1 nav .level-1 .bottom .btn-primary:hover {
-      background: #404040; }
   #c-level-1 nav .sub {
     background: rgba(20, 20, 20, 0.9); }
 
@@ -626,7 +620,7 @@ footer {
   color: #000;
   position: relative;
   margin-top: 3rem;
-  padding: 2rem 3rem 15% 3rem;
+  padding: 2rem 2rem 15% 2rem;
   background: transparent; }
   footer a:hover {
     text-decoration: none; }
@@ -645,7 +639,7 @@ footer {
   footer .inner {
     position: relative;
     z-index: 2; }
-  footer .col-inner {
+  footer .inner-content {
     border-top: 3px solid #6DB844;
     padding: 1rem 0 0; }
   footer h3 {
@@ -667,6 +661,10 @@ footer {
     width: 100%;
     padding: 1rem;
     z-index: 1; }
+
+#c-level-1 footer [class*="col-"] {
+  padding-left: 15px;
+  padding-right: 15px; }
 
 .pg-home footer {
   background: rgba(35, 25, 32, 0.5);
