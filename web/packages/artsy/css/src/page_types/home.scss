@@ -33,13 +33,13 @@ body.pg-home {background:url('#{$image-path}/video_screenshot.jpg') no-repeat 50
   header {display:none;}
 }
 
-svg[svgize]{position:absolute;top:0;right:0;height:100%;width:100%;
+svg[svgize]{position:absolute;top:0;right:0;height:100%;width:100%;font-family:$theme-font-family;
   // g.tag-line contains text elements
   .tag-line {text-transform:uppercase;
-    text {text-anchor:start;}
+    text {text-anchor:start;letter-spacing:-2px;}
     tspan{font-size:180%;opacity:0;@include animation(tag-line-text 0.5s linear forwards 1.2s);}
     tspan:nth-child(1){font-size:270%;}
-    tspan:nth-child(2){font-size:940%;}
+    tspan:nth-child(2){font-size:1000%;letter-spacing:-8px;font-family:$theme-font-family-bold;}
     ellipse {opacity:0;@include transform(translateX(-50px));@include animation(tag-line-ellipse 0.45s linear forwards 0.95s);}
   }
   // animate spoke line

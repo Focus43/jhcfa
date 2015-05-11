@@ -11,7 +11,12 @@
             $blockTypeNav->render('templates/sidebar_nav');
         ?>
 
-        <a box-office href="/box-office">Box Office</a>
-        <a contact href="/contact">Contact</a>
+        <div class="bottom">
+            <a class="btn btn-block btn-lg btn-donate">Donate</a>
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-primary" href="/box-office">Box Office</a>
+                <a class="btn btn-primary" href="/contact">Contact</a>
+            </div>
+        </div>
     </div>
 </nav>

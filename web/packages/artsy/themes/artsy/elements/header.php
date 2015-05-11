@@ -1,5 +1,5 @@
 <header<?php if(!empty($mastheadImageSrc)){echo ' style="background-image:url('.$mastheadImageSrc.');"';} ?>>
-    <a class="logo">
+    <a class="logo" href="/">
         <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
     </a>
 

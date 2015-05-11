@@ -58,19 +58,19 @@ angular.module('artsy.common').
         ];
     }).
 
-    /**
-     * @description D3 provider
-     * @param $window
-     * @param $log
-     * @returns D3 | false
-     */
-    provider('d3', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['d3'] || ($log.warn('D3-JS unavailable!'), false);
-            }
-        ];
-    }).
+    ///**
+    // * @description D3 provider
+    // * @param $window
+    // * @param $log
+    // * @returns D3 | false
+    // */
+    //provider('d3', function(){
+    //    this.$get = ['$window', '$log',
+    //        function( $window, $log ){
+    //            return $window['d3'] || ($log.warn('D3-JS unavailable!'), false);
+    //        }
+    //    ];
+    //}).
 
     /**
      * @description svg.js provider

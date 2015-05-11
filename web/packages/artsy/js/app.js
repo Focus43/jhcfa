@@ -305,13 +305,13 @@ angular.module('artsy.common').
                 tagLineCircle = tagLineGroup.circle(circleDiameter),
                 tagLineText   = tagLineGroup.text(function(add){
                     add.tspan('we are a').fill('#fff').attr({dy:0,x:0});
-                    add.tspan('hub').fill('#fff').attr({dy:145,x:-7});
+                    add.tspan('hub').fill('#fff').attr({dy:130,x:-7});
                     add.tspan('for the artistic, cultural and').fill('#fff').attr({dy:40,x:0});
                     add.tspan('creative activity in jackson hole').fill('#fff').attr({dy:35,x:0});
                 }).attr({'font-family':'inherit'});
 
             tagLineGroup.transform({x:centerX, y:centerY});
-            tagLineText.transform({x:-100,y:-90});
+            tagLineText.transform({x:-120,y:-90});
             tagLineCircle.attr({cx:0, cy:0}).fill('rgba(208,7,121,0.7)');
 
             var logoEllipse     = logoGroup.node.querySelector('ellipse'),
@@ -425,19 +425,19 @@ angular.module('artsy.common').
         ];
     }).
 
-    /**
-     * @description D3 provider
-     * @param $window
-     * @param $log
-     * @returns D3 | false
-     */
-    provider('d3', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['d3'] || ($log.warn('D3-JS unavailable!'), false);
-            }
-        ];
-    }).
+    ///**
+    // * @description D3 provider
+    // * @param $window
+    // * @param $log
+    // * @returns D3 | false
+    // */
+    //provider('d3', function(){
+    //    this.$get = ['$window', '$log',
+    //        function( $window, $log ){
+    //            return $window['d3'] || ($log.warn('D3-JS unavailable!'), false);
+    //        }
+    //    ];
+    //}).
 
     /**
      * @description svg.js provider

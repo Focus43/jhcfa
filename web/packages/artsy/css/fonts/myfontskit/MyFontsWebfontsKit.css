@@ -1,0 +1,35 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 2966950, 2015-02-05T17:35:08-0500
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: TradeGothicLT-Light by Linotype
+ * URL: http://www.myfonts.com/fonts/linotype/trade-gothic/light-63882/
+ * Licensed pageviews: 250,000
+ * 
+ * Webfont: TradeGothicLT-Bold by Linotype
+ * URL: http://www.myfonts.com/fonts/linotype/trade-gothic/bold-63882/
+ * Licensed pageviews: 500,000
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2966950
+ * Webfonts copyright: Part of the digitally encoded machine readable outline data for producing the Typefaces provided is copyrighted (c) 1989, 1992, 2003 Linotype Library GmbH, www.linotype.com. All rights reserved. This software is the property of Linotype Library GmbH, and 
+ * 
+ * © 2015 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/2d45a6");
+
+  
+@font-face {font-family: 'TradeGothicLT-Light';src: url('webfonts/2D45A6_0_0.eot');src: url('webfonts/2D45A6_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2D45A6_0_0.woff2') format('woff2'),url('webfonts/2D45A6_0_0.woff') format('woff'),url('webfonts/2D45A6_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'TradeGothicLT-Bold';src: url('webfonts/2D45A6_1_0.eot');src: url('webfonts/2D45A6_1_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2D45A6_1_0.woff2') format('woff2'),url('webfonts/2D45A6_1_0.woff') format('woff'),url('webfonts/2D45A6_1_0.ttf') format('truetype');}
+ 
