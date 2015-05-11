@@ -48,7 +48,12 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h1>The Center is home to over 20 <a href="">residents</a>, providing a wide array of expertise in different artistic endeavors.</h1>
+                                <?php
+                                    /** @var $a \Concrete\Core\Area\Area */
+                                    $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN_2);
+                                    $a->display($c);
+                                ?>
+                                <!--<h1>The Center is home to over 20 <a href="">residents</a>, providing a wide array of expertise in different artistic endeavors.</h1>-->
                             </div>
                         </div>
                         <!--<div class="row">

@@ -61,15 +61,15 @@ angular.module('artsy.common').
             });
 
             // "click down" arrow hint
-            draw.circle(50).attr({cx:centerX,cy:lineY2 + 29});
-            draw.line(centerX, lineY2 + 37, centerX - 15, lineY2 + 21).stroke({
-                width:2,
-                color:'#fff'
-            });
-            draw.line(centerX, lineY2 + 37, centerX + 15, lineY2 + 21).stroke({
-                width:2,
-                color:'#fff'
-            });
+            //draw.circle(50).attr({cx:centerX,cy:lineY2 + 29});
+            //draw.line(centerX, lineY2 + 37, centerX - 15, lineY2 + 21).stroke({
+            //    width:2,
+            //    color:'#fff'
+            //});
+            //draw.line(centerX, lineY2 + 37, centerX + 15, lineY2 + 21).stroke({
+            //    width:2,
+            //    color:'#fff'
+            //});
 
             // scroll navs
             var scrollNavGroup = draw.group().attr('class', 'scroll-navs');

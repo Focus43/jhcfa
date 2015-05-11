@@ -13,6 +13,7 @@
             <a class="isotope-node" href="<?php echo 'test'; ?>">
                 <span class="tabular">
                     <span class="cellular">
+                        <!-- @todo: remove abs url! -->
                         <img src="<?php echo 'http://jhcenterforthearts.gopagoda.io/' . $fileObj->getRelativePath(); ?>" />
                     </span>
                 </span>
