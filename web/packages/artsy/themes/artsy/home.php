@@ -19,24 +19,16 @@
         <section class="sxn-1">
             <div class="tabular">
                 <div class="cellular">
-                    <div id="test" class="hubspoke-nodes">
-                        <ul hub-spoke>
-                            <!--<a href="">Base Node</a>-->
-                            <li><a href="">Art</a></li>
-                            <li><a href="">Culture</a></li>
-                            <li><a href="">Education</a></li>
-                        </ul>
-                    </div>
+                    <svg hub-spoke></svg>
 
-                    <?php //$a = new Area('Main'); $a->display($c); ?>
-                    <div class="intro-text">
-                        <div class="tagline">
-                            <span class="top">We are a</span>
-                            <span class="mid">Hub</span>
-                            <span class="bot">for the artistic,<br/>cultural and <br/>creative activity <br/>in jackson hole</span>
-                        </div>
-                        <b><i class="icon-angle-down"></i></b>
-                    </div>
+<!--                    <div class="intro-text">-->
+<!--                        <div class="tagline">-->
+<!--                            <span class="top">We are a</span>-->
+<!--                            <span class="mid">Hub</span>-->
+<!--                            <span class="bot">for the artistic, cultural and <br/>creative activity in jackson hole</span>-->
+<!--                        </div>-->
+<!--                        <b><i class="icon-angle-down"></i></b>-->
+<!--                    </div>-->
                 </div>
             </div>
         </section>
