@@ -20,7 +20,7 @@
     use GroupSet; /** @see \Concrete\Core\User\Group\GroupSet */
     use Stack; /** @see \Concrete\Core\Page\Stack\Stack */
     use Concrete\Core\Page\Type\PublishTarget\Type\Type as PublishTargetType;
-    use Events;
+    use SinglePage;
 
     class Controller extends Package {
 
@@ -34,7 +34,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.14';
+        protected $pkgVersion 			        = '0.17';
 
 
         /**
@@ -333,6 +333,8 @@
          * @return Controller
          */
         private function setupSinglePages(){
+            SinglePage::add('/calendar', $this->packageObject());
+
             return $this;
         }
 

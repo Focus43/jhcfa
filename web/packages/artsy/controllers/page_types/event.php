@@ -13,8 +13,7 @@
 
         public function view(){
             parent::view();
-            $this->set('mastheadHelper', new \Concrete\Package\Artsy\Src\Helpers\Masthead($this->getPageObject()));
-            $pageID = Page::getCurrentPage()->getCollectionID();
+            $pageID = $this->getPageObject()->getCollectionID();
             /** @var $eventObj \Concrete\Package\Schedulizer\Src\Event */
             $eventObj = SchedulizerEvent::getByPageID($pageID);
             if( is_object($eventObj) ){

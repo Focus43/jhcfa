@@ -19,6 +19,9 @@
             if( $this->_includeThemeAssets === true ){
                 $this->attachThemeAssets( $this );
             }
+
+            // Always prepare and pass to the views
+            $this->set('mastheadHelper', new \Concrete\Package\Artsy\Src\Helpers\Masthead($this->getPageObject()));
         }
 
         /**
