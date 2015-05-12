@@ -20,12 +20,12 @@
                         <?php } ?>
                     </select>
                 </div>
-                <!--                <div class="btn-group">-->
-                <!--                    <button type="button" class="btn btn-default active">All Types</button>-->
-                <!--                    --><?php //foreach($categoryList AS $optObj){ ?>
-                <!--                        <button type="button" class="btn btn-default">--><?php //echo $optObj; ?><!--</button>-->
-                <!--                    --><?php //} ?>
-                <!--                </div>-->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default active">All Types</button>
+                    <?php foreach($categoryList AS $optObj){ ?>
+                        <button type="button" class="btn btn-default"><?php echo $optObj; ?></button>
+                    <?php } ?>
+                </div>
                 <button type="submit" class="btn btn-search">Search</button>
             </div>
         </div>
