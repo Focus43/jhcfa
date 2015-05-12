@@ -38,7 +38,7 @@
 </script>
 
 <div event-calendar data-route="'/_schedulizer/event_list'" ng-cloak>
-    <a class="event-result" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
+    <a class="event-result" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
         <span class="layer-1">
             <span class="date">{{ moment.format('MMM D,YYYY / h:mm a') }}</span>
             <span class="title">{{ eventObj.title }}</span>

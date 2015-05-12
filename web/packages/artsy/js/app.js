@@ -182,8 +182,16 @@ angular.module('artsy.common').
             transclude: true,
             templateUrl:   '/calendar-form',
             controller: ['$scope', function( $scope ){
-                var _fields = ['eventID', 'pageID', 'calendarID', 'title', 'description',
-                    'isSynthetic', 'computedStartUTC', 'computedStartLocal'];
+                var _fields = [
+                    'eventID',
+                    'pageID',
+                    'calendarID',
+                    'title',
+                    'description',
+                    'isSynthetic',
+                    'computedStartUTC',
+                    'computedStartLocal'
+                ];
 
                 $scope.eventResults = [];
 
@@ -192,7 +200,8 @@ angular.module('artsy.common').
                     calendars: null,
                     tags:      null,
                     category:  null,
-                    filepath:  true
+                    filepath:  true,
+                    pagepath:  true
                 };
 
                 /**
