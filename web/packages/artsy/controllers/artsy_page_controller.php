@@ -33,7 +33,9 @@
                 $this->getPageObject()->isEditMode() ? 'cms-edit-mode' : null
             )));
 
-            $this->set('templateHandle', sprintf('pg-%s', $this->getPageObject()->getPageTemplateHandle()));
+            $templateHandle = $this->getPageObject()->getPageTemplateHandle();
+            $templateHandle = !empty($templateHandle) ? $templateHandle : $this->getPageObject()->getCollectionHandle();
+            $this->set('templateHandle', sprintf('pg-%s', $templateHandle));
         }
 
         /**

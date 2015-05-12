@@ -31,6 +31,20 @@ angular.module('artsy.common').
     }).
 
     /**
+     * @description MomentJS
+     * @param $window
+     * @param $log
+     * @returns moment | TweenLite | false
+     */
+    provider('moment', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
      * @description Isotope provider
      * @param $window
      * @param $log

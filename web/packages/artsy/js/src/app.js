@@ -3,7 +3,8 @@
 
     angular.module('artsy', [
             'artsy.common',
-            'artsy.elements'
+            'artsy.elements',
+            'ngSanitize'
         ]).
 
         /**

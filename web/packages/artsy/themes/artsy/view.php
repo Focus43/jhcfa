@@ -10,7 +10,8 @@
     <main>
         <?php $this->inc('elements/header.php', array(
             'expanded'          => true,
-            'mastheadImageSrc'  => $mastheadHelper->getSingleImageSrc()
+            // @todo: good default image, and auto-include theme assets not via contoller methods
+            'mastheadImageSrc'  => is_object($mastheadHelper) ? $mastheadHelper->getSingleImageSrc() : ''
         )); ?>
 
         <div class="area-main">
