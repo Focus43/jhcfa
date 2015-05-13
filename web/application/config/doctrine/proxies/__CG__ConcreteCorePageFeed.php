@@ -462,12 +462,12 @@ class Feed extends \Concrete\Core\Page\Feed implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getOutput()
+    public function getOutput($request = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOutput', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOutput', array($request));
 
-        return parent::getOutput();
+        return parent::getOutput($request);
     }
 
 }

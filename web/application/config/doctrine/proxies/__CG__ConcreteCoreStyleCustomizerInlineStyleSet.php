@@ -770,17 +770,6 @@ class StyleSet extends \Concrete\Core\StyleCustomizer\Inline\StyleSet implements
     /**
      * {@inheritDoc}
      */
-    public function import(\SimpleXMLElement $node)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'import', array($node));
-
-        return parent::import($node);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function export(\SimpleXMLElement $node)
     {
 
