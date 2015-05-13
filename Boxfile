@@ -8,8 +8,8 @@ build:
   exec:
     - "composer install --no-interaction --prefer-source --working-dir=web/concrete"
 
-  after_exec:
-    - "php _quickstart/after_exec.php"
+#  after_exec:
+#    - "php _quickstart/after_exec.php"
 
 web1:
   name: web
