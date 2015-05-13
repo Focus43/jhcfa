@@ -1106,17 +1106,22 @@ svg[svgize] {
   padding: 11rem 0 0; }
   .pg-event #c-level-1 header .tabular .cellular {
     vertical-align: bottom; }
-  .pg-event #c-level-1 header img[event-img] {
-    max-width: 400px;
+  .pg-event #c-level-1 header .event-img {
     position: absolute;
+    height: 17rem;
+    width: 40%;
     bottom: -3rem;
     left: 0;
-    padding: 5px;
-    background: rgba(255, 255, 255, 0.65);
+    background-size: cover;
+    background-position: 50% 50%;
+    border: 5px solid #fff;
     -webkit-box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65);
     box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65); }
+    .pg-event #c-level-1 header .event-img .event-img-inner {
+      width: 100%;
+      height: 100%; }
   .pg-event #c-level-1 header .headline {
-    padding-left: 400px;
+    padding-left: 43%;
     text-align: left; }
     .pg-event #c-level-1 header .headline .headline-inner {
       position: relative;

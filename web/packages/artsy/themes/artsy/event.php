@@ -32,7 +32,8 @@
                                     $fileObj = File::getByID($eventObj->getFileID());
                                 }
                                 if( is_object($fileObj) ){ ?>
-                                    <img event-img src="<?php echo $fileObj->getRelativePath(); ?>" />
+                                    <div class="event-img" style="background-image:url('<?php echo $fileObj->getRelativePath(); ?>');"></div>
+<!--                                    <img event-img src="--><?php //echo $fileObj->getRelativePath(); ?><!--" />-->
                                 <?php } ?>
                                 <!--                        <div style="padding-left:350px;text-align:left;padding-bottom:6%;">-->
                                 <div class="headline">
