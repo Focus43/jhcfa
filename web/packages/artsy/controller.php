@@ -27,6 +27,7 @@
         const PACKAGE_HANDLE                    = 'artsy';
         const ATTR_COLLECTION_BACKGROUND_IMG    = 'header_background';
         const ATTR_FILE_LINK                    = 'link';
+        const ATTR_FILE_PHOTO_CREDIT            = 'photo_credit';
         const FILESET_BACKGROUND_IMG            = 'Random Header Backgrounds';
         const STACK_HOMEPAGE_VIDEO              = 'Homepage_Video';
         const AREA_MAIN                         = 'Main';
@@ -34,7 +35,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.18';
+        protected $pkgVersion 			        = '0.19';
 
 
         /**
@@ -173,6 +174,13 @@
                     'akHandle'  => self::ATTR_FILE_LINK,
                     'akName'    => 'Link'
                 ), $this->packageObject());
+            }
+
+            if( !is_object(FileAttributeKey::getByHandle(self::ATTR_FILE_PHOTO_CREDIT)) ){
+                FileAttributeKey::add($this->attributeType('text'), array(
+                    'akHandle'  => self::ATTR_FILE_PHOTO_CREDIT,
+                    'akName'    => 'Photo Credit'
+                ));
             }
 
             return $this;

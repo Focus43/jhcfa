@@ -50,10 +50,10 @@
   }
 }
 
-@media screen and (min-width:$screen-lg){
+@media screen and (min-width:($screen-lg + 200px)){
   .pg-calendar #c-level-1 main [event-calendar] {
     .event-list {padding-top:3%;
-      .event-result {width:18%;margin:2% 1%;padding-bottom:18%;}
+      .event-result {width:18%;margin:2% 1%;padding-bottom:16%;}
     }
   }
 }

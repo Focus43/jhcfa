@@ -63,18 +63,30 @@ body.nav-open {
 // Alt colors - not green background
 #c-level-1 nav {background:lighten($theme-dark-color, 12%);
   .level-1 {
-    ul {text-align:right;padding-top:3rem;
+    ul {text-align:right;//padding-top:3rem;
       li {border-top:0;//border-top:1px solid lighten($theme-dark-color, 15%);
         &::before {background:darken($theme-primary-color, 20%);}
-        &:first-of-type {border-top:0;}
+        &:first-of-type {border-top:0;padding-top:3rem;
+//          &:hover, &.nav-selected {
+//            &::after {content:"\f111";font-family:$font-family-icomoon;font-size:45px;display:inline-block;position:absolute;top:10px;left:20px;color:$theme-dark-color;@include animation(home-nav-ball 3s ease infinite);}
+//          }
+        }
       }
     }
     .bottom {
       .btn {border:0;}
     }
-    .sub{text-align:left;background:rgba(lighten($theme-dark-color,8%),0.9);}
+    .sub{text-align:left;background:rgba(lighten($theme-dark-color,8%),0.9);
+      li:first-of-type {padding-top:0;}
+    }
     //.majority li:hover .sub {top:-0.5rem;}
   }
 }
 
 .pg-home #c-level-1 nav {background:rgba(20,20,20,0.8);}
+
+//@include keyframes(home-nav-ball){
+//  0% {@include transform(scale(0.8,0.8));}
+//  50% {@include transform(scale(1.1,1.1));}
+//  100% {@include transform(scale(0.8,0.8));}
+//}
