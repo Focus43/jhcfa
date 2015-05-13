@@ -69,22 +69,22 @@
                             <p class="price">$<?php echo $ticketPrice; ?></p>
                             <small>(includes processing fee)</small>
                         <?php }else{ ?>
-                            <p>This is a <strong>free</strong> event.</p>
+                            <p class="price">Free</p>
                         <?php }?>
                     </div>
                     <div class="sidebar-box">
                         <label>Event Time(s)</label>
-                        <ul class="list-unstyled">
+                        <ul class="event-times list-unstyled">
                             <?php foreach($eventTimes AS $row): ?>
                                 <li>
                                     <?php
                                         $dtObj = new \DateTime($row['computedStartLocal']);
-                                        echo sprintf("%s - <strong>%s</strong>", $dtObj->format('M j, Y'), $dtObj->format('g:i A'));
+                                        echo sprintf("%s - <strong>%s</strong>", $dtObj->format('D M j, Y'), $dtObj->format('g:i A'));
                                     ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
-                        <a class="btn btn-lg btn-block btn-primary" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Buy Tickets</a>
+                        <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Get Tickets</a>
                     </div>
                 </div>
             </div>

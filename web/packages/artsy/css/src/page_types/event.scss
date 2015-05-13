@@ -1,9 +1,9 @@
 .pg-event #c-level-1 {
-  header {padding:10rem 0 0;
+  header {padding:11rem 0 0;
     .tabular .cellular {vertical-align:bottom;}
     img[event-img]{max-width:400px;position:absolute;bottom:-3rem;left:0;padding:5px;background:rgba(#fff,0.65);@include box-shadow(0 -10px 32px -10px rgba(0,0,0,0.65));}
     .headline {padding-left:400px;text-align:left;
-      .headline-inner {position:relative;padding-bottom:2rem;
+      .headline-inner {position:relative;padding-bottom:2.5rem;
         h1 {font-size:200%;margin-bottom:0;}
         .presenter {color:#000;position:absolute;margin-top:1.5rem;top:100%;left:0;display:inline-block;
           i {position:absolute;left:-13px;top:-19px;z-index:-1;font-size:250%;color:lighten($theme-dark-color, 70%);}
@@ -14,9 +14,15 @@
   }
 
   .area-main {padding:6rem 0 0;
-    .sidebar-box {margin-bottom:1rem;line-height:1;padding:2rem 2rem 1.9rem;position:relative;background:rgba(0,0,0,0.05);
+    .sidebar-box {margin-bottom:1rem;line-height:1;padding:2rem 2rem 1.9rem;position:relative;background:rgba(0,0,0,0.1);
       label {margin:0;padding:3px 4px;font-size:75%;text-transform:uppercase;position:absolute;top:0;right:0;background:$theme-light-color;color:$theme-extra-light-color;}
       .price {font-size:220%;font-weight:bold;margin-bottom:0;}
+      .event-times {
+        li {padding:0.35rem 0;border-bottom:1px dotted $theme-light-color;
+          &:last-of-type {border-bottom:0;}
+        }
+      }
+      .tickets-btn {font-family:$theme-font-family-bold;text-transform:uppercase;}
     }
   }
 }

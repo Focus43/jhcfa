@@ -1103,7 +1103,7 @@ svg[svgize] {
         display: block; }
 
 .pg-event #c-level-1 header {
-  padding: 10rem 0 0; }
+  padding: 11rem 0 0; }
   .pg-event #c-level-1 header .tabular .cellular {
     vertical-align: bottom; }
   .pg-event #c-level-1 header img[event-img] {
@@ -1120,7 +1120,7 @@ svg[svgize] {
     text-align: left; }
     .pg-event #c-level-1 header .headline .headline-inner {
       position: relative;
-      padding-bottom: 2rem; }
+      padding-bottom: 2.5rem; }
       .pg-event #c-level-1 header .headline .headline-inner h1 {
         font-size: 200%;
         margin-bottom: 0; }
@@ -1145,7 +1145,7 @@ svg[svgize] {
     line-height: 1;
     padding: 2rem 2rem 1.9rem;
     position: relative;
-    background: rgba(0, 0, 0, 0.05); }
+    background: rgba(0, 0, 0, 0.1); }
     .pg-event #c-level-1 .area-main .sidebar-box label {
       margin: 0;
       padding: 3px 4px;
@@ -1160,6 +1160,14 @@ svg[svgize] {
       font-size: 220%;
       font-weight: bold;
       margin-bottom: 0; }
+    .pg-event #c-level-1 .area-main .sidebar-box .event-times li {
+      padding: 0.35rem 0;
+      border-bottom: 1px dotted #838383; }
+      .pg-event #c-level-1 .area-main .sidebar-box .event-times li:last-of-type {
+        border-bottom: 0; }
+    .pg-event #c-level-1 .area-main .sidebar-box .tickets-btn {
+      font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
+      text-transform: uppercase; }
 
 .pg-calendar #c-level-1 main .area-main {
   padding-top: 0; }
