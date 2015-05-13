@@ -5,6 +5,7 @@ footer {color:#000;position:relative;margin-top:3rem;padding:2rem 2rem 15% 2rem;
   .inner-content {border-top:3px solid $theme-primary-color;padding:1rem 0 0;}
   h3 {font-size:140%;margin-top:0;}
   .footer-logo {max-height:105px;}
+  address {padding:0.25rem 0 0.25rem 1rem;border-left:1px dotted $theme-light-color;}//padding-left:39%;position:relative;top:-1.5rem;}
   .socialize {font-size:240%;color:$theme-primary-color;@include transition(color 0.35s ease);
     &:hover {color:darken($theme-primary-color, 10%);}
   }

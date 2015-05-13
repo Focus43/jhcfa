@@ -585,7 +585,7 @@ body.nav-open #c-level-1 main {
     text-align: right;
     padding-top: 3rem; }
     #c-level-1 nav .level-1 ul li {
-      border-top: 1px solid #262626; }
+      border-top: 0; }
       #c-level-1 nav .level-1 ul li::before {
         background: #416e28; }
       #c-level-1 nav .level-1 ul li:first-of-type {
@@ -714,6 +714,9 @@ footer {
     margin-top: 0; }
   footer .footer-logo {
     max-height: 105px; }
+  footer address {
+    padding: 0.25rem 0 0.25rem 1rem;
+    border-left: 1px dotted #838383; }
   footer .socialize {
     font-size: 240%;
     color: #6DB844;

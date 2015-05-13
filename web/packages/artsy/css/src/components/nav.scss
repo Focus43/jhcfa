@@ -64,7 +64,7 @@ body.nav-open {
 #c-level-1 nav {background:lighten($theme-dark-color, 12%);
   .level-1 {
     ul {text-align:right;padding-top:3rem;
-      li {border-top:1px solid lighten($theme-dark-color, 15%);
+      li {border-top:0;//border-top:1px solid lighten($theme-dark-color, 15%);
         &::before {background:darken($theme-primary-color, 20%);}
         &:first-of-type {border-top:0;}
       }

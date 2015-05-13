@@ -15,8 +15,8 @@
 <!--                        --><?php //else: ?>
 <!--                            <img class="footer-logo" src="/packages/artsy/images/logo-black.svg" />-->
 <!--                        --><?php //endif; ?>
+                        <!--<p>The <strong>Hub</strong> for Artistic, Cultural, and Creative Activity In Jackson Hole</p>-->
                         <address>240 S. Glenwood St.<br/>PO Box 860<br/>Jackson, WY 83001</address>
-                        <p><a class="btn btn-primary btn-block">Support</a></p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
