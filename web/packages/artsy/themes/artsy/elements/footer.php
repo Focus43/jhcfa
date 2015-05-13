@@ -28,9 +28,12 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="inner-content">
                         <h3>Socialize</h3>
-                        <a class="icon-facebook-square socialize"></a>
-                        <a class="icon-twitter-square socialize"></a>
-                        <a class="icon-youtube-square socialize"></a>
+                        <a class="icon-circle-facebook socialize"></a>
+                        <a class="icon-circle-twitter socialize"></a>
+                        <a class="icon-circle-instagram socialize"></a>
+                        <a class="icon-circle-pinterest socialize"></a>
+                        <a class="icon-circle-youtube socialize"></a>
+                        <a class="icon-circle-google-plus socialize"></a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">

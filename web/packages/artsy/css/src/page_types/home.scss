@@ -48,6 +48,7 @@ svg[svgize]{position:absolute;top:0;right:0;height:100%;width:100%;font-family:$
   .scroll-navs {
     ellipse.active, ellipse:hover {fill:$theme-primary-color;cursor:pointer;}
   }
+  .down-line {@include transform-origin(100% 50%);@include transform(scale(0,0));@include animation(spoke-line 1s linear forwards 1.5s);}
 }
 
 @include keyframes(tag-line-text){

@@ -30,8 +30,8 @@
     });
 
 })(window, window.angular);
-angular.module('artsy.common', []);
 angular.module('artsy.elements', []);
+angular.module('artsy.common', []);
 angular.module('artsy.common').
 
     directive('eventCalendar', ['$http', 'moment', function( $http, moment ){
@@ -252,14 +252,14 @@ angular.module('artsy.common').
             }).attr('class', 'spoke-line').back();
 
             var lineY1 = centerY + (circleRadius + 4),
-                lineY2 = centerY + (circleRadius + 90);
+                lineY2 = centerY + (circleRadius + 290);
 
             draw.line(centerX, lineY1, centerX, lineY2).stroke({
                 width: 2,
                 linecap: 'round',
                 dasharray: '1,5',
                 color: '#fff'
-            });
+            }).attr('class', 'down-line');
 
             // "click down" arrow hint
             //draw.circle(50).attr({cx:centerX,cy:lineY2 + 29});

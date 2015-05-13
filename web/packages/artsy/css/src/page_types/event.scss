@@ -9,5 +9,13 @@
 
   .area-main {padding-top:5rem;
     //.container {@include container-fixed();max-width:1100px;}
+//    .price-box {line-height:1;border-bottom:1px dotted $theme-light-color;padding-bottom:($grid-gutter-width/3);margin-bottom:($grid-gutter-width/3);
+//      small {display:block;}
+//      p {font-size:300%;font-weight:bold;margin:0;padding:0.4rem 0;}
+//    }
+    .sidebar-box {margin-bottom:1rem;line-height:1;padding:2rem 2rem 1.9rem;position:relative;background:rgba(0,0,0,0.05);
+      label {margin:0;padding:3px 4px;font-size:75%;text-transform:uppercase;position:absolute;top:0;right:0;background:$theme-light-color;color:$theme-extra-light-color;}
+      .price {font-size:220%;font-weight:bold;margin-bottom:0;}
+    }
   }
 }

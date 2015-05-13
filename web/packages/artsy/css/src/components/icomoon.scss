@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:url('#{$icomoon-font-path}/icomoon.eot?fwjr2g');
-  src:url('#{$icomoon-font-path}/icomoon.eot?#iefixfwjr2g') format('embedded-opentype'),
-  url('#{$icomoon-font-path}/icomoon.woff?fwjr2g') format('woff'),
-  url('#{$icomoon-font-path}/icomoon.ttf?fwjr2g') format('truetype'),
-  url('#{$icomoon-font-path}/icomoon.svg?fwjr2g#icomoon') format('svg');
+  src:url('#{$icomoon-font-path}/icomoon.eot?-bgyojh');
+  src:url('#{$icomoon-font-path}/icomoon.eot?#iefix-bgyojh') format('embedded-opentype'),
+  url('#{$icomoon-font-path}/icomoon.woff?-bgyojh') format('woff'),
+  url('#{$icomoon-font-path}/icomoon.ttf?-bgyojh') format('truetype'),
+  url('#{$icomoon-font-path}/icomoon.svg?-bgyojh#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -23,6 +23,102 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-circle-twitter:before {
+  content: "\63";
+}
+
+.icon-circle-google-plus:before {
+  content: "\64";
+}
+
+.icon-circle-pinterest:before {
+  content: "\65";
+}
+
+.icon-circle-instagram:before {
+  content: "\66";
+}
+
+.icon-circle-facebook:before {
+  content: "\67";
+}
+
+.icon-circle-youtube:before {
+  content: "\68";
+}
+
+.icon-circle-rss:before {
+  content: "\69";
+}
+
+.icon-map-2:before {
+  content: "\e611";
+}
+
+.icon-close:before {
+  content: "\e622";
+}
+
+.icon-close-circle:before {
+  content: "\e626";
+}
+
+.icon-angle-up:before {
+  content: "\e628";
+}
+
+.icon-angle-up-circle:before {
+  content: "\e62a";
+}
+
+.icon-angle-right:before {
+  content: "\e62c";
+}
+
+.icon-angle-right-circle:before {
+  content: "\e62e";
+}
+
+.icon-angle-left:before {
+  content: "\e630";
+}
+
+.icon-angle-left-circle:before {
+  content: "\e632";
+}
+
+.icon-angle-down:before {
+  content: "\e634";
+}
+
+.icon-angle-down-circle:before {
+  content: "\e636";
+}
+
+.icon-tools:before {
+  content: "\e643";
+}
+
+.icon-ticket:before {
+  content: "\e645";
+}
+
+.icon-refresh:before {
+  content: "\e657";
+}
+
+.icon-paperclip:before {
+  content: "\e65a";
+}
+
+.icon-plus:before {
+  content: "\e665";
+}
+
+.icon-paper-plane:before {
+  content: "\e671";
+}
+
 .icon-menu:before {
   content: "\e680";
 }
@@ -31,140 +127,54 @@
   content: "\e681";
 }
 
+.icon-map-marker:before {
+  content: "\e682";
+}
+
 .icon-mail2:before {
   content: "\e683";
+}
+
+.icon-link:before {
+  content: "\e68b";
+}
+
+.icon-less:before {
+  content: "\e68e";
 }
 
 .icon-keypad:before {
   content: "\e68f";
 }
 
-.icon-close:before {
-  content: "\e600";
-}
-
-.icon-close-circle:before {
-  content: "\e601";
-}
-
-.icon-angle-up:before {
-  content: "\e602";
-}
-
-.icon-angle-up-circle:before {
-  content: "\e603";
-}
-
-.icon-angle-right:before {
-  content: "\e604";
-}
-
-.icon-angle-right-circle:before {
-  content: "\e605";
-}
-
-.icon-angle-left:before {
-  content: "\e606";
-}
-
-.icon-angle-left-circle:before {
-  content: "\e607";
-}
-
-.icon-angle-down:before {
-  content: "\e608";
-}
-
-.icon-angle-down-circle:before {
-  content: "\e609";
-}
-
-.icon-unlock:before {
-  content: "\e60a";
-}
-
-.icon-tools:before {
-  content: "\e60b";
-}
-
-.icon-ticket:before {
-  content: "\e60c";
-}
-
-.icon-power:before {
-  content: "\e60d";
-}
-
-.icon-paper-plane:before {
-  content: "\e60e";
-}
-
-.icon-map-marker:before {
-  content: "\e60f";
-}
-
-.icon-mail:before {
-  content: "\e610";
-}
-
-.icon-loop:before {
-  content: "\e611";
-}
-
-.icon-link:before {
-  content: "\e612";
-}
-
-.icon-less:before {
-  content: "\e613";
-}
-
 .icon-info:before {
-  content: "\e614";
+  content: "\e691";
 }
 
 .icon-expand1:before {
-  content: "\e615";
+  content: "\e6a1";
 }
 
 .icon-download:before {
-  content: "\e616";
+  content: "\e6a6";
 }
 
 .icon-config:before {
-  content: "\e617";
+  content: "\e6b0";
 }
 
 .icon-check:before {
-  content: "\e618";
+  content: "\e6b6";
+}
+
+.icon-chat:before {
+  content: "\e6b7";
 }
 
 .icon-box2:before {
-  content: "\e619";
+  content: "\e6bd";
 }
 
-.icon-twitter-square:before {
-  content: "\f081";
+.icon-attention:before {
+  content: "\e6c5";
 }
-
-.icon-facebook-square:before {
-  content: "\f082";
-}
-
-.icon-youtube-square:before {
-  content: "\f166";
-}
-
-.icon-paper-plane2:before {
-  content: "\f1d8";
-}
-
-.icon-paper-plane-o:before {
-  content: "\f1d9";
-}
-
-.icon-check2:before {
-  content: "\e116";
-}
-
-

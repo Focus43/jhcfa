@@ -67,7 +67,7 @@
 
         <div class="area-main">
             <div class="container">
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                     <?php
                         echo $eventObj->getDescription();
                         /** @var $a \Concrete\Core\Area\Area */
@@ -75,23 +75,31 @@
 //                        $a->display($c);
                     ?>
                 </div>
-                <div class="col-sm-3">
-                    <div style="background:#e1e1e1;margin-bottom:1rem;padding:0.5rem;">
-                        <?php
-                        $ticketPrice = (int)$eventObj->getAttribute('ticket_price');
+                <div class="col-sm-4">
+                    <div class="sidebar-box">
+                        <label>Price</label>
+                        <?php $ticketPrice = (int)$eventObj->getAttribute('ticket_price');
                         if( $ticketPrice > 0 ){ ?>
-                            <p><strong>$<?php echo $ticketPrice; ?></strong><br/> (includes processing fee)</p>
+                            <p class="price">$<?php echo $ticketPrice; ?></p>
+                            <small>(includes processing fee)</small>
                         <?php }else{ ?>
                             <p>This is a <strong>free</strong> event.</p>
                         <?php }?>
                     </div>
-                    <p><strong>Times</strong></p>
-                    <ul class="list-unstyled">
-                        <?php foreach($eventTimes AS $row): ?>
-                            <li><?php echo (new \DateTime($row['computedStartLocal']))->format('g:i a (n/j/y)'); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <a class="btn btn-lg btn-block btn-primary" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Buy Tickets</a>
+                    <div class="sidebar-box">
+                        <label>Event Time(s)</label>
+                        <ul class="list-unstyled">
+                            <?php foreach($eventTimes AS $row): ?>
+                                <li>
+                                    <?php
+                                        $dtObj = new \DateTime($row['computedStartLocal']);
+                                        echo sprintf("%s - <strong>%s</strong>", $dtObj->format('M j, Y'), $dtObj->format('g:i A'));
+                                    ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <a class="btn btn-lg btn-block btn-primary" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Buy Tickets</a>
+                    </div>
                 </div>
             </div>
 
