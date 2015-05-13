@@ -759,8 +759,8 @@ footer {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("/packages/artsy/css/fonts/icomoon.eot?-bgyojh");
-  src: url("/packages/artsy/css/fonts/icomoon.eot?#iefix-bgyojh") format("embedded-opentype"), url("/packages/artsy/css/fonts/icomoon.woff?-bgyojh") format("woff"), url("/packages/artsy/css/fonts/icomoon.ttf?-bgyojh") format("truetype"), url("/packages/artsy/css/fonts/icomoon.svg?-bgyojh#icomoon") format("svg");
+  src: url("/packages/artsy/css/fonts/icomoon.eot?-amu434");
+  src: url("/packages/artsy/css/fonts/icomoon.eot?#iefix-amu434") format("embedded-opentype"), url("/packages/artsy/css/fonts/icomoon.woff?-amu434") format("woff"), url("/packages/artsy/css/fonts/icomoon.ttf?-amu434") format("truetype"), url("/packages/artsy/css/fonts/icomoon.svg?-amu434#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 [class^="icon-"], [class*=" icon-"] {
@@ -774,6 +774,9 @@ footer {
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
+
+.icon-circle:before {
+  content: "\f111"; }
 
 .icon-circle-twitter:before {
   content: "\63"; }
@@ -1100,24 +1103,43 @@ svg[svgize] {
         display: block; }
 
 .pg-event #c-level-1 header {
-  padding: 8rem 0 0; }
-  .pg-event #c-level-1 header h1 {
-    margin-top: 0; }
-  .pg-event #c-level-1 header .event-info {
-    text-align: left;
-    padding-top: 3rem;
-    padding-bottom: 2rem; }
-  .pg-event #c-level-1 header .event-info-inner {
-    position: relative; }
+  padding: 10rem 0 0; }
+  .pg-event #c-level-1 header .tabular .cellular {
+    vertical-align: bottom; }
   .pg-event #c-level-1 header img[event-img] {
+    max-width: 400px;
     position: absolute;
+    bottom: -3rem;
     left: 0;
-    max-height: 350px;
-    max-width: 350px;
     padding: 5px;
-    background: #fff; }
+    background: rgba(255, 255, 255, 0.65);
+    -webkit-box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65); }
+  .pg-event #c-level-1 header .headline {
+    padding-left: 400px;
+    text-align: left; }
+    .pg-event #c-level-1 header .headline .headline-inner {
+      position: relative;
+      padding-bottom: 2rem; }
+      .pg-event #c-level-1 header .headline .headline-inner h1 {
+        font-size: 200%;
+        margin-bottom: 0; }
+      .pg-event #c-level-1 header .headline .headline-inner .presenter {
+        color: #000;
+        position: absolute;
+        margin-top: 1.5rem;
+        top: 100%;
+        left: 0;
+        display: inline-block; }
+        .pg-event #c-level-1 header .headline .headline-inner .presenter i {
+          position: absolute;
+          left: -13px;
+          top: -19px;
+          z-index: -1;
+          font-size: 250%;
+          color: #b3b3b3; }
 .pg-event #c-level-1 .area-main {
-  padding-top: 5rem; }
+  padding: 6rem 0 0; }
   .pg-event #c-level-1 .area-main .sidebar-box {
     margin-bottom: 1rem;
     line-height: 1;

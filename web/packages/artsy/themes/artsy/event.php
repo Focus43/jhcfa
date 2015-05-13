@@ -20,35 +20,12 @@
                 $blockTypeNav->controller->displaySubPageLevels = 'all';
                 $blockTypeNav->render('templates/breadcrumbs');
             ?>
-
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12" style="position:relative;">
-                        <?php
-                        /** @var $fileObj \Concrete\Core\File\File */
-                        $fileID = $eventObj->getFileID();
-                        if( !empty($fileID) ){
-                            $fileObj = File::getByID($eventObj->getFileID());
-                        }
-                        if( is_object($fileObj) ){ ?>
-                            <img class="pull-left" event-img src="<?php echo $fileObj->getRelativePath(); ?>" />
-                        <?php } ?>
-                        <div style="padding-left:350px;text-align:left;padding-bottom:6%;">
-                            <h2><?php echo $eventObj; ?></h2>
-                            <p>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!--<div class="row">
-                    <div class="col-sm-12">
-                        <h1><?php echo $eventObj; ?></h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-sm-offset-6 event-info">
-                        <div class="event-info-inner">
-                            <?php
+            <div class="tabular">
+                <div class="cellular">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?php
                                 /** @var $fileObj \Concrete\Core\File\File */
                                 $fileID = $eventObj->getFileID();
                                 if( !empty($fileID) ){
@@ -57,11 +34,20 @@
                                 if( is_object($fileObj) ){ ?>
                                     <img event-img src="<?php echo $fileObj->getRelativePath(); ?>" />
                                 <?php } ?>
-                            <p>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></p>
+                                <!--                        <div style="padding-left:350px;text-align:left;padding-bottom:6%;">-->
+                                <div class="headline">
+                                    <div class="headline-inner">
+                                        <h1><?php echo $eventObj; ?></h1>
+                                        <div class="presenter">
+                                            <i class="icon-circle"></i>
+                                            <span>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>-->
-
+                </div>
             </div>
         </header>
 
