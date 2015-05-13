@@ -1,4 +1,4 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 ?>
 
@@ -16,55 +16,55 @@ defined('C5_EXECUTE') or die("Access Denied.");
 <div id="ccm-detail-page-attributes">
 
 <section class="ccm-ui">
-	<form method="post" action="<?=$controller->action('submit')?>" data-dialog-form="attributes" data-panel-detail-form="attributes">
+	<form method="post" action="<?php echo $controller->action('submit')?>" data-dialog-form="attributes" data-panel-detail-form="attributes">
 
-        <? if (isset($sitemap) && $sitemap) { ?>
+        <?php if (isset($sitemap) && $sitemap) { ?>
             <input type="hidden" name="sitemap" value="1" />
-        <? } ?>
+        <?php } ?>
 
-		<?=Loader::helper('concrete/ui/help')->notify('panel', '/page/attributes')?>
-		<? if ($assignment->allowEditName()) { ?>
+		<?php echo Loader::helper('concrete/ui/help')->display('panel', '/page/attributes')?>
+		<?php if ($assignment->allowEditName()) { ?>
 		<div class="form-group">
-			<label for="cName" class="control-label"><?=t('Name')?></label>
+			<label for="cName" class="control-label"><?php echo t('Name')?></label>
 			<div>
-			<input type="text" class="form-control" id="cName" name="cName" value="<?=htmlentities( $c->getCollectionName(), ENT_QUOTES, APP_CHARSET) ?>" />
+			<input type="text" class="form-control" id="cName" name="cName" value="<?php echo htmlentities( $c->getCollectionName(), ENT_QUOTES, APP_CHARSET) ?>" />
 			</div>
 		</div>
-		<? } ?>
+		<?php } ?>
 
-		<? if ($assignment->allowEditDateTime()) { ?>
+		<?php if ($assignment->allowEditDateTime()) { ?>
 		<div class="form-group">
-			<label for="cName" class="control-label"><?=t('Created Time')?></label>
+			<label for="cName" class="control-label"><?php echo t('Created Time')?></label>
 			<div>
-				<? print $dt->datetime('cDatePublic', $c->getCollectionDatePublic()); ?>
+				<?php print $dt->datetime('cDatePublic', $c->getCollectionDatePublic()); ?>
 			</div>
 		</div>
-		<? } ?>
-		
-		<? if ($assignment->allowEditUserID()) { ?>
+		<?php } ?>
+
+		<?php if ($assignment->allowEditUserID()) { ?>
 		<div class="form-group">
-			<label for="cName" class="control-label"><?=t('Author')?></label>
+			<label for="cName" class="control-label"><?php echo t('Author')?></label>
 			<div>
-			<? 
+			<?php 
 			print $uh->selectUser('uID', $c->getCollectionUserID());
 			?>
 			</div>
 		</div>
-		<? } ?>
+		<?php } ?>
 		
 
-		<? if ($assignment->allowEditDescription()) { ?>
+		<?php if ($assignment->allowEditDescription()) { ?>
 		<div class="form-group">
-			<label for="cDescription" class="control-label"><?=t('Description')?></label>
+			<label for="cDescription" class="control-label"><?php echo t('Description')?></label>
 			<div>
-				<textarea id="cDescription" name="cDescription" class="form-control" rows="8"><?=$c->getCollectionDescription()?></textarea>
+				<textarea id="cDescription" name="cDescription" class="form-control" rows="8"><?php echo $c->getCollectionDescription()?></textarea>
 			</div>
 		</div>
-		<? } ?>
+		<?php } ?>
 
 	</form>
 	<div class="ccm-panel-detail-form-actions dialog-buttons">
-		<button class="pull-right btn btn-success" type="button" data-dialog-action="submit" data-panel-detail-action="submit"><?=t('Save Changes')?></button>
+		<button class="pull-right btn btn-success" type="button" data-dialog-action="submit" data-panel-detail-action="submit"><?php echo t('Save Changes')?></button>
 	</div>
 
 </section>
@@ -95,7 +95,7 @@ ConcretePageAttributesDetail = {
 	addAttributeKey: function(akID) {
 		jQuery.fn.dialog.showLoader();
 		$.ajax({
-			url: '<?=$controller->action("add_attribute")?>',
+			url: '<?php echo $controller->action("add_attribute")?>',
 			dataType: 'json',
 			data: {
 				'akID': akID
@@ -129,7 +129,7 @@ ConcretePageAttributesDetail = {
 $(function() {
 
 	var $form = $('form[data-panel-detail-form=attributes]');
-	var selectedAttributes = <?=$selectedAttributes?>;
+	var selectedAttributes = <?php echo $selectedAttributes?>;
 	_.each(selectedAttributes, function(attribute) {
 		$form.append(renderAttribute(attribute));
 	});

@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <script type="text/javascript">
 $(function() {
@@ -8,32 +8,32 @@ $(function() {
 
 <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
-        <h1 class="page-header"><?=t('Account')?></h1>
-        <p><?=t('You are currently logged in as <strong>%s</strong>', $profile->getUserDisplayName())?>.</p>
+        <h1 class="page-header"><?php echo t('Account')?></h1>
+        <p><?php echo t('You are currently logged in as <strong>%s</strong>', $profile->getUserDisplayName())?>.</p>
 
 
-        <? foreach($pages as $p) { ?>
+        <?php foreach($pages as $p) { ?>
             <hr/>
             <div>
-                <a href="<?=$p->getCollectionLink()?>"><?=h(t($p->getCollectionName()))?></a>
-                <?
+                <a href="<?php echo $p->getCollectionLink()?>"><?php echo h(t($p->getCollectionName()))?></a>
+                <?php
                 $description = $p->getCollectionDescription();
                 if ($description) { ?>
-                    <p><?=h(t($description))?></p>
-                <? } ?>
+                    <p><?php echo h(t($description))?></p>
+                <?php } ?>
             </div>
-        <? } ?>
+        <?php } ?>
 
 
-        <? if (Config::get('concrete.user.profiles_enabled')) { ?>
+        <?php if (Config::get('concrete.user.profiles_enabled')) { ?>
             <hr/>
             <div>
-                <a href="<?=URL::to('/members/profile')?>"><?=t("View Public Profile")?></a>
-                <p><?=t('View your public user profile and the information you are sharing.')?></p>
+                <a href="<?php echo URL::to('/members/profile')?>"><?php echo t("View Public Profile")?></a>
+                <p><?php echo t('View your public user profile and the information you are sharing.')?></p>
             </div>
 
 
-        <? } ?>
+        <?php } ?>
 
     </div>
 </div>

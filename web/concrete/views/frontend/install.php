@@ -7,9 +7,9 @@ if ($install_config) {
 }
 ?>
 
-<style type="text/css">@import "<?=ASSETS_URL_CSS?>/views/install.css";</style>
-<script type="text/javascript" src="<?=ASSETS_URL_JAVASCRIPT?>/bootstrap/tooltip.js"></script>
-<script type="text/javascript" src="<?=ASSETS_URL_JAVASCRIPT?>/jquery-cookie.js"></script>
+<style type="text/css">@import "<?php echo ASSETS_URL_CSS?>/views/install.css";</style>
+<script type="text/javascript" src="<?php echo ASSETS_URL_JAVASCRIPT?>/bootstrap/tooltip.js"></script>
+<script type="text/javascript" src="<?php echo ASSETS_URL_JAVASCRIPT?>/jquery-cookie.js"></script>
 <script type="text/javascript">
 $(function() {
 	$(".launch-tooltip").tooltip({
@@ -18,7 +18,7 @@ $(function() {
 });
 </script>
 
-<?
+<?php
 
 $introMsg = t('To install concrete5, please fill out the form below.');
 
@@ -27,14 +27,14 @@ if (isset($successMessage)) { ?>
 <script type="text/javascript">
 $(function() {
 
-<? for ($i = 1; $i <= count($installRoutines); $i++) {
+<?php for ($i = 1; $i <= count($installRoutines); $i++) {
 	$routine = $installRoutines[$i-1]; ?>
 
-	ccm_installRoutine<?=$i?> = function() {
-		<? if ($routine->getText() != '') { ?>
-			$("#install-progress-summary").html('<?=addslashes($routine->getText())?>');
-		<? } ?>
-		$.ajax('<?=$view->url("/install", "run_routine", $installPackage, $routine->getMethod())?>', {
+	ccm_installRoutine<?php echo $i?> = function() {
+		<?php if ($routine->getText() != '') { ?>
+			$("#install-progress-summary").html('<?php echo addslashes($routine->getText())?>');
+		<?php } ?>
+		$.ajax('<?php echo $view->url("/install", "run_routine", $installPackage, $routine->getMethod())?>', {
 			dataType: 'json',
 			error: function(r) {
 				$("#install-progress-wrapper").hide();
@@ -47,20 +47,20 @@ $(function() {
 					$("#install-progress-errors").append('<div class="alert alert-danger">' + r.message + '</div>');
 					$("#install-progress-error-wrapper").fadeIn(300);
 				} else {
-					$('#install-progress-bar div.progress-bar').css('width', '<?=$routine->getProgress()?>%');
-					<? if ($i < count($installRoutines)) { ?>
-						ccm_installRoutine<?=$i+1?>();
-					<? } else { ?>
+					$('#install-progress-bar div.progress-bar').css('width', '<?php echo $routine->getProgress()?>%');
+					<?php if ($i < count($installRoutines)) { ?>
+						ccm_installRoutine<?php echo $i+1?>();
+					<?php } else { ?>
 						$("#install-progress-wrapper").fadeOut(300, function() {
 							$("#success-message").fadeIn(300);
 						});
-					<? } ?>
+					<?php } ?>
 				}
 			}
 		});
 	}
 
-<? } ?>
+<?php } ?>
 
 	ccm_installRoutine1();
 
@@ -71,8 +71,8 @@ $(function() {
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
 <div class="page-header">
-<h1><?=t('Install concrete5')?></h1>
-<p><?=t('Version %s', Config::get('concrete.version'))?></p>
+<h1><?php echo t('Install concrete5')?></h1>
+<p><?php echo t('Version %s', Config::get('concrete.version'))?></p>
 </div>
 </div>
 </div>
@@ -82,17 +82,17 @@ $(function() {
 <div class="col-sm-10 col-sm-offset-1">
 
 <div id="success-message">
-<?=$successMessage?>
+<?php echo $successMessage?>
 <br/><br/>
 <div class="well">
-<input type="button" class="btn btn-large btn-primary" onclick="window.location.href='<?=DIR_REL?>/'" value="<?=t('Continue to your site')?>" />
+<input type="button" class="btn btn-large btn-primary" onclick="window.location.href='<?php echo URL::to('/')?>'" value="<?php echo t('Continue to your site')?>" />
 </div>
 </div>
 
 <div id="install-progress-wrapper">
 <div class="alert alert-info">
 <div id="install-progress-summary">
-<?=t('Beginning Installation')?>
+<?php echo t('Beginning Installation')?>
 </div>
 </div>
 
@@ -107,13 +107,13 @@ $(function() {
 <div id="install-progress-error-wrapper">
 <div id="install-progress-errors"></div>
 <div id="install-progress-back">
-<input type="button" class="btn" onclick="window.location.href='<?=$view->url('/install')?>'" value="<?=t('Back')?>" />
+<input type="button" class="btn" onclick="window.location.href='<?php echo $view->url('/install')?>'" value="<?php echo t('Back')?>" />
 </div>
 </div>
 </div>
 </div>
 
-<? } else if ($this->controller->getTask() == 'setup' || $this->controller->getTask() == 'configure') { ?>
+<?php } else if ($this->controller->getTask() == 'setup' || $this->controller->getTask() == 'configure') { ?>
 
 <script type="text/javascript">
 $(function() {
@@ -129,49 +129,49 @@ $(function() {
 <div class="col-md-10 col-md-offset-1">
 
 <div class="page-header">
-<h1><?=t('Install concrete5')?></h1>
-<p><?=t('Version %s', Config::get('concrete.version'))?></p>
+<h1><?php echo t('Install concrete5')?></h1>
+<p><?php echo t('Version %s', Config::get('concrete.version'))?></p>
 </div>
 
 </div>
 </div>
 
 
-<form action="<?=$view->url('/install', 'configure')?>" method="post" class="form-horizontal">
+<form action="<?php echo $view->url('/install', 'configure')?>" method="post" class="form-horizontal">
 
 <div class="row">
 <div class="col-md-5 col-md-offset-1">
 
-	<input type="hidden" name="locale" value="<?=h($locale)?>" />
+	<input type="hidden" name="locale" value="<?php echo h($locale)?>" />
 
 	<fieldset>
-		<legend><?=t('Site Information')?></legend>
+		<legend><?php echo t('Site Information')?></legend>
 		<div class="form-group">
-		<label for="SITE" class="control-label col-md-4"><?=t('Site Name')?>:</label>
+		<label for="SITE" class="control-label col-md-4"><?php echo t('Site Name')?>:</label>
 		<div class="col-md-8">
-			<?=$form->text('SITE', array('class' => ''))?>
+			<?php echo $form->text('SITE', array('class' => ''))?>
 		</div>
 		</div>
 	</fieldset>
 
 	<fieldset>
-		<legend><?=t('Administrator Information')?></legend>
+		<legend><?php echo t('Administrator Information')?></legend>
 		<div class="form-group">
-		<label for="uEmail" class="control-label col-md-4"><?=t('Email Address')?>:</label>
+		<label for="uEmail" class="control-label col-md-4"><?php echo t('Email Address')?>:</label>
 		<div class="col-md-8">
-		<?=$form->email('uEmail', array('class' => ''))?>
-		</div>
-		</div>
-		<div class="form-group">
-		<label for="uPassword" class="control-label col-md-4"><?=t('Password')?>:</label>
-		<div class="col-md-8">
-		<?=$form->password('uPassword', array('class' => ''))?>
+		<?php echo $form->email('uEmail', array('class' => ''))?>
 		</div>
 		</div>
 		<div class="form-group">
-		<label for="uPasswordConfirm" class="control-label col-md-4"><?=t('Confirm Password')?>:</label>
+		<label for="uPassword" class="control-label col-md-4"><?php echo t('Password')?>:</label>
 		<div class="col-md-8">
-			<?=$form->password('uPasswordConfirm', array('class' => ''))?>
+		<?php echo $form->password('uPassword', array('class' => '', 'autocomplete'=>'off'))?>
+		</div>
+		</div>
+		<div class="form-group">
+		<label for="uPasswordConfirm" class="control-label col-md-4"><?php echo t('Confirm Password')?>:</label>
+		<div class="col-md-8">
+			<?php echo $form->password('uPasswordConfirm', array('class' => '', 'autocomplete'=>'off'))?>
 		</div>
 		</div>
 
@@ -181,33 +181,33 @@ $(function() {
 <div class="col-sm-5">
 
 	<fieldset>
-		<legend><?=t('Database Information')?></legend>
+		<legend><?php echo t('Database Information')?></legend>
 
 	<div class="form-group">
-	<label class="control-label col-md-4" for="DB_SERVER"><?=t('Server')?>:</label>
+	<label class="control-label col-md-4" for="DB_SERVER"><?php echo t('Server')?>:</label>
 	<div class="col-md-8">
-	<?=$form->text('DB_SERVER', array('class' => ''))?>
-	</div>
-	</div>
-
-	<div class="form-group">
-	<label class="control-label col-md-4" for="DB_USERNAME"><?=t('MySQL Username')?>:</label>
-	<div class="col-md-8">
-		<?=$form->text('DB_USERNAME', array('class' => ''))?>
+	<?php echo $form->text('DB_SERVER', array('class' => ''))?>
 	</div>
 	</div>
 
 	<div class="form-group">
-	<label class="control-label col-md-4" for="DB_PASSWORD"><?=t('MySQL Password')?>:</label>
+	<label class="control-label col-md-4" for="DB_USERNAME"><?php echo t('MySQL Username')?>:</label>
 	<div class="col-md-8">
-		<?=$form->password('DB_PASSWORD', array('class' => ''))?>
+		<?php echo $form->text('DB_USERNAME', array('class' => ''))?>
 	</div>
 	</div>
 
 	<div class="form-group">
-	<label class="control-label col-md-4" for="DB_DATABASE"><?=t('Database Name')?>:</label>
+	<label class="control-label col-md-4" for="DB_PASSWORD"><?php echo t('MySQL Password')?>:</label>
 	<div class="col-md-8">
-		<?=$form->text('DB_DATABASE', array('class' => ''))?>
+		<?php echo $form->password('DB_PASSWORD', array('class' => '', 'autocomplete'=>'off'))?>
+	</div>
+	</div>
+
+	<div class="form-group">
+	<label class="control-label col-md-4" for="DB_DATABASE"><?php echo t('Database Name')?>:</label>
+	<div class="col-md-8">
+		<?php echo $form->text('DB_DATABASE', array('class' => ''))?>
 	</div>
 	</div>
 	</fieldset>
@@ -217,35 +217,35 @@ $(function() {
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
 
-<h3><?=t('Sample Content')?></h3>
+<h3><?php echo t('Sample Content')?></h3>
 
 
-		<?
+		<?php
 		$uh = Loader::helper('concrete/urls');
 		?>
 
 		<table class="table table-striped" id="sample-content-selector">
 		<tbody>
-		<?
+		<?php
 		$availableSampleContent = StartingPointPackage::getAvailableList();
 		foreach($availableSampleContent as $spl) {
 			$pkgHandle = $spl->getPackageHandle();
 		?>
 
-		<tr class="<? if ($this->post('SAMPLE_CONTENT') == $pkgHandle || (!$this->post('SAMPLE_CONTENT') && $pkgHandle == 'elemental_full') || count($availableSampleContent) == 1) { ?>package-selected<? } ?>">
-			<td><?=$form->radio('SAMPLE_CONTENT', $pkgHandle, ($pkgHandle == 'elemental_full' || count($availableSampleContent) == 1))?></td>
-			<td class="sample-content-thumbnail"><img src="<?=$uh->getPackageIconURL($spl)?>" width="97" height="97" alt="<?=$spl->getPackageName()?>" /></td>
-			<td class="sample-content-description"><h4><?=$spl->getPackageName()?></h4><p><?=$spl->getPackageDescription()?></td>
+		<tr class="<?php if ($this->post('SAMPLE_CONTENT') == $pkgHandle || (!$this->post('SAMPLE_CONTENT') && $pkgHandle == 'elemental_full') || count($availableSampleContent) == 1) { ?>package-selected<?php } ?>">
+			<td><?php echo $form->radio('SAMPLE_CONTENT', $pkgHandle, ($pkgHandle == 'elemental_full' || count($availableSampleContent) == 1))?></td>
+			<td class="sample-content-thumbnail"><img src="<?php echo $uh->getPackageIconURL($spl)?>" width="97" height="97" alt="<?php echo $spl->getPackageName()?>" /></td>
+			<td class="sample-content-description"><h4><?php echo $spl->getPackageName()?></h4><p><?php echo $spl->getPackageDescription()?></td>
 		</tr>
 
-		<? } ?>
+		<?php } ?>
 
 		</tbody>
 		</table>
 		<br/>
-		<? if (!StartingPointPackage::hasCustomList()) { ?>
-			<div class="alert alert-info"><?=t('concrete5 veterans can choose "Empty Site," but otherwise we recommend starting with some sample content.')?></div>
-		<? } ?>
+		<?php if (!StartingPointPackage::hasCustomList()) { ?>
+			<div class="alert alert-info"><?php echo t('concrete5 veterans can choose "Empty Site," but otherwise we recommend starting with some sample content.')?></div>
+		<?php } ?>
 
 
 </div>
@@ -255,7 +255,7 @@ $(function() {
 <div class="col-sm-10 col-sm-offset-1">
 
 <div class="well">
-	<button class="btn btn-large btn-primary" type="submit"><?=t('Install concrete5')?> <i class="fa fa-thumbs-up fa-white"></i></button>
+	<button class="btn btn-large btn-primary" type="submit"><?php echo t('Install concrete5')?> <i class="fa fa-thumbs-up fa-white"></i></button>
 </div>
 
 </div>
@@ -264,7 +264,7 @@ $(function() {
 </form>
 
 
-<? } else if (isset($locale) || count($locales) == 0) { ?>
+<?php } else if (isset($locale) || count($locales) == 0) { ?>
 
 <script type="text/javascript">
 
@@ -272,11 +272,11 @@ $(function() {
 	$("#install-errors").hide();
 });
 
-<? if ($this->controller->passedRequiredItems()) { ?>
+<?php if ($this->controller->passedRequiredItems()) { ?>
 	var showFormOnTestCompletion = true;
-<? } else { ?>
+<?php } else { ?>
 	var showFormOnTestCompletion = false;
-<? } ?>
+<?php } ?>
 
 
 $(function() {
@@ -291,11 +291,11 @@ $(function() {
 		showFormOnTestCompletion = false;
 	}
 	$("#ccm-test-request-loading").ajaxError(function(event, request, settings) {
-		$(this).attr('src', '<?=ASSETS_URL_IMAGES?>/icons/error.png');
+		$(this).attr('src', '<?php echo ASSETS_URL_IMAGES?>/icons/error.png');
 		$("#ccm-test-request-tooltip").show();
 		showFormOnTestCompletion = false;
 	});
-	$.getJSON('<?=$view->url("/install", "test_url", "20", "20")?>', function(json) {
+	$.getJSON('<?php echo $view->url("/install", "test_url", "20", "20")?>', function(json) {
 		// test url takes two numbers and adds them together. Basically we just need to make sure that
 		// our url() syntax works - we do this by sending a test url call to the server when we're certain
 		// of what the output will be
@@ -321,11 +321,11 @@ $(function() {
 
 <div class="col-sm-10 col-sm-offset-1">
 <div class="page-header">
-	<h1><?=t('Install concrete5')?></h1>
-	<p><?=t('Version %s', Config::get('concrete.version'))?></p>
+	<h1><?php echo t('Install concrete5')?></h1>
+	<p><?php echo t('Version %s', Config::get('concrete.version'))?></p>
 </div>
 
-<h3><?=t('Testing Required Items')?></h3>
+<h3><?php echo t('Testing Required Items')?></h3>
 </div>
 </div>
 
@@ -335,38 +335,38 @@ $(function() {
 <table class="table table-striped requirements-table">
 <tbody>
 <tr>
-	<td class="ccm-test-phpversion"><? if ($phpVtest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-	<td width="100%"><?=t(/*i18n: %s is the php version*/'PHP %s', $phpVmin)?></td>
-	<td><? if (!$phpVtest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('concrete5 requires at least PHP %s', $phpVmin)?>"></i><? } ?></td>
+	<td class="ccm-test-phpversion"><?php if ($phpVtest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+	<td width="100%"><?php echo t(/*i18n: %s is the php version*/'PHP %s', $phpVmin)?></td>
+	<td><?php if (!$phpVtest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('concrete5 requires at least PHP %s', $phpVmin)?>"></i><?php } ?></td>
 </tr>
 <tr>
 	<td class="ccm-test-js"><i id="ccm-test-js-success" class="fa fa-check" style="display: none"></i>
 	<i class="fa fa-exclamation-circle"></i></td>
-	<td width="100%"><?=t('JavaScript Enabled')?></td>
-	<td class="ccm-test-js"><i class="fa fa-question-circle launch-tooltip" title="<?=t('Please enable JavaScript in your browser.')?>"></i></td>
+	<td width="100%"><?php echo t('JavaScript Enabled')?></td>
+	<td class="ccm-test-js"><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('Please enable JavaScript in your browser.')?>"></i></td>
 </tr>
 <tr>
-	<td><? if ($mysqlTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-	<td width="100%"><?=t('MySQL PDO Extension Enabled')?>
+	<td><?php if ($mysqlTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+	<td width="100%"><?php echo t('MySQL PDO Extension Enabled')?>
 	</td>
-	<td><? if (!$mysqlTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=$this->controller->getDBErrorMsg()?>"></i><? } ?></td>
+	<td><?php if (!$mysqlTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo $this->controller->getDBErrorMsg()?>"></i><?php } ?></td>
 </tr>
 <tr>
 	<td><i id="ccm-test-request-loading"  class="fa fa-spinner fa-spin"></i></td>
-	<td width="100%"><?=t('Supports concrete5 request URLs')?>
+	<td width="100%"><?php echo t('Supports concrete5 request URLs')?>
 	</td>
-	<td><i id="ccm-test-request-tooltip" class="fa fa-question-circle launch-tooltip" title="<?=t('concrete5 cannot parse the PATH_INFO or ORIG_PATH_INFO information provided by your server.')?>"></i></td>
+	<td><i id="ccm-test-request-tooltip" class="fa fa-question-circle launch-tooltip" title="<?php echo t('concrete5 cannot parse the PATH_INFO or ORIG_PATH_INFO information provided by your server.')?>"></i></td>
 </tr>
 <tr>
-	<td><? if ($jsonTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-	<td width="100%"><?=t('JSON Extension Enabled')?>
+	<td><?php if ($jsonTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+	<td width="100%"><?php echo t('JSON Extension Enabled')?>
 	</td>
-	<td><? if (!$jsonTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('You must enable PHP\'s JSON support. This should be enabled by default in PHP 5.2 and above.')?>"></i><? } ?></td>
+	<td><?php if (!$jsonTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('You must enable PHP\'s JSON support. This should be enabled by default in PHP 5.2 and above.')?>"></i><?php } ?></td>
 </tr>
 <tr>
-    <td><? if ($aspTagsTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-    <td width="100%"><?=t('ASP Style Tags Disabled')?></td>
-    <td><? if (!$aspTagsTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('You must disable PHP\'s ASP Style Tags.')?>"></i><? } ?></td>
+    <td><?php if ($aspTagsTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+    <td width="100%"><?php echo t('ASP Style Tags Disabled')?></td>
+    <td><?php if (!$aspTagsTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('You must disable PHP\'s ASP Style Tags.')?>"></i><?php } ?></td>
 </tr>
 
 </table>
@@ -376,39 +376,39 @@ $(function() {
 
 <table class="table table-striped requirements-table">
 <tr>
-	<td><? if ($imageTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-	<td width="100%"><?=t('Image Manipulation Available')?>
+	<td><?php if ($imageTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+	<td width="100%"><?php echo t('Image Manipulation Available')?>
 	</td>
-	<td><? if (!$imageTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('concrete5 requires GD library 2.0.1 with JPEG, PNG and GIF support. Doublecheck that your installation has support for all these image types.')?>"></i><? } ?></td>
+	<td><?php if (!$imageTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('concrete5 requires GD library 2.0.1 with JPEG, PNG and GIF support. Doublecheck that your installation has support for all these image types.')?>"></i><?php } ?></td>
 </tr>
 <tr>
-	<td><? if ($xmlTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-	<td width="100%"><?=t('XML Support')?>
+	<td><?php if ($xmlTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+	<td width="100%"><?php echo t('XML Support')?>
 	</td>
-	<td><? if (!$xmlTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('concrete5 requires PHP XML Parser and SimpleXML extensions')?>"></i><? } ?></td>
+	<td><?php if (!$xmlTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('concrete5 requires PHP XML Parser and SimpleXML extensions')?>"></i><?php } ?></td>
 </tr>
 <tr>
-	<td><? if ($fileWriteTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-	<td width="100%"><?=t('Writable Files and Configuration Directories')?>
+	<td><?php if ($fileWriteTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+	<td width="100%"><?php echo t('Writable Files and Configuration Directories')?>
 	</td>
-	<td><? if (!$fileWriteTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('The packages/, application/config/ and application/files/ directories must be writable by your web server.')?>"></i><? } ?></td>
+	<td><?php if (!$fileWriteTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('The packages/, application/config/ and application/files/ directories must be writable by your web server.')?>"></i><?php } ?></td>
 </tr>
 <tr>
 	<td><i id="ccm-test-cookies-enabled-loading" class="fa fa-spinner fa-spin"></i></td>
-	<td width="100%"><?=t('Cookies Enabled')?>
+	<td width="100%"><?php echo t('Cookies Enabled')?>
 	</td>
-	<td><i id="ccm-test-cookies-enabled-tooltip" class="fa fa-question-circle launch-tooltip" title="<?=t('Cookies must be enabled in your browser to install concrete5.')?>"></i></td>
+	<td><i id="ccm-test-cookies-enabled-tooltip" class="fa fa-question-circle launch-tooltip" title="<?php echo t('Cookies must be enabled in your browser to install concrete5.')?>"></i></td>
 </tr>
 <tr>
-    <td><? if ($i18nTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-    <td width="100%"><?=t('Internationalization Support')?>
+    <td><?php if ($i18nTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+    <td width="100%"><?php echo t('Internationalization Support')?>
     </td>
-    <td><? if (!$i18nTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('You must enable ctype and multibyte string (mbstring) support in PHP.')?>"></i><? } ?></td>
+    <td><?php if (!$i18nTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('You must enable ctype and multibyte string (mbstring) support in PHP.')?>"></i><?php } ?></td>
 </tr>
 <tr>
-    <td><? if ($docCommentTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-exclamation-circle"></i><? } ?></td>
-    <td width="100%"><?=t('PHP Comments Preserved')?>
-    <td><? if (!$docCommentTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('concrete5 is not compatible with opcode caches that strip PHP comments. Certain configurations of eAccelerator and Zend opcode caching may use this behavior, and it must be disabled.')?>"></td><? } ?></td>
+    <td><?php if ($docCommentTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-exclamation-circle"></i><?php } ?></td>
+    <td width="100%"><?php echo t('PHP Comments Preserved')?>
+    <td><?php if (!$docCommentTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('concrete5 is not compatible with opcode caches that strip PHP comments. Certain configurations of eAccelerator and Zend opcode caching may use this behavior, and it must be disabled.')?>"></td><?php } ?></td>
 </tr>
 </table>
 
@@ -419,7 +419,7 @@ $(function() {
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
 
-<h3><?=t('Testing Optional Items')?></h3>
+<h3><?php echo t('Testing Optional Items')?></h3>
 
 </div>
 </div>
@@ -430,10 +430,10 @@ $(function() {
 <table class="table table-striped requirements-table">
 <tbody>
 <tr>
-	<td><? if ($remoteFileUploadTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-warning"></i><? } ?></td>
-	<td width="100%"><?=t('Remote File Importing Available')?>
+	<td><?php if ($remoteFileUploadTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-warning"></i><?php } ?></td>
+	<td width="100%"><?php echo t('Remote File Importing Available')?>
 	</td>
-	<td><? if (!$remoteFileUploadTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('Remote file importing through the file manager requires the iconv PHP extension.')?>"></i><? } ?></td>
+	<td><?php if (!$remoteFileUploadTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('Remote file importing through the file manager requires the iconv PHP extension.')?>"></i><?php } ?></td>
 </tr>
 </table>
 
@@ -444,10 +444,10 @@ $(function() {
     <table class="table table-striped requirements-table">
         <tbody>
         <tr>
-            <td><? if ($fileZipTest) { ?><i class="fa fa-check"></i><? } else { ?><i class="fa fa-warning"></i><? } ?></td>
-            <td width="100%"><?=t('Zip Support')?>
+            <td><?php if ($fileZipTest) { ?><i class="fa fa-check"></i><?php } else { ?><i class="fa fa-warning"></i><?php } ?></td>
+            <td width="100%"><?php echo t('Zip Support')?>
             </td>
-            <td><? if (!$fileZipTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?=t('Downloading zipped files from the file manager, remote updating and marketplace integration requires the Zip extension.')?>"></i><? } ?></td>
+            <td><?php if (!$fileZipTest) { ?><i class="fa fa-question-circle launch-tooltip" title="<?php echo t('Downloading zipped files from the file manager, remote updating and marketplace integration requires the Zip extension.')?>"></i><?php } ?></td>
         </tr>
     </table>
 
@@ -458,7 +458,7 @@ $(function() {
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
 
-            <h3><?=t('Memory Requirements')?></h3>
+            <h3><?php echo t('Memory Requirements')?></h3>
 
         </div>
     </div>
@@ -470,27 +470,27 @@ $(function() {
                 <tbody>
                 <tr>
                     <td>
-                        <? if ($memoryTest === -1) { ?>
+                        <?php if ($memoryTest === -1) { ?>
                             <i class="fa fa-exclamation-circle"></i>
-                        <? } else if ($memoryTest === 1) { ?>
+                        <?php } else if ($memoryTest === 1) { ?>
                             <i class="fa fa-check"></i>
-                        <? } else { ?>
+                        <?php } else { ?>
                             <i class="fa fa-warning"></i>
-                        <? } ?>
+                        <?php } ?>
                     </td>
                     <td width="100%">
-                        <? if ($memoryTest === -1) { ?>
-                            <span class="text-danger"><?=t('concrete5 will not install with less than 24MB of RAM.
+                        <?php if ($memoryTest === -1) { ?>
+                            <span class="text-danger"><?php echo t('concrete5 will not install with less than 24MB of RAM.
                             Your memory limit is currently %sMB. Please increase your memory_limit using ini_set.', round(Core::make('helper/number')->formatSize($memoryBytes, 'MB'), 2))?>
                             </span>
-                        <? } ?>
-                        <? if ($memoryTest === 0) { ?>
-                            <span class="text-warning"><?=t('concrete5 runs best with at least 64MB of RAM.
+                        <?php } ?>
+                        <?php if ($memoryTest === 0) { ?>
+                            <span class="text-warning"><?php echo t('concrete5 runs best with at least 64MB of RAM.
                             Your memory limit is currently %sMB. You may experience problems uploading and resizing large images, and may have to install concrete5 without sample content.', round(Core::make('helper/number')->formatSize($memoryBytes, 'MB'), 2))?></span>
-                        <? } ?>
-                        <? if ($memoryTest === 1) { ?>
-                            <span class="text-success"><?=t('Memory limit %sMB.', round(Core::make('helper/number')->formatSize($memoryBytes, 'MB'), 2))?></span>
-                        <? } ?>
+                        <?php } ?>
+                        <?php if ($memoryTest === 1) { ?>
+                            <span class="text-success"><?php echo t('Memory limit %sMB.', round(Core::make('helper/number')->formatSize($memoryBytes, 'MB'), 2))?></span>
+                        <?php } ?>
 
                     </td>
                 </tr>
@@ -503,35 +503,35 @@ $(function() {
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1">
 <div class="well" id="install-success">
-	<form method="post" action="<?=$view->url('/install','setup')?>">
-	<input type="hidden" name="locale" value="<?=h($locale)?>" />
-	<a class="btn btn-large btn-primary" href="javascript:void(0)" onclick="$(this).parent().submit()"><?=t('Continue to Installation')?> <i class="fa fa-arrow-right fa-white"></i></a>
+	<form method="post" action="<?php echo $view->url('/install','setup')?>">
+	<input type="hidden" name="locale" value="<?php echo h($locale)?>" />
+	<a class="btn btn-large btn-primary" href="javascript:void(0)" onclick="$(this).parent().submit()"><?php echo t('Continue to Installation')?> <i class="fa fa-arrow-right fa-white"></i></a>
 	</form>
 </div>
 
 <div class="alert alert-error" id="install-errors">
-	<?=t('There are problems with your installation environment. Please correct them and click the button below to re-run the pre-installation tests.')?>
+	<?php echo t('There are problems with your installation environment. Please correct them and click the button below to re-run the pre-installation tests.')?>
     <br/><br/>
-	<form method="post" action="<?=$view->url('/install')?>">
-    	<input type="hidden" name="locale" value="<?=h($locale)?>" />
-    	<button class="btn btn-default" type="submit"><?=t('Run Tests')?> <i class="fa fa-refresh"></i></button>
+	<form method="post" action="<?php echo $view->url('/install')?>">
+    	<input type="hidden" name="locale" value="<?php echo h($locale)?>" />
+    	<button class="btn btn-default" type="submit"><?php echo t('Run Tests')?> <i class="fa fa-refresh"></i></button>
 	</form>
 </div>
 
 <div class="alert alert-info">
-<? $install_forum_url = tc('InstallationHelpForums', 'http://www.concrete5.org/community/forums/installation')?>
-<?=t('Having trouble? Check the <a href="%s">installation help forums</a>, or <a href="%s">have us host a copy</a> for you.', $install_forum_url, 'http://www.concrete5.org/services/hosting')?>
+<?php $install_forum_url = tc('InstallationHelpForums', 'http://www.concrete5.org/community/forums/installation')?>
+<?php echo t('Having trouble? Check the <a href="%s">installation help forums</a>, or <a href="%s">have us host a copy</a> for you.', $install_forum_url, 'http://www.concrete5.org/services/hosting')?>
 </div>
 </div>
 </div>
 
-<? } else { ?>
+<?php } else { ?>
 
 <div class="row">
 <div class="col-sm-8 col-sm-offset-2">
 <div class="page-header">
-	<h1><?=t('Install concrete5')?></h1>
-	<p><?=t('Version %s', Config::get('concrete.version'))?></p>
+	<h1><?php echo t('Install concrete5')?></h1>
+	<p><?php echo t('Version %s', Config::get('concrete.version'))?></p>
 </div>
 </div>
 </div>
@@ -541,16 +541,16 @@ $(function() {
 
 <div id="ccm-install-intro">
 
-<form method="post" class="form-horizontal" action="<?=$view->url('/install', 'select_language')?>">
+<form method="post" class="form-horizontal" action="<?php echo $view->url('/install', 'select_language')?>">
 <fieldset>
 	<div class="form-group">
-	<label for="locale" class="control-label col-sm-3"><?=t('Language')?></label>
+	<label for="locale" class="control-label col-sm-3"><?php echo t('Language')?></label>
 	<div class="col-sm-7">
-		<?=$form->select('locale', $locales, 'en_US'); ?>
+		<?php echo $form->select('locale', $locales, 'en_US'); ?>
 	</div>
 	</div>
 	<div class="form-group col-sm-10">
-		<button type="submit" class="btn btn-primary pull-right"><?=t('Choose Language')?></button>
+		<button type="submit" class="btn btn-primary pull-right"><?php echo t('Choose Language')?></button>
 	</div>
 
 </fieldset>
@@ -560,4 +560,4 @@ $(function() {
 </div>
 </div>
 
-<? } ?>
+<?php } ?>

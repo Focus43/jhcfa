@@ -40,7 +40,7 @@ if ($_POST['task'] == 'activate') {
 
 if (!isset($_REQUEST['reload'])) { ?>
 	<div id="ccm-user-bulk-activate-wrapper">
-<? } ?>
+<?php } ?>
 
 	<div id="ccm-user-activate" class="ccm-ui">
 		<form method="post" id="ccm-user-bulk-activate" action="<?php echo REL_DIR_FILES_TOOLS_REQUIRED ?>/users/bulk_activate">
@@ -55,13 +55,13 @@ if (!isset($_REQUEST['reload'])) { ?>
 		</form>	
 	</div>
 	<div class="dialog-buttons">
-		<?=$ih->button_js(t('Cancel'), 'jQuery.fn.dialog.closeTop()', 'left', 'btn')?>	
-		<?=$ih->button_js(t('Activate'), 'ccm_userBulkActivate()', 'right', 'btn primary')?>
+		<?php echo $ih->button_js(t('Cancel'), 'jQuery.fn.dialog.closeTop()', 'left', 'btn')?>	
+		<?php echo $ih->button_js(t('Activate'), 'ccm_userBulkActivate()', 'right', 'btn primary')?>
 	</div>
-<?
+<?php
 if (!isset($_REQUEST['reload'])) { ?>
 </div>
-<? } ?>
+<?php } ?>
 
 <script type="text/javascript">
 ccm_userBulkActivate = function() { 
@@ -69,13 +69,13 @@ ccm_userBulkActivate = function() {
 	$("#ccm-user-bulk-activate").ajaxSubmit(function(resp) {
 		jQuery.fn.dialog.closeTop();
 		jQuery.fn.dialog.hideLoader();
-		ccm_deactivateSearchResults('<?=$searchInstance?>');
+		ccm_deactivateSearchResults('<?php echo $searchInstance?>');
 		ConcreteAlert.notify({
 		'message': ccmi18n.saveUserSettingsMsg,
 		'title': ccmi18n.user_activate
 		});
-		$("#ccm-<?=$searchInstance?>-advanced-search").ajaxSubmit(function(r) {
-		       ccm_parseAdvancedSearchResponse(r, '<?=$searchInstance?>');
+		$("#ccm-<?php echo $searchInstance?>-advanced-search").ajaxSubmit(function(r) {
+		       ccm_parseAdvancedSearchResponse(r, '<?php echo $searchInstance?>');
 		});
 	});
 };

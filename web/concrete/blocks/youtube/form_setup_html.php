@@ -1,5 +1,5 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php
 if (!$bObj->vWidth) {
 	$bObj->vWidth=425;
 }
@@ -13,29 +13,29 @@ if (!$bObj->vHeight) {
     }
 </style>
 <div class="form-group">
-    <label><?=t('Title')?></label>
-    <input type="text" class="form-control" name="title" value="<?=$bObj->title?>"/>
+    <label><?php echo t('Title')?></label>
+    <input type="text" class="form-control" name="title" value="<?php echo $bObj->title?>"/>
 </div>
 <div class="form-group">
-    <label><?=t('YouTube URL')?></label>
-    <input type="text" class="form-control" id="YouTubeVideoURL" name="videoURL" value="<?=$bObj->videoURL?>" />
+    <label><?php echo t('YouTube URL')?></label>
+    <input type="text" class="form-control" id="YouTubeVideoURL" name="videoURL" value="<?php echo $bObj->videoURL?>" />
 </div>
 <div class="form-group">
-    <label><?=t('Width')?></label>
-    <input type="text" class="form-control yt-vid-dims" id="YouTubeVideoWidth" name="vWidth" value="<?=$bObj->vWidth?>" />
+    <label><?php echo t('Width')?></label>
+    <input type="text" class="form-control yt-vid-dims" id="YouTubeVideoWidth" name="vWidth" value="<?php echo $bObj->vWidth?>" />
 </div>
 <div class="form-group">
-    <label><?=t('Height')?></label>
-    <input type="text" class="form-control yt-vid-dims" id="YouTubeVideoHeight" name="vHeight" value="<?=$bObj->vHeight?>" />
+    <label><?php echo t('Height')?></label>
+    <input type="text" class="form-control yt-vid-dims" id="YouTubeVideoHeight" name="vHeight" value="<?php echo $bObj->vHeight?>" />
 </div>
 <div class="form-group">
-    <label><?=t('Video Player')?></label>
+    <label><?php echo t('Video Player')?></label>
         <div class="radio">
-            <label><input type="radio" name="vPlayer" value="1" <?=($bObj->vPlayer)?'checked':''?> /> <?=t('iFrame - Works in more devices')?></label>
+            <label><input type="radio" name="vPlayer" value="1" <?php echo ($bObj->vPlayer)?'checked':''?> /> <?php echo t('iFrame - Works in more devices')?></label>
         </div>
     <div class="radio">
         <label>
-            <input type="radio" name="vPlayer" value="0" <?=(!$bObj->vPlayer)?'checked':''?> /> <?=t('Flash Embed - Legacy method')?>
+            <input type="radio" name="vPlayer" value="0" <?php echo (!$bObj->vPlayer)?'checked':''?> /> <?php echo t('Flash Embed - Legacy method')?>
         </label>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Concrete\Theme\Elemental;
 class PageTheme extends \Concrete\Core\Page\Theme\Theme {
 
@@ -19,6 +19,8 @@ class PageTheme extends \Concrete\Core\Page\Theme\Theme {
         $this->requireAsset('css', 'font-awesome');
         $this->requireAsset('javascript', 'jquery');
         $this->requireAsset('javascript', 'picturefill');
+        $this->requireAsset('javascript-conditional', 'html5-shiv');
+        $this->requireAsset('javascript-conditional', 'respond');
 	}
 
     protected $pThemeGridFrameworkHandle = 'bootstrap3';

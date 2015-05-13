@@ -5,21 +5,21 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
 ?>
 <form class="form-inline" action="<?php echo $view->action('view')?>" method="get">
     <div class="ccm-dashboard-header-buttons">
-	    <a href="<?=View::url('/dashboard/users/points/assign')?>" class="btn btn-primary"><?=t('Add Points')?></a>
+	    <a href="<?php echo View::url('/dashboard/users/points/assign')?>" class="btn btn-primary"><?php echo t('Add Points')?></a>
 	</div>
 	
     <div class="ccm-pane-options">
         <div class="ccm-pane-options-permanent-search">
-            <?=$form->label('uName', t('User'))?>
+            <?php echo $form->label('uName', t('User'))?>
             <?php echo $form_user_selector->quickSelect('uName',$_GET['uName'],array('form-control'));?>
-            <input type="submit" value="<?=t('Search')?>" class="btn" />
+            <input type="submit" value="<?php echo t('Search')?>" class="btn" />
 
 
         </div>
     </div>
 </form>
 <br />
-<?
+<?php
 if (!$mode) {
 	$mode = $_REQUEST['mode'];
 }
@@ -29,32 +29,32 @@ $keywords = $_REQUEST['keywords'];
 if (count($entries) > 0) { ?>	
 	<table border="0" cellspacing="0" cellpadding="0" id="ccm-product-list" class="table table-striped">
 	<tr>
-		<th class="<?=$upEntryList->getSearchResultsClass('uName')?>"><a href="<?=$upEntryList->getSortByURL('uName', 'asc')?>"><?=t('User')?></a></th>
-		<th class="<?=$upEntryList->getSearchResultsClass('upaName')?>"><a href="<?=$upEntryList->getSortByURL('upaName', 'asc')?>"><?=t('Action')?></a></th>
-		<th class="<?=$upEntryList->getSearchResultsClass('upPoints')?>"><a href="<?=$upEntryList->getSortByURL('upPoints', 'asc')?>"><?=t('Points')?></a></th>
-		<th class="<?=$upEntryList->getSearchResultsClass('timestamp')?>"><a href="<?=$upEntryList->getSortByURL('timestamp', 'asc')?>"><?=t('Date Assigned')?></a></th>
-		<th><?=t("Details")?></th>
+		<th class="<?php echo $upEntryList->getSearchResultsClass('uName')?>"><a href="<?php echo $upEntryList->getSortByURL('uName', 'asc')?>"><?php echo t('User')?></a></th>
+		<th class="<?php echo $upEntryList->getSearchResultsClass('upaName')?>"><a href="<?php echo $upEntryList->getSortByURL('upaName', 'asc')?>"><?php echo t('Action')?></a></th>
+		<th class="<?php echo $upEntryList->getSearchResultsClass('upPoints')?>"><a href="<?php echo $upEntryList->getSortByURL('upPoints', 'asc')?>"><?php echo t('Points')?></a></th>
+		<th class="<?php echo $upEntryList->getSearchResultsClass('timestamp')?>"><a href="<?php echo $upEntryList->getSortByURL('timestamp', 'asc')?>"><?php echo t('Date Assigned')?></a></th>
+		<th><?php echo t("Details")?></th>
 		<th></th>
 	</tr>
     <?php 
     foreach($entries as $up) { ?>
     	<tr>
-    		<?
+    		<?php
         		$ui = $up->getUserPointEntryUserObject();
         		$action = $up->getUserPointEntryActionObject();
     		?>
-    		<td><? if (is_object($ui)) { ?><?php echo $ui->getUserName()?><? } ?></td>
-    		<td><? if (is_object($action)) { ?><?=$action->getUserPointActionName()?><? } ?></td>
+    		<td><?php if (is_object($ui)) { ?><?php echo $ui->getUserName()?><?php } ?></td>
+    		<td><?php if (is_object($action)) { ?><?php echo $action->getUserPointActionName()?><?php } ?></td>
     		<td><?php echo number_format($up->getUserPointEntryValue())?></td>
     		<td><?php echo $dh->formatDateTime($up->getUserPointEntryTimestamp());?></td>
-    		<td><?=$up->getUserPointEntryDescription()?></td>
+    		<td><?php echo $up->getUserPointEntryDescription()?></td>
     		<td style="Text-align: right">
-    		    <a href="<?=$view->action('deleteEntry', $up->getUserPointEntryID())?>" class="btn btn-sm btn-danger"><?=t('Delete')?></a>
+    		    <a href="<?php echo $view->action('deleteEntry', $up->getUserPointEntryID())?>" class="btn btn-sm btn-danger"><?php echo t('Delete')?></a>
     		</td>
     	</tr>
     <?php } ?>
 </table>
-<? } else { ?>
-	<div id="ccm-list-none"><?=t('No entries found.')?></div>
-<? } 
+<?php } else { ?>
+	<div id="ccm-list-none"><?php echo t('No entries found.')?></div>
+<?php } 
 $upEntryList->displayPaging(); ?>

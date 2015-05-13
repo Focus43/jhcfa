@@ -1,9 +1,9 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <div class="row">
 <div class="col-sm-8 col-sm-offset-2">
 
-<h1 class="page-header"><?=t('User Avatar')?></h1>
+<h1 class="page-header"><?php echo t('User Avatar')?></h1>
 <p><?php echo t('Change the picture attached to my posts.')?></p>
 
 		<div id="profile-avatar">
@@ -11,10 +11,10 @@
 			<br /><br />
 			<a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash">Download the Flash Player here</a>.
 		</div>
-		<? if ($profile->hasAvatar()) { ?>
+		<?php if ($profile->hasAvatar()) { ?>
 			<br/><br/>
 			<a href="<?php echo $view->action('delete')?>" class="btn btn-danger"><?php echo t('Remove your user avatar')?> <i class="icon-trash icon-white"></i></a>
-		<? } ?>
+		<?php } ?>
 
 		<script type="text/javascript">
 		ThumbnailBuilder_onSaveCompleted = function() {
@@ -58,7 +58,7 @@
     <br/>
 
     <div class="form-actions">
-        <a href="<?=URL::to('/account')?>" class="btn btn-default" /><?=t('Back to Account')?></a>
+        <a href="<?php echo URL::to('/account')?>" class="btn btn-default" /><?php echo t('Back to Account')?></a>
     </div>
 
 </div>

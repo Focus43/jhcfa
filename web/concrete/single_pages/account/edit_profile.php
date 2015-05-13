@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <script type="text/javascript">
 $(function() {
@@ -9,14 +9,14 @@ $(function() {
 <div class="row">
 <div class="col-sm-offset-1 col-sm-10">
 
-	<h1 class="page-header"><?=t('Edit Profile')?></h1>
+	<h1 class="page-header"><?php echo t('Edit Profile')?></h1>
 
 	<form method="post" action="<?php echo $view->action('save')?>" enctype="multipart/form-data">
 	<?php  $attribs = UserAttributeKey::getEditableInProfileList();
 	$valt->output('profile_edit');
 	?>
 	<fieldset>
-	<legend><?=t('Basic Information')?></legend>
+	<legend><?php echo t('Basic Information')?></legend>
 	<div class="form-group">
 		<?php echo $form->label('uEmail', t('Email'))?>
 		<?php echo $form->text('uEmail',$profile->getUserEmail())?>
@@ -59,7 +59,7 @@ $(function() {
 	if ($count) {
 		?>
 		<fieldset>
-			<legend><?=t('Authentication Types')?></legend>
+			<legend><?php echo t('Authentication Types')?></legend>
 			<?php
 			foreach ($ats as $at) {
 				$at->renderHook();
@@ -71,25 +71,25 @@ $(function() {
 	?>
         <br/>
 	<fieldset>
-    	<legend><?=t('Change Password')?></legend>
+    	<legend><?php echo t('Change Password')?></legend>
         <div class="form-group">
             <?php echo $form->label('uPasswordNew', t('New Password'))?>
-            <?php echo $form->password('uPasswordNew')?>
-            <a href="javascript:void(0)" title="<?=t("Leave blank to keep current password.")?>"><i class="icon-question-sign"></i></a>
+            <?php echo $form->password('uPasswordNew',array('autocomplete' => 'off'))?>
+            <a href="javascript:void(0)" title="<?php echo t("Leave blank to keep current password.")?>"><i class="icon-question-sign"></i></a>
 		</div>
 
         <div class="form-group">
             <?php echo $form->label('uPasswordNewConfirm', t('Confirm New Password'))?>
             <div class="controls">
-                <?php echo $form->password('uPasswordNewConfirm')?>
+                <?php echo $form->password('uPasswordNewConfirm',array('autocomplete' => 'off'))?>
             </div>
         </div>
 
 	</fieldset>
 
 	<div class="form-actions">
-		<a href="<?=URL::to('/account')?>" class="btn btn-default" /><?=t('Back to Account')?></a>
-		<input type="submit" name="save" value="<?=t('Save')?>" class="btn btn-primary pull-right" />
+		<a href="<?php echo URL::to('/account')?>" class="btn btn-default" /><?php echo t('Back to Account')?></a>
+		<input type="submit" name="save" value="<?php echo t('Save')?>" class="btn btn-primary pull-right" />
 	</div>
 
 	</form>

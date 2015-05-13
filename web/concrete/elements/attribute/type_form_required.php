@@ -1,4 +1,4 @@
-<? 
+<?php 
 use \Concrete\Core\Attribute\Key\Category as AttributeKeyCategory;
 $c = Page::getCurrentPage();
 
@@ -24,52 +24,52 @@ if (is_object($key)) {
 }
 ?>
 
-<? if (is_object($key)) { ?>
-	<?
+<?php if (is_object($key)) { ?>
+	<?php
 	$valt = Loader::helper('validation/token');
 	$ih = Loader::helper('concrete/ui');
 	$delConfirmJS = t('Are you sure you want to remove this attribute?');
 	?>
 	<script type="text/javascript">
 	deleteAttribute = function() {
-		if (confirm('<?=$delConfirmJS?>')) { 
-			location.href = "<?=$view->action('delete', $key->getAttributeKeyID(), $valt->generate('delete_attribute'))?>";				
+		if (confirm('<?php echo $delConfirmJS?>')) { 
+			location.href = "<?php echo $view->action('delete', $key->getAttributeKeyID(), $valt->generate('delete_attribute'))?>";				
 		}
 	}
 	</script>
 
 <div class="ccm-dashboard-header-buttons">
-	<button type="button" class="btn btn-danger" onclick="deleteAttribute()"><?=t('Delete Attribute')?></button>
+	<button type="button" class="btn btn-danger" onclick="deleteAttribute()"><?php echo t('Delete Attribute')?></button>
 </div>
 
-<? } ?>
+<?php } ?>
 
 
 <fieldset>
-<legend><?=t('%s: Basic Details', $type->getAttributeTypeDisplayName())?></legend>
+<legend><?php echo t('%s: Basic Details', $type->getAttributeTypeDisplayName())?></legend>
 
 <div class="form-group">
-	<?=$form->label('akHandle', t('Handle'))?>
+	<?php echo $form->label('akHandle', t('Handle'))?>
 	<div class="input-group">
-	<?=$form->text('akHandle', $akHandle)?>
+	<?php echo $form->text('akHandle', $akHandle)?>
 	<span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
 	</div>
 </div>
 
 
 <div class="form-group">
-	<?=$form->label('akName', t('Name'))?>
+	<?php echo $form->label('akName', t('Name'))?>
 	<div class="input-group">
-		<?=$form->text('akName', $akName)?>
+		<?php echo $form->text('akName', $akName)?>
 		<span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
 	</div>
 </div>
 
-<? if ($category->allowAttributeSets() == AttributeKeyCategory::ASET_ALLOW_SINGLE) { ?>
+<?php if ($category->allowAttributeSets() == AttributeKeyCategory::ASET_ALLOW_SINGLE) { ?>
 <div class="form-group">
-<?=$form->label('asID', t('Set'))?>
+<?php echo $form->label('asID', t('Set'))?>
 <div class="controls">
-	<?
+	<?php
 		$sel = array('0' => t('** None'));
 		$sets = $category->getAttributeSets();
 		foreach($sets as $as) {
@@ -79,10 +79,10 @@ if (is_object($key)) {
 		?>
 </div>
 </div>
-<? } ?>
+<?php } ?>
 
 <div class="form-group">
-<label class="control-label"><?=t('Searchable')?></label>
+<label class="control-label"><?php echo t('Searchable')?></label>
 
 <?php
 	$category_handle = $category->getAttributeKeyCategoryHandle();
@@ -103,16 +103,16 @@ if (is_object($key)) {
 			break;
 	}
 	?>
-	<div class="checkbox"><label><?=$form->checkbox('akIsSearchableIndexed', 1, $akIsSearchableIndexed)?> <?=$keyword_label?></label></div>
-	<div class="checkbox"><label><?=$form->checkbox('akIsSearchable', 1, $akIsSearchable)?> <?=$advanced_label?></label></div>
+	<div class="checkbox"><label><?php echo $form->checkbox('akIsSearchableIndexed', 1, $akIsSearchableIndexed)?> <?php echo $keyword_label?></label></div>
+	<div class="checkbox"><label><?php echo $form->checkbox('akIsSearchable', 1, $akIsSearchable)?> <?php echo $advanced_label?></label></div>
 </div>
 
 </fieldset>
 
-<?=$form->hidden('atID', $type->getAttributeTypeID())?>
-<?=$form->hidden('akCategoryID', $category->getAttributeKeyCategoryID()); ?>
-<?=$valt->output('add_or_update_attribute')?>
-<? 
+<?php echo $form->hidden('atID', $type->getAttributeTypeID())?>
+<?php echo $form->hidden('akCategoryID', $category->getAttributeKeyCategoryID()); ?>
+<?php echo $valt->output('add_or_update_attribute')?>
+<?php 
 if ($category->getPackageID() > 0) { 
 	@Loader::packageElement('attribute/categories/' . $category->getAttributeKeyCategoryHandle(), $category->getPackageHandle(), array('key' => $key));
 } else {
@@ -120,17 +120,17 @@ if ($category->getPackageID() > 0) {
 }
 ?>
 
-<? $type->render('type_form', $key); ?>
+<?php $type->render('type_form', $key); ?>
 
 
 <div class="ccm-dashboard-form-actions-wrapper">
 <div class="ccm-dashboard-form-actions">
-	<a href="<?=URL::page($c)?>" class="btn pull-left btn-default"><?=t('Back')?></a>
-<? if (is_object($key)) { ?>
-	<button type="submit" class="btn btn-primary pull-right"><?=t('Save')?></button>
-<? } else { ?>
-	<button type="submit" class="btn btn-primary pull-right"><?=t('Add')?></button>
-<? } ?>
+	<a href="<?php echo URL::page($c)?>" class="btn pull-left btn-default"><?php echo t('Back')?></a>
+<?php if (is_object($key)) { ?>
+	<button type="submit" class="btn btn-primary pull-right"><?php echo t('Save')?></button>
+<?php } else { ?>
+	<button type="submit" class="btn btn-primary pull-right"><?php echo t('Add')?></button>
+<?php } ?>
 </div>
 </div>
 

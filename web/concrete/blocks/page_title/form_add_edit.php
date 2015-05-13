@@ -3,15 +3,15 @@ if(!strlen($titleText)) { $titleText = $controller->getTitleText();}
 ?>
 
 <div class="form-group" class="ccm-ui">
-    <label><?=t("Custom Title")?></label>
+    <label><?php echo t("Custom Title")?></label>
     <div class="checkbox"><label>
         <?php echo $form->checkbox('useCustomTitle', 1, $useCustomTitle);?>
-        <?=t('Override page name with custom title?')?>
+        <?php echo t('Override page name with custom title?')?>
     </label></div>
 </div>
 
 <div class="form-group">
-    <?=$form->label('titleText', t('Custom Title Text'))?>
+    <?php echo $form->label('titleText', t('Custom Title Text'))?>
     <?php echo $form->text('titleText', $titleText); ?>
 </div>
 

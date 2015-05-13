@@ -4,7 +4,7 @@ $fp = FilePermissions::getGlobal();
 $tp = new TaskPermission();
 ?>
 <script>
-    var CCM_EDITOR_SECURITY_TOKEN = "<?=Loader::helper('validation/token')->generate('editor')?>";
+    var CCM_EDITOR_SECURITY_TOKEN = "<?php echo Loader::helper('validation/token')->generate('editor')?>";
     $(document).ready(function(){
         var ccmReceivingEntry = '';
         var sliderEntriesContainer = $('.ccm-image-slider-entries');
@@ -90,12 +90,12 @@ $tp = new TaskPermission();
                <?php } ?>
                 link_url: '<?php echo $row['linkURL'] ?>',
                 link_type: '<?php echo $linkType?>',
-                title: '<?php echo addslashes($row['title']) ?>',
-                description: '<?php echo str_replace(array("\t", "\r", "\n"), "", addslashes($row['description']))?>',
+                title: '<?php echo addslashes(h($row['title'])) ?>',
+                description: '<?php echo str_replace(array("\t", "\r", "\n"), "", addslashes(h($row['description'])))?>',
                 sort_order: '<?php echo $row['sortOrder'] ?>'
             }));
             sliderEntriesContainer.find('.ccm-image-slider-entry:last-child div[data-field=entry-link-page-selector]').concretePageSelector({
-                'inputName': 'internalLinkCID[]', 'cID': <? if ($linkType == 1) { ?><?=intval($row['internalLinkCID'])?><? } else { ?>false<? } ?>
+                'inputName': 'internalLinkCID[]', 'cID': <?php if ($linkType == 1) { ?><?php echo intval($row['internalLinkCID'])?><?php } else { ?>false<?php } ?>
             });
         <?php }
         }?>
@@ -120,8 +120,8 @@ $tp = new TaskPermission();
             newSlide.find('.redactor-content').redactor({
                 minHeight: '200',
                 'concrete5': {
-                    filemanager: <?=$fp->canAccessFileManager()?>,
-                    sitemap: <?=$tp->canAccessSitemap()?>,
+                    filemanager: <?php echo $fp->canAccessFileManager()?>,
+                    sitemap: <?php echo $tp->canAccessSitemap()?>,
                     lightbox: true
                 }
             });
@@ -142,8 +142,8 @@ $tp = new TaskPermission();
             $('.redactor-content').redactor({
                 minHeight: '200',
                 'concrete5': {
-                    filemanager: <?=$fp->canAccessFileManager()?>,
-                    sitemap: <?=$tp->canAccessSitemap()?>,
+                    filemanager: <?php echo $fp->canAccessFileManager()?>,
+                    sitemap: <?php echo $tp->canAccessSitemap()?>,
                     lightbox: true
                 }
             });
@@ -209,12 +209,12 @@ $tp = new TaskPermission();
     <label class="control-label"><?php echo t('Navigation') ?></label>
     <div class="form-group">
         <div class="radio">
-            <label><input type="radio" name="<?=$view->field('navigationType')?>" value="0" <?php echo $navigationType > 0 ? '' : 'checked' ?> /><?php echo t('Arrows') ?></label>
+            <label><input type="radio" name="<?php echo $view->field('navigationType')?>" value="0" <?php echo $navigationType > 0 ? '' : 'checked' ?> /><?php echo t('Arrows') ?></label>
         </div>
     </div>
     <div class="form-group">
         <div class="radio">
-            <label><input type="radio" name="<?=$view->field('navigationType')?>" value="1" <?php echo $navigationType > 0 ? 'checked' : '' ?> /><?php echo t('Bullets') ?></label>
+            <label><input type="radio" name="<?php echo $view->field('navigationType')?>" value="1" <?php echo $navigationType > 0 ? 'checked' : '' ?> /><?php echo t('Bullets') ?></label>
         </div>
     </div>
 
@@ -236,23 +236,23 @@ $tp = new TaskPermission();
                     <i class="fa fa-picture-o"></i>
                 <% } %>
             </div>
-            <input type="hidden" name="<?=$view->field('fID')?>[]" class="image-fID" value="<%=fID%>" />
+            <input type="hidden" name="<?php echo $view->field('fID')?>[]" class="image-fID" value="<%=fID%>" />
         </div>
         <div class="form-group">
             <label><?php echo t('Title') ?></label>
-            <input type="text" name="<?=$view->field('title')?>[]" value="<%=title%>" />
+            <input type="text" name="<?php echo $view->field('title')?>[]" value="<%=title%>" />
         </div>
         <div class="form-group">
             <label><?php echo t('Description') ?></label>
             <div class="redactor-edit-content"></div>
-            <textarea style="display: none" class="redactor-content" name="<?=$view->field('description')?>[]"><%=description%></textarea>
+            <textarea style="display: none" class="redactor-content" name="<?php echo $view->field('description')?>[]"><%=description%></textarea>
         </div>
         <div class="form-group">
            <label><?php echo t('Link') ?></label>
             <select data-field="entry-link-select" name="linkType[]" class="form-control" style="width: 60%;">
-                <option value="0" <% if (!link_type) { %>selected<% } %>><?=t('None')?></option>
-                <option value="1" <% if (link_type == 1) { %>selected<% } %>><?=t('Another Page')?></option>
-                <option value="2" <% if (link_type == 2) { %>selected<% } %>><?=t('External URL')?></option>
+                <option value="0" <% if (!link_type) { %>selected<% } %>><?php echo t('None')?></option>
+                <option value="1" <% if (link_type == 1) { %>selected<% } %>><?php echo t('Another Page')?></option>
+                <option value="2" <% if (link_type == 2) { %>selected<% } %>><?php echo t('External URL')?></option>
             </select>
         </div>
 
@@ -266,7 +266,7 @@ $tp = new TaskPermission();
             <div data-field="entry-link-page-selector-select"></div>
         </div>
 
-        <input class="ccm-image-slider-entry-sort" type="hidden" name="<?=$view->field('sortOrder')?>[]" value="<%=sort_order%>"/>
+        <input class="ccm-image-slider-entry-sort" type="hidden" name="<?php echo $view->field('sortOrder')?>[]" value="<%=sort_order%>"/>
         <div class="form-group">
             <span class="btn btn-danger ccm-delete-image-slider-entry"><?php echo t('Delete Entry'); ?></span>
         </div>

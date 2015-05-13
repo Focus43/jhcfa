@@ -1,6 +1,6 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?> 
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?> 
 
-<?
+<?php
 	
 	// grab all tags in use based on the path
 	$ak = CollectionAttributeKey::getByHandle('tags');
@@ -38,23 +38,23 @@
 ?>
 
 
-<? if ($title) { ?>
-	<h3><?=h($title)?></h3>
-<? } ?>
+<?php if ($title) { ?>
+	<h3><?php echo h($title)?></h3>
+<?php } ?>
 
 <div class="ccm-search-block-tag-cloud-wrapper ">
 
-<ul id="ccm-search-block-tag-cloud-<?=$bID?>" class="ccm-search-block-tag-cloud">
+<ul id="ccm-search-block-tag-cloud-<?php echo $bID?>" class="ccm-search-block-tag-cloud">
 
-<?
+<?php
 	for ($i = 0; $i < $ttags->count(); $i++) {
 		$akct = $tags[$i];
 		$qs = urlencode($akc->field('atSelectOptionID') . '[]') . '=' . urlencode($akct->getSelectAttributeOptionID());
 		?>
-		<li><a style="font-size: <?=$tagSizes[$akct->getSelectAttributeOptionUsageCount()]?>px !important" href="<?=$view->url($resultTargetURL)?>?<?=$qs?>"><?=$akct->getSelectAttributeOptionValue()?></a>
-		<span>(<?=$akct->getSelectAttributeOptionUsageCount()?>)</span>
+		<li><a style="font-size: <?php echo $tagSizes[$akct->getSelectAttributeOptionUsageCount()]?>px !important" href="<?php echo $view->url($resultTargetURL)?>?<?php echo $qs?>"><?php echo $akct->getSelectAttributeOptionValue()?></a>
+		<span>(<?php echo $akct->getSelectAttributeOptionUsageCount()?>)</span>
 		</li>
-<? } ?>
+<?php } ?>
 </ul>
 
 <div class="ccm-spacer">&nbsp;</div>

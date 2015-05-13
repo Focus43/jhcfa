@@ -1,28 +1,33 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $form = Core::make('helper/form');
 $val = Core::make('token');
+$u = new User();
 ?>
 
-<? if ($displayForm && $displayPostingForm == $position) { ?>
+<?php if ($displayForm && $displayPostingForm == $position) { ?>
 
-	<? if ($addMessageLabel) { ?>
-		<h4><?=$addMessageLabel?></h4>
-	<? } ?>
+	<?php if ($addMessageLabel) { ?>
+		<h4><?php echo $addMessageLabel?></h4>
+	<?php } ?>
 
-	<? if ($enablePosting == Conversation::POSTING_ENABLED) { ?>
+	<?php if ($enablePosting == Conversation::POSTING_ENABLED) { ?>
 		<div class="ccm-conversation-add-new-message" rel="main-reply-form">
 			<form method="post" class="main-reply-form">
-				<? Loader::element('conversation/message/author');?>
+				<?php Loader::element('conversation/message/author');?>
 				<div class="ccm-conversation-message-form">
 					<div class="ccm-conversation-errors alert alert-danger"></div>
-					<? $editor->outputConversationEditorAddMessageForm(); ?>
+					<?php $editor->outputConversationEditorAddMessageForm(); ?>
 					<?php echo $form->hidden('blockAreaHandle', $blockAreaHandle) ?>
 					<?php echo $form->hidden('cID', $cID) ?>
 					<?php echo $form->hidden('bID', $bID) ?>
-					<button type="button" data-post-parent-id="0" data-submit="conversation-message" class="pull-right btn btn-submit btn-primary"><?=t('Submit')?></button>
+					<button type="button" data-post-parent-id="0" data-submit="conversation-message" class="pull-right btn btn-submit btn-primary"><?php echo t('Submit')?></button>
 					<?php if ($attachmentsEnabled) { ?>
 						<button type="button" class="pull-right btn btn-default ccm-conversation-attachment-toggle" href="#" title="<?php echo t('Attach Files'); ?>"><i class="fa fa-image"></i></button>
+					<?php } ?>
+					<?php if ($conversation->getConversationSubscriptionEnabled() && $u->isRegistered()) { ?>
+						<a href="<?php echo URL::to('/ccm/system/dialogs/conversation/subscribe', $conversation->getConversationID())?>" data-conversation-subscribe="unsubscribe" <?php if (!$conversation->isUserSubscribed($u)) { ?>style="display: none"<?php } ?> class="btn pull-right btn-default"><?php echo t('Un-Subscribe')?></a>
+						<a href="<?php echo URL::to('/ccm/system/dialogs/conversation/subscribe', $conversation->getConversationID())?>" data-conversation-subscribe="subscribe" <?php if ($conversation->isUserSubscribed($u)) { ?>style="display: none"<?php } ?> class="btn pull-right btn-default"><?php echo t('Subscribe to Conversation')?></a>
 					<?php } ?>
 				</div>
 			</form>
@@ -41,14 +46,14 @@ $val = Core::make('token');
 
 		<div class="ccm-conversation-add-reply">
 			<form method="post" class="aux-reply-form">
-				<? Loader::element('conversation/message/author');?>
+				<?php Loader::element('conversation/message/author');?>
 				<div class="ccm-conversation-message-form">
 					<div class="ccm-conversation-errors alert alert-danger"></div>
-					<? $editor->outputConversationEditorReplyMessageForm(); ?>
+					<?php $editor->outputConversationEditorReplyMessageForm(); ?>
 					<?php echo $form->hidden('blockAreaHandle', $blockAreaHandle) ?>
 					<?php echo $form->hidden('cID', $cID) ?>
 					<?php echo $form->hidden('bID', $bID) ?>
-					<button type="btn btn-primary" data-submit="conversation-message" class="pull-right btn btn-primary"><?=t('Reply')?> </button>
+					<button type="btn btn-primary" data-submit="conversation-message" class="pull-right btn btn-primary"><?php echo t('Reply')?> </button>
 					<?php if ($attachmentsEnabled) { ?>
 						<button type="button" class="pull-right btn btn-default ccm-conversation-attachment-toggle" href="#" title="<?php echo t('Attach Files'); ?>"><i class="fa fa-image"></i></button>
 					<?php } ?>
@@ -66,8 +71,8 @@ $val = Core::make('token');
 				</div>
 			<?php } ?>
 		</div>
-	<? } else { ?>
-		<? switch($enablePosting) {
+	<?php } else { ?>
+		<?php switch($enablePosting) {
 			case Conversation::POSTING_DISABLED_MANUALLY:
 				print '<p>' . t('Adding new posts is disabled for this conversation.') . '</p>';
 				break;
@@ -82,6 +87,6 @@ $val = Core::make('token');
 				print '</p>';
 				break;
 		} ?>
-	<? } ?>
+	<?php } ?>
 
-<? } ?>
+<?php } ?>

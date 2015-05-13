@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Concrete\Controller\SinglePage\Dashboard\Sitemap;
 use \Concrete\Core\Page\Controller\DashboardPageController;
 use \Concrete\Controller\Search\Pages as SearchPagesController;
@@ -15,8 +15,11 @@ class Search extends DashboardPageController {
 		$cnt = new SearchPagesController();
 		$cnt->search();
 		$this->set('searchController', $cnt);
-		$result = Loader::helper('json')->encode($cnt->getSearchResultObject()->getJSONObject());
-		$this->set('result', $result);
+		$result = $cnt->getSearchResultObject();
+		if (is_object($result)) {
+			$result = Loader::helper('json')->encode($result->getJSONObject());
+			$this->set('result', $result);
+		}
 	}
 
 }

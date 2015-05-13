@@ -1,10 +1,12 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
-<div class="alert alert-info"><?=t('Attributes set here will automatically be applied to new pages of that type.')?></div>
+<p class="lead"><?php echo $pagetype->getPageTypeDisplayName(); ?></p>
+
+<div class="alert alert-info"><?php echo t('Attributes set here will automatically be applied to new pages of that type.')?></div>
 
 <div data-container="editable-fields">
 
-<? Loader::element('attribute/editable_list', array(
+<?php Loader::element('attribute/editable_list', array(
     'attributes' => $attributes,
     'object' => $defaultPage,
     'saveAction' => $view->action('update_attribute', $pagetype->getPageTypeID()),
@@ -20,14 +22,14 @@
 <script type="text/javascript">
     $(function() {
         $('div[data-container=editable-fields]').concreteEditableFieldContainer({
-            url: '<?=$view->action('save', $pagetype->getPageTypeID())?>',
+            url: '<?php echo $view->action('save', $pagetype->getPageTypeID())?>',
             data: {
-                ccm_token: '<?=Loader::helper('validation/token')->generate()?>'
+                ccm_token: '<?php echo Loader::helper('validation/token')->generate()?>'
             }
         });
     });
 </script>
 
 <div class="ccm-dashboard-header-buttons">
-    <a href="<?=URL::to('/dashboard/pages/types')?>" class="btn btn-default"><?=t('Back to List')?></a>
+    <a href="<?php echo URL::to('/dashboard/pages/types')?>" class="btn btn-default"><?php echo t('Back to List')?></a>
 </div>

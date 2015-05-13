@@ -1,17 +1,17 @@
 <?php
+
 namespace Concrete\Core\File;
 
 use Concrete\Core\File\StorageLocation\StorageLocation;
 use Concrete\Flysystem\AdapterInterface;
 use Loader;
-use \File as ConcreteFile;
+use File as ConcreteFile;
 use Core;
 
 class Importer
 {
-
     /**
-     * PHP error constants - these match those founds in $_FILES[$field]['error] if it exists
+     * PHP error constants - these match those founds in $_FILES[$field]['error] if it exists.
      */
     const E_PHP_FILE_ERROR_DEFAULT = 0;
     const E_PHP_FILE_EXCEEDS_UPLOAD_MAX_FILESIZE = 1;
@@ -20,18 +20,21 @@ class Importer
     const E_PHP_NO_FILE = 4;
 
     /**
-     * concrete5 internal error constants
+     * concrete5 internal error constants.
      */
     const E_FILE_INVALID_EXTENSION = 10;
     const E_FILE_INVALID = 11; // pointer is invalid file, is a directory, etc...
     const E_FILE_UNABLE_TO_STORE = 12;
     const E_FILE_INVALID_STORAGE_LOCATION = 13;
+    const E_FILE_EXCEEDS_POST_MAX_FILE_SIZE = 20;
 
     protected $rescanThumbnailsOnImport = true;
 
     /**
-     * Returns a text string explaining the error that was passed
+     * Returns a text string explaining the error that was passed.
+     *
      * @param int $code
+     *
      * @return string
      */
     public function getErrorMessage($code)
@@ -52,6 +55,10 @@ class Importer
             case Importer::E_FILE_INVALID_STORAGE_LOCATION:
                 $msg = t('No default file storage location could be found to store this file.');
                 break;
+            case Importer::E_FILE_EXCEEDS_POST_MAX_FILE_SIZE:
+                $msg = t('Uploaded file is too large. The current value of post_max_filesize is %s',
+                    ini_get('post_max_size'));
+                break;
             case Importer::E_PHP_FILE_EXCEEDS_HTML_MAX_FILE_SIZE:
             case Importer::E_PHP_FILE_EXCEEDS_UPLOAD_MAX_FILESIZE:
                 $msg = t('Uploaded file is too large. The current value of upload_max_filesize is %s',
@@ -67,6 +74,7 @@ class Importer
                     ini_get('file_uploads'), ini_get('upload_max_filesize'), ini_get('post_max_size'));
                 break;
         }
+
         return $msg;
     }
 
@@ -76,6 +84,7 @@ class Importer
     public function generatePrefix()
     {
         $prefix = rand(10, 99) . time();
+
         return $prefix;
     }
 
@@ -84,14 +93,15 @@ class Importer
      * somehow. That's what happens in tools/files/importers/.
      * If a $fr (FileRecord) object is passed, we assign the newly imported FileVersion
      * object to that File. If not, we make a new filerecord.
+     *
      * @param string $pointer path to file
      * @param string|bool $filename
      * @param ConcreteFile|bool $fr
+     *
      * @return number Error Code | \Concrete\Core\File\Version
      */
     public function import($pointer, $filename = false, $fr = false)
     {
-
         if ($filename == false) {
             // determine filename from $pointer
             $filename = basename($pointer);
@@ -128,7 +138,7 @@ class Importer
             $src = fopen($pointer, 'rb');
             $filesystem->writeStream($cf->prefix($prefix, $sanitizedFilename), $src, array(
                 'visibility' => AdapterInterface::VISIBILITY_PUBLIC,
-                'mimetype' => Core::make('helper/mime')->mimeFromExtension($fi->getExtension($sanitizedFilename))
+                'mimetype' => Core::make('helper/mime')->mimeFromExtension($fi->getExtension($sanitizedFilename)),
             ));
         } catch (\Exception $e) {
             return self::E_FILE_UNABLE_TO_STORE;
@@ -149,9 +159,11 @@ class Importer
     }
 
     /**
-     * Imports a file in the default file storage location's incoming directory
+     * Imports a file in the default file storage location's incoming directory.
+     *
      * @param string $filename
      * @param ConcreteFile|bool $fr
+     *
      * @return number Error Code | \Concrete\Core\File\Version
      */
     public function importIncomingFile($filename, $fr = false)
@@ -175,8 +187,11 @@ class Importer
         // first we import the file into the storage location that is the same.
         $prefix = $this->generatePrefix();
         try {
-            $storage->copy(REL_DIR_FILES_INCOMING . '/' . $filename, $cf->prefix($prefix, $sanitizedFilename));
+            $copied = $storage->copy(REL_DIR_FILES_INCOMING . '/' . $filename, $cf->prefix($prefix, $sanitizedFilename));
         } catch (\Exception $e) {
+            $copied = false;
+        }
+        if (!$copied) {
             $storage->write(
                 $cf->prefix($prefix, $sanitizedFilename),
                 $storage->read(REL_DIR_FILES_INCOMING . '/' . $filename)
@@ -211,6 +226,4 @@ class Importer
     {
         $this->rescanThumbnailsOnImport = $refresh;
     }
-
-
 }

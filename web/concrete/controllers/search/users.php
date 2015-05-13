@@ -36,7 +36,7 @@ class Users extends Controller
     {
         $dh = Loader::helper('concrete/user');
         if (!$dh->canAccessUserSearchInterface()) {
-            throw new \Exception(t('Access Denied.'));
+            return false;
         }
 
         if ($_REQUEST['submitSearch']) {
@@ -84,6 +84,7 @@ class Users extends Controller
             if ($ggp->canSearchUsersInGroup()) {
                 $null = 'ugRequired.gID is null';
             }
+            $this->userList->getQueryObject()->select('distinct (u.uID)');
             $expr = $this->userList->getQueryObject()->expr()->orX($groups, $null);
             $this->userList->getQueryObject()->andwhere($expr);
         }

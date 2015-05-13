@@ -1,15 +1,15 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 ?>
 
 <div class="ccm-ui">
-    <form data-dialog-form="add-page-compose" action="<?=$controller->action('submit')?>">
-        <? $pagetype->renderComposerOutputForm(null, $parent); ?>
+    <form data-dialog-form="add-page-compose" action="<?php echo $controller->action('submit')?>">
+        <?php $pagetype->renderComposerOutputForm(null, $parent); ?>
         <input type="hidden" name="addPageComposeAction" value="preview" />
         <div class="dialog-buttons">
-            <button type="button" data-dialog-action="cancel" class="btn btn-default pull-left"><?=t('Cancel')?></button>
-            <button type="button" data-composer-dialog-action="publish" value="publish" class="btn btn-primary pull-right"><?=t('Publish Page')?></button>
-            <button type="button" data-dialog-action="submit" value="preview" data-page-type-composer-form-btn="preview" class="btn btn-success pull-right"><?=t('Edit Mode')?></button>
+            <button type="button" data-dialog-action="cancel" class="btn btn-default pull-left"><?php echo t('Cancel')?></button>
+            <button type="button" data-composer-dialog-action="publish" value="publish" class="btn btn-primary pull-right"><?php echo t('Publish Page')?></button>
+            <button type="button" data-dialog-action="submit" value="preview" data-page-type-composer-form-btn="preview" class="btn btn-success pull-right"><?php echo t('Edit Mode')?></button>
         </div>
     </form>
 </div>

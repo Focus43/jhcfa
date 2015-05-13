@@ -3,19 +3,19 @@ defined('C5_EXECUTE') or die("Access Denied.");
 ?>
 
 <section id="ccm-menu-page-attributes">
-	<header><a href="" data-panel-navigation="back" class="ccm-panel-back"><span class="fa fa-chevron-left"></span></a> <a href="" data-panel-navigation="back"><?=t('Attributes')?></a></header>
+	<header><a href="" data-panel-navigation="back" class="ccm-panel-back"><span class="fa fa-chevron-left"></span></a> <a href="" data-panel-navigation="back"><?php echo t('Attributes')?></a></header>
 	<div class="ccm-panel-header-search">
 		<i class="fa fa-search"></i>
-		<input type="text" name="" id="ccm-panel-header-search-input" placeholder="<?=t('Search')?>" autocomplete="false" />
+		<input type="text" name="" id="ccm-panel-header-search-input" placeholder="<?php echo t('Search')?>" autocomplete="false" />
 	</div>
 
 	<div class="ccm-panel-content-inner" id="ccm-menu-page-attributes-list">
 	<?php foreach ($attributes as $set) { ?>
 		<div class="ccm-menu-page-attributes-set">
-			<h5><?=$set->title?></h5>
+			<h5><?php echo $set->title?></h5>
 			<ul>
 			<?php foreach ($set->attributes as $key) { ?>
-				<li><a data-attribute-key="<?=$key->getAttributeKeyID()?>" <?php if (in_array($key->getAttributeKeyID(), $selectedAttributeIDs)) { ?>class="ccm-menu-page-attribute-selected" <?php } ?> href="javascript:void(0)"><?=$key->getAttributeKeyDisplayName()?></a></li>
+				<li><a data-attribute-key="<?php echo $key->getAttributeKeyID()?>" <?php if (in_array($key->getAttributeKeyID(), $selectedAttributeIDs)) { ?>class="ccm-menu-page-attribute-selected" <?php } ?> href="javascript:void(0)"><?php echo $key->getAttributeKeyDisplayName()?></a></li>
 			<?php } ?>
 			</ul>
 		</div>

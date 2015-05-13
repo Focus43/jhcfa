@@ -119,8 +119,8 @@ $tp = new TaskPermission();
         container.find('.redactor-content').redactor({
             minHeight: '200',
             'concrete5': {
-                filemanager: <?=$fp->canAccessFileManager()?>,
-                sitemap: <?=$tp->canAccessSitemap()?>,
+                filemanager: <?php echo $fp->canAccessFileManager()?>,
+                sitemap: <?php echo $tp->canAccessSitemap()?>,
                 lightbox: true
             }
         });
@@ -152,8 +152,8 @@ $tp = new TaskPermission();
             newClone.show().find('.redactor-content').redactor({
                 minHeight: '200',
                 'concrete5': {
-                    filemanager: <?=$fp->canAccessFileManager()?>,
-                    sitemap: <?=$tp->canAccessSitemap()?>,
+                    filemanager: <?php echo $fp->canAccessFileManager()?>,
+                    sitemap: <?php echo $tp->canAccessSitemap()?>,
                     lightbox: true
                 }
             });

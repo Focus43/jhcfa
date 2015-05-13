@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Concrete\Controller\Dialog\File;
 use \Concrete\Controller\Backend\UserInterface as BackendInterfaceController;
 use FilePermissions;
@@ -10,10 +10,7 @@ class Search extends BackendInterfaceController {
 
 	protected function canAccess() {
 		$cp = FilePermissions::getGlobal();
-		if ((!$cp->canAddFile()) && (!$cp->canSearchFiles())) {
-			return false;
-		}
-		return true;
+		return $cp->canSearchFiles();
 	}
 
 	public function view() {

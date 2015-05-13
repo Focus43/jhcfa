@@ -101,7 +101,7 @@ $captcha = $surveyBlockInfo['displayCaptcha'] ? Loader::helper('validation/captc
 				<label class="control-label" <?php  echo $question['labelFor']; ?>>
 					<?php  echo $question['question']; ?>
                     <?php if ($question['required']): ?>
-                        <span class="text-muted small" style="font-weight: normal"><?=t("Required")?></span>
+                        <span class="text-muted small" style="font-weight: normal"><?php echo t("Required")?></span>
                     <?php  endif; ?>
 				</label>
 				<?php  echo $question['input']; ?>

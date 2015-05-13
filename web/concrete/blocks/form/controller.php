@@ -1,5 +1,6 @@
 <?php 
 namespace Concrete\Block\Form;
+use Concrete\Core\Block\BlockType\BlockType;
 use Loader;
 use \Concrete\Core\Block\BlockController;
 use User;
@@ -243,8 +244,8 @@ class Controller extends BlockController {
 			
 			$rs=$db->query("SELECT * FROM {$this->btQuestionsTablename} WHERE questionSetId=$oldQuestionSetId AND bID=".intval($this->bID) );
 			while( $row=$rs->fetchRow() ){
-				$v=array($newQuestionSetId,intval($row['msqID']), intval($newBID), $row['question'],$row['inputType'],$row['options'],$row['position'],$row['width'],$row['height'],$row['required']);
-				$sql= "INSERT INTO {$this->btQuestionsTablename} (questionSetId,msqID,bID,question,inputType,options,position,width,height,required) VALUES (?,?,?,?,?,?,?,?,?,?)";
+				$v=array($newQuestionSetId,intval($row['msqID']), intval($newBID), $row['question'],$row['inputType'],$row['options'],$row['position'],$row['width'],$row['height'],$row['required'],$row['defaultDate']);
+				$sql= "INSERT INTO {$this->btQuestionsTablename} (questionSetId,msqID,bID,question,inputType,options,position,width,height,required,defaultDate) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 				$db->Execute($sql, $v);
 			}
 			
@@ -276,7 +277,7 @@ class Controller extends BlockController {
 		$qsID=intval($_POST['qsID']); 
 		if($qsID==0)
 			throw new Exception(t("Oops, something is wrong with the form you posted (it doesn't have a question set id)."));
-			
+
 		//get all questions for this question set
 		$rows=$db->GetArray("SELECT * FROM {$this->btQuestionsTablename} WHERE questionSetId=? AND bID=? order by position asc, msqID", array( $qsID, intval($this->bID)));			
 
@@ -361,8 +362,8 @@ class Controller extends BlockController {
 				}
 			}
 		}
-		
-		if(count($errors)){			
+
+		if(count($errors)){
 			$this->set('formResponse', t('Please correct the following errors:') );
 			$this->set('errors',$errors);
 		}else{ //no form errors			

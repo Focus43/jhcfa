@@ -16,26 +16,27 @@ defined('C5_EXECUTE') or die("Access Denied.");
 
         <li>
             <a
-                data-name="<?= h($type->getBlockTypeName()) ?>"
-                data-cID="<?= $c->getCollectionID() ?>"
-                data-block-type-handle="<?= $type->getBlockTypeHandle() ?>"
-                data-dialog-title="<?= t('Add %s', t($type->getBlockTypeName())) ?>"
-                data-dialog-width="<?= $type->getBlockTypeInterfaceWidth() ?>"
-                data-dialog-height="<?= $type->getBlockTypeInterfaceHeight() ?>"
-                data-has-add-template="<?= $type->hasAddTemplate() ?>"
-                data-supports-inline-add="<?= $type->supportsInlineAdd() ?>"
-                data-btID="<?= $type->getBlockTypeID() ?>"
-                data-pcID="<?=$pile_content->getPileContentID()?>"
-                href="javascript:void(0)"><img src="<?=$icon?>" /> <?=t($type->getBlockTypeName())?></a>
+                data-name="<?php echo h($type->getBlockTypeName()) ?>"
+                data-cID="<?php echo $c->getCollectionID() ?>"
+                data-block-type-handle="<?php echo $type->getBlockTypeHandle() ?>"
+                data-dialog-title="<?php echo t('Add %s', t($type->getBlockTypeName())) ?>"
+                data-dialog-width="<?php echo $type->getBlockTypeInterfaceWidth() ?>"
+                data-dialog-height="<?php echo $type->getBlockTypeInterfaceHeight() ?>"
+                data-has-add-template="<?php echo $type->hasAddTemplate() ?>"
+                data-supports-inline-add="<?php echo $type->supportsInlineAdd() ?>"
+                data-btID="<?php echo $type->getBlockTypeID() ?>"
+                data-pcID="<?php echo $pile_content->getPileContentID()?>"
+                href="javascript:void(0)"><img src="<?php echo $icon?>" /> <?php echo t($type->getBlockTypeName())?></a>
 
                 <div class="item-select-list-content">
                     <?php
-                    $block->display()
+                    $bv = new \Concrete\Core\Block\View\BlockView($block);
+                    $bv->render('scrapbook')
                     ?>
                 </div>
         </li>
 
-        <? } ?>
+        <?php } ?>
     </ul>
 </div>
 

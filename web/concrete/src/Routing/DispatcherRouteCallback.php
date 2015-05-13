@@ -3,6 +3,7 @@ namespace Concrete\Core\Routing;
 
 use \Concrete\Core\Page\Event as PageEvent;
 use Concrete\Core\Page\Theme\Theme;
+use PermissionKey;
 use Request;
 use User;
 use Events;
@@ -88,6 +89,7 @@ class DispatcherRouteCallback extends RouteCallback
                 return $this->sendPageNotFound($request);
             } else {
                 $c = $home;
+                $c->cPathFetchIsCanonical = true;
             }
         }
         if (!$c->cPathFetchIsCanonical) {
@@ -96,11 +98,9 @@ class DispatcherRouteCallback extends RouteCallback
         }
 
         // maintenance mode
-        if ((!$c->isAdminArea()) && ($c->getCollectionPath() != '/login')) {
+        if ($c->getCollectionPath() != '/login') {
             $smm = Config::get('concrete.maintenance_mode');
-            if ($smm == 1 && ($_SERVER['REQUEST_METHOD'] != 'POST' || Loader::helper('validation/token')->validate(
-                    ) == false)
-            ) {
+            if ($smm == 1 && !PermissionKey::getByHandle('view_in_maintenance_mode')->validate() && ($_SERVER['REQUEST_METHOD'] != 'POST' || Loader::helper('validation/token')->validate() == false)) {
                 $v = new View('/frontend/maintenance_mode');
                 $v->setViewTheme(VIEW_CORE_THEME);
 
@@ -143,8 +143,14 @@ class DispatcherRouteCallback extends RouteCallback
         // Now that we've passed all permissions checks, and we have a page, we check to see if we
         // ought to redirect based on base url or trailing slash settings
         $cms = \Core::make("app");
-        $cms->handleBaseURLRedirection();
-        $cms->handleURLSlashes();
+        $response = $cms->handleCanonicalURLRedirection($request);
+        if (!$response) {
+            $response = $cms->handleURLSlashes($request);
+        }
+        if (isset($response)) {
+            $response->send();
+            exit;
+        }
 
         // Now we check to see if we're on the home page, and if it multilingual is enabled,
         // and if so, whether we should redirect to the default language page.
@@ -169,13 +175,14 @@ class DispatcherRouteCallback extends RouteCallback
         // On page view event.
         $pe = new PageEvent($c);
         $pe->setUser($u);
+        $pe->setRequest($request);
         Events::dispatch('on_page_view', $pe);
 
         $controller = $c->getPageController();
         $controller->on_start();
         $controller->setupRequestActionAndParameters($request);
         $response = $controller->validateRequest();
-        if ($response instanceof \Concrete\Core\Http\Response) {
+        if ($response instanceof \Symfony\Component\HttpFoundation\Response) {
             return $response;
         } else {
             if ($response == false) {

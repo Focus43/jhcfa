@@ -1,26 +1,26 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 
 $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service\Date */
 ?>
 <div id="ccm-profile-header">
 
 <div id="ccm-profile-avatar">
-<? print Loader::helper('concrete/avatar')->outputUserAvatar($profile); ?>
+<?php print Loader::helper('concrete/avatar')->outputUserAvatar($profile); ?>
 </div>
 
-<h1><?=$profile->getUserName()?></h1>
+<h1><?php echo $profile->getUserName()?></h1>
 
 <div id="ccm-profile-controls">
-	<? if ($canEdit) { ?>
+	<?php if ($canEdit) { ?>
 		<div class="btn-group">
-			<a href="<?=$view->url('/account/edit_profile')?>" class="btn btn-sm btn-default"><i class="fa fa-cog"></i> <?=t('Edit')?></a>
-			<a href="<?=$view->url('/')?>" class="btn btn-sm btn-default"><i class="fa fa-home"></i> <?=t('Home')?></a>
+			<a href="<?php echo $view->url('/account/edit_profile')?>" class="btn btn-sm btn-default"><i class="fa fa-cog"></i> <?php echo t('Edit')?></a>
+			<a href="<?php echo $view->url('/')?>" class="btn btn-sm btn-default"><i class="fa fa-home"></i> <?php echo t('Home')?></a>
 		</div>
-	<? } else { ?>
-		<? if ($profile->getAttribute('profile_private_messages_enabled')) { ?>
-			<a href="<?=$view->url('/account/messages/inbox', 'write', $profile->getUserID())?>" class="btn btn-sm btn-default"><i class="fa-user fa"></i> <?=t('Connect')?></a>
-		<? } ?>
-	<? } ?>
+	<?php } else { ?>
+		<?php if ($profile->getAttribute('profile_private_messages_enabled')) { ?>
+			<a href="<?php echo $view->url('/account/messages/inbox', 'write', $profile->getUserID())?>" class="btn btn-sm btn-default"><i class="fa-user fa"></i> <?php echo t('Connect')?></a>
+		<?php } ?>
+	<?php } ?>
 </div>
 
 
@@ -28,13 +28,13 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
 
 <div id="ccm-profile-statistics-bar">
 	<div class="ccm-profile-statistics-item">
-		<i class="icon-time"></i> <?=t(/*i18n: %s is a date */'Joined on %s', $dh->formatDate($profile->getUserDateAdded(), true))?>
+		<i class="icon-time"></i> <?php echo t(/*i18n: %s is a date */'Joined on %s', $dh->formatDate($profile->getUserDateAdded(), true))?>
 	</div>
 	<div class="ccm-profile-statistics-item">
-		<i class="icon-fire"></i> <?=number_format(\Concrete\Core\User\Point\Entry::getTotal($profile))?> <?=t('Community Points')?>
+		<i class="icon-fire"></i> <?php echo number_format(\Concrete\Core\User\Point\Entry::getTotal($profile))?> <?php echo t('Community Points')?>
 	</div>
 	<div class="ccm-profile-statistics-item">
-		<i class="icon-bookmark"></i> <a href="#badges"><?=number_format(count($badges))?> <?=t2('Badge', 'Badges', count($badges))?></a>
+		<i class="icon-bookmark"></i> <a href="#badges"><?php echo number_format(count($badges))?> <?php echo t2('Badge', 'Badges', count($badges))?></a>
 	</div>
 	<div class="clearfix"></div>
 </div>
@@ -61,34 +61,34 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
 		</div>
         <?php  } ?>
 
-		<h4><?=t("Badges")?></h4>
-		<? if (count($badges) > 0) { ?>
+		<h4><?php echo t("Badges")?></h4>
+		<?php if (count($badges) > 0) { ?>
 
 
 		<ul class="thumbnails">
 
-			<? foreach($badges as $ub) {
+			<?php foreach($badges as $ub) {
 				$uf = $ub->getGroupBadgeImageObject();
 				if (is_object($uf)) { ?>
 
 			  <li class="span2">
 
-			    <div class="thumbnail launch-tooltip ccm-profile-badge-image" title="<?=$ub->getGroupBadgeDescription()?>">
-			      <div><img src="<?=$uf->getRelativePath()?>" /></div>
-			      <div><?=t("Awarded %s", $dh->formatDate($ub->getGroupDateTimeEntered($profile)))?></div>
+			    <div class="thumbnail launch-tooltip ccm-profile-badge-image" title="<?php echo $ub->getGroupBadgeDescription()?>">
+			      <div><img src="<?php echo $uf->getRelativePath()?>" /></div>
+			      <div><?php echo t("Awarded %s", $dh->formatDate($ub->getGroupDateTimeEntered($profile)))?></div>
 			    </div>
 
 			</li>
 
-			    <? } ?>
+			    <?php } ?>
 
-			<? } ?>
+			<?php } ?>
 
 		</ul>
 
-		<? } else { ?>
-			<p><?=t("This user hasn't won any badges.")?></p>
-		<? } ?>
+		<?php } else { ?>
+			<p><?php echo t("This user hasn't won any badges.")?></p>
+		<?php } ?>
 
 
 		<?php

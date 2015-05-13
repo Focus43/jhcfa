@@ -1,17 +1,17 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 ?>
 
 <div data-search="users" class="ccm-ui">
-    <? Loader::element('users/search', array('controller' => $searchController)) ?>
+    <?php Loader::element('users/search', array('controller' => $searchController)) ?>
 </div>
 
 <script type="text/javascript">
     $(function () {
         $('div[data-search=users]').concreteAjaxSearch({
-            result: <?=$result?>,
+            result: <?php echo $result?>,
             onLoad: function (concreteSearch) {
-                concreteSearch.$element.find('select[data-bulk-action=users] option:eq(0)').after('<option value="select_users"><?=t('Choose Users')?></option>');
+                concreteSearch.$element.find('select[data-bulk-action=users] option:eq(0)').after('<option value="select_users"><?php echo t('Choose Users')?></option>');
                 concreteSearch.$element.on('click', 'a[data-user-id]', function () {
                     ConcreteEvent.publish('UserSearchDialogSelectUser', {
                         uID: $(this).attr('data-user-id'),

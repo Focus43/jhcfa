@@ -1,6 +1,7 @@
 <?php
 namespace Concrete\Core\Application\Service;
 
+use PermissionKey;
 use User as ConcreteUser;
 use Loader;
 use Page;
@@ -101,7 +102,7 @@ class UserInterface
      */
     public function button_js($text, $onclick, $buttonAlign = 'right', $innerClass = null, $args = array())
     {
-        return self::buttonJs($text, $onclick, $buttonAlign = 'right', $innerClass = null, $args = array());
+        return self::buttonJs($text, $onclick, $buttonAlign, $innerClass, $args);
     }
 
     /**
@@ -185,14 +186,14 @@ class UserInterface
     {
         $tp = new \TaskPermission();
         $c = Page::getCurrentPage();
-        if ((!defined(MOBILE_THEME_IS_ACTIVE) || MOBILE_THEME_IS_ACTIVE == false) && Config::get('concrete.external.news_overlay') && $tp->canViewNewsflow() && $c->getCollectionPath() != '/dashboard/news') {
+        if (Config::get('concrete.external.news_overlay') && $tp->canViewNewsflow() && $c->getCollectionPath() != '/dashboard/news') {
             $u = new ConcreteUser;
             $nf = $u->config('NEWSFLOW_LAST_VIEWED');
             if ($nf == 'FIRSTRUN') {
                 return false;
             }
 
-            if (Config::get('concrete.maintenance_mode')) {
+            if (Config::get('concrete.maintenance_mode') && !PermissionKey::getByHandle('view_in_maintenance_mode')->validate()) {
                 return false;
             }
 
@@ -203,7 +204,23 @@ class UserInterface
                 return true;
             }
         }
+
         return false;
+    }
+
+    public function showHelpOverlay()
+    {
+        $u = new ConcreteUser;
+        $timestamp = $u->config('MAIN_HELP_LAST_VIEWED');
+        if (!$timestamp) {
+            return true;
+        }
+    }
+
+    public function trackHelpOverlayDisplayed()
+    {
+        $u = new ConcreteUser;
+        $u->saveConfig('MAIN_HELP_LAST_VIEWED', time());
     }
 
     /**

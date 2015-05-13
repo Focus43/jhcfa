@@ -1,73 +1,73 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); 
+<?php defined('C5_EXECUTE') or die("Access Denied."); 
 
 use \Concrete\Core\Tree\Node\Node as TreeNode;
 
 ?>
 <div id="topics-tree-node-permissions">
-<?
+<?php
 $handle = $node->getPermissionObjectKeyCategoryHandle();
 $enablePermissions = false;
 if (!$node->overrideParentTreeNodePermissions()) { 
 	$permNode = TreeNode::getByID($node->getTreeNodePermissionsNodeID()); ?>
 
 	<div class="alert alert-info">
-	<?=t("Permissions for this node are currently inherited from <strong>%s</strong>.", $permNode->getTreeNodeDisplayName())?>
+	<?php echo t("Permissions for this node are currently inherited from <strong>%s</strong>.", $permNode->getTreeNodeDisplayName())?>
 	<br/><br/>
-	<a href="javascript:void(0)" class="btn btn-sm btn-warning" onclick="TopicsPermissions.setTreeNodePermissionsToOverride()"><?=t('Override Permissions')?></a>
+	<a href="javascript:void(0)" class="btn btn-sm btn-warning" onclick="TopicsPermissions.setTreeNodePermissionsToOverride()"><?php echo t('Override Permissions')?></a>
 	</div>
 	
-<? } else { 
+<?php } else { 
 	$enablePermissions = true;
 	?>
 
 	<div class="alert alert-info">
-	<?=t("Permissions for this node currently override its parents' permissions.")?>
-	<? if ($node->getTreeNodeParentID() > 0) { ?>
+	<?php echo t("Permissions for this node currently override its parents' permissions.")?>
+	<?php if ($node->getTreeNodeParentID() > 0) { ?>
 	<br/><br/>
-		<a href="javascript:void(0)" class="btn btn-sm btn-warning" onclick="TopicsPermissions.setTreeNodePermissionsToInherit()"><?=t('Revert to Parent Permisisons')?></a>
-	<? } ?>
+		<a href="javascript:void(0)" class="btn btn-sm btn-warning" onclick="TopicsPermissions.setTreeNodePermissionsToInherit()"><?php echo t('Revert to Parent Permisisons')?></a>
+	<?php } ?>
 </div>
 
-<? } ?>
+<?php } ?>
 
 
-<?=Loader::element('permission/help');?>
+<?php echo Loader::element('permission/help');?>
 
-<? $cat = PermissionKeyCategory::getByHandle($handle);?>
+<?php $cat = PermissionKeyCategory::getByHandle($handle);?>
 
-<form method="post" id="ccm-permission-list-form" action="<?=$cat->getToolsURL("save_permission_assignments")?>&amp;treeNodeID=<?=$node->getTreeNodeID()?>">
+<form method="post" id="ccm-permission-list-form" action="<?php echo $cat->getToolsURL("save_permission_assignments")?>&amp;treeNodeID=<?php echo $node->getTreeNodeID()?>">
 
 <table class="ccm-permission-grid table table-striped">
-<?
+<?php
 $permissions = PermissionKey::getList($handle);
 foreach($permissions as $pk) { 
 	$pk->setPermissionObject($node);
 	?>
 	<tr>
-	<td class="ccm-permission-grid-name" id="ccm-permission-grid-name-<?=$pk->getPermissionKeyID()?>"><strong><? if ($enablePermissions) { ?><a dialog-title="<?=$pk->getPermissionKeyDisplayName()?>" data-pkID="<?=$pk->getPermissionKeyID()?>" data-paID="<?=$pk->getPermissionAccessID()?>" onclick="ccm_permissionLaunchDialog(this)" href="javascript:void(0)"><? } ?><?=$pk->getPermissionKeyDisplayName()?><? if ($enablePermissions) { ?></a><? } ?></strong></td>
-	<td id="ccm-permission-grid-cell-<?=$pk->getPermissionKeyID()?>" <? if ($enablePermissions) { ?>class="ccm-permission-grid-cell"<? } ?>><?=Loader::element('permission/labels', array('pk' => $pk))?></td>
+	<td class="ccm-permission-grid-name" id="ccm-permission-grid-name-<?php echo $pk->getPermissionKeyID()?>"><strong><?php if ($enablePermissions) { ?><a dialog-title="<?php echo $pk->getPermissionKeyDisplayName()?>" data-pkID="<?php echo $pk->getPermissionKeyID()?>" data-paID="<?php echo $pk->getPermissionAccessID()?>" onclick="ccm_permissionLaunchDialog(this)" href="javascript:void(0)"><?php } ?><?php echo $pk->getPermissionKeyDisplayName()?><?php if ($enablePermissions) { ?></a><?php } ?></strong></td>
+	<td id="ccm-permission-grid-cell-<?php echo $pk->getPermissionKeyID()?>" <?php if ($enablePermissions) { ?>class="ccm-permission-grid-cell"<?php } ?>><?php echo Loader::element('permission/labels', array('pk' => $pk))?></td>
 </tr>
-<? } ?>
-<? if ($enablePermissions) { ?>
+<?php } ?>
+<?php if ($enablePermissions) { ?>
 <tr>
 	<td class="ccm-permission-grid-name" ></td>
 	<td>
-	<?=Loader::element('permission/clipboard', array('pkCategory' => $cat))?>
+	<?php echo Loader::element('permission/clipboard', array('pkCategory' => $cat))?>
 	</td>
 </tr>
-<? } ?>
+<?php } ?>
 
 </table>
 </form>
 
-<? if ($enablePermissions) { ?>
+<?php if ($enablePermissions) { ?>
 <div id="topics-tree-node-permissions-buttons" class="dialog-buttons">
-	<a href="javascript:void(0)" onclick="jQuery.fn.dialog.closeTop()" class="btn btn-default pull-left"><?=t('Cancel')?></a>
-	<button onclick="$('#ccm-permission-list-form').submit()" class="btn btn-primary pull-right"><?=t('Save')?> <i class="icon-ok-sign icon-white"></i></button>
+	<a href="javascript:void(0)" onclick="jQuery.fn.dialog.closeTop()" class="btn btn-default pull-left"><?php echo t('Cancel')?></a>
+	<button onclick="$('#ccm-permission-list-form').submit()" class="btn btn-primary pull-right"><?php echo t('Save')?> <i class="icon-ok-sign icon-white"></i></button>
 </div>
-<? } else { ?>
+<?php } else { ?>
 	<div class="dialog-buttons"></div>
-<? } ?>
+<?php } ?>
 
 </div>
 
@@ -80,7 +80,7 @@ ccm_permissionLaunchDialog = function(link) {
 	}
 	jQuery.fn.dialog.open({
 		title: $(link).attr('dialog-title'),
-		href: '<?=Loader::helper('concrete/urls')->getToolsURL('permissions/dialogs/tree/node')?>?duplicate=' + dupe + '&treeNodeID=<?=$node->getTreeNodeID()?>&pkID=' + $(link).attr('data-pkID') + '&paID=' + $(link).attr('data-paID'),
+		href: '<?php echo Loader::helper('concrete/urls')->getToolsURL('permissions/dialogs/tree/node')?>?duplicate=' + dupe + '&treeNodeID=<?php echo $node->getTreeNodeID()?>&pkID=' + $(link).attr('data-pkID') + '&paID=' + $(link).attr('data-paID'),
 		modal: false,
 		width: 500,
 		height: 380
@@ -104,7 +104,7 @@ var TopicsPermissions = {
 
 	refresh: function() {
 		jQuery.fn.dialog.showLoader();
-		$.get('<?=Loader::helper('concrete/urls')->getToolsURL('tree/node/permissions')?>?treeNodeID=<?=$node->getTreeNodeID()?>', function(r) { 
+		$.get('<?php echo Loader::helper('concrete/urls')->getToolsURL('tree/node/permissions')?>?treeNodeID=<?php echo $node->getTreeNodeID()?>', function(r) { 
 			jQuery.fn.dialog.replaceTop(r);
 			jQuery.fn.dialog.hideLoader();
 		});
@@ -112,14 +112,14 @@ var TopicsPermissions = {
 
 	setTreeNodePermissionsToInherit: function() {
 		jQuery.fn.dialog.showLoader();
-		$.get('<?=$pk->getPermissionAssignmentObject()->getPermissionKeyToolsURL("revert_to_global_node_permissions")?>&treeNodeID=<?=$node->getTreeNodeID()?>', function() { 
+		$.get('<?php echo $pk->getPermissionAssignmentObject()->getPermissionKeyToolsURL("revert_to_global_node_permissions")?>&treeNodeID=<?php echo $node->getTreeNodeID()?>', function() { 
 			TopicsPermissions.refresh();
 		});
 	},
 
 	setTreeNodePermissionsToOverride: function() {
 		jQuery.fn.dialog.showLoader();
-		$.get('<?=$pk->getPermissionAssignmentObject()->getPermissionKeyToolsURL("override_global_node_permissions")?>&treeNodeID=<?=$node->getTreeNodeID()?>', function() { 
+		$.get('<?php echo $pk->getPermissionAssignmentObject()->getPermissionKeyToolsURL("override_global_node_permissions")?>&treeNodeID=<?php echo $node->getTreeNodeID()?>', function() { 
 			TopicsPermissions.refresh();
 		});
 	}

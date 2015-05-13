@@ -1,4 +1,4 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $form = Loader::Helper('form');
 $selectedThemeID = 0;
@@ -16,47 +16,47 @@ if (is_object($selectedType)) {
 ?>
 
 <div class="ccm-ui">
-<form method="post" data-dialog-form="design" action="<?=$controller->action('submit')?>">
+<form method="post" data-dialog-form="design" action="<?php echo $controller->action('submit')?>">
 
     <input type="hidden" name="sitemap" value="1" />
     
-    <? if ($cp->canEditPageTemplate()) { ?>
-        <?=$form->label('pTemplateID', t('Page Template'))?>
+    <?php if ($cp->canEditPageTemplate()) { ?>
+        <?php echo $form->label('pTemplateID', t('Page Template'))?>
 
-        <? if ($c->isGeneratedCollection()) { ?>
-            <div class="alert alert-info"><?=t('This is a single page. It does not have a page template.')?></div>
-        <? } else { ?>
+        <?php if ($c->isGeneratedCollection()) { ?>
+            <div class="alert alert-info"><?php echo t('This is a single page. It does not have a page template.')?></div>
+        <?php } else { ?>
             <div class="form-group">
-                <?=$form->select('pTemplateID', $templatesSelect, $selectedTemplateID)?>
+                <?php echo $form->select('pTemplateID', $templatesSelect, $selectedTemplateID)?>
             </div>
-        <? } ?>
-    <? } ?>
+        <?php } ?>
+    <?php } ?>
 
-    <? if ($cp->canEditPageType()) { ?>
-        <?=$form->label('ptID', t('Page Type'))?>
+    <?php if ($cp->canEditPageType()) { ?>
+        <?php echo $form->label('ptID', t('Page Type'))?>
 
-        <? if ($c->isGeneratedCollection()) { ?>
-            <div class="alert alert-info"><?=t('This is a single page. It does not have a page type.')?></div>
-        <? } else { ?>
+        <?php if ($c->isGeneratedCollection()) { ?>
+            <div class="alert alert-info"><?php echo t('This is a single page. It does not have a page type.')?></div>
+        <?php } else { ?>
             <div class="form-group">
-                <?=$form->select('ptID', $typesSelect, $selectedTypeID)?>
+                <?php echo $form->select('ptID', $typesSelect, $selectedTypeID)?>
             </div>
             <div class="alert alert-warning">
-                <?=t('Changing page types of existing pages could result in unexpected behavior.')?>
+                <?php echo t('Changing page types of existing pages could result in unexpected behavior.')?>
             </div>
-        <? } ?>
-    <? } ?>
+        <?php } ?>
+    <?php } ?>
 
     <div class="form-group">
-		<?=$form->label('pThemeID', t('Theme'))?>
-		<?=$form->select('pThemeID', $themesSelect, $selectedThemeID)?>
+		<?php echo $form->label('pThemeID', t('Theme'))?>
+		<?php echo $form->select('pThemeID', $themesSelect, $selectedThemeID)?>
 	</div>
 
 
 
 	<div class="dialog-buttons">
-	<button class="btn btn-default pull-left" data-dialog-action="cancel"><?=t('Cancel')?></button>
-	<button type="button" data-dialog-action="submit" class="btn btn-primary pull-right"><?=t('Save')?></button>
+	<button class="btn btn-default pull-left" data-dialog-action="cancel"><?php echo t('Cancel')?></button>
+	<button type="button" data-dialog-action="submit" class="btn btn-primary pull-right"><?php echo t('Save')?></button>
 	</div>
 
 </form>

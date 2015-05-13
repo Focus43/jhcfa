@@ -4,28 +4,28 @@ use Concrete\Core\Validation\CSRF\Token;
 defined('C5_EXECUTE') or die('Access Denied');
 if (isset($error)) {
     ?>
-    <div class="alert alert-danger"><?= $error ?></div>
+    <div class="alert alert-danger"><?php echo $error ?></div>
     <?php
 }
 if (isset($message)) {
     ?>
-    <div class="alert alert-success"><?= $message ?></div>
+    <div class="alert alert-success"><?php echo $message ?></div>
 <?php
 }
 
 
 if (isset($show_email) && $show_email) {
     ?>
-    <form action="<?= \URL::to('/login/callback/twitter/handle_register') ?>">
-        <span><?= t('Register an account for "%s"', "@{$username}") ?></span>
+    <form action="<?php echo \URL::to('/login/callback/twitter/handle_register') ?>">
+        <span><?php echo t('Register an account for "%s"', "@{$username}") ?></span>
         <hr />
         <div class="input-group">
             <input type="email" name="uEmail" placeholder="email" class="form-control" />
             <span class="input-group-btn">
-                <button class="btn btn-primary"><?= t('Register') ?></button>
+                <button class="btn btn-primary"><?php echo t('Register') ?></button>
             </span>
         </div>
-        <?= id(new Token)->output('twitter_register'); ?>
+        <?php echo id(new Token)->output('twitter_register'); ?>
     </form>
     <?php
 } else {
@@ -36,15 +36,15 @@ if (isset($show_email) && $show_email) {
         ?>
         <div class="form-group">
             <span>
-                <?= t('Attach a %s account', t('twitter')) ?>
+                <?php echo t('Attach a %s account', t('twitter')) ?>
             </span>
             <hr>
         </div>
         <div class="form-group">
-            <a href="<?= \URL::to('/ccm/system/authentication/oauth2/twitter/attempt_attach'); ?>"
+            <a href="<?php echo \URL::to('/ccm/system/authentication/oauth2/twitter/attempt_attach'); ?>"
                class="btn btn-primary btn-twitter btn-block">
                 <i class="fa fa-twitter"></i>
-                <?= t('Attach a %s account', t('twitter')) ?>
+                <?php echo t('Attach a %s account', t('twitter')) ?>
             </a>
         </div>
     <?php
@@ -52,15 +52,15 @@ if (isset($show_email) && $show_email) {
         ?>
         <div class="form-group">
             <span>
-                <?= t('Sign in with %s', t('twitter')) ?>
+                <?php echo t('Sign in with %s', t('twitter')) ?>
             </span>
             <hr>
         </div>
         <div class="form-group">
-            <a href="<?= \URL::to('/ccm/system/authentication/oauth2/twitter/attempt_auth'); ?>"
+            <a href="<?php echo \URL::to('/ccm/system/authentication/oauth2/twitter/attempt_auth'); ?>"
                class="btn btn-primary btn-twitter btn-block">
                 <i class="fa fa-twitter"></i>
-                <?= t('Log in with %s', 'twitter') ?>
+                <?php echo t('Log in with %s', 'twitter') ?>
             </a>
         </div>
     <?php

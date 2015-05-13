@@ -1,4 +1,4 @@
-<? if (is_object($tree)) { ?>
+<?php if (is_object($tree)) { ?>
 
     <script type="text/javascript">
         $(function() {
@@ -41,28 +41,28 @@
         });
         </script>
     <fieldset>
-    <legend><?=t('Topic Tree')?></legend>
+    <legend><?php echo t('Topic Tree')?></legend>
     <div class="clearfix"></div>
         <div class="form-group">
         <select class="form-control" name="topicTreeIDSelect">
-            <? foreach($trees as $stree) { ?>
-                <option value="<?=$stree->getTreeID()?>" <? if ($tree->getTreeID() == $stree->getTreeID()) { ?>selected<? } ?>><?=$stree->getTreeDisplayName()?></option>
-            <? } ?>
+            <?php foreach($trees as $stree) { ?>
+                <option value="<?php echo $stree->getTreeID()?>" <?php if ($tree->getTreeID() == $stree->getTreeID()) { ?>selected<?php } ?>><?php echo $stree->getTreeDisplayName()?></option>
+            <?php } ?>
         </select>
         </div>
     <div class="tree-view-container">
         <div class="tree-view-template">
-            <legend><?=t('Topic Default Parent Node')?></legend>
+            <legend><?php echo t('Topic Default Parent Node')?></legend>
         </div>
     </div>
     <input type="hidden" name="akTopicParentNodeID" value="<?php echo $parentNode ?>">
     <input type="hidden" name="akTopicTreeID" value="<?php echo $tree->getTreeID(); ?>">
     </fieldset>
 
-<? } else { ?>
+<?php } else { ?>
 
-    <div class="alert alert-danger"><?=t('You have not created a topic tree.
+    <div class="alert alert-danger"><?php echo t('You have not created a topic tree.
 You must create a topic tree from the <a href="%s">Topics Page</a>
 before you can use this attribute type.', URL::to('/dashboard/system/attributes/topics'))?></div>
 
-<? } ?>
+<?php } ?>

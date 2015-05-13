@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");?>
+<?php defined('C5_EXECUTE') or die("Access Denied.");?>
 <form method="post" id="login-redirect-form" action="<?php echo $view->url('/dashboard/system/registration/postlogin', 'update_login_redirect')?>">
     <?php echo $this->controller->token->output('update_login_redirect')?>
     <fieldset>
@@ -44,7 +44,7 @@
     <div class="form-group">
         <div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">
-                <button class="pull-right btn btn-success" type="submit" ><?=t('Save')?></button>
+                <button class="pull-right btn btn-primary" type="submit" ><?php echo t('Save')?></button>
             </div>
         </div>
     </div>

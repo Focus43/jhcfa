@@ -3,16 +3,16 @@ $form = Loader::helper('form');
 $c = Page::getCurrentPage();
 
 if(!$ak instanceof CollectionAttributeKey) {?>
-	<div class="ccm-error"><?=t('Error: The required page attribute with the handle of: "%s" doesn\'t exist',$controller->attributeHandle)?><br/><br/></div>
-<? } else { ?>
-<input type="hidden" name="attributeHandle" value="<?=$controller->attributeHandle?>" />
+	<div class="ccm-error"><?php echo t('Error: The required page attribute with the handle of: "%s" doesn\'t exist',$controller->attributeHandle)?><br/><br/></div>
+<?php } else { ?>
+<input type="hidden" name="attributeHandle" value="<?php echo $controller->attributeHandle?>" />
 
-    <?=$form->label('title', t('Title'))?>
+    <?php echo $form->label('title', t('Title'))?>
 	<div class="form-group">
 		<?php echo $form->text('title',$title);?>
 	</div>
 
-	<label><?=t('Display a List of Tags From')?></label>
+	<label><?php echo t('Display a List of Tags From')?></label>
     <div class="form-group">
         <div class="radio">
             <label>
@@ -39,7 +39,7 @@ if(!$ak instanceof CollectionAttributeKey) {?>
 	<?php } ?>
 
 	<div id="ccm-tags-display-cloud" class="form-group">
-     <?=$form->label('cloudCount', t('Number to Display'))?>
+     <?php echo $form->label('cloudCount', t('Number to Display'))?>
 	<div class="input">
 		<?php echo $form->text('cloudCount',$cloudCount,array('size'=>4))?>
 	</div>
@@ -47,7 +47,7 @@ if(!$ak instanceof CollectionAttributeKey) {?>
 
 
 	<div class="clearfix">
-	<label style="margin-bottom: 0px;"><?=t('Link Tag to Search Page')?></label>
+	<label style="margin-bottom: 0px;"><?php echo t('Link Tag to Search Page')?></label>
 	<div class="input">
 		<?php
 		$form_selector = Loader::helper('form/page_selector');

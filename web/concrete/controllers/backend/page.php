@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Concrete\Controller\Backend;
 use Concrete\Core\Http\Response;
 use Controller;
@@ -32,7 +32,7 @@ class Page extends Controller {
                 if (is_object($parent)) {
                     $d->setPageDraftTargetParentPageID($parent->getCollectionID());
                 }
-				return Redirect::url(BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME . '?cID=' . $d->getCollectionID() . '&ctask=check-out-first&' . Loader::helper('validation/token')->getParameter());
+				return Redirect::url(\Core::getApplicationURL() . '/' . DISPATCHER_FILENAME . '?cID=' . $d->getCollectionID() . '&ctask=check-out-first&' . Loader::helper('validation/token')->getParameter());
 			}
 		}
 	}

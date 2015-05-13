@@ -1,18 +1,18 @@
-<?
+<?php
 	defined('C5_EXECUTE') or die("Access Denied.");
 	$a = $b->getBlockAreaObject();
 ?>
 
-<?=$gf->getPageThemeGridFrameworkRowStartHTML()?>
+<?php echo $gf->getPageThemeGridFrameworkRowStartHTML()?>
 
-<? foreach($columns as $col) { ?>
-	<? if ($col->getAreaLayoutColumnOffset() > 0 && (!$gf->hasPageThemeGridFrameworkOffsetClasses())) { ?>
-		<div class="<?=$col->getAreaLayoutColumnOffsetClass()?> ccm-theme-grid-offset-column"></div>
-	<? } ?>
-	<div class="<?=$col->getAreaLayoutColumnClass()?><? if ($gf->hasPageThemeGridFrameworkOffsetClasses() && $col->getAreaLayoutColumnOffset()) { ?> <?=$col->getAreaLayoutColumnOffsetClass()?><? } ?>"><? 
+<?php foreach($columns as $col) { ?>
+	<?php if ($col->getAreaLayoutColumnOffset() > 0 && (!$gf->hasPageThemeGridFrameworkOffsetClasses())) { ?>
+		<div class="<?php echo $col->getAreaLayoutColumnOffsetClass()?> ccm-theme-grid-offset-column"></div>
+	<?php } ?>
+	<div class="<?php echo $col->getAreaLayoutColumnClass()?><?php if ($gf->hasPageThemeGridFrameworkOffsetClasses() && $col->getAreaLayoutColumnOffset()) { ?> <?php echo $col->getAreaLayoutColumnOffsetClass()?><?php } ?>"><?php 
 		$col->display();
 	?></div>
 
-<? } ?>
+<?php } ?>
 
-<?=$gf->getPageThemeGridFrameworkRowEndHTML()?>
+<?php echo $gf->getPageThemeGridFrameworkRowEndHTML()?>

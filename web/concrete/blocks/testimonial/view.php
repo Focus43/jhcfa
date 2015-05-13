@@ -1,44 +1,44 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
 <div class="ccm-block-testimonial-wrapper">
     <div class="ccm-block-testimonial">
-        <? if ($image): ?>
-            <div class="ccm-block-testimonial-image"><?=$image?></div>
-        <? endif; ?>
+        <?php if ($image): ?>
+            <div class="ccm-block-testimonial-image"><?php echo $image?></div>
+        <?php endif; ?>
 
         <div class="ccm-block-testimonial-text">
 
             <div class="ccm-block-testimonial-name">
-                <?=$name?>
+                <?php echo h($name)?>
             </div>
 
-        <? if ($position && $company && $companyURL): ?>
+        <?php if ($position && $company && $companyURL): ?>
             <div class="ccm-block-testimonial-position">
-                <?=t('%s, <a href="%s">%s</a>', $position, $companyURL, $company)?>
+                <?php echo t('%s, <a href="%s">%s</a>', h($position), urlencode($companyURL), h($company))?>
             </div>
-        <? endif; ?>
+        <?php endif; ?>
 
-        <? if ($position && !$company && $companyURL): ?>
+        <?php if ($position && !$company && $companyURL): ?>
             <div class="ccm-block-testimonial-position">
-                <?=t('<a href="%s">%s</a>', $companyURL, $position)?>
+                <?php echo t('<a href="%s">%s</a>', urlencode($companyURL), h($position))?>
             </div>
-        <? endif; ?>
+        <?php endif; ?>
 
-        <? if ($position && $company && !$companyURL): ?>
+        <?php if ($position && $company && !$companyURL): ?>
             <div class="ccm-block-testimonial-position">
-                <?=t('%s, %s', $position, $company)?>
+                <?php echo t('%s, %s', h($position), h($company))?>
             </div>
-        <? endif; ?>
+        <?php endif; ?>
 
-        <? if ($position && !$company && !$companyURL): ?>
+        <?php if ($position && !$company && !$companyURL): ?>
             <div class="ccm-block-testimonial-position">
-                <?=$position?>
+                <?php echo h($position)?>
             </div>
-        <? endif; ?>
+        <?php endif; ?>
 
 
-        <? if ($paragraph): ?>
-            <div class="ccm-block-testimonial-paragraph"><?=$paragraph?></div>
-        <? endif; ?>
+        <?php if ($paragraph): ?>
+            <div class="ccm-block-testimonial-paragraph"><?php echo h($paragraph)?></div>
+        <?php endif; ?>
 
         </div>
 

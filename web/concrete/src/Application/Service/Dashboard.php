@@ -2,7 +2,8 @@
 namespace Concrete\Core\Application\Service;
 
 use Config;
-use Loader;
+use Core;
+use Database;
 use File;
 use Page;
 use URL;
@@ -87,10 +88,10 @@ class Dashboard
     public function getDashboardPaneHeader($title = false, $help = false, $navigatePages = array(), $upToPage = false, $favorites = true)
     {
         $c = Page::getCurrentPage();
-        $vt = Loader::helper('validation/token');
+        $vt = Core::make('helper/validation/token');
         $token = $vt->generate('access_quick_nav');
 
-        $nh = Loader::helper('navigation');
+        $nh = Core::make('helper/navigation');
         $trail = $nh->getTrailToCollection($c);
         if (count($trail) > 1 || count($navigatePages) > 1 || is_object($upToPage)) {
             $parent = Page::getByID($c->getCollectionParentID());
@@ -157,7 +158,7 @@ class Dashboard
         */
         $html .= '<ul class="ccm-pane-header-icons">';
         if (!$help) {
-            $ih = Loader::helper('concrete/ui/help');
+            $ih = Core::make('helper/concrete/ui/help');
             $pageHelp = $ih->getPages();
             if (isset($pageHelp[$c->getCollectionPath()])) {
                 $help = $pageHelp[$c->getCollectionPath()];
@@ -248,6 +249,7 @@ class Dashboard
             <?php
             $page = Page::getByPath('/dashboard');
             $children = $page->getCollectionChildrenArray(true);
+            $navHelper = Core::make('helper/navigation');
 
             $packagepages = array();
             $corepages = array();
@@ -279,14 +281,14 @@ class Dashboard
 
                 <div class="ccm-intelligent-search-results-module ccm-intelligent-search-results-module-onsite">
 
-                <h1><?=t($page->getCollectionName())?></h1>
+                <h1><?php echo t($page->getCollectionName())?></h1>
 
 
                 <ul class="ccm-intelligent-search-results-list">
                 <?php
                 if (count($ch2) == 0) {
                     ?>
-                    <li><a href="<?=Loader::helper('navigation')->getLinkTocollection($page)?>"><?=t($page->getCollectionName())?></a><span><?=t($page->getCollectionName())?> <?=t($page->getAttribute('meta_keywords'))?></span></li>
+                    <li><a href="<?php echo $navHelper->getLinkTocollection($page)?>"><?php echo t($page->getCollectionName())?></a><span><?php echo t($page->getCollectionName())?> <?php echo t($page->getAttribute('meta_keywords'))?></span></li>
                     <?php
                 }
                 ?>
@@ -294,7 +296,7 @@ class Dashboard
                 <?php
                 if ($page->getCollectionPath() == '/dashboard/system') {
                     ?>
-                    <li><a href="<?=Loader::helper('navigation')->getLinkTocollection($page)?>"><?=t('View All')?></a><span><?=t($page->getCollectionName())?> <?=t($page->getAttribute('meta_keywords'))?></span></li>
+                    <li><a href="<?php echo $navHelper->getLinkTocollection($page)?>"><?php echo t('View All')?></a><span><?php echo t($page->getCollectionName())?> <?php echo t($page->getAttribute('meta_keywords'))?></span></li>
                     <?php
                 }
 
@@ -310,7 +312,7 @@ class Dashboard
                     }
 
                     ?>
-                    <li><a href="<?=Loader::helper('navigation')->getLinkTocollection($subpage)?>"><?=t($subpage->getCollectionName())?></a><span><? if ($page->getCollectionPath() != '/dashboard/system') { ?><?=t($page->getCollectionName())?> <?=t($page->getAttribute('meta_keywords'))?> <? } ?><?=t($subpage->getCollectionName())?> <?=t($subpage->getAttribute('meta_keywords'))?></span></li>
+                    <li><a href="<?php echo $navHelper->getLinkTocollection($subpage)?>"><?php echo t($subpage->getCollectionName())?></a><span><?php if ($page->getCollectionPath() != '/dashboard/system') { ?><?php echo t($page->getCollectionName())?> <?php echo t($page->getAttribute('meta_keywords'))?> <?php } ?><?php echo t($subpage->getCollectionName())?> <?php echo t($subpage->getAttribute('meta_keywords'))?></span></li>
                     <?php
                 }
                 ?>
@@ -327,11 +329,11 @@ class Dashboard
 
             <div class="ccm-intelligent-search-results-module ccm-intelligent-search-results-module-onsite">
 
-            <h1><?=t('Dashboard Home')?></h1>
+            <h1><?php echo t('Dashboard Home')?></h1>
 
 
             <ul class="ccm-intelligent-search-results-list">
-                <li><a href="<?=URL::to('/dashboard/home')?>"><?=t('Customize')?> <span><?=t('Customize Dashboard Home')?></span></a></li>
+                <li><a href="<?php echo URL::to('/dashboard/home')?>"><?php echo t('Customize')?> <span><?php echo t('Customize Dashboard Home')?></span></a></li>
             </ul>
 
             </div>
@@ -341,7 +343,7 @@ class Dashboard
             ?>
 
             <div class="ccm-intelligent-search-results-module">
-            <h1><?=t('Your Site')?></h1>
+            <h1><?php echo t('Your Site')?></h1>
             <div class="loader">
                 <div class="dot dot1"></div>
                 <div class="dot dot2"></div>
@@ -355,7 +357,7 @@ class Dashboard
             <?php if (Config::get('concrete.external.intelligent_search_help')) {
                 ?>
             <div class="ccm-intelligent-search-results-module ccm-intelligent-search-results-module-offsite">
-            <h1><?=t('Help')?></h1>
+            <h1><?php echo t('Help')?></h1>
             <div class="loader">
                 <div class="dot dot1"></div>
                 <div class="dot dot2"></div>
@@ -372,7 +374,7 @@ class Dashboard
             <?php if (Config::get('concrete.marketplace.intelligent_search')) {
                 ?>
             <div class="ccm-intelligent-search-results-module ccm-intelligent-search-results-module-offsite">
-            <h1><?=t('Add-Ons')?></h1>
+            <h1><?php echo t('Add-Ons')?></h1>
             <div class="loader">
                 <div class="dot dot1"></div>
                 <div class="dot dot2"></div>
@@ -447,7 +449,7 @@ class DashboardMenu
         if (!$segmentb) {
             $segmentb = $subpathb;
         }
-        $db = Loader::db();
+        $db = Database::connection();
         $displayorderA = intval($db->GetOne('select cDisplayOrder from Pages p inner join PagePaths cp on p.cID = cp.cID where cPath = ?', array('/dashboard/' . $segmenta)));
         $displayorderB = intval($db->GetOne('select cDisplayOrder from Pages p inner join PagePaths cp on p.cID = cp.cID where cPath = ?', array('/dashboard/' . $segmentb)));
 

@@ -2,14 +2,14 @@
 
 <div class="form-group">
         <span>
-            <?= t('Attach a %s account', t('Google')) ?>
+            <?php echo t('Attach a %s account', t('Google')) ?>
         </span>
     <hr>
 </div>
 <div class="form-group">
-    <a href="<?= \URL::to('/ccm/system/authentication/oauth2/google/attempt_attach'); ?>" class="btn btn-primary btn-google">
+    <a href="<?php echo \URL::to('/ccm/system/authentication/oauth2/google/attempt_attach'); ?>" class="btn btn-primary btn-google">
         <i class="fa fa-google"></i>
-        <?= t('Attach a %s account', t('Google')) ?>
+        <?php echo t('Attach a %s account', t('Google')) ?>
     </a>
 </div>
 

@@ -17,10 +17,10 @@ if (is_object($f)) {
     }
     $tag->addClass('ccm-image-block img-responsive bID-'.$bID);
     if ($altText) {
-        $tag->alt($altText);
+        $tag->alt(h($altText));
     }
     if ($title) {
-        $tag->title($title);
+        $tag->title(h($title));
     }
     if ($linkURL):
         print '<a href="' . $linkURL . '">';
@@ -33,9 +33,9 @@ if (is_object($f)) {
     endif;
 } else if ($c->isEditMode()) { ?>
 
-    <div class="ccm-edit-mode-disabled-item"><?=t('Empty Image Block.')?></div>
+    <div class="ccm-edit-mode-disabled-item"><?php echo t('Empty Image Block.')?></div>
 
-<? } ?>
+<?php } ?>
 
 <?php if(is_object($foS)) { ?>	
 <script>

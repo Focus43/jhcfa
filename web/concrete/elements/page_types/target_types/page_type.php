@@ -1,4 +1,4 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $form = Loader::helper('form');
 $ctArray = PageType::getList();
@@ -13,8 +13,8 @@ if (is_object($pagetype) && $pagetype->getPageTypePublishTargetTypeID() == $type
 }
 ?>
 	<div class="control-group">
-		<?=$form->label('ptID', t('Publish Beneath Pages of Type'))?>
+		<?php echo $form->label('ptID', t('Publish Beneath Pages of Type'))?>
 		<div class="controls">
-			<?=$form->select('ptID', $types, $ptID)?>
+			<?php echo $form->select('ptID', $types, $ptID)?>
 		</div>
 	</div>

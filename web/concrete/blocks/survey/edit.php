@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 <style type="text/css">
     div.survey-block-option {
         position: relative;
@@ -15,37 +15,37 @@
 </style>
 <div class="ccm-ui survey-block-edit">
     <div class="form-group">
-        <label for="questionEntry"><?= t('Question') ?></label>
-        <input type="text" style="width: 320px" name="question" value="<?= $controller->getQuestion() ?>"
+        <label for="questionEntry"><?php echo t('Question') ?></label>
+        <input type="text" style="width: 320px" name="question" value="<?php echo $controller->getQuestion() ?>"
                class="form-control"/>
     </div>
-    <label for="requiresRegistration"><?= t('Target Audience') ?></label>
+    <label for="requiresRegistration"><?php echo t('Target Audience') ?></label>
 
     <div class="radio">
         <label>
             <input id="requiresRegistration" type="radio" value="0" name="requiresRegistration"
-                   style="vertical-align: middle" <? if (!$controller->requiresRegistration()) { ?> checked <? } ?> />&nbsp;<?= t(
+                   style="vertical-align: middle" <?php if (!$controller->requiresRegistration()) { ?> checked <?php } ?> />&nbsp;<?php echo t(
                 'Public') ?>
         </label>
     </div>
     <div class="radio">
         <label>
             <input type="radio" value="1" name="requiresRegistration"
-                   style="vertical-align: middle" <? if ($controller->requiresRegistration()) { ?> checked <? } ?> />&nbsp;<?= t(
+                   style="vertical-align: middle" <?php if ($controller->requiresRegistration()) { ?> checked <?php } ?> />&nbsp;<?php echo t(
                 'Only Registered Users') ?>
         </label>
     </div>
     <hr/>
-    <label><?= t('Answer Options') ?></label>
+    <label><?php echo t('Answer Options') ?></label>
 
     <div class="form-group">
         <div class="poll-options">
-            <?
+            <?php
             $options = $controller->getPollOptions();
             if (count($options) == 0) {
                 ?>
                 <div class="empty">
-                    <?= t('None') ?>
+                    <?php echo t('None') ?>
                 </div>
                 <?php
             } else {
@@ -55,16 +55,16 @@
                         <a href="#" class="pull-right delete">
                             <i class="fa fa-trash-o"></i>
                         </a>
-                        <?= h($opt->getOptionName()) ?>
+                        <?php echo h($opt->getOptionName()) ?>
                         <input type="hidden" name="survivingOptionNames[]"
-                               value="<?= h($opt->getOptionName()) ?>"/>
+                               value="<?php echo h($opt->getOptionName()) ?>"/>
                     </div>
-                <?
+                <?php
                 }
             } ?>
         </div>
     </div>
-    <label for="optionEntry"><?= t('Add Option') ?></label>
+    <label for="optionEntry"><?php echo t('Add Option') ?></label>
 
     <div class="form-group">
         <div class="input-group">

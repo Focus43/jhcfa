@@ -13,6 +13,7 @@ use Concrete\Flysystem\FileNotFoundException;
 use Core;
 use Events;
 use FileAttributeKey;
+use Imagine\Exception\InvalidArgumentException as ImagineInvalidArgumentException;
 use Imagine\Image\ImageInterface;
 use Loader;
 use Page;
@@ -135,6 +136,7 @@ class Version
         $fv->fvAuthorUID = $uID;
         $fv->fvActivateDateTime = $date;
         $fv->fvTitle = $fvTitle;
+        $fv->fvDescription = $fvDescription;
         $fv->fvTags = $fvTags;
         $fv->file = $file;
         $fv->fvID = 1;
@@ -395,6 +397,7 @@ class Version
         $fv = clone $this;
         $fv->fvID = $fvID;
         $fv->fvIsApproved = false;
+        $fv->fvDateAdded = new \DateTime();
 
         $em->persist($fv);
         $em->flush();
@@ -591,7 +594,7 @@ class Version
     {
         $c = Page::getCurrentPage();
         $cID = ($c instanceof Page) ? $c->getCollectionID() : 0;
-        return BASE_URL . View::url('/download_file', 'force', $this->getFileID(), $cID);
+        return View::url('/download_file', 'force', $this->getFileID(), $cID);
     }
 
     /**
@@ -704,55 +707,79 @@ class Version
         $types = Type::getVersionList();
 
         $fr = $this->getFileResource();
-        $image = \Image::load($fr->read());
+        try {
+            $image = \Image::load($fr->read());
+            $mimetype = $fr->getMimeType();
 
-        foreach ($types as $type) {
+            foreach ($types as $type) {
 
 
-            // delete the file if it exists
-            $this->deleteThumbnail($type);
+                // delete the file if it exists
+                $this->deleteThumbnail($type);
 
-            if ($this->getAttribute('width') <= $type->getWidth()) {
-                continue;
+                if ($this->getAttribute('width') <= $type->getWidth()) {
+                    continue;
+                }
+
+                $filesystem = $this->getFile()
+                    ->getFileStorageLocationObject()
+                    ->getFileSystemObject();
+
+                $height = $type->getHeight();
+                $thumbnailMode = ImageInterface::THUMBNAIL_OUTBOUND;
+                if (!$height) {
+                    $height = $type->getWidth();
+                    $thumbnailMode = ImageInterface::THUMBNAIL_INSET;
+                }
+                $thumbnail = $image->thumbnail(new \Imagine\Image\Box($type->getWidth(), $height), $thumbnailMode);
+                $thumbnailPath = $type->getFilePath($this);
+                $thumbnailOptions = array();
+
+                switch ($mimetype) {
+                  case 'image/jpeg':
+                    $thumbnailType = 'jpeg';
+                    $thumbnailOptions = array('jpeg_quality' => \Config::get('misc.default_jpeg_image_compression'));
+                    break;
+                  case 'image/png':
+                    $thumbnailType = 'png';
+                    break;
+                  case 'image/gif':
+                    $thumbnailType = 'gif';
+                    break;
+                  case 'image/xbm':
+                    $thumbnailType = 'xbm';
+                    break;
+                  case 'image/vnd.wap.wbmp':
+                    $thumbnailType = 'wbmp';
+                    break;
+                  default:
+                    $thumbnailType = 'png';
+                    break;
+                }
+
+                $filesystem->write(
+                    $thumbnailPath,
+                    $thumbnail->get($thumbnailType, $thumbnailOptions),
+                    array(
+                        'visibility' => AdapterInterface::VISIBILITY_PUBLIC,
+                        'mimetype' => $mimetype
+                    )
+                );
+
+                if ($type->getHandle() == \Config::get('concrete.icons.file_manager_listing.handle')) {
+                    $this->fvHasListingThumbnail = true;
+                }
+
+                if ($type->getHandle() == \Config::get('concrete.icons.file_manager_detail.handle')) {
+                    $this->fvHasDetailThumbnail = true;
+                }
+
+                unset($thumbnail);
+                unset($filesystem);
+
             }
-
-            $filesystem = $this->getFile()
-                               ->getFileStorageLocationObject()
-                               ->getFileSystemObject();
-
-            $height = $type->getHeight();
-            $thumbnailMode = ImageInterface::THUMBNAIL_OUTBOUND;
-            if (!$height) {
-                $height = $type->getWidth();
-                $thumbnailMode = ImageInterface::THUMBNAIL_INSET;
-            }
-            $thumbnail = $image->thumbnail(new \Imagine\Image\Box($type->getWidth(), $height), $thumbnailMode);
-            $thumbnailPath = $type->getFilePath($this);
-
-            $o = new \stdClass;
-            $o->visibility = AdapterInterface::VISIBILITY_PUBLIC;
-            $o->mimetype = 'image/jpeg';
-
-            $filesystem->write(
-                $thumbnailPath,
-                $thumbnail->get('jpg', array('jpeg_quality' => 60)),
-                array(
-                    'visibility' => AdapterInterface::VISIBILITY_PUBLIC,
-                    'mimetype'   => 'image/jpeg'
-                )
-            );
-
-            if ($type->getHandle() == \Config::get('concrete.icons.file_manager_listing.handle')) {
-                $this->fvHasListingThumbnail = true;
-            }
-
-            if ($type->getHandle() == \Config::get('concrete.icons.file_manager_detail.handle')) {
-                $this->fvHasDetailThumbnail = true;
-            }
-
-            unset($thumbnail);
-            unset($filesystem);
-
+        } catch (ImagineInvalidArgumentException $e) {
+            return false;
         }
     }
 
@@ -791,16 +818,15 @@ class Version
             $type = ThumbnailTypeVersion::getByHandle($type);
         }
         $fsl = $this->getFile()->getFileStorageLocationObject();
-        if ($fsl) {
+        if ($fsl && $type) {
             $configuration = $fsl->getConfigurationObject();
             $fss = $fsl->getFileSystemObject();
             $path = $type->getFilePath($this);
             if ($fss->has($path)) {
                 return $configuration->getPublicURLToFile($path);
-            } else {
-                return $this->getURL();
             }
         }
+        return $this->getURL();
     }
 
     /**
@@ -864,7 +890,7 @@ class Version
     {
         $c = Page::getCurrentPage();
         $cID = ($c instanceof Page) ? $c->getCollectionID() : 0;
-        return BASE_URL . View::url('/download_file', $this->getFileID(), $cID);
+        return View::url('/download_file', $this->getFileID(), $cID);
     }
 
     /**
@@ -927,11 +953,13 @@ class Version
         $r->canEditFilePermissions = $fp->canEditFilePermissions();
         $r->canDeleteFile = $fp->canDeleteFile();
         $r->canReplaceFile = $fp->canEditFileContents();
+        $r->canEditFileContents = $fp->canEditFileContents();
+        $r->canRead = $fp->canRead();
         $r->canViewFile = $this->canView();
         $r->canEditFile = $this->canEdit();
         $r->url = $this->getURL();
-        $r->urlInline = View::url('/download_file', 'view_inline', $this->getFileID());
-        $r->urlDownload = View::url('/download_file', 'view', $this->getFileID());
+        $r->urlInline = (string) View::url('/download_file', 'view_inline', $this->getFileID());
+        $r->urlDownload = (string) View::url('/download_file', 'view', $this->getFileID());
         $r->title = $this->getTitle();
         $r->genericTypeText = $this->getGenericTypeText();
         $r->description = $this->getDescription();

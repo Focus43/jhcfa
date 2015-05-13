@@ -27,7 +27,7 @@ $filters = SystemImageEditorFilter::getList();
 ?>
     <div class='table ccm-ui'>
         <div class='editorcontainer'>
-            <div id='<?= $editorid ?>' class='Editor'></div>
+            <div id='<?php echo $editorid ?>' class='Editor'></div>
             <div class='bottomBar'></div>
         </div>
         <div class='controls'>
@@ -41,11 +41,11 @@ $filters = SystemImageEditorFilter::getList();
                         foreach ($controlsets as $controlset) {
                             $handle = $controlset->getHandle();
                             ?>
-                            <link rel='stylesheet' href='<?= $controlset->getCssPath() ?>'>
-                            <div class="controlset controlset-<?= $controlset->gethandle() ?>"
-                                 data-namespace="<?= $controlset->getHandle() ?>"
-                                 data-src="<?= $controlset->getJavascriptPath() ?>">
-                                <h4><?= $controlset->getDisplayName() ?></h4>
+                            <link rel='stylesheet' href='<?php echo $controlset->getCssPath() ?>'>
+                            <div class="controlset controlset-<?php echo $controlset->gethandle() ?>"
+                                 data-namespace="<?php echo $controlset->getHandle() ?>"
+                                 data-src="<?php echo $controlset->getJavascriptPath() ?>">
+                                <h4><?php echo $controlset->getDisplayName() ?></h4>
 
                                 <div class="control">
                                     <div class="contents">
@@ -69,8 +69,8 @@ $filters = SystemImageEditorFilter::getList();
                     </div>
                 </div>
                 <div class='save'>
-                    <button class='cancel btn'><?= t('Cancel')?></button>
-                    <button class='save btn pull-right btn-primary'><?= t('Save')?></button>
+                    <button class='cancel btn'><?php echo t('Cancel')?></button>
+                    <button class='save btn pull-right btn-primary'><?php echo t('Save')?></button>
                 </div>
             </div>
         </div>
@@ -93,15 +93,17 @@ foreach ($filters as $filter) {
         $(function () {
             _.defer(function () {
                 var defaults = {
-                        saveUrl: CCM_REL + '/index.php/tools/required/files/importers/imageeditor',
-                        src: '<?=$fv->getURL()?>',
-                        fID: <?= $fv->getFileID() ?>,
+                        saveUrl: CCM_DISPATCHER_FILENAME + '/tools/required/files/importers/imageeditor',
+                        src: '<?php echo $fv->getURL()?>',
+                        fID: <?php echo $fv->getFileID() ?>,
                         controlsets: {},
                         filters: {},
                         components: {},
-                        debug: false
+                        debug: false,
+                        jpegCompression: <?php echo Config::get('concrete.misc.default_jpeg_image_compression') / 100 ?>,
+                        mime: '<?php echo $fv->getMimeType() ?>'
                     },
-                    settings = _.extend(defaults, <?= json_encode($settings) ?>);
+                    settings = _.extend(defaults, <?php echo json_encode($settings) ?>);
                 $('div.controlset', 'div.controls').each(function () {
                     settings.controlsets[$(this).attr('data-namespace')] = {
                         src: $(this).attr('data-src'),
@@ -114,8 +116,8 @@ foreach ($filters as $filter) {
                         element: $(this).children('div.control').children('div.contents')
                     }
                 });
-                settings.filters = <?= json_encode($fnames); ?>;
-                var editor = $('div#<?=$editorid?>.Editor');
+                settings.filters = <?php echo json_encode($fnames); ?>;
+                var editor = $('div#<?php echo $editorid?>.Editor');
                 window.im = editor.closest('.ui-dialog-content').css('padding', 0).end().ImageEditor(settings);
             });
 
@@ -136,6 +138,6 @@ foreach ($filters as $filter) {
 <?php
 foreach ($filters as $filter) {
     ?>
-    <link rel='stylesheet' href='<?= $filter->getCssPath() ?>'>
+    <link rel='stylesheet' href='<?php echo $filter->getCssPath() ?>'>
 <?php
 }

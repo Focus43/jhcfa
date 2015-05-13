@@ -37,14 +37,14 @@ $fonts = array(
 );
 $fontsArg = str_replace(' ','+',implode(':400,700,400italic,700italic|',$fonts));
 ?>
-<link href='//fonts.googleapis.com/css?family=<?=$fontsArg?>' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=<?php echo $fontsArg?>' rel='stylesheet' type='text/css'>
 <script class='font-slideout' type="imageeditor/template">
 	<ul class='slideOutList'>
 		<?php
 		foreach ($fonts as $font) {
 			?>
-			<li style='font-family:"<?=$font?>"'>
-				<?=$font?>
+			<li style='font-family:"<?php echo $font?>"'>
+				<?php echo $font?>
 			</li>
 			<?php
 		}

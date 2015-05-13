@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 
 // Helpers
 $h = Loader::helper('concrete/ui');
@@ -9,7 +9,7 @@ $d = Loader::helper('concrete/dashboard');
 
     <?php echo $this->controller->token->output('update_timezone') ?>
 
-    <div class="alert alert-info"><?= t(
+    <div class="alert alert-info"><?php echo t(
             'With this setting enabled, users may specify their own time zone in their user profile, and content timestamps will be adjusted accordingly. Without this setting enabled, content timestamps appear in server time.') ?></div>
 
     <div class="form-group">
@@ -30,13 +30,13 @@ $d = Loader::helper('concrete/dashboard');
             <?php
             foreach ($timezones as $zone => $tzg) {
                 ?>
-                <optgroup label="<?= h($zone) ?>">
+                <optgroup label="<?php echo h($zone) ?>">
                     <?php
                     foreach ($tzg as $tz) {
                         ?>
-                        <option value="<?= h($tz) ?>"
-                            <?= strtolower($tz) === strtolower($timezone) ? 'selected' : '' ?>>
-                            <?= h($tz) ?>
+                        <option value="<?php echo h($tz) ?>"
+                            <?php echo strtolower($tz) === strtolower($timezone) ? 'selected' : '' ?>>
+                            <?php echo h($tz) ?>
                         </option>
                     <?php
                     }
@@ -50,7 +50,7 @@ $d = Loader::helper('concrete/dashboard');
 
     <div class="ccm-dashboard-form-actions-wrapper">
         <div class="ccm-dashboard-form-actions">
-            <? print $interface->submit(t('Save'), 'user-timezone-form', 'right', 'btn-primary'); ?>
+            <?php print $interface->submit(t('Save'), 'user-timezone-form', 'right', 'btn-primary'); ?>
         </div>
     </div>
 

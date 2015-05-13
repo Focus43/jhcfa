@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Concrete\Controller\Panel\Page\Design;
 use \Concrete\Controller\Backend\UserInterface\Page as BackendInterfacePageController;
 use Concrete\Core\Page\PageList;
@@ -162,7 +162,7 @@ class Customize extends BackendInterfacePageController {
             $pt->setCustomStyleObject($vl, $preset, $sccRecord);
             $r = new PageEditResponse();
             $r->setPage($this->page);
-            $r->setRedirectURL(BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME . '?cID=' . $this->page->getCollectionID());
+            $r->setRedirectURL(\URL::to($this->page));
             $r->outputJSON();
         }
     }
@@ -187,7 +187,7 @@ class Customize extends BackendInterfacePageController {
 
             $r = new PageEditResponse();
             $r->setPage($this->page);
-            $r->setRedirectURL(BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME . '?cID=' . $this->page->getCollectionID());
+            $r->setRedirectURL(\URL::to($this->page));
             $r->outputJSON();
         }
     }
@@ -198,7 +198,7 @@ class Customize extends BackendInterfacePageController {
             $nvc->resetCustomThemeStyles();
             $r = new PageEditResponse();
             $r->setPage($this->page);
-            $r->setRedirectURL(BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME . '?cID=' . $this->page->getCollectionID());
+            $r->setRedirectURL(\URL::to($this->page));
             $r->outputJSON();
         }
     }
@@ -212,7 +212,7 @@ class Customize extends BackendInterfacePageController {
 
             $r = new PageEditResponse();
             $r->setPage($this->page);
-            $r->setRedirectURL(BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME . '?cID=' . $this->page->getCollectionID());
+            $r->setRedirectURL(\URL::to($this->page));
             $r->outputJSON();
         }
     }

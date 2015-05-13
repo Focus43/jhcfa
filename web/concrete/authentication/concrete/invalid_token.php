@@ -2,13 +2,13 @@
 $form = Loader::helper('form');
 ?>
 <div class='forgotPassword'>
-    <h2><?= t('Unable to validate email') ?></h2>
+    <h2><?php echo t('Unable to validate email') ?></h2>
 
     <div class='help-block'>
-        <?= t(
+        <?php echo t(
             'The token you provided doesn\'t appear to be valid, please paste the url exactly as it appears in the email.') ?>
     </div>
-    <a href="<?= \URL::to('/login/callback/concrete') ?>" class="btn btn-block btn-primary">
-        <?= t('Continue') ?>
+    <a href="<?php echo \URL::to('/login/callback/concrete') ?>" class="btn btn-block btn-primary">
+        <?php echo t('Continue') ?>
     </a>
 </div>

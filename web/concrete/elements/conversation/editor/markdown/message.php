@@ -3,7 +3,7 @@ $form = Loader::helper('form');
 print $form->textarea($editor->getConversationEditorInputName(), $editor->getConversationEditorMessageBody(), array('class'=>'unbound markdown_conversation_editor_'.$editor->cnvObject->cnvID));
 ?>
 <script type="text/javascript">
-	var me = $('textarea.unbound.markdown_conversation_editor_<?=$editor->cnvObject->cnvID?>').first().removeClass('unbound');
+	var me = $('textarea.unbound.markdown_conversation_editor_<?php echo $editor->cnvObject->cnvID?>').first().removeClass('unbound');
 	(function($,window,me){
 		var obj = window.obj;
 		ConcreteEvent.bind('ConversationSubmitForm',function(){

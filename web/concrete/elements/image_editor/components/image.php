@@ -1,4 +1,4 @@
-<?=Loader::helper('concrete/asset_library')->file("addImageToImageEditor_$editorid",'','Select Image');?>
+<?php echo Loader::helper('concrete/asset_library')->file("addImageToImageEditor_$editorid",'','Select Image');?>
 <a class='image'>Select Image</a>
 <a class='webcam' href='#'>From Webcam</a>
 <script class='template' type='text/html'>

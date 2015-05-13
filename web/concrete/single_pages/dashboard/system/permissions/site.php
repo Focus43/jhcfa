@@ -4,63 +4,63 @@ $h = Loader::helper('concrete/dashboard');
 $ih = Loader::helper('concrete/ui');
 $form = Loader::helper('form');
 ?>
-<?=$h->getDashboardPaneHeaderWrapper(t('Site Access'), false, false, false);?>
-<form id="site-permissions-form" action="<?=$view->action('')?>" method="post" role="form">
+<?php echo $h->getDashboardPaneHeaderWrapper(t('Site Access'), false, false, false);?>
+<form id="site-permissions-form" action="<?php echo $view->action('')?>" method="post" role="form">
 	<?php echo $this->controller->token->output('site_permissions_code')?>
 	
-    <? if(Config::get('concrete.permissions.model') != 'simple'):?>
+    <?php if(Config::get('concrete.permissions.model') != 'simple'):?>
     <div>
         <p>
-            <?=t('Your concrete5 site does not use the simple permissions model. You must change your permissions for each specific page and content area.')?>
+            <?php echo t('Your concrete5 site does not use the simple permissions model. You must change your permissions for each specific page and content area.')?>
         </p>
     </div>
-    <?else:?>
+    <?php else:?>
     
     <fieldset>
-	<legend style="margin-bottom: 0px"><?=t('Viewing Permissions')?></legend>
+	<legend style="margin-bottom: 0px"><?php echo t('Viewing Permissions')?></legend>
 	<div class="form-group">
         <div class="radio">
             <label>
-		    <?=$form->radio('view', 'ANYONE', $guestCanRead)?>
-		    <span><?=t('Public')?> - <?=t('Anyone may view the website.')?></span>
+		    <?php echo $form->radio('view', 'ANYONE', $guestCanRead)?>
+		    <span><?php echo t('Public')?> - <?php echo t('Anyone may view the website.')?></span>
                 </label>
         </div>
 		 
         <div class="radio">
             <label>
-            <?=$form->radio('view', 'USERS', $registeredCanRead)?>
-            <span><?=t('Members')?> - <?=t('Only registered users may view the website.')?></span>
+            <?php echo $form->radio('view', 'USERS', $registeredCanRead)?>
+            <span><?php echo t('Members')?> - <?php echo t('Only registered users may view the website.')?></span>
             </label>
         </div>
 
 		<div class="radio">
             <label>
-			<?=$form->radio('view', 'PRIVATE', !$guestCanRead && !$registeredCanRead)?>
-			<span><?=t('Private')?> - <?=t('Only the administrative group may view the website.')?></span>
+			<?php echo $form->radio('view', 'PRIVATE', !$guestCanRead && !$registeredCanRead)?>
+			<span><?php echo t('Private')?> - <?php echo t('Only the administrative group may view the website.')?></span>
             </label>
 		</div>
     </div>
     </fieldset>
     
     <fieldset>
-    <legend style="margin-bottom: 0px"><?=t('Edit Access')?></legend>
-        <span class="help-block"><?=t('Choose which users and groups may edit your site. Note: These settings can be overridden on specific pages.')?></span>
-        <div class="form-group">
-			<?foreach($gArray as $g):?>
-				<label class="checkbox">
-					<?=$form->checkbox('gID[]', $g->getGroupID(), in_array($g->getGroupID(), $editAccess))?>
-					<span><?=$g->getGroupDisplayName()?></span>
-				</label>
-			<?endforeach?>
-        </div>
+    <legend style="margin-bottom: 0px"><?php echo t('Edit Access')?></legend>
+        <span class="help-block"><?php echo t('Choose which users and groups may edit your site. Note: These settings can be overridden on specific pages.')?></span>
+        <?php foreach($gArray as $g):?>
+            <div class="checkbox">
+                <label>
+                    <?php echo $form->checkbox('gID[]', $g->getGroupID(), in_array($g->getGroupID(), $editAccess))?>
+                    <span><?php echo $g->getGroupDisplayName()?></span>
+                </label>
+            </div>
+        <?php endforeach?>
     </fieldset>
     
     <div class="ccm-dashboard-form-actions-wrapper">
         <div class="ccm-dashboard-form-actions">
-            <button class="pull-right btn btn-success" type="submit" ><?=t('Save')?></button>
+            <button class="pull-right btn btn-primary" type="submit" ><?php echo t('Save')?></button>
         </div>
     </div>
 
-<?endif?>
+<?php endif?>
 </form>
-<?=$h->getDashboardPaneFooterWrapper(false);?>
+<?php echo $h->getDashboardPaneFooterWrapper(false);?>

@@ -12,7 +12,7 @@ if ($bp->canWrite()) {
 
     <div class="ccm-ui">
         <div class="alert alert-info">
-            <?= t("This block was copied from another location. Editing it will create a new instance of it.") ?>
+            <?php echo t("This block was copied from another location. Editing it will create a new instance of it.") ?>
         </div>
     </div>
 

@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 
 $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service\Date */
 ?>
@@ -7,71 +7,71 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
 <div class="col-sm-10 col-sm-offset-1">
 
 <div class="page-header">
-<h1><?=t("Private Messages")?></h1>
+<h1><?php echo t("Private Messages")?></h1>
 </div>
 
-    	<? switch($this->controller->getTask()) {
+    	<?php switch($this->controller->getTask()) {
     		case 'view_message': ?>
 
-			<?=Loader::helper('concrete/ui')->tabs(array(
+			<?php echo Loader::helper('concrete/ui')->tabs(array(
 				array($view->action('view_mailbox', 'inbox'), t('Inbox'), $box == 'inbox'),
 				array($view->action('view_mailbox', 'sent'), t('Sent'), $box == 'sent')
 			), false)?>
 
     		<div id="ccm-private-message-detail">
-				<a href="<?=$view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?=$av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
-				<a href="<?=$view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?=$msg->getMessageRelevantUserName()?></a>
+				<a href="<?php echo $view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
+				<a href="<?php echo $view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $msg->getMessageRelevantUserName()?></a>
 
 				<div id="ccm-private-message-actions">
 
 				<div class="btn-toolbar">
 
 				<div class="btn-group">
-				<a href="<?=$backURL?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?=t('Back to Messages')?></a>
+				<a href="<?php echo $backURL?>" class="btn btn-small"><i class="icon-arrow-left"></i> <?php echo t('Back to Messages')?></a>
 				</div>
 
 				<div class="btn-group">
 				<a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
-				<i class="icon-cog"></i> <?=t('Action')?>
+				<i class="icon-cog"></i> <?php echo t('Action')?>
 				&nbsp;
 				<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-				<? $u = new User(); ?>
-				<? if ($msg->getMessageAuthorID() != $u->getUserID()) { ?>
-					<?
+				<?php $u = new User(); ?>
+				<?php if ($msg->getMessageAuthorID() != $u->getUserID()) { ?>
+					<?php
 					$mui = $msg->getMessageRelevantUserObject();
 					if (is_object($mui)) {
 						if ($mui->getUserProfilePrivateMessagesEnabled()) { ?>
-							<li><a href="<?=$view->action('reply', $box, $msg->getMessageID())?>"><?=t('Reply')?></a>
+							<li><a href="<?php echo $view->action('reply', $box, $msg->getMessageID())?>"><?php echo t('Reply')?></a>
 							<li class="divider"></li>
-						<? }
+						<?php }
 					}?>
-				<? } ?>
-				<li><a href="javascript:void(0)" onclick="if(confirm('<?=t('Delete this message?')?>')) { window.location.href='<?=$deleteURL?>'}; return false"><?=t('Delete')?></a>
+				<?php } ?>
+				<li><a href="javascript:void(0)" onclick="if(confirm('<?php echo t('Delete this message?')?>')) { window.location.href='<?php echo $deleteURL?>'}; return false"><?php echo t('Delete')?></a>
 				</ul>
 				</div>
 				</div>
 
 				</div>
 
-				<strong><?=$subject?></strong>
-				<time><?=$dateAdded?></time>
+				<strong><?php echo $subject?></strong>
+				<time><?php echo $dateAdded?></time>
 				<br/><br/>
 
     			<div>
-   				<?=$msg->getFormattedMessageBody()?>
+   				<?php echo $msg->getFormattedMessageBody()?>
    				</div>
 			</div>
 
 
-    		<?
+    		<?php
     			break;
     		case 'view_mailbox': ?>
 
-                <a href="<?=URL::to('/account')?>" class="btn btn-default pull-right" /><?=t('Back to Account')?></a>
+                <a href="<?php echo URL::to('/account')?>" class="btn btn-default pull-right" /><?php echo t('Back to Account')?></a>
 
-                <?=Loader::helper('concrete/ui')->tabs(array(
+                <?php echo Loader::helper('concrete/ui')->tabs(array(
 				array($view->action('view_mailbox', 'inbox'), t('Inbox'), $mailbox == 'inbox'),
 				array($view->action('view_mailbox', 'sent'), t('Sent'), $mailbox == 'sent')
 			), false)?>
@@ -80,58 +80,58 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
 			<table class="ccm-profile-messages-list table-striped table" border="0" cellspacing="0" cellpadding="0">
 			<thead>
 			<tr>
-				<th><? if ($mailbox == 'sent') { ?><?=t('To')?><? } else { ?><?=t('From')?><? } ?></th>
-				<th><?=t('Subject')?></th>
-				<th><?=t('Sent At')?></th>
-				<th><?=t('Status')?></th>
+				<th><?php if ($mailbox == 'sent') { ?><?php echo t('To')?><?php } else { ?><?php echo t('From')?><?php } ?></th>
+				<th><?php echo t('Subject')?></th>
+				<th><?php echo t('Sent At')?></th>
+				<th><?php echo t('Status')?></th>
 			</tr>
 			</thead>
 			<tbody>
 
 
-    		<?
+    		<?php
     			if (is_array($messages)) {
 					foreach($messages as $msg) { ?>
 
 					<tr>
 						<td class="ccm-profile-message-from">
-						<a href="<?=$view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?=$av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
-						<a href="<?=$view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?=$msg->getMessageRelevantUserName()?></a>
+						<a href="<?php echo $view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
+						<a href="<?php echo $view->url('/members/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $msg->getMessageRelevantUserName()?></a>
 						</td>
-						<td class="ccm-profile-messages-item-name"><a href="<?=$view->url('/account/messages/inbox', 'view_message', $mailbox, $msg->getMessageID())?>"><?=$msg->getFormattedMessageSubject()?></a></td>
-						<td style="white-space: nowrap"><?=$dh->formatDateTime($msg->getMessageDateAdded(), true)?></td>
-						<td><?=$msg->getMessageStatus()?></td>
+						<td class="ccm-profile-messages-item-name"><a href="<?php echo $view->url('/account/messages/inbox', 'view_message', $mailbox, $msg->getMessageID())?>"><?php echo $msg->getFormattedMessageSubject()?></a></td>
+						<td style="white-space: nowrap"><?php echo $dh->formatDateTime($msg->getMessageDateAdded(), true)?></td>
+						<td><?php echo $msg->getMessageStatus()?></td>
 					</tr>
 
 
 
-				<? } ?>
-			<? } else { ?>
+				<?php } ?>
+			<?php } else { ?>
 				<tr>
-					<Td colspan="4"><?=t('No messages found.')?></td>
+					<Td colspan="4"><?php echo t('No messages found.')?></td>
 				</tr>
-			<? } ?>
+			<?php } ?>
 			</tbody>
 			</table>
 
 
-			<?
+			<?php
 
 				$messageList->displayPaging();
     			break;
     		case 'reply_complete': ?>
 
-    		<div class="alert alert-success"><?=t('Reply Sent.')?></div>
-    		<a href="<?=$view->url('/account/messages/inbox', 'view_message', $box, $msgID)?>" class="btn btn-default"><?=t('Back to Message')?></a>
+    		<div class="alert alert-success"><?php echo t('Reply Sent.')?></div>
+    		<a href="<?php echo $view->url('/account/messages/inbox', 'view_message', $box, $msgID)?>" class="btn btn-default"><?php echo t('Back to Message')?></a>
 
-    		<?
+    		<?php
     			break;
     		case 'send_complete': ?>
 
-    		<div class="alert alert-success"><?=t('Message Sent.')?></div>
-    		<a href="<?=$view->url('/members/profile', 'view', $recipient->getUserID())?>" class="btn btn-default"><?=t('Back to Profile')?></a>
+    		<div class="alert alert-success"><?php echo t('Message Sent.')?></div>
+    		<a href="<?php echo $view->url('/members/profile', 'view', $recipient->getUserID())?>" class="btn btn-default"><?php echo t('Back to Profile')?></a>
 
-    		<?
+    		<?php
     			break;
 			case 'over_limit': ?>
 				<h2><?php echo t('Woops!')?></h2>
@@ -144,61 +144,61 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
     		case 'write': ?>
 
 			<div id="ccm-profile-message-compose">
-				<form method="post" action="<?=$view->action('send')?>">
+				<form method="post" action="<?php echo $view->action('send')?>">
 
-				<?=$form->hidden("uID", $recipient->getUserID())?>
-				<? if ($this->controller->getTask() == 'reply') { ?>
-					<?=$form->hidden("msgID", $msgID)?>
-					<?=$form->hidden("box", $box)?>
-				<?
+				<?php echo $form->hidden("uID", $recipient->getUserID())?>
+				<?php if ($this->controller->getTask() == 'reply') { ?>
+					<?php echo $form->hidden("msgID", $msgID)?>
+					<?php echo $form->hidden("box", $box)?>
+				<?php
 					$subject = t('Re: %s', $text->entities($msgSubject));
 				} else {
 					$subject = $text->entities($msgSubject);
 				}
 				?>
 
-				<h4><?=t('Send a Private Message')?></h4>
+				<h4><?php echo t('Send a Private Message')?></h4>
 
 				<div class="form-group">
-					<label class="control-label"><?=t("To")?></label>
-					<input disabled="disabled" class="form-control" type="text" value="<?=$recipient->getUserName()?>" class="span5" />
+					<label class="control-label"><?php echo t("To")?></label>
+					<input disabled="disabled" class="form-control" type="text" value="<?php echo $recipient->getUserName()?>" class="span5" />
 				</div>
 
 				<div class="form-group">
-					<?=$form->label('subject', t('Subject'))?>
-					<?=$form->text('msgSubject', $subject, array('class' => 'span5'))?>
+					<?php echo $form->label('subject', t('Subject'))?>
+					<?php echo $form->text('msgSubject', $subject, array('class' => 'span5'))?>
 				</div>
 
 				<div class="form-group">
-					<?=$form->label('body', t('Message'))?>
-					<?=$form->textarea('msgBody', $msgBody, array('rows'=>8, 'class' => 'span5'))?>
+					<?php echo $form->label('body', t('Message'))?>
+					<?php echo $form->textarea('msgBody', $msgBody, array('rows'=>8, 'class' => 'span5'))?>
 				</div>
 
-                <?=$form->submit('button_submit', t('Send Message'), array('class' => 'pull-right btn btn-primary'))?>
-                <?=$form->submit('button_cancel', t('Cancel'), array('class' => 'btn-default', 'onclick' => 'window.location.href=\'' . $backURL . '\'; return false'))?>
+                <?php echo $form->submit('button_submit', t('Send Message'), array('class' => 'pull-right btn btn-primary'))?>
+                <?php echo $form->submit('button_cancel', t('Cancel'), array('class' => 'btn-default', 'onclick' => 'window.location.href=\'' . $backURL . '\'; return false'))?>
 
-				<?=$valt->output('validate_send_message');?>
+				<?php echo $valt->output('validate_send_message');?>
 
 				</form>
 
 			</div>
 
 
-    		<? break;
+    		<?php break;
 
     		default:
     			// the inbox and sent box and other controls ?>
 
     			<table class="table table-striped" border="0" cellspacing="0" cellpadding="0">
     			<tr>
-    				<th class="ccm-profile-messages-item-name"><?=t('Mailbox')?></th>
-    				<th><?=t('Messages')?></th>
-    				<th><?=t('Latest Message')?></th>
+    				<th class="ccm-profile-messages-item-name"><?php echo t('Mailbox')?></th>
+    				<th><?php echo t('Messages')?></th>
+    				<th><?php echo t('Latest Message')?></th>
     			</tr>
     			<tr>
-    				<td class="ccm-profile-messages-item-name"><a href="<?=$view->action('view_mailbox', 'inbox')?>"><?=t('Inbox')?></a></td>
-    				<td><?=$inbox->getTotalMessages()?></td>
-    				<td class="ccm-profile-mailbox-last-message"><?
+    				<td class="ccm-profile-messages-item-name"><a href="<?php echo $view->action('view_mailbox', 'inbox')?>"><?php echo t('Inbox')?></a></td>
+    				<td><?php echo $inbox->getTotalMessages()?></td>
+    				<td class="ccm-profile-mailbox-last-message"><?php
     				$msg = $inbox->getLastMessageObject();
     				if (is_object($msg)) {
     					print t('<strong>%s</strong>, sent by %s on %s', $msg->getFormattedMessageSubject(), $msg->getMessageAuthorName(), $dh->formatDateTime($msg->getMessageDateAdded(), true));
@@ -206,9 +206,9 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
     				?></td>
     			</tr>
     			<tr>
-    				<td class="ccm-profile-messages-item-name"><a href="<?=$view->action('view_mailbox', 'sent')?>"><?=t('Sent Messages')?></a></td>
-    				<td><?=$sent->getTotalMessages()?></td>
-    				<td class="ccm-profile-mailbox-last-message"><?
+    				<td class="ccm-profile-messages-item-name"><a href="<?php echo $view->action('view_mailbox', 'sent')?>"><?php echo t('Sent Messages')?></a></td>
+    				<td><?php echo $sent->getTotalMessages()?></td>
+    				<td class="ccm-profile-mailbox-last-message"><?php
      				$msg = $sent->getLastMessageObject();
     				if (is_object($msg)) {
     					print t('<strong>%s</strong>, sent by %s on %s', $msg->getFormattedMessageSubject(), $msg->getMessageAuthorName(), $dh->formatDateTime($msg->getMessageDateAdded(), true));
@@ -219,10 +219,10 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
     			</table>
 
                 <div class="form-actions">
-                    <a href="<?=URL::to('/account')?>" class="btn btn-default" /><?=t('Back to Account')?></a>
+                    <a href="<?php echo URL::to('/account')?>" class="btn btn-default" /><?php echo t('Back to Account')?></a>
                 </div>
 
-            <?
+            <?php
     			break;
     	} ?>
 

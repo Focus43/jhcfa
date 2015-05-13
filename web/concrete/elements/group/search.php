@@ -1,5 +1,5 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?> 
-<?
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?> 
+<?php
 $form = Loader::helper('form');
 $searchRequest = $_REQUEST;
 $result = Loader::helper('json')->encode($controller->getSearchResultObject()->getJSONObject());
@@ -16,15 +16,15 @@ $registeredGroupNode = GroupTreeNode::getTreeNodeByGroupID(REGISTERED_GROUP_ID);
 
 <div data-search="groups">
 <script type="text/template" data-template="search-form">
-<form role="form" data-search-form="groups" action="<?=URL::to('/ccm/system/search/groups/submit')?>" class="form-inline ccm-search-fields ccm-search-fields-none">
-	<input type="hidden" name="filter" value="<?=$searchRequest['filter']?>" />
+<form role="form" data-search-form="groups" action="<?php echo URL::to('/ccm/system/search/groups/submit')?>" class="form-inline ccm-search-fields ccm-search-fields-none">
+	<input type="hidden" name="filter" value="<?php echo h($searchRequest['filter'])?>" />
 
 	<div class="ccm-search-fields-row">
 	<div class="form-group">
 		<div class="ccm-search-main-lookup-field">
 			<i class="fa fa-search"></i>
-			<?=$form->search('keywords', $searchRequest['keywords'], array('placeholder' => t('Name')))?>
-			<button type="submit" class="ccm-search-field-hidden-submit" tabindex="-1"><?=t('Search')?></button>
+			<?php echo $form->search('keywords', $searchRequest['keywords'], array('placeholder' => t('Name')))?>
+			<button type="submit" class="ccm-search-field-hidden-submit" tabindex="-1"><?php echo t('Search')?></button>
 		</div>
 	</div>
 	</div>
@@ -46,7 +46,7 @@ $registeredGroupNode = GroupTreeNode::getTreeNodeByGroupID(REGISTERED_GROUP_ID);
 
 <div data-search-element="wrapper"></div>
 
-<div class="group-tree" data-group-tree="<?=$tree->getTreeID()?>"></div>
+<div class="group-tree" data-group-tree="<?php echo $tree->getTreeID()?>"></div>
 
 <div data-search-element="results">
 
@@ -83,19 +83,19 @@ $registeredGroupNode = GroupTreeNode::getTreeNodeByGroupID(REGISTERED_GROUP_ID);
 <script type="text/javascript">
 $(function() {
 	$('[data-group-tree]').concreteGroupsTree({
-		'treeID': '<?=$tree->getTreeID()?>',
-		<? if ($searchRequest['filter'] == 'assign') { ?>
-	      'removeNodesByID': ['<?=$guestGroupNode->getTreeNodeID()?>','<?=$registeredGroupNode->getTreeNodeID()?>'],
-	      <? } ?>
-		<? if ($selectMode) { ?>
+		'treeID': '<?php echo $tree->getTreeID()?>',
+		<?php if ($searchRequest['filter'] == 'assign') { ?>
+	      'removeNodesByID': ['<?php echo $guestGroupNode->getTreeNodeID()?>','<?php echo $registeredGroupNode->getTreeNodeID()?>'],
+	      <?php } ?>
+		<?php if ($selectMode) { ?>
 			onClick: function(node) {
 				ConcreteEvent.publish('SelectGroup', {'gID': node.data.gID, 'gName': node.data.title});
 			},
 		'enableDragAndDrop': false
-		<? } ?>
+		<?php } ?>
 	});
 	$('div[data-search=groups]').concreteAjaxSearch({
-		result: <?=$result?>,
+		result: <?php echo $result?>,
 		onLoad: function(concreteSearch) {
 			var handleSubmit = function() {
 				var $input = concreteSearch.$element.find('input[name=keywords]');
@@ -114,7 +114,7 @@ $(function() {
 					handleSubmit();
 				}
 			});
-			<? if ($selectMode) { ?>
+			<?php if ($selectMode) { ?>
 			concreteSearch.$element.on('click', 'a[data-group-id]', function() {
 				ConcreteEvent.publish('SelectGroup', {
 					gID: $(this).attr('data-group-id'),
@@ -122,7 +122,7 @@ $(function() {
 				});
 				return false;
 			});
-			<? } ?>
+			<?php } ?>
 		}
 	});
 

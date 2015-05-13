@@ -3,10 +3,10 @@
 <div class="ccm-block-topic-list-wrapper">
 
     <div class="ccm-block-topic-list-header">
-        <h5><?=$title?></h5>
+        <h5><?php echo h($title)?></h5>
     </div>
 
-    <?
+    <?php
     if ($mode == 'S' && is_object($tree)):
         $node = $tree->getRootTreeNodeObject();
         $node->populateChildren();
@@ -15,15 +15,15 @@
                 print '<ul class="ccm-block-topic-list-list">';
                 foreach($node->getChildNodes() as $topic) {
                     if ($topic instanceof \Concrete\Core\Tree\Node\Type\TopicCategory) { ?>
-                        <li><?=$topic->getTreeNodeDisplayName()?></li>
-                    <? } else { ?>
-                        <li><a href="<?=$view->controller->getTopicLink($topic)?>"
-                                <? if (isset($selectedTopicID) && $selectedTopicID == $topic->getTreeNodeID()) { ?>
+                        <li><?php echo $topic->getTreeNodeDisplayName()?></li>
+                    <?php } else { ?>
+                        <li><a href="<?php echo $view->controller->getTopicLink($topic)?>"
+                                <?php if (isset($selectedTopicID) && $selectedTopicID == $topic->getTreeNodeID()) { ?>
                                     class="ccm-block-topic-list-topic-selected"
-                                <? } ?> ><?=$topic->getTreeNodeDisplayName()?></a></li>
-                    <? } ?>
-                    <? $walk($topic); ?>
-                <? }
+                                <?php } ?> ><?php echo $topic->getTreeNodeDisplayName()?></a></li>
+                    <?php } ?>
+                    <?php $walk($topic); ?>
+                <?php }
                 print '</ul>';
             };
             $walk($node);
@@ -33,17 +33,17 @@
 
     if ($mode == 'P'): ?>
 
-        <? if (count($topics)) { ?>
+        <?php if (count($topics)) { ?>
             <ul class="ccm-block-topic-list-page-topics">
-            <? foreach($topics as $topic) { ?>
-                <li><a href="<?=$view->controller->getTopicLink($topic)?>"><?=$topic->getTreeNodeDisplayName()?></a></li>
-            <? } ?>
+            <?php foreach($topics as $topic) { ?>
+                <li><a href="<?php echo $view->controller->getTopicLink($topic)?>"><?php echo $topic->getTreeNodeDisplayName()?></a></li>
+            <?php } ?>
             </ul>
-        <? } else { ?>
-            <?=t('No topics.')?>
-        <? } ?>
+        <?php } else { ?>
+            <?php echo t('No topics.')?>
+        <?php } ?>
 
-    <? endif; ?>
+    <?php endif; ?>
 
 </div>
 

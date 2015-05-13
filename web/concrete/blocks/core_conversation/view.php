@@ -18,37 +18,37 @@ if ($u->isLoggedIn()) {
 
 if (is_object($conversation)) {
     ?>
-    <div class="ccm-conversation-wrapper" data-conversation-id="<?=$conversation->getConversationID()?>">
-    <?=t('Loading Conversation')?> <i class="fa fa-spin fa-circle-o-notch"></i>
+    <div class="ccm-conversation-wrapper" data-conversation-id="<?php echo $conversation->getConversationID()?>">
+    <?php echo t('Loading Conversation')?> <i class="fa fa-spin fa-circle-o-notch"></i>
     </div>
 
     <script type="text/javascript">
     $(function() {
-        $('div[data-conversation-id=<?=$conversation->getConversationID()?>]').concreteConversation({
-            cnvID: <?=$conversation->getConversationID()?>,
-            blockID: <?=$bID?>,
-            cID: <?=$cID?>,
-            posttoken: '<?=$posttoken?>',
-            displayMode: '<?=$displayMode?>',
-            addMessageLabel: '<?=$addMessageLabel?>',
-            paginate: <?=$paginate?>,
-            itemsPerPage: <?=$itemsPerPage?>,
-            orderBy: '<?=$orderBy?>',
-            enableOrdering: <?=$enableOrdering?>,
-            displayPostingForm: '<?=$displayPostingForm?>',
-            activeUsers: <?=Loader::helper('json')->encode($users)?>,
-            enableCommentRating: <?=$enableCommentRating?>,
-            commentRatingUserID: <?=$uID?>,
-            commentRatingIP: '<?=$commentRatingIP?>',
-            dateFormat: '<?=$dateFormat?>',
-            customDateFormat: '<?=$customDateFormat?>',
-            blockAreaHandle: '<?=$blockAreaHandle ?>',
-            fileExtensions: '<?=$fileExtensions?>',
-            maxFileSize: '<?=$maxFileSize?>',
-            maxFiles: '<?=$maxFiles?>',
-            attachmentsEnabled: '<?=$attachmentsEnabled?>',
-            attachmentOverridesEnabled: '<?=$attachmentOverridesEnabled?>'
+        $('div[data-conversation-id=<?php echo $conversation->getConversationID()?>]').concreteConversation({
+            cnvID: <?php echo $conversation->getConversationID()?>,
+            blockID: <?php echo $bID?>,
+            cID: <?php echo $cID?>,
+            posttoken: '<?php echo $posttoken?>',
+            displayMode: '<?php echo $displayMode?>',
+            addMessageLabel: '<?php echo $addMessageLabel?>',
+            paginate: <?php echo $paginate?>,
+            itemsPerPage: <?php echo $itemsPerPage?>,
+            orderBy: '<?php echo $orderBy?>',
+            enableOrdering: <?php echo $enableOrdering?>,
+            displayPostingForm: '<?php echo $displayPostingForm?>',
+            activeUsers: <?php echo Loader::helper('json')->encode($users)?>,
+            enableCommentRating: <?php echo $enableCommentRating?>,
+            commentRatingUserID: <?php echo $uID?>,
+            commentRatingIP: '<?php echo $commentRatingIP?>',
+            dateFormat: '<?php echo $dateFormat?>',
+            customDateFormat: '<?php echo $customDateFormat?>',
+            blockAreaHandle: '<?php echo $blockAreaHandle ?>',
+            fileExtensions: '<?php echo $fileExtensions?>',
+            maxFileSize: '<?php echo $maxFileSize?>',
+            maxFiles: '<?php echo $maxFiles?>',
+            attachmentsEnabled: '<?php echo $attachmentsEnabled?>',
+            attachmentOverridesEnabled: '<?php echo $attachmentOverridesEnabled?>'
         });
     });
     </script>
-<? } ?>
+<?php } ?>

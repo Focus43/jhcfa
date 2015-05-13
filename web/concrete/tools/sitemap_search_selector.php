@@ -1,4 +1,4 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $sh = Loader::helper('concrete/dashboard/sitemap');
 if (!$sh->canRead()) {
@@ -31,7 +31,7 @@ if (isset($_REQUEST['requestID']) && Loader::helper('validation/numbers')->integ
 ?>
 <div class="ccm-ui" id="ccm-sitemap-search-selector">
 
-<?=Loader::helper('concrete/ui')->tabs(array(
+<?php echo Loader::helper('concrete/ui')->tabs(array(
 	array('sitemap', t('Full Sitemap')),
 	array('explore', t('Flat View')),
 	array('search', t('Search'))
@@ -64,31 +64,31 @@ $(function() {
 	$('a[data-tab=' + sst + ']').parent().addClass('active');
 	ccm_sitemapSearchSelectorHideBottom();
 	$('a[data-tab=sitemap]').click(function() {
-		jQuery.cookie('ccm-sitemap-selector-tab', 'sitemap', {path: '<?=DIR_REL?>/'});
+		jQuery.cookie('ccm-sitemap-selector-tab', 'sitemap', {path: '<?php echo DIR_REL?>/'});
 		ccm_sitemapSearchSelectorHideBottom();
 		if ($('#ccm-tab-content-sitemap').html() == '') { 
 			jQuery.fn.dialog.showLoader();
-			$('#ccm-tab-content-sitemap').load('<?=REL_DIR_FILES_TOOLS_REQUIRED?>/sitemap_overlay?requestID=<?=$requestID?>', function() {
+			$('#ccm-tab-content-sitemap').load('<?php echo REL_DIR_FILES_TOOLS_REQUIRED?>/sitemap_overlay?requestID=<?php echo $requestID?>', function() {
 				jQuery.fn.dialog.hideLoader();
 			});
 		}
 	});
 	$('a[data-tab=explore]').click(function() {
-		jQuery.cookie('ccm-sitemap-selector-tab', 'explore', {path: '<?=DIR_REL?>/'});
+		jQuery.cookie('ccm-sitemap-selector-tab', 'explore', {path: '<?php echo DIR_REL?>/'});
 		ccm_sitemapSearchSelectorHideBottom();
 		if ($('#ccm-tab-content-explore').html() == '') { 
 			jQuery.fn.dialog.showLoader();
-			$('#ccm-tab-content-explore').load('<?=REL_DIR_FILES_TOOLS_REQUIRED?>/sitemap_overlay?display=flat&requestID=<?=$requestID?>', function() {
+			$('#ccm-tab-content-explore').load('<?php echo REL_DIR_FILES_TOOLS_REQUIRED?>/sitemap_overlay?display=flat&requestID=<?php echo $requestID?>', function() {
 				jQuery.fn.dialog.hideLoader();
 			});
 		}
 	});
 	$('a[data-tab=search]').click(function() {
-		jQuery.cookie('ccm-sitemap-selector-tab', 'search', {path: '<?=DIR_REL?>/'});
+		jQuery.cookie('ccm-sitemap-selector-tab', 'search', {path: '<?php echo DIR_REL?>/'});
 		ccm_sitemapSearchSelectorShowBottom();
 		if ($('#ccm-tab-content-search').html() == '') { 
 			jQuery.fn.dialog.showLoader();
-			$('#ccm-tab-content-search').load('<?=URL::to('/ccm/system/dialogs/page/search')?>', function() {
+			$('#ccm-tab-content-search').load('<?php echo URL::to('/ccm/system/dialogs/page/search')?>', function() {
 				jQuery.fn.dialog.hideLoader();
 			});
 		}

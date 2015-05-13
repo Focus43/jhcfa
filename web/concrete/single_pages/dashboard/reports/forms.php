@@ -20,9 +20,9 @@ $db = Loader::db();
 ?>
 <script>
     jQuery(function ($) {
-        var deleteResponse = '<?= t('Are you sure you want to delete this form submission?') ?>',
-            deleteForm = '<?= t('Are you sure you want to delete this form and its form submissions?') ?>',
-            deleteFormAnswers = '<?= t('Are you sure you want to delete this form submissions?') ?>';
+        var deleteResponse = '<?php echo t('Are you sure you want to delete this form submission?') ?>',
+            deleteForm = '<?php echo t('Are you sure you want to delete this form and its form submissions?') ?>',
+            deleteFormAnswers = '<?php echo t('Are you sure you want to delete this form submissions?') ?>';
         $('.delete-response').on('click', function (e) {
             if (!confirm(deleteResponse)) {
                 e.preventDefault();
@@ -65,9 +65,9 @@ $db = Loader::db();
     }
 
 </style>
-<? if (!isset($questionSet)): { ?>
-    <?= $h->getDashboardPaneHeaderWrapper(t('Form Results')); ?>
-    <?
+<?php if (!isset($questionSet)): { ?>
+    <?php echo $h->getDashboardPaneHeaderWrapper(t('Form Results')); ?>
+    <?php
     $showTable = false;
     foreach ($surveys as $qsid => $survey) {
         $block = Block::getByID((int)$survey['bID']);
@@ -84,8 +84,8 @@ $db = Loader::db();
         <table class="table table-striped">
             <thead>
             <tr>
-                <th class="col-sm-5"><?= t('Form') ?></th>
-                <th><?= t('Submissions') ?></th>
+                <th class="col-sm-5"><?php echo t('Form') ?></th>
+                <th><?php echo t('Submissions') ?></th>
                 <th></th>
             </tr>
             </thead>
@@ -111,36 +111,36 @@ $db = Loader::db();
                 $url = $nh->getLinkToCollection($block->getBlockCollectionObject());
                 ?>
                 <tr>
-                    <td><?= $text->entities($survey['surveyName']) ?></td>
-                    <td><?= $text->entities($survey['answerSetCount']) ?></td>
+                    <td><?php echo $text->entities($survey['surveyName']) ?></td>
+                    <td><?php echo $text->entities($survey['answerSetCount']) ?></td>
                     <td style="min-width: 380px" class="text-right">
                         <form method="post" action="" style="display: inline">
-                            <input type="hidden" name="qsID" value="<?= intval($qsid) ?>"/>
+                            <input type="hidden" name="qsID" value="<?php echo intval($qsid) ?>"/>
                             <input type="hidden" name="action" value="deleteFormAnswers"/>
                             <?php $valt->output('deleteFormAnswers') ?>
                             <div class="btn-group">
-                                <a href="<?= DIR_REL . '/index.php?cID=' . $c->getCollectionID() . '&qsid=' . $qsid ?>"
+                                <a href="<?php echo DIR_REL . '/index.php?cID=' . $c->getCollectionID() . '&qsid=' . $qsid ?>"
                                    class="btn btn-default btn-sm">
-                                    <?= t('View Responses') ?>
+                                    <?php echo t('View Responses') ?>
                                 </a>
-                                <a class="btn btn-default btn-sm" href="<?=$url?>">
-                                    <?= t('Open Page') ?>
+                                <a class="btn btn-default btn-sm" href="<?php echo $url?>">
+                                    <?php echo t('Open Page') ?>
                                 </a>
                                 <button class="btn btn-danger btn-sm delete-form-answers"
                                         name='ccm-submit-button'>
-                                    <?= t('Delete Submissions') ?>
+                                    <?php echo t('Delete Submissions') ?>
                                 </button>
                             </div>
                         </form>
-                        <? if (!$in_use): { ?>
+                        <?php if (!$in_use): { ?>
                             <form method="post" action="" style="display: inline">
-                                <input type="hidden" name="bID" value="<?= intval($survey['bID']) ?>"/>
-                                <input type="hidden" name="qsID" value="<?= intval($qsid) ?>"/>
+                                <input type="hidden" name="bID" value="<?php echo intval($survey['bID']) ?>"/>
+                                <input type="hidden" name="qsID" value="<?php echo intval($qsid) ?>"/>
                                 <input type="hidden" name="action" value="deleteForm"/>
                                 <?php $valt->output('deleteForm') ?>
-                                <?= $ih->submit(t('Delete'), false, 'left', 'small error delete-form') ?>
+                                <?php echo $ih->submit(t('Delete'), false, 'left', 'small error delete-form') ?>
                             </form>
-                        <? }endif ?>
+                        <?php }endif ?>
                     </td>
                 </tr>
             <?php
@@ -195,23 +195,23 @@ $db = Loader::db();
     <? } */
 else {
         ?>
-        <p><?= t('There are no available forms in your site.') ?></p>
-    <? } ?>
-    <?= $h->getDashboardPaneFooterWrapper(); ?>
-<? } else: { ?>
-    <?= $h->getDashboardPaneHeaderWrapper(
+        <p><?php echo t('There are no available forms in your site.') ?></p>
+    <?php } ?>
+    <?php echo $h->getDashboardPaneFooterWrapper(); ?>
+<?php } else: { ?>
+    <?php echo $h->getDashboardPaneHeaderWrapper(
         t('Responses to %s', $surveys[$questionSet]['surveyName']),
         false,
         false,
         false); ?>
-<div class="ccm-pane-body <? if (!$paginator || !strlen($paginator->getPages()) > 0) { ?> ccm-pane-body-footer <? } ?>">
-    <? if (count($answerSets) == 0): { ?>
-        <div><?= t('No one has yet submitted this form.') ?></div>
-    <? } else: { ?>
+<div class="ccm-pane-body <?php if (!$paginator || !strlen($paginator->getPages()) > 0) { ?> ccm-pane-body-footer <?php } ?>">
+    <?php if (count($answerSets) == 0): { ?>
+        <div><?php echo t('No one has yet submitted this form.') ?></div>
+    <?php } else: { ?>
 
         <div class="ccm-dashboard-header-buttons">
-            <a id="ccm-export-results" class="btn btn-success" href="<?= $view->action('csv', '?qsid=' . $questionSet) ?>">
-                <i class='fa fa-download'></i> <?= t('Export to CSV') ?>
+            <a id="ccm-export-results" class="btn btn-success" href="<?php echo $view->action('csv')?>?qsid=<?php echo $questionSet ?>">
+                <i class='fa fa-download'></i> <?php echo t('Export to CSV') ?>
             </a>
         </div>
 
@@ -227,28 +227,28 @@ else {
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <? if ($_REQUEST['sortBy'] == 'chrono') { ?>
+                    <?php if ($_REQUEST['sortBy'] == 'chrono') { ?>
                     <th class="header headerSortDown">
-                        <a href="<?= $text->entities($urlhelper->unsetVariable('sortBy')) ?>">
-                            <? } else { ?>
+                        <a href="<?php echo $text->entities($urlhelper->unsetVariable('sortBy')) ?>">
+                            <?php } else { ?>
                             <th class="header headerSortUp">
-                                <a href="<?= $text->entities($urlhelper->setVariable('sortBy', 'chrono')) ?>">
-                                    <? } ?>
-                                    <?= t('Date') ?>
+                                <a href="<?php echo $text->entities($urlhelper->setVariable('sortBy', 'chrono')) ?>">
+                                    <?php } ?>
+                                    <?php echo t('Date') ?>
                                 </a>
                             </th>
-                            <th><?= t('User') ?></th>
-                            <? foreach ($questions as $question): { ?>
-                                <th><?= $question['question'] ?></th>
-                            <? }endforeach ?>
+                            <th><?php echo t('User') ?></th>
+                            <?php foreach ($questions as $question): { ?>
+                                <th><?php echo $question['question'] ?></th>
+                            <?php }endforeach ?>
                             <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <? foreach ($answerSets as $answerSetId => $answerSet): { ?>
+                <?php foreach ($answerSets as $answerSetId => $answerSet): { ?>
                     <tr>
-                        <td><?= $dh->formatCustom($dh::DB_FORMAT, $answerSet['created']) ?></td>
-                        <td><?
+                        <td><?php echo $dh->formatCustom($dh::DB_FORMAT, $answerSet['created']) ?></td>
+                        <td><?php
                             if ($answerSet['uID'] > 0) {
                                 $ui = UserInfo::getByID($answerSet['uID']);
                                 if (is_object($ui)) {
@@ -257,7 +257,7 @@ else {
                                 print t('(User ID: %s)', $answerSet['uID']);
                             }
                             ?></td>
-                        <?foreach ($questions as $questionId => $question): {
+                        <?php foreach ($questions as $questionId => $question): {
                             if ($question['inputType'] == 'fileupload') {
                                 $fID = (int)$answerSet['answers'][$questionId]['answer'];
                                 $file = File::getByID($fID);
@@ -282,31 +282,31 @@ else {
                         endforeach?>
                         <td>
                             <form method="post" action="" class='pull-right'>
-                                <input type="hidden" name="qsid" value="<?= intval($answerSet['questionSetId']) ?>"/>
-                                <input type="hidden" name="asid" value="<?= intval($answerSet['asID']) ?>"/>
+                                <input type="hidden" name="qsid" value="<?php echo intval($answerSet['questionSetId']) ?>"/>
+                                <input type="hidden" name="asid" value="<?php echo intval($answerSet['asID']) ?>"/>
                                 <input type="hidden" name="action" value="deleteResponse"/>
                                 <?php $valt->output('deleteResponse') ?>
-                                <?= $ih->submit(t('Delete'), false, 'left', 'btn pull-right btn-danger') ?>
+                                <?php echo $ih->submit(t('Delete'), false, 'left', 'btn pull-right btn-danger') ?>
                             </form>
                         </td>
                     </tr>
-                <? }endforeach ?>
+                <?php }endforeach ?>
                 </tbody>
             </table>
         </div>
         </div>
-        <? if ($paginator && strlen($paginator->getPages()) > 0) { ?>
+        <?php if ($paginator && strlen($paginator->getPages()) > 0) { ?>
             <div class="ccm-search-results-pagination">
                 <ul class="pagination">
-                    <li class="prev"><?= $paginator->getPrevious() ?></li>
+                    <li class="prev"><?php echo $paginator->getPrevious() ?></li>
 
-                    <? // Call to pagination helper's 'getPages' method with new $wrapper var ?>
-                    <?= $paginator->getPages('li') ?>
+                    <?php // Call to pagination helper's 'getPages' method with new $wrapper var ?>
+                    <?php echo $paginator->getPages('li') ?>
 
-                    <li class="next"><?= $paginator->getNext() ?></li>
+                    <li class="next"><?php echo $paginator->getNext() ?></li>
                 </ul>
             </div>
-        <? } ?>
-    <? }endif ?>
-    <?= $h->getDashboardPaneFooterWrapper(false); ?>
-<? }endif ?>
+        <?php } ?>
+    <?php }endif ?>
+    <?php echo $h->getDashboardPaneFooterWrapper(false); ?>
+<?php }endif ?>

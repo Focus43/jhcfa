@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 <div class="ccm-topic-attribute-wrapper">
 	<style>
 		.tree-view-template_<?php echo $akID?> ul.dynatree-container {
@@ -39,7 +39,7 @@
 		<?php
 		if(is_array($valueIDArray)) {
 			foreach($valueIDArray as $vID) { ?>
-				<input data-node-id="<?=$vID?>" type="hidden" name="topics_<?php echo $akID ?>[]" value="<?php echo $vID ?>">
+				<input data-node-id="<?php echo $vID?>" type="hidden" name="topics_<?php echo $akID ?>[]" value="<?php echo $vID ?>">
 		<?php }
 		} ?>
 		</div>

@@ -1,20 +1,20 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
-<form method="post" class="form-horizontal" id="favicon-form" action="<?=$view->action('update_favicon')?>" >
-    <?=$this->controller->token->output('update_favicon')?>
+<form method="post" class="form-horizontal" id="favicon-form" action="<?php echo $view->action('update_favicon')?>" >
+    <?php echo $this->controller->token->output('update_favicon')?>
     <fieldset>
-        <legend><?=t('Favicon')?></legend>
-            <div class="help-block"><?=t('Your image should be 16x16 pixels, and should be a gif or a png with a .ico file extension.')?></div>
-            <?
+        <legend><?php echo t('Favicon')?></legend>
+            <div class="help-block"><?php echo t('Your image should be 16x16 pixels, and should be a gif or a png with a .ico file extension.')?></div>
+            <?php
             $faviconFID = intval(Config::get('concrete.misc.favicon_fid'));
             $f = File::getByID($faviconFID);
             ?>
             <div class="form-group">
                 <div class="col-md-6">
-                    <?=$concrete_asset_library->file('ccm-favicon-file', 'faviconFID', t('Choose File'), $f);?>
+                    <?php echo $concrete_asset_library->file('ccm-favicon-file', 'faviconFID', t('Choose File'), $f);?>
                 </div>
                 <div class="col-md-6">
-                    <button class="pull-right btn btn-default" type="submit" ><?=t('Save')?></button>
+                    <button class="pull-right btn btn-default" type="submit" ><?php echo t('Save')?></button>
                 </div>
             </div>
     </fieldset>
@@ -22,21 +22,21 @@
 
 <div style="height: 100px"></div>
 
-<form method="post" id="iphone-form" class="form-horizontal" action="<?=$view->action('update_iphone_thumbnail')?>" >
-    <?=$this->controller->token->output('update_iphone_thumbnail')?>
+<form method="post" id="iphone-form" class="form-horizontal" action="<?php echo $view->action('update_iphone_thumbnail')?>" >
+    <?php echo $this->controller->token->output('update_iphone_thumbnail')?>
     <fieldset>
-        <legend><?=t('iPhone Thumbnail')?></legend>
-        <div class="help-block"><?=t('iPhone home screen icons should be 57x57 and be in the .png format.')?></div>
-        <?
+        <legend><?php echo t('iPhone Thumbnail')?></legend>
+        <div class="help-block"><?php echo t('iPhone home screen icons should be 57x57 and be in the .png format.')?></div>
+        <?php
         $iosHomeFID=intval(Config::get('concrete.misc.iphone_home_screen_thumbnail_fid'));
         $f = File::getByID($iosHomeFID);
         ?>
         <div class="form-group">
             <div class="col-md-6">
-                <?=$concrete_asset_library->file('ccm-iphone-file', 'iosHomeFID', t('Choose File'), $f);?>
+                <?php echo $concrete_asset_library->file('ccm-iphone-file', 'iosHomeFID', t('Choose File'), $f);?>
             </div>
             <div class="col-md-6">
-                <button class="pull-right btn btn-default" type="submit" ><?=t('Save')?></button>
+                <button class="pull-right btn btn-default" type="submit" ><?php echo t('Save')?></button>
             </div>
         </div>
     </fieldset>
@@ -49,20 +49,20 @@
     <input id="remove-existing-modern-thumbnail" name="remove_icon" type="hidden" value="0" />
     <fieldset>
         <legend><?php echo t('Windows 8 Thumbnail'); ?></legend>
-        <div class="help-block"><?=t('Windows 8 start screen tiles should be 144x144 and be in the .png format.'); ?></div>
-        <?
+        <div class="help-block"><?php echo t('Windows 8 start screen tiles should be 144x144 and be in the .png format.'); ?></div>
+        <?php
         $modernThumbFID = intval(Config::get('concrete.misc.modern_tile_thumbnail_fid'));
         $f = File::getByID($modernThumbFID);
         $modernThumbBG = strval(Config::get('concrete.misc.modern_tile_thumbnail_bgcolor'));
         ?>
         <div class="form-group">
             <div class="col-md-6">
-                <?=$concrete_asset_library->file('ccm-modern-file', 'modernThumbFID', t('Choose File'), $f);?>
+                <?php echo $concrete_asset_library->file('ccm-modern-file', 'modernThumbFID', t('Choose File'), $f);?>
             </div>
             <div class="col-md-4">
                 <div class="controls">
 
-                    <input type="text" name="modernThumbBG" value="<?=$modernThumbBG?>" id="favicon-bgcolor" />
+                    <input type="text" name="modernThumbBG" value="<?php echo $modernThumbBG?>" id="favicon-bgcolor" />
                     <script type="text/javascript">
                     $(function() {
                         $('#favicon-bgcolor').spectrum({
@@ -72,10 +72,10 @@
                             allowEmpty: true,
                             className: 'ccm-widget-colorpicker',
                             showAlpha: true,
-                            value: <?= $json->encode($modernThumbBG)?>,
-                            cancelText: <?= $json->encode(t('Cancel')) ?>,
-                            chooseText: <?= $json->encode(t('Choose')) ?>,
-                            clearText: <?=$json->encode(t('Clear Color Selection')) ?>
+                            value: <?php echo $json->encode($modernThumbBG)?>,
+                            cancelText: <?php echo $json->encode(t('Cancel')) ?>,
+                            chooseText: <?php echo $json->encode(t('Choose')) ?>,
+                            clearText: <?php echo $json->encode(t('Clear Color Selection')) ?>
                         });
                     });
                     </script>
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <button class="pull-right btn btn-default" type="submit" ><?=t('Save')?></button>
+                <button class="pull-right btn btn-default" type="submit" ><?php echo t('Save')?></button>
             </div>
         </div>
     </fieldset>

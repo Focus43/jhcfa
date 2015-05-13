@@ -1,4 +1,4 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 
 $sh = Loader::helper('concrete/dashboard/sitemap');
@@ -55,7 +55,7 @@ $args['instance_id'] = time();
                     instance: this
                 });
             },
-            displaySingleLevel: <?= $_REQUEST['display'] == 'flat' ? 'true' : 'false' ?>,
+            displaySingleLevel: <?php echo $_REQUEST['display'] == 'flat' ? 'true' : 'false' ?>,
         });
     });
 </script>

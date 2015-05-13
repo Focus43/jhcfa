@@ -4,7 +4,7 @@ $cih = Loader::helper('concrete/ui');
 /* @var $fh FormHelper */
 $fh = Loader::helper('form');
 
-?><form method="post" action="<?=$controller->action('do_test')?>" id="mail-settings-test-form">
+?><form method="post" action="<?php echo $controller->action('do_test')?>" id="mail-settings-test-form">
     <div class="row">
         <div class="col-md-6">
             <?php
@@ -33,7 +33,7 @@ $fh = Loader::helper('form');
     </div>
 	<div class="ccm-dashboard-form-actions-wrapper">
         <div class="ccm-dashboard-form-actions">
-            <a href="<?=$view->url('/dashboard/system/mail/method')?>" class="btn btn-default pull-left"><?=t('Change Settings')?></a>
+            <a href="<?php echo $view->url('/dashboard/system/mail/method')?>" class="btn btn-default pull-left"><?php echo t('Change Settings')?></a>
             <?php
             if (Config::get('concrete.email.enabled')) {
                 echo $cih->submit(t('Send'), 'mail-settings-test-form', 'right', 'btn-primary');

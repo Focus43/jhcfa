@@ -10,22 +10,22 @@ defined('C5_EXECUTE') or die("Access Denied.");
         <nav>
             <span></span>
             <ul class="ccm-panel-header-accordion-dropdown">
-                <li><a data-panel-accordion-tab="blocks" <? if (!in_array(
+                <li><a data-panel-accordion-tab="blocks" <?php if (!in_array(
                         $tab,
                         array(
                             'clipboard',
                             'stacks',
                             'tiles'))) {
-                    ?>data-panel-accordion-tab-selected="true" <? } ?>><?= t('Blocks') ?></a></li>
+                    ?>data-panel-accordion-tab-selected="true" <?php } ?>><?php echo t('Blocks') ?></a></li>
                 <li><a data-panel-accordion-tab="clipboard"
-                       <? if ($tab == 'clipboard') { ?>data-panel-accordion-tab-selected="true" <? } ?>><?=
+                       <?php if ($tab == 'clipboard') { ?>data-panel-accordion-tab-selected="true" <?php } ?>><?php echo
                         t(
                             'Clipboard') ?></a></li>
                 <li><a data-panel-accordion-tab="stacks"
-                       <? if ($tab == 'stacks') { ?>data-panel-accordion-tab-selected="true" <? } ?>><?=
+                       <?php if ($tab == 'stacks') { ?>data-panel-accordion-tab-selected="true" <?php } ?>><?php echo
                         t(
                             'Stacks') ?></a></li>
-                <? /*
+                <?php /*
                 <li><a data-panel-accordion-tab="tiles"
                        <? if ($tab == 'tiles') { ?>data-panel-accordion-tab-selected="true" <? } ?>><?=
                         t(
@@ -63,19 +63,19 @@ switch ($tab) {
                 ?>
                 <div class="ccm-panel-add-block-stack-item"
                      data-panel-add-block-drag-item="stack-item"
-                     data-cID="<?= intval($stack->getCollectionID()) ?>"
-                     data-block-type-handle="<?= t('stack') ?>"
+                     data-cID="<?php echo intval($stack->getCollectionID()) ?>"
+                     data-block-type-handle="<?php echo t('stack') ?>"
                      data-has-add-template="no"
                      data-supports-inline-add="no"
                      data-btID="0"
-                     data-dragging-avatar="<?= h('<p><img src="/concrete/images/stack.png" /><span>' . t('Stack') . '</span></p>') ?>"
-                     data-block-id="<?= intval($stack->getCollectionID()) ?>">
+                     data-dragging-avatar="<?php echo h('<p><img src="/concrete/images/stack.png" /><span>' . t('Stack') . '</span></p>') ?>"
+                     data-block-id="<?php echo intval($stack->getCollectionID()) ?>">
                     <div class="stack-name">
-                        <span class="handle"><?= htmlspecialchars($stack->getStackName()) ?></span>
+                        <span class="handle"><?php echo htmlspecialchars($stack->getStackName()) ?></span>
                     </div>
                     <div class="blocks">
                         <div class="block-count">
-                            <?= t2('%d Block', '%d Blocks', $block_count) ?>
+                            <?php echo t2('%d Block', '%d Blocks', $block_count) ?>
                         </div>
                         <?php
 
@@ -86,24 +86,24 @@ switch ($tab) {
                             <div class="block"
                                  data-panel-add-block-drag-item="block"
                                  class="ccm-panel-add-block-draggable-block-type"
-                                 data-cID="<?= $stack->getCollectionID() ?>"
-                                 data-block-type-handle="<?= $type->getBlockTypeHandle() ?>"
-                                 data-dialog-title="<?= t('Add %s', t($type->getBlockTypeName())) ?>"
-                                 data-dialog-width="<?= $type->getBlockTypeInterfaceWidth() ?>"
-                                 data-dialog-height="<?= $type->getBlockTypeInterfaceHeight() ?>"
-                                 data-has-add-template="<?= $type->hasAddTemplate() ?>"
-                                 data-supports-inline-add="<?= $type->supportsInlineAdd() ?>"
-                                 data-btID="<?= $type->getBlockTypeID() ?>"
-                                 data-dragging-avatar="<?=
+                                 data-cID="<?php echo $stack->getCollectionID() ?>"
+                                 data-block-type-handle="<?php echo $type->getBlockTypeHandle() ?>"
+                                 data-dialog-title="<?php echo t('Add %s', t($type->getBlockTypeName())) ?>"
+                                 data-dialog-width="<?php echo $type->getBlockTypeInterfaceWidth() ?>"
+                                 data-dialog-height="<?php echo $type->getBlockTypeInterfaceHeight() ?>"
+                                 data-has-add-template="<?php echo $type->hasAddTemplate() ?>"
+                                 data-supports-inline-add="<?php echo $type->supportsInlineAdd() ?>"
+                                 data-btID="<?php echo $type->getBlockTypeID() ?>"
+                                 data-dragging-avatar="<?php echo
                                  h(
                                      '<p><img src="' . $icon . '" /><span>' . t(
                                          $type->getBlockTypeName()) . '</span></p>') ?>"
-                                 title="<?= t($type->getBlockTypeName()) ?>"
+                                 title="<?php echo t($type->getBlockTypeName()) ?>"
                                  href="javascript:void(0)"
-                                 data-block-id="<?= intval($block->getBlockID()) ?>">
+                                 data-block-id="<?php echo intval($block->getBlockID()) ?>">
 
                                 <div class="block-name">
-                                    <span class="handle"><?= h($type->getBlockTypeName()) ?></span>
+                                    <span class="handle"><?php echo h($type->getBlockTypeName()) ?></span>
                                 </div>
                                 <div class="block-content">
                                     <?php
@@ -186,29 +186,29 @@ switch ($tab) {
                 <div class="ccm-panel-add-clipboard-block-item"
                      data-event="duplicate"
                      data-panel-add-block-drag-item="clipboard-item"
-                     data-name="<?= h($type->getBlockTypeName()) ?>"
-                     data-cID="<?= $c->getCollectionID() ?>"
-                     data-block-type-handle="<?= $type->getBlockTypeHandle() ?>"
-                     data-dialog-title="<?= t('Add %s', t($type->getBlockTypeName())) ?>"
-                     data-dialog-width="<?= $type->getBlockTypeInterfaceWidth() ?>"
-                     data-dialog-height="<?= $type->getBlockTypeInterfaceHeight() ?>"
-                     data-has-add-template="<?= $type->hasAddTemplate() ?>"
-                     data-supports-inline-add="<?= $type->supportsInlineAdd() ?>"
-                     data-btID="<?= $type->getBlockTypeID() ?>"
-                     data-pcID="<?=$pile_content->getPileContentID()?>"
-                     data-dragging-avatar="<?=
+                     data-name="<?php echo h($type->getBlockTypeName()) ?>"
+                     data-cID="<?php echo $c->getCollectionID() ?>"
+                     data-block-type-handle="<?php echo $type->getBlockTypeHandle() ?>"
+                     data-dialog-title="<?php echo t('Add %s', t($type->getBlockTypeName())) ?>"
+                     data-dialog-width="<?php echo $type->getBlockTypeInterfaceWidth() ?>"
+                     data-dialog-height="<?php echo $type->getBlockTypeInterfaceHeight() ?>"
+                     data-has-add-template="<?php echo $type->hasAddTemplate() ?>"
+                     data-supports-inline-add="<?php echo $type->supportsInlineAdd() ?>"
+                     data-btID="<?php echo $type->getBlockTypeID() ?>"
+                     data-pcID="<?php echo $pile_content->getPileContentID()?>"
+                     data-dragging-avatar="<?php echo
                      h(
                          '<p><img src="' . $icon . '" /><span>' . t(
                              $type->getBlockTypeName()) . '</span></p>') ?>"
-                     data-block-id="<?= intval($block->getBlockID()) ?>">
+                     data-block-id="<?php echo intval($block->getBlockID()) ?>">
                     <div class="block-content">
                         <div class="block-name">
-                            <span class="handle"><?= h(t($type->getBlockTypeName())) ?></span>
+                            <span class="handle"><?php echo h(t($type->getBlockTypeName())) ?></span>
                         </div>
                         <div class="blocks">
                             <div class="block"
                                  class="ccm-panel-add-block-draggable-block-type"
-                                 title="<?= t($type->getBlockTypeName()) ?>">
+                                 title="<?php echo t($type->getBlockTypeName()) ?>">
 
                                 <div class="block-content">
                                     <?php
@@ -222,7 +222,7 @@ switch ($tab) {
                     </div>
                     <div class="delete">
                         <button class="ccm-delete-clipboard-item pull-right btn btn-sm btn-link">
-                            <?= t('Delete') ?>
+                            <?php echo t('Delete') ?>
                         </button>
                     </div>
                 </div>
@@ -242,7 +242,7 @@ switch ($tab) {
                     }, function() {
                         item.remove();
                     }).fail(function(data) {
-                        alert("<?= t('An error occured while deleting this item:') ?>\n" + data.responseJSON.errors.join("\n"));
+                        alert("<?php echo t('An error occured while deleting this item:') ?>\n" + data.responseJSON.errors.join("\n"));
                     });
                     return false;
                 });
@@ -256,7 +256,7 @@ switch ($tab) {
         ?>
             <div class="ccm-panel-header-search">
                 <i class="fa fa-search"></i>
-                <input type="text" data-input="search-blocks" placeholder="<?=t('Search')?>" autocomplete="false" />
+                <input type="text" data-input="search-blocks" placeholder="<?php echo t('Search')?>" autocomplete="false" />
             </div>
 
             <div class="ccm-panel-content-inner" id="ccm-panel-add-blocktypes-list">
@@ -283,14 +283,17 @@ switch ($tab) {
 
                     ?>
                     <div class="ccm-panel-add-block-set">
-                        <header><?= $set->getBlockTypeSetDisplayName() ?></header>
+                        <header><?php echo $set->getBlockTypeSetDisplayName() ?></header>
                         <ul>
 
-                            <? $blocktypes = $types[$set->getBlockTypeSetName()];
+                            <?php $blocktypes = $types[$set->getBlockTypeSetName()];
                             if (!$blocktypes) {
                                 $blocktypes = array();
                             }
                             if (count($blocktypes)) {
+
+                                usort ( $blocktypes, function($bt_a, $bt_b) use($set){return ($set->displayOrder($bt_a) > $set->displayOrder($bt_b))?1:-1;});
+
                                 foreach ($blocktypes as $bt) {
 
                                     $btIcon = $ci->getBlockTypeIconURL($bt);
@@ -301,80 +304,80 @@ switch ($tab) {
                                         <a
                                             data-panel-add-block-drag-item="block"
                                             class="ccm-panel-add-block-draggable-block-type"
-                                            data-cID="<?= $c->getCollectionID() ?>"
-                                            data-block-type-handle="<?= $bt->getBlockTypeHandle() ?>"
-                                            data-dialog-title="<?= t('Add %s', t($bt->getBlockTypeName())) ?>"
-                                            data-dialog-width="<?= $bt->getBlockTypeInterfaceWidth() ?>"
-                                            data-dialog-height="<?= $bt->getBlockTypeInterfaceHeight() ?>"
-                                            data-has-add-template="<?= $bt->hasAddTemplate() ?>"
-                                            data-supports-inline-add="<?= $bt->supportsInlineAdd() ?>"
-                                            data-btID="<?= $bt->getBlockTypeID() ?>"
-                                            data-dragging-avatar="<?=
+                                            data-cID="<?php echo $c->getCollectionID() ?>"
+                                            data-block-type-handle="<?php echo $bt->getBlockTypeHandle() ?>"
+                                            data-dialog-title="<?php echo t('Add %s', t($bt->getBlockTypeName())) ?>"
+                                            data-dialog-width="<?php echo $bt->getBlockTypeInterfaceWidth() ?>"
+                                            data-dialog-height="<?php echo $bt->getBlockTypeInterfaceHeight() ?>"
+                                            data-has-add-template="<?php echo $bt->hasAddTemplate() ?>"
+                                            data-supports-inline-add="<?php echo $bt->supportsInlineAdd() ?>"
+                                            data-btID="<?php echo $bt->getBlockTypeID() ?>"
+                                            data-dragging-avatar="<?php echo
                                             h(
                                                 '<p><img src="' . $btIcon . '" /><span>' . t(
                                                     $bt->getBlockTypeName()) . '</span></p>') ?>"
-                                            title="<?= t($bt->getBlockTypeName()) ?>"
+                                            title="<?php echo t($bt->getBlockTypeName()) ?>"
                                             href="javascript:void(0)"
                                             >
-                                            <p><img src="<?= $btIcon ?>"/><span><?= t($bt->getBlockTypeName()) ?></span></p>
+                                            <p><img src="<?php echo $btIcon ?>"/><span><?php echo t($bt->getBlockTypeName()) ?></span></p>
                                         </a>
                                     </li>
 
-                                <? } ?>
-                            <? } else { ?>
-                                <p><?=t('No block types available.')?></p>
-                            <? } ?>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <p><?php echo t('No block types available.')?></p>
+                            <?php } ?>
                         </ul>
                     </div>
 
-                <? } ?>
+                <?php } ?>
 
-                <? if (is_array($types['Other'])) { ?>
+                <?php if (is_array($types['Other'])) { ?>
 
                     <div class="ccm-panel-add-block-set">
-                        <header><?= t('Other') ?></header>
+                        <header><?php echo t('Other') ?></header>
                         <ul>
-                            <? $blocktypes = $types['Other'];
+                            <?php $blocktypes = $types['Other'];
                             foreach ($blocktypes as $bt) {
                                 $btIcon = $ci->getBlockTypeIconURL($bt);
                                 ?>
 
-                                <li data-block-type-sets="<?= $sets ?>">
+                                <li data-block-type-sets="<?php echo $sets ?>">
                                     <a
                                         data-panel-add-block-drag-item="block"
                                         class="ccm-panel-add-block-draggable-block-type"
-                                        data-cID="<?= $c->getCollectionID() ?>"
-                                        data-block-type-handle="<?= $bt->getBlockTypeHandle() ?>"
-                                        data-dialog-title="<?= t('Add %s', t($bt->getBlockTypeName())) ?>"
-                                        data-dialog-width="<?= $bt->getBlockTypeInterfaceWidth() ?>"
-                                        data-dialog-height="<?= $bt->getBlockTypeInterfaceHeight() ?>"
-                                        data-has-add-template="<?= $bt->hasAddTemplate() ?>"
-                                        data-supports-inline-add="<?= $bt->supportsInlineAdd() ?>"
-                                        data-btID="<?= $bt->getBlockTypeID() ?>"
-                                        data-dragging-avatar="<?=
+                                        data-cID="<?php echo $c->getCollectionID() ?>"
+                                        data-block-type-handle="<?php echo $bt->getBlockTypeHandle() ?>"
+                                        data-dialog-title="<?php echo t('Add %s', t($bt->getBlockTypeName())) ?>"
+                                        data-dialog-width="<?php echo $bt->getBlockTypeInterfaceWidth() ?>"
+                                        data-dialog-height="<?php echo $bt->getBlockTypeInterfaceHeight() ?>"
+                                        data-has-add-template="<?php echo $bt->hasAddTemplate() ?>"
+                                        data-supports-inline-add="<?php echo $bt->supportsInlineAdd() ?>"
+                                        data-btID="<?php echo $bt->getBlockTypeID() ?>"
+                                        data-dragging-avatar="<?php echo
                                         h(
                                             '<p><img src="' . $btIcon . '" /><span>' . t(
                                                 $bt->getBlockTypeName()) . '</span></p>') ?>"
-                                        title="<?= t($bt->getBlockTypeName()) ?>"
+                                        title="<?php echo t($bt->getBlockTypeName()) ?>"
                                         href="javascript:void(0)"
-                                        ><p><img src="<?= $btIcon ?>"/><span><?= t($bt->getBlockTypeName()) ?></span></p></a>
+                                        ><p><img src="<?php echo $btIcon ?>"/><span><?php echo t($bt->getBlockTypeName()) ?></span></p></a>
                                 </li>
 
-                            <? } ?>
+                            <?php } ?>
                         </ul>
 
                     </div>
 
-                <? } ?>
+                <?php } ?>
 
-            <? if (Config::get('concrete.marketplace.enabled')) { ?>
+            <?php if (Config::get('concrete.marketplace.enabled')) { ?>
                 <div class="ccm-marketplace-btn-wrapper">
-                <button type="button" onclick="window.location.href='<?=URL::to('/dashboard/extend/addons')?>'" class="btn-info btn-block btn btn-large"><?=t("Get More Blocks")?></button>
+                <button type="button" onclick="window.location.href='<?php echo URL::to('/dashboard/extend/addons')?>'" class="btn-info btn-block btn btn-large"><?php echo t("Get More Blocks")?></button>
                 </div>
-            <? } ?>
+            <?php } ?>
 
             </div>
 
             </section>
 
-        <? } ?>
+        <?php } ?>

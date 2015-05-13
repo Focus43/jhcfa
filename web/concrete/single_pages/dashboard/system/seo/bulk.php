@@ -53,24 +53,24 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
 </style>
 <div class="ccm-dashboard-content-full">
     <div data-search-element="wrapper">
-        <form role="form" action="<?=$controller->action('view')?>" class="form-inline ccm-search-fields">
+        <form role="form" action="<?php echo $controller->action('view')?>" class="form-inline ccm-search-fields">
             <div class="ccm-search-fields-row">
                 <div class="form-group">
-                    <?=$form->label('keywords', t('Search'))?>
+                    <?php echo $form->label('keywords', t('Search'))?>
                     <div class="ccm-search-field-content">
                         <div class="ccm-search-main-lookup-field">
                             <i class="fa fa-search"></i>
-                            <?=$form->search('keywords', array('placeholder' => t('Keywords')))?>
-                            <button type="submit" class="ccm-search-field-hidden-submit" tabindex="-1"><?=t('Search')?></button>
+                            <?php echo $form->search('keywords', array('placeholder' => t('Keywords')))?>
+                            <button type="submit" class="ccm-search-field-hidden-submit" tabindex="-1"><?php echo t('Search')?></button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="ccm-search-fields-row">
                 <div class="form-group">
-                    <?=$form->label('channel', t('Number of Pages to Display'))?>
+                    <?php echo $form->label('channel', t('Number of Pages to Display'))?>
                     <div class="ccm-search-field-content">
-                        <?=$form->select('numResults', array(
+                        <?php echo $form->select('numResults', array(
                             '10' => '10',
                             '25' => '25',
                             '50' => '50',
@@ -82,7 +82,7 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
             </div>
             <div class="ccm-search-fields-row">
                 <div class="form-group">
-                    <?=$form->label('cParentIDSearchField', t('Parent Page'))?>
+                    <?php echo $form->label('cParentIDSearchField', t('Parent Page'))?>
                     <div class="ccm-search-field-content">
                         <?php echo $pageSelector->selectPage('cParentIDSearchField', $cParentIDSearchField ? $cParentIDSearchField : false);?>
                     </div>
@@ -90,26 +90,26 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
             </div>
             <div class="ccm-search-fields-row">
                 <div class="form-group">
-                    <?=$form->label('cParentAll', t('How Many Levels Below Parent?'))?>
+                    <?php echo $form->label('cParentAll', t('How Many Levels Below Parent?'))?>
                     <div class="ccm-search-field-content">
                         <div class="radio">
-                            <label><?=$form->radio('cParentAll', 0, false)?><?=t('First Level')?></label>
+                            <label><?php echo $form->radio('cParentAll', 0, false)?><?php echo t('First Level')?></label>
                        </div>
                        <div class="radio">
-                           <label><?=$form->radio('cParentAll', 1, false)?><?=t('All Levels')?></label>
+                           <label><?php echo $form->radio('cParentAll', 1, false)?><?php echo t('All Levels')?></label>
                        </div>
                     </div>
                 </div>
             </div>
             <div class="ccm-search-fields-row">
                 <div class="form-group">
-                    <?=$form->label('cParentAll', t('Filter By:'))?>
+                    <?php echo $form->label('cParentAll', t('Filter By:'))?>
                     <div class="ccm-search-field-content">
                         <div class="checkbox">
-                            <label> <?php echo $form->checkbox('noDescription', 1, $descCheck);  ?><?=t('No Meta Description'); ?></label>
+                            <label> <?php echo $form->checkbox('noDescription', 1, $descCheck);  ?><?php echo t('No Meta Description'); ?></label>
                         </div>
                         <div class="checkbox">
-                            <label> <?php echo $form->checkbox('noKeywords', 1, $keywordCheck);  ?><?=t('No Meta Keywords'); ?></label>
+                            <label> <?php echo $form->checkbox('noKeywords', 1, $keywordCheck);  ?><?php echo t('No Meta Keywords'); ?></label>
                         </div>
                     </div>
                 </div>
@@ -166,7 +166,7 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
                             <label><?php echo t('Meta Keywords'); ?></label>
                             <?php echo $form->textarea('meta_keywords', $cobj->getAttribute('meta_keywords'), array('title' => $cID)); ?>
                         </div>
-                        <? if ($cobj->getCollectionID() != HOME_CID) { ?>
+                        <?php if ($cobj->getCollectionID() != HOME_CID) { ?>
 
                         <div class="form-group">
                             <label><?php echo t('Slug'); ?></label>
@@ -178,7 +178,7 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
                             $lastkey = array_pop(array_keys($tokens));
                             $tokens[$lastkey] = '<strong class="collectionPath">' . $tokens[$lastkey] . '</strong>';
                             $untokens = implode('/', $tokens);
-                            ?><a class="help-inline url-path" href="<?php echo $nh->getLinkToCollection($cobj); ?>" target="_blank"><?php echo BASE_URL . DIR_REL . $untokens; ?></a><?php
+                            ?><a class="help-inline url-path" href="<?php echo $nh->getLinkToCollection($cobj); ?>" target="_blank"><?php echo Core::getApplicationURL() . $untokens; ?></a><?php
                             ?>
                         </div>
                         <div class="form-group submit-changes">
@@ -187,7 +187,7 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
                             </form>
                             <img style="display: none; position: absolute; top: 20px; right: 20px;" id="throbber<?php echo $cID ?>"  class="throbber" src="<?php echo ASSETS_URL_IMAGES . '/throbber_white_32.gif' ?>" />
                         </div>
-                        <? } ?>
+                        <?php } ?>
                     </div>
             </div>
             <?php } ?>
@@ -252,9 +252,9 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
         });
         </script>
     </div>
-    <? if ($pagination) { ?>
+    <?php if ($pagination) { ?>
     <div style="text-align: center">
-        <?=$pagination?>
+        <?php echo $pagination?>
     </div>
-    <? } ?>
+    <?php } ?>
 </div>

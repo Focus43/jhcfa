@@ -18,16 +18,23 @@ use Concrete\Core\Application\Application;
 use Concrete\Core\Asset\AssetList;
 use Concrete\Core\Config\DatabaseLoader;
 use Concrete\Core\Config\DatabaseSaver;
+use Concrete\Core\Config\FileLoader;
 use Concrete\Core\Config\FileSaver;
+use Concrete\Core\Config\Repository\Repository as ConfigRepository;
+use Concrete\Core\File\Type\TypeList;
 use Concrete\Core\Foundation\ClassAliasList;
 use Concrete\Core\Foundation\Service\ProviderList;
 use Concrete\Core\Permission\Key\Key as PermissionKey;
 use Concrete\Core\Support\Facade\Facade;
-use Patchwork\Utf8\Bootup;
-use Concrete\Core\Config\Repository\Repository as ConfigRepository;
-use Concrete\Core\File\Type\TypeList;
-use Concrete\Core\Config\FileLoader;
 use Illuminate\Filesystem\Filesystem;
+use Patchwork\Utf8\Bootup as PatchworkUTF8;
+
+/**
+ * ----------------------------------------------------------------------------
+ * Handle text encoding.
+ * ----------------------------------------------------------------------------
+ */
+PatchworkUTF8::initAll();
 
 /**
  * ----------------------------------------------------------------------------
@@ -45,6 +52,14 @@ $cms->instance('app', $cms);
  * ----------------------------------------------------------------------------
  */
 Facade::setFacadeApplication($cms);
+
+/**
+ * ----------------------------------------------------------------------------
+ * Load path detection for relative assets, URL and path to home.
+ * ----------------------------------------------------------------------------
+ */
+require DIR_BASE_CORE . '/bootstrap/paths.php';
+
 
 /**
  * ----------------------------------------------------------------------------
@@ -97,15 +112,6 @@ if (!$config->has('app.server_timezone')) {
 
 /**
  * ----------------------------------------------------------------------------
- * Legacy Definitions
- * ----------------------------------------------------------------------------
- */
-
-define('APP_VERSION', $config->get('concrete.version'));
-define('APP_CHARSET', $config->get('concrete.charset'));
-
-/**
- * ----------------------------------------------------------------------------
  * Setup core classes aliases.
  * ----------------------------------------------------------------------------
  */
@@ -137,18 +143,22 @@ $list->registerProviders($config->get('app.providers'));
 
 /**
  * ----------------------------------------------------------------------------
+ * Legacy Definitions
+ * ----------------------------------------------------------------------------
+ */
+define('APP_VERSION', $config->get('concrete.version'));
+define('APP_CHARSET', $config->get('concrete.charset'));
+define('BASE_URL', \Core::getApplicationURL());
+define('DIR_REL', $cms['app_relative_path']);
+
+
+/**
+ * ----------------------------------------------------------------------------
  * Setup file cache directories. Has to come after we define services
  * because we use the file service.
  * ----------------------------------------------------------------------------
  */
 $cms->setupFilesystem();
-
-/**
- * ----------------------------------------------------------------------------
- * Handle text encoding.
- * ----------------------------------------------------------------------------
- */
-Bootup::initAll();
 
 /**
  * ----------------------------------------------------------------------------

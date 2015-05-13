@@ -4,70 +4,70 @@ $dh = Core::make('helper/date'); /* @var $dh \Concrete\Core\Localization\Service
 $bp = new Permissions($b);
 ?>
 <div class="ccm-ui">
-    <form method="post" data-dialog-form="block-cache" action="<?=$controller->action('submit')?>">
+    <form method="post" data-dialog-form="block-cache" action="<?php echo $controller->action('submit')?>">
 
-    <? if ($bp->canEditBlockName()) { ?>
+    <?php if ($bp->canEditBlockName()) { ?>
     <fieldset>
-        <legend><?=t('Name')?></legend>
+        <legend><?php echo t('Name')?></legend>
         <div class="form-group">
             <label class="control-label" for="bName">
-                <?=t('Block Name')?>
-                <i class="fa fa-question-circle launch-tooltip" title="<?=t('This can be useful when working with a block programmatically. This is rarely used or needed.')?>"></i>
+                <?php echo t('Block Name')?>
+                <i class="fa fa-question-circle launch-tooltip" title="<?php echo t('This can be useful when working with a block programmatically. This is rarely used or needed.')?>"></i>
             </label>
-            <input type="text" class="form-control" name="bName" id="bName" value="<?=$bName?>">
+            <input type="text" class="form-control" name="bName" id="bName" value="<?php echo $bName?>">
         </div>
     </fieldset>
-    <? } ?>
+    <?php } ?>
 
-    <? if ($bp->canEditBlockCacheSettings()) { ?>
+    <?php if ($bp->canEditBlockCacheSettings()) { ?>
     <fieldset>
-        <legend><?=t('Caching')?></legend>
-        <? if (!Config::get('concrete.cache.blocks')) { ?>
-            <div class="alert alert-warning"><?=t('Block caching is currently disabled globally. These settings won\'t take affect until block caching is turned on. You can turn these settings on from the <a href="%s">Cache and Speed Settings</a> page in the Dashboard.', URL::to('/dashboard/system/optimization/cache'))?></div>
-        <? } ?>
+        <legend><?php echo t('Caching')?></legend>
+        <?php if (!Config::get('concrete.cache.blocks')) { ?>
+            <div class="alert alert-warning"><?php echo t('Block caching is currently disabled globally. These settings won\'t take affect until block caching is turned on. You can turn these settings on from the <a href="%s">Cache and Speed Settings</a> page in the Dashboard.', URL::to('/dashboard/system/optimization/cache'))?></div>
+        <?php } ?>
 
         <div class="form-group">
-            <label class="control-label"><?=t('Override Block Type')?></label>
+            <label class="control-label"><?php echo t('Override Block Type')?></label>
             <div class="checkbox">
             <label>
-                <?=$form->checkbox('cbOverrideBlockTypeCacheSettings', 1, $cbOverrideBlockTypeCacheSettings)?>
-                <?=t('Override block type cache settings.')?>
+                <?php echo $form->checkbox('cbOverrideBlockTypeCacheSettings', 1, $cbOverrideBlockTypeCacheSettings)?>
+                <?php echo t('Override block type cache settings.')?>
             </label>
             </div>
         </div>
         <div class="form-group" data-settings="block-cache">
-            <label class="control-label"><?=t('Settings')?></label>
+            <label class="control-label"><?php echo t('Settings')?></label>
             <div class="checkbox">
             <label>
-                <?=$form->checkbox('btCacheBlockOutput', 1, $btCacheBlockOutput)?>
-                <?=t('Cache block output.')?>
+                <?php echo $form->checkbox('btCacheBlockOutput', 1, $btCacheBlockOutput)?>
+                <?php echo t('Cache block output.')?>
             </label>
             </div>
             <div class="checkbox">
             <label>
-                <?=$form->checkbox('btCacheBlockOutputForRegisteredUsers', 1, $btCacheBlockOutputForRegisteredUsers)?>
-                <?=t('Cache block output even for logged in users.')?>
+                <?php echo $form->checkbox('btCacheBlockOutputForRegisteredUsers', 1, $btCacheBlockOutputForRegisteredUsers)?>
+                <?php echo t('Cache block output even for logged in users.')?>
             </label>
             </div>
             <div class="checkbox">
             <label>
-                <?=$form->checkbox('btCacheBlockOutputOnPost', 1, $btCacheBlockOutputOnPost)?>
-                <?=t('Cache block output on HTTP POST.')?>
+                <?php echo $form->checkbox('btCacheBlockOutputOnPost', 1, $btCacheBlockOutputOnPost)?>
+                <?php echo t('Cache block output on HTTP POST.')?>
             </label>
             </div>
         </div>
         <div class="form-group" data-settings="block-cache">
             <label class="control-label" for="btCacheBlockOutputLifetime">
-                <?=t('Cache for how long (in seconds)?')?>
+                <?php echo t('Cache for how long (in seconds)?')?>
             </label>
-            <input type="text" class="form-control" name="btCacheBlockOutputLifetime" id="btCacheBlockOutputLifetime" value="<?=$btCacheBlockOutputLifetime?>">
+            <input type="text" class="form-control" name="btCacheBlockOutputLifetime" id="btCacheBlockOutputLifetime" value="<?php echo $btCacheBlockOutputLifetime?>">
         </div>
     </fieldset>
-    <? } ?>
+    <?php } ?>
 
     <div class="dialog-buttons">
-        <button class="btn btn-default pull-left" data-dialog-action="cancel"><?=t('Cancel')?></button>
-        <button type="button" data-dialog-action="submit" class="btn btn-primary pull-right"><?=t('Save')?></button>
+        <button class="btn btn-default pull-left" data-dialog-action="cancel"><?php echo t('Cancel')?></button>
+        <button type="button" data-dialog-action="submit" class="btn btn-primary pull-right"><?php echo t('Save')?></button>
     </div>
 
     </form>

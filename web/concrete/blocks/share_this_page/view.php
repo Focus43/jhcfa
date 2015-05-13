@@ -2,8 +2,8 @@
 
 <div class="ccm-block-share-this-page">
     <ul class="list-inline">
-    <? foreach($selected as $service) { ?>
-        <li><a href="<?=$service->getServiceLink()?>"><?=$service->getServiceIconHTML()?></a></li>
-    <? } ?>
+    <?php foreach($selected as $service) { ?>
+        <li><a href="<?php echo $service->getServiceLink()?>"><?php echo $service->getServiceIconHTML()?></a></li>
+    <?php } ?>
     </ul>
 </div>

@@ -1,34 +1,34 @@
 <?php defined('C5_EXECUTE') or die("Access Denied.");  ?>
 
 <div class="form-group">
-    <label class="control-label"><?=t('Choose Social Links to Show')?></label>
+    <label class="control-label"><?php echo t('Choose Social Links to Show')?></label>
     <div id="ccm-block-social-links-list">
-    <?
+    <?php
     if (count($links) == 0) { ?>
-        <p><?=t('You have not added any social links.')?></p>
-    <? }
+        <p><?php echo t('You have not added any social links.')?></p>
+    <?php }
 
     foreach($links as $link) {
         $service = $link->getServiceObject();
         ?>
         <div class="checkbox">
             <label><input type="checkbox" name="slID[]"
-               <? if (is_array($selectedLinks) && in_array($link, $selectedLinks)) { ?>
+               <?php if (is_array($selectedLinks) && in_array($link, $selectedLinks)) { ?>
                  checked
-                <? } ?>
-            value="<?=$link->getID()?>" />
-            <?=$service->getName()?>
+                <?php } ?>
+            value="<?php echo $link->getID()?>" />
+            <?php echo $service->getName()?>
             </label>
 
             <i class="pull-right fa fa-arrows"></i>
         </div>
-    <? } ?>
+    <?php } ?>
     </div>
 </div>
 
 <hr/>
 <div class="alert alert-info">
-    <?=t('Add social links <a href="%s">in the dashboard</a>', URL::to('/dashboard/system/basics/social'))?>
+    <?php echo t('Add social links <a href="%s">in the dashboard</a>', URL::to('/dashboard/system/basics/social'))?>
 </div>
 
 <style type="text/css">

@@ -1,14 +1,14 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 use \Concrete\Core\Sharing\SocialNetwork\Service as Service; ?>
 
 <div class="ccm-social-link-attribute-wrapper">
-<? for ($i = 0; $i < count($data['service']); $i++) { ?>
+<?php for ($i = 0; $i < count($data['service']); $i++) { ?>
 	<div class="ccm-social-link-attribute ">
         <div class="form-group">
-            <select name="<?=$this->field('service')?>[]" class="ccm-social-link-service-selector form-control">
-                <? foreach($services as $s) { ?>
-                    <option value="<?=$s->getHandle()?>" data-icon="<?php echo $s->getIcon() ?>" <? if ($s->getHandle() == $data['service'][$i]) { ?> selected="selected" <? } ?>><?=$s->getName()?></option>
-                <? } ?>
+            <select name="<?php echo $this->field('service')?>[]" class="ccm-social-link-service-selector form-control">
+                <?php foreach($services as $s) { ?>
+                    <option value="<?php echo $s->getHandle()?>" data-icon="<?php echo $s->getIcon() ?>" <?php if ($s->getHandle() == $data['service'][$i]) { ?> selected="selected" <?php } ?>><?php echo $s->getName()?></option>
+                <?php } ?>
             </select>
         </div>
         <div class="form-group">
@@ -20,18 +20,18 @@ use \Concrete\Core\Sharing\SocialNetwork\Service as Service; ?>
                            echo Service::getByHandle($data['service'][$i])->getServiceIconHTML();
                        } ?>
                     </span>
-                    <input name="<?=$this->field('serviceInfo')?>[]" type="text" value="<?=$data['serviceInfo'][$i]?>" />
+                    <input name="<?php echo $this->field('serviceInfo')?>[]" type="text" value="<?php echo $data['serviceInfo'][$i]?>" />
                     <button type="button" class="ccm-social-link-attribute-remove-line btn btn-link"><i class="fa fa-trash-o"></i></button>
                 </span>
             </span>
         </div>
 	</div>
-<? } ?>
+<?php } ?>
 
 </div>
 
 <div>
-	<button type="button" class="btn btn-small btn-primary ccm-social-link-attribute-add-service"><?=t("Add Link")?> <i class="fa fa-plus"></i></button>
+	<button type="button" class="btn btn-small btn-primary ccm-social-link-attribute-add-service"><?php echo t("Add Link")?> <i class="fa fa-plus"></i></button>
 </div>
 
 <script type="text/javascript">$(function() { ConcreteSocialLinksAttribute.init(); });</script>

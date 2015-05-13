@@ -1,1 +1,1 @@
-<?= t('Convert image to grayscale') ?>
+<?php echo t('Convert image to grayscale') ?>

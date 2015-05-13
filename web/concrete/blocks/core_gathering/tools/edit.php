@@ -21,15 +21,15 @@ if ($cID > 0 && $bID > 0) {
 
 			?>
 			<div class="ccm-ui">
-			<form method="post" id="ccm-gathering-edit-form" action="<?=$b->getBlockEditAction()?>" enctype="multipart/form-data">
-				<?=Loader::helper('validation/token')->output()?>
-				<input type="hidden" name="arHandle" value="<?=$arHandle?>" />
-				<input type="hidden" name="cID" value="<?=$cID?>" />
-				<input type="hidden" name="bID" value="<?=$bID?>" />
+			<form method="post" id="ccm-gathering-edit-form" action="<?php echo $b->getBlockEditAction()?>" enctype="multipart/form-data">
+				<?php echo Loader::helper('validation/token')->output()?>
+				<input type="hidden" name="arHandle" value="<?php echo $arHandle?>" />
+				<input type="hidden" name="cID" value="<?php echo $cID?>" />
+				<input type="hidden" name="bID" value="<?php echo $bID?>" />
 				<input type="hidden" name="processBlock" value="1" />
 				<input type="hidden" name="update" value="1" />
 
-			<?
+			<?php
 
 			switch($_REQUEST['tab']) {
 				case 'sources':
@@ -46,8 +46,8 @@ if ($cID > 0 && $bID > 0) {
 			?>
 
 			<div class="dialog-buttons">
-				<button class="btn btn-hover-danger pull-left" onclick="jQuery.fn.dialog.closeTop()"><?=t('Cancel')?></button>
-				<button class="btn btn-primary pull-right" onclick="$('#ccm-gathering-edit-form').submit()"><?=t('Save')?></button>		
+				<button class="btn btn-hover-danger pull-left" onclick="jQuery.fn.dialog.closeTop()"><?php echo t('Cancel')?></button>
+				<button class="btn btn-primary pull-right" onclick="$('#ccm-gathering-edit-form').submit()"><?php echo t('Save')?></button>		
 			</div>
 
 			</form>
@@ -63,7 +63,7 @@ if ($cID > 0 && $bID > 0) {
 					success: function(resp) {
 						var editor = Concrete.getEditMode();
 						var area = editor.getAreaByID(resp.aID);
-						var block = area.getBlockByID(<?=$bID?>);
+						var block = area.getBlockByID(<?php echo $bID?>);
 						var newBlock = block.replace(resp.bID, false);
 				        Concrete.event.fire('EditModeBlockEditInline', {
 				          block: newBlock
@@ -75,7 +75,7 @@ if ($cID > 0 && $bID > 0) {
 			});
 			</script>
 
-			<?
+			<?php
 		}
 	}
 }

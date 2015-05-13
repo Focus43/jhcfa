@@ -1,25 +1,25 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <div class="ccm-ui">
 
-<form method="post" action="<?=$controller->action('submit')?>" data-dialog-form="save-area-layout-presets" >
-	<input type="hidden" value="<?=Loader::helper('security')->sanitizeInt($_REQUEST['arLayoutID'])?>" name="arLayoutID" />
+<form method="post" action="<?php echo $controller->action('submit')?>" data-dialog-form="save-area-layout-presets" >
+	<input type="hidden" value="<?php echo Loader::helper('security')->sanitizeInt($_REQUEST['arLayoutID'])?>" name="arLayoutID" />
 
 	<div class="form-group">
-		<label class="control-label" for="arLayoutPresetID"><?=t('Preset')?></label>
-        <?=Loader::helper('form')->select('arLayoutPresetID', $presets, array('class' => 'span3'))?>
+		<label class="control-label" for="arLayoutPresetID"><?php echo t('Preset')?></label>
+        <?php echo Loader::helper('form')->select('arLayoutPresetID', $presets, array('class' => 'span3'))?>
 	</div>
 
 	<div class="form-group" id="ccm-layout-save-preset-name">
-		<label class="control-label" for="arLayoutPresetName"><?=t('Name')?></label>
+		<label class="control-label" for="arLayoutPresetName"><?php echo t('Name')?></label>
         <input type="text" name="arLayoutPresetName" id="arLayoutPresetName" class="form-control" />
 	</div>
 
-  	<div class="alert alert-warning" id="ccm-layout-save-preset-override"><?=t('Note: this will override the selected preset with the new preset. It will not update any layouts already in use.')?></div>
+  	<div class="alert alert-warning" id="ccm-layout-save-preset-override"><?php echo t('Note: this will override the selected preset with the new preset. It will not update any layouts already in use.')?></div>
 
 	<div class="dialog-buttons">
-	<button class="btn btn-default pull-left" data-dialog-action="cancel"><?=t('Cancel')?></button>
-	<button type="button" data-dialog-action="submit" class="btn btn-success pull-right"><?=t('Save Preset')?></button>
+	<button class="btn btn-default pull-left" data-dialog-action="cancel"><?php echo t('Cancel')?></button>
+	<button type="button" data-dialog-action="submit" class="btn btn-success pull-right"><?php echo t('Save Preset')?></button>
 	</div>
 
 

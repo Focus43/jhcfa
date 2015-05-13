@@ -14,7 +14,7 @@ $form = Loader::helper('form');
 <div class='row'>
 	<div class='span10 offset1'>
 		<div class="page-header">
-			<h1><?=t('Sign in to %s', SITE)?></h1>
+			<h1><?php echo t('Sign in to %s', SITE)?></h1>
 		</div>
 		<?php
 		if (count($activeAuths) > 1) {
@@ -24,8 +24,8 @@ $form = Loader::helper('form');
 				$first = true;
 				foreach ($activeAuths as $auth) {
 					?>
-					<li<?=$first?" class='active'":''?>>
-						<a data-authType='<?=$auth->getAuthenticationTypeHandle()?>' href='#<?=$auth->getAuthenticationTypeHandle()?>'><?=$auth->getAuthenticationTypeName()?></a>
+					<li<?php echo $first?" class='active'":''?>>
+						<a data-authType='<?php echo $auth->getAuthenticationTypeHandle()?>' href='#<?php echo $auth->getAuthenticationTypeHandle()?>'><?php echo $auth->getAuthenticationTypeName()?></a>
 					</li>
 					<?php
 					$first = false;
@@ -40,11 +40,11 @@ $form = Loader::helper('form');
 			$first = true;
 			foreach ($activeAuths as $auth) {
 				?>
-				<div data-authType='<?=$auth->getAuthenticationTypeHandle()?>' style='<?=$first?"display:block":"display:none"?>'>
+				<div data-authType='<?php echo $auth->getAuthenticationTypeHandle()?>' style='<?php echo $first?"display:block":"display:none"?>'>
 					<fieldset>
-						<form method='post' class='form-horizontal' action='<?=$view->action('authenticate', $auth->getAuthenticationTypeHandle())?>'>
+						<form method='post' class='form-horizontal' action='<?php echo $view->action('authenticate', $auth->getAuthenticationTypeHandle())?>'>
 							<div class='authForm'>
-								<?$auth->renderForm()?>
+								<?php $auth->renderForm()?>
 							</div>
 						</form>
 					</fieldset>
@@ -55,19 +55,19 @@ $form = Loader::helper('form');
 			?>
 		</div>
 		<div class='forgotPassword'>
-			<h2><?=t('Forgot Your Password?')?></h2>
+			<h2><?php echo t('Forgot Your Password?')?></h2>
 			<div class='help-block'>
-				<?=t('Enter your email address below. We will send you instructions to reset your password.')?>
+				<?php echo t('Enter your email address below. We will send you instructions to reset your password.')?>
 			</div>
-			<form method="post" action="<?=$view->url('/login', 'forgot_password')?>" class="form-horizontal">
+			<form method="post" action="<?php echo $view->url('/login', 'forgot_password')?>" class="form-horizontal">
 				<div class='control-group'>
-					<label class='control-label' for='uEmail'><?=t('Email Address')?></label>
+					<label class='control-label' for='uEmail'><?php echo t('Email Address')?></label>
 					<div class='controls'>
-						<?=$form->text('uEmail')?>
+						<?php echo $form->text('uEmail')?>
 					</div>
 				</div>
 				<div class='actions'>
-					<?=$form->button('resetPassword','Reset and Email Password')?>
+					<?php echo $form->button('resetPassword','Reset and Email Password')?>
 				</div>
 			</form>
 		</div>

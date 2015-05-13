@@ -11,7 +11,7 @@ $txt = Loader::helper('text');?>
                 <?php echo Loader::helper('validation/token')->output('update_set')?>
 
                 <fieldset>
-                    <legend><?=t('Update Set Details')?></legend>
+                    <legend><?php echo t('Update Set Details')?></legend>
 
                     <?php if ($set->isAttributeSetLocked()) {?>
                         <div class="alert alert-warning">
@@ -52,7 +52,7 @@ $txt = Loader::helper('text');?>
                     <?php echo Loader::helper('validation/token')->output('delete_set')?>
 
                     <fieldset>
-                        <legend><?=t('Delete Set')?></legend>
+                        <legend><?php echo t('Delete Set')?></legend>
                         <span class="help-block"><?php echo t('Warning, this cannot be undone. No attributes will be deleted but they will no longer be grouped together.')?></span>
 
                         <div class="form-group">
@@ -70,7 +70,7 @@ $txt = Loader::helper('text');?>
                 <?php echo Loader::helper('validation/token')->output('update_set_attributes')?>
                 <fieldset>
 
-                    <legend><?=t('Add Attributes to Set')?></legend>
+                    <legend><?php echo t('Add Attributes to Set')?></legend>
 
                     <?php
                     $cat = AttributeKeyCategory::getByID($set->getAttributeSetKeyCategoryID());
@@ -135,7 +135,7 @@ $txt = Loader::helper('text');?>
         <input type="hidden" name="categoryID" value="<?php echo $categoryID?>" />
 
         <fieldset>
-            <legend><?=t('Add Set')?></legend>
+            <legend><?php echo t('Add Set')?></legend>
             <div class="form-group">
                 <?php echo $form->label('asHandle', t('Handle'))?>
                 <?php echo $form->text('asHandle')?>
@@ -157,7 +157,7 @@ $txt = Loader::helper('text');?>
 
 <?php } else { // Attribute Category List  ?>
 
-        <h3><?=t('Attribute Categories')?></h3>
+        <h3><?php echo t('Attribute Categories')?></h3>
 		<span class="help-block"><?php echo t('Attribute Categories are used to group different types of sets.')?></span>
 		<ul class="item-select-list">
 			<?php 

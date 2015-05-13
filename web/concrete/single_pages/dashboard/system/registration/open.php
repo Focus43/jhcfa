@@ -1,5 +1,5 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?= Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(
     t('Public Registration'),
     t(
         'Control the options available for Public Registration.'),
@@ -10,7 +10,7 @@ $h = Loader::helper('concrete/ui');
 ?>
 <form class="form-stacked" method="post" id="registration-type-form"
       action="<?php echo $view->action('update_registration_type') ?>">
-
+        <?php echo $token->output('update_registration_type')?>
     <div class="row">
 
         <div class="col-sm-6">
@@ -89,7 +89,7 @@ $h = Loader::helper('concrete/ui');
     </div>
     <div class="ccm-dashboard-form-actions-wrapper">
         <div class="ccm-dashboard-form-actions">
-            <?= $h->submit(t('Save'), 'registration-type-form', 'right', 'btn-primary'); ?>
+            <?php echo $h->submit(t('Save'), 'registration-type-form', 'right', 'btn-primary'); ?>
         </div>
     </div>
 </form>

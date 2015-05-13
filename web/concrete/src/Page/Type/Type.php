@@ -27,6 +27,7 @@ use Package;
 use \Concrete\Core\Workflow\Request\ApprovePageRequest as ApprovePagePageWorkflowRequest;
 use CacheLocal;
 use \Concrete\Core\Page\Type\PublishTarget\Configuration\Configuration as PageTypePublishTargetConfiguration;
+use \Concrete\Core\Page\Type\PublishTarget\Type\Type as PageTypePublishTargetType;
 use \Concrete\Core\Page\Type\Composer\FormLayoutSetControl as PageTypeComposerFormLayoutSetControl;
 use \Concrete\Core\Page\Collection\Version\VersionList;
 use
@@ -47,7 +48,7 @@ class Type extends Object implements \Concrete\Core\Permission\ObjectInterface
     {
         return $this->ptName;
     }
-    
+
     public function getPageTypeDisplayName($format = 'html')
     {
         $value = t($this->getPageTypeName());
@@ -277,7 +278,7 @@ class Type extends Object implements \Concrete\Core\Permission\ObjectInterface
         }
     }
 
-    public function getPageTypePageTemplateDefaultPageObject(PageTemplate $template = null)
+    public function getPageTypePageTemplateDefaultPageObject(Template $template = null)
     {
         if (!$template) {
             $template = $this->getPageTypeDefaultPageTemplateObject();
@@ -666,6 +667,22 @@ class Type extends Object implements \Concrete\Core\Permission\ObjectInterface
         $new->setConfiguredPageTypePublishTargetObject($target);
     }
 
+    /**
+     * Add a page type
+     *
+     * @param array $data {
+     *     @var string          $handle              A string which can be used to identify the page type
+     *     @var string          $name                A user friendly display name
+     *     @var \PageTemplate   $defaultTemplate     The default template object
+     *     @var string          $allowedTemplates    (A|C|X) A for all, C for selected only, X for non-selected only
+     *     @var \PageTemplate[] $templates           Array or Iterator of selected templates, see `$allowedTemplates`
+     *     @var bool            $internal            Is this an internal only page type? Default: `false`
+     *     @var bool            $ptLaunchInComposer  Does this launch in composer? Default: `false`
+     *     @var bool            $ptIsFrequentlyAdded Should this always be displayed in the pages panel? Default: `false`
+     * }
+     * @param bool|Package $pkg This should be false if the type is not tied to a package, or a package object
+     * @return static|mixed|null
+     */
     public static function add($data, $pkg = false)
     {
         $ptHandle = $data['handle'];
@@ -737,6 +754,13 @@ class Type extends Object implements \Concrete\Core\Permission\ObjectInterface
         }
 
         $ptt = static::getByID($ptID);
+        
+        // set all type publish target as default
+        $target = PageTypePublishTargetType::getByHandle('all');
+        if (is_object($target)) {
+            $configuredTarget = $target->configurePageTypePublishTarget($ptt, array());
+            $ptt->setConfiguredPageTypePublishTargetObject($configuredTarget);
+        }
 
         // copy permissions from the defaults to the page type
         $cpk = PermissionKey::getByHandle('access_page_type_permissions');
@@ -1014,25 +1038,21 @@ class Type extends Object implements \Concrete\Core\Permission\ObjectInterface
     public function canPublishPageTypeBeneathPage(\Concrete\Core\Page\Page $page)
     {
         $target = $this->getPageTypePublishTargetObject();
-        return $target->canPublishPageTypeBeneathTarget($this, $page);
+        if (is_object($target)) {
+            return $target->canPublishPageTypeBeneathTarget($this, $page);
+        }
     }
 
-    public function validateCreateDraftRequest($pt)
+    /**
+     * @return \Concrete\Core\Page\Type\Validator\ValidatorInterface|null
+     */
+    public function getPageTypeValidatorObject()
     {
-        $e = Loader::helper('validation/error');
-        $availablePageTemplates = $this->getPageTypePageTemplateObjects();
-        $availablePageTemplateIDs = array();
-        foreach ($availablePageTemplates as $ppt) {
-            $availablePageTemplateIDs[] = $ppt->getPageTemplateID();
+        if ($this->ptHandle) {
+            $validator = \Core::make('manager/page_type/validator')->driver($this->ptHandle);
+            $validator->setPageTypeObject($this);
+            return $validator;
         }
-        if (!is_object($pt)) {
-            $e->add(t('You must choose a page template.'));
-        } else {
-            if (!in_array($pt->getPageTemplateID(), $availablePageTemplateIDs)) {
-                $e->add(t('This page template is not a valid template for this page type.'));
-            }
-        }
-        return $e;
     }
 
     public function createDraft(PageTemplate $pt, $u = false)

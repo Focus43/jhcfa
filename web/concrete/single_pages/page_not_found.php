@@ -1,9 +1,9 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
-<h1 class="error"><?=t('Page Not Found')?></h1>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<h1 class="error"><?php echo t('Page Not Found')?></h1>
 
-<?=t('No page could be found at this address.')?>
+<?php echo t('No page could be found at this address.')?>
 
-<? $a = new Area('Main'); ?>
-<? $a->display($c); ?>
+<?php $a = new Area('Main'); ?>
+<?php $a->display($c); ?>
 
-<a href="<?=DIR_REL?>/"><?=t('Back to Home')?></a>.
+<a href="<?php echo DIR_REL?>/"><?php echo t('Back to Home')?></a>.

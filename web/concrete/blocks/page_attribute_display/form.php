@@ -28,7 +28,7 @@ print Core::make('helper/concrete/ui')->tabs(array(
         <div class="text-muted"><?php echo sprintf(t('See the formatting options at %s.'), '<a href="http://www.php.net/date" target="_blank">php.net/date</a>'); ?></div>
     </div>
     <fieldset>
-        <legend><?=t('Thumbnail')?></legend>
+        <legend><?php echo t('Thumbnail')?></legend>
         <div class="form-group">
             <label class="control-label" for="thumbnail_width"><?php echo t('Width'); ?></label>
             <input id="thumbnail_width" class="form-control" type="text" name="thumbnailWidth" value="<?php echo $this->controller->thumbnailWidth; ?>"/>

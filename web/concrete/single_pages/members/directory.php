@@ -1,58 +1,58 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <div class="row">
 <div class="span10 offset1">
 
-<div class="page-header"><h1><?=t('Members')?></div>
+<div class="page-header"><h1><?php echo t('Members')?></div>
 
 <div class="navbar">
 <div class="navbar-inner">
 
-<form method="get" action="<?=$view->action('search_members')?>" class="navbar-form">
-	<input name="keywords" type="text" value="<?=$keywords?>" size="20" class="" placeholder="<?=t('Search')?>" />
-	<input name="submit" type="button" value="<?=t('Search')?>" class="btn" />
+<form method="get" action="<?php echo $view->action('search_members')?>" class="navbar-form">
+	<input name="keywords" type="text" value="<?php echo $keywords?>" size="20" class="" placeholder="<?php echo t('Search')?>" />
+	<input name="submit" type="button" value="<?php echo t('Search')?>" class="btn" />
 </form>
 
 </div>
 </div>
 
-<? if ($total == 0) { ?>
+<?php if ($total == 0) { ?>
 
-		<div><?=t('No users found.')?></div>
+		<div><?php echo t('No users found.')?></div>
 
-	<? } else { ?>
+	<?php } else { ?>
 
 		<table class="table table-striped" id="ccm-members-directory">
 
 
-		<?
+		<?php
 		$av = Loader::helper('concrete/avatar');
 		$u = new User();
 
 		foreach($users as $user) { 	?>
 
 		<tr>
-			<td class="ccm-members-directory-avatar"><a href="<?=$view->url('/members/profile','view', $user->getUserID())?>"><?=$av->outputUserAvatar($user)?></a></td>
-			<td class="ccm-members-directory-name"><a href="<?=$view->url('/members/profile','view', $user->getUserID())?>"><?=ucfirst($user->getUserName())?></a></td>
-			<?
+			<td class="ccm-members-directory-avatar"><a href="<?php echo $view->url('/members/profile','view', $user->getUserID())?>"><?php echo $av->outputUserAvatar($user)?></a></td>
+			<td class="ccm-members-directory-name"><a href="<?php echo $view->url('/members/profile','view', $user->getUserID())?>"><?php echo ucfirst($user->getUserName())?></a></td>
+			<?php
 			foreach($attribs as $ak) { ?>
 				<td>
-					<?=$user->getAttribute($ak, 'displaySanitized', 'display'); ?>
+					<?php echo $user->getAttribute($ak, 'displaySanitized', 'display'); ?>
 				</td>
-			<? } ?>
+			<?php } ?>
 		</tr>
 
-		<? } ?>
+		<?php } ?>
 
 		</table>
 
-        <? if ($pagination->haveToPaginate()) { ?>
+        <?php if ($pagination->haveToPaginate()) { ?>
 
-            <?=$pagination->renderDefaultView();?>
+            <?php echo $pagination->renderDefaultView();?>
 
-        <? } ?>
+        <?php } ?>
 
-	<?
+	<?php
 
 	} ?>
 

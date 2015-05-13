@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 $h = Loader::helper('concrete/dashboard');
 $form = Loader::helper('form');
 echo $h->getDashboardPaneHeaderWrapper(t('Maintenance Mode'), false, 'span6 offset3', false);?>
@@ -7,14 +7,14 @@ echo $h->getDashboardPaneHeaderWrapper(t('Maintenance Mode'), false, 'span6 offs
     <?php echo $this->controller->token->output('update_maintenance')?>
     <fieldset>
         <div class="form-group">
-            <div class="radio"><label><?=$form->radio('site_maintenance_mode', '1', $site_maintenance_mode)?> <span><?=t('Enabled')?></span></label></div>
-            <div class="radio"><label><?=$form->radio('site_maintenance_mode', '0', $site_maintenance_mode)?> <span><?=t('Disabled')?></span></label></div>
+            <div class="radio"><label><?php echo $form->radio('site_maintenance_mode', '1', $site_maintenance_mode)?> <span><?php echo t('Enabled')?></span></label></div>
+            <div class="radio"><label><?php echo $form->radio('site_maintenance_mode', '0', $site_maintenance_mode)?> <span><?php echo t('Disabled')?></span></label></div>
         </div>
     </fieldset>	
 
     <div class="ccm-dashboard-form-actions-wrapper">
         <div class="ccm-dashboard-form-actions">    
-            <button class="pull-right btn btn-success" type="submit" ><?=t('Save')?></button>
+            <button class="pull-right btn btn-primary" type="submit" ><?php echo t('Save')?></button>
         </div>
     </div>
 </form>

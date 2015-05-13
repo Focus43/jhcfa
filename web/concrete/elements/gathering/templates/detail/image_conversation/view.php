@@ -1,4 +1,4 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 $nh = Loader::helper('navigation');
 if (is_array($image)) {
 $image = $image[0];
@@ -6,7 +6,7 @@ $image = $image[0];
 
 <div class="ccm-gathering-overlay image-sharing-link" id="image-sharing-link-<?php echo $this->gaiID; ?>">
 	<div class="image-sharing-link-controls">
-		<img class="overlay-header-image" src="<?=$image->getSrc()?>" style="max-width: 600px" />
+		<img class="overlay-header-image" src="<?php echo $image->getSrc()?>" style="max-width: 600px" />
 		<div class="ccm-gathering-overlay-title ccm-gathering-thumbnail-caption">
 			<div class="ccm-conversation-messages-header">
 				<div style="width: 99%; margin: 0 auto; height: 3px; margin: 15px 0px 30px 0px; background: #abd9ff;"></div>

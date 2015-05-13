@@ -1,5 +1,5 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php
 $ctArray = PageType::getList();
 $types = array();
 foreach($ctArray as $ct) {
@@ -12,8 +12,8 @@ if (is_object($configuration)) {
 
 ?>
 <div class="control-group">
-	<label class="control-label"><?=t('Limit By Page Type')?></label>
+	<label class="control-label"><?php echo t('Limit By Page Type')?></label>
 	<div class="controls" data-select="page">
-		<?=$form->select($source->optionFormKey('ptID'), $types, $ptID)?>
+		<?php echo $form->select($source->optionFormKey('ptID'), $types, $ptID)?>
 	</div>
 </div>

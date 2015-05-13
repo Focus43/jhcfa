@@ -1,5 +1,5 @@
 <?php defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?
+<?php
 use \Concrete\Core\Page\Type\Composer\FormLayoutSet as PageTypeComposerFormLayoutSet;
 use \Concrete\Core\Page\Type\Composer\Control\Type\Type as PageTypeComposerControlType;
 
@@ -24,7 +24,7 @@ if ($cp->canViewPage()) {
 	?>
 
 	<div class="ccm-ui">
-	<?
+	<?php
 	$tabs = array();
 	$types = PageTypeComposerControlType::getList();
 	for ($i = 0; $i < count($types); $i++) {
@@ -36,20 +36,20 @@ if ($cp->canViewPage()) {
 
 	foreach($types as $t) { ?>
 
-	<div class="ccm-tab-content" id="ccm-tab-content-<?=$t->getPageTypeComposerControlTypeHandle()?>">
+	<div class="ccm-tab-content" id="ccm-tab-content-<?php echo $t->getPageTypeComposerControlTypeHandle()?>">
 	<ul data-list="page-type-composer-control-type" class="item-select-list">
-		<? 
+		<?php 
 		$controls = $t->getPageTypeComposerControlObjects();
 		foreach($controls as $cnt) { ?>
-			<li><a href="#" data-control-type-id="<?=$t->getPageTypeComposerControlTypeID()?>" data-control-identifier="<?=$cnt->getPageTypeComposerControlIdentifier()?>">
-                    <img src="<?=$cnt->getPageTypeComposerControlIconSRC()?>" />
-                    <?=$cnt->getPageTypeComposerControlDisplayName()?></a></li>
-		<? } ?>
+			<li><a href="#" data-control-type-id="<?php echo $t->getPageTypeComposerControlTypeID()?>" data-control-identifier="<?php echo $cnt->getPageTypeComposerControlIdentifier()?>">
+                    <img src="<?php echo $cnt->getPageTypeComposerControlIconSRC()?>" />
+                    <?php echo $cnt->getPageTypeComposerControlDisplayName()?></a></li>
+		<?php } ?>
 	</ul>
 	</div>
 
 
-	<? } ?>
+	<?php } ?>
 
 	</div>
 
@@ -72,17 +72,17 @@ $(function() {
 			'value': ptComposerControlIdentifier
 		},{
 			'name': 'ptComposerFormLayoutSetID',
-			'value': '<?=$set->getPageTypeComposerFormLayoutSetID()?>'
+			'value': '<?php echo $set->getPageTypeComposerFormLayoutSetID()?>'
 		}];
 		jQuery.fn.dialog.showLoader();
 		$.ajax({
 			type: 'post',
 			data: formData,
-			url: '<?=REL_DIR_FILES_TOOLS_REQUIRED?>/page_types/composer/form/add_control',
+			url: '<?php echo REL_DIR_FILES_TOOLS_REQUIRED?>/page_types/composer/form/add_control',
 			success: function(html) {
 				jQuery.fn.dialog.hideLoader();
 				jQuery.fn.dialog.closeTop();
-				$('div[data-page-type-composer-form-layout-control-set-id=<?=$set->getPageTypeComposerFormLayoutSetID()?>] div.ccm-page-type-composer-form-layout-control-set-inner').append(html);
+				$('div[data-page-type-composer-form-layout-control-set-id=<?php echo $set->getPageTypeComposerFormLayoutSetID()?>] div.ccm-page-type-composer-form-layout-control-set-inner').append(html);
 				$('a[data-command=edit-form-set-control]').dialog();
 			}
 		});
@@ -92,6 +92,6 @@ $(function() {
 </script>
 
 
-<?
+<?php
 
 }

@@ -1,6 +1,6 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>  
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>  
 
-<div id="ccm-block-html-value"><?=h($content)?></div>
+<div id="ccm-block-html-value"><?php echo h($content)?></div>
 <textarea style="display: none" id="ccm-block-html-value-textarea" name="content"></textarea>
 
 <style type="text/css">

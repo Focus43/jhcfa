@@ -1,12 +1,12 @@
 <?php defined('C5_EXECUTE') or die('Access Denied');
 use \Concrete\Core\Page\Search\IndexedSearch; ?>
-	<form method="post" id="ccm-search-index-manage" action="<?=$view->action('')?>">
+	<form method="post" id="ccm-search-index-manage" action="<?php echo $view->action('')?>">
 		<div class="ccm-pane-body">
 			<?php echo $this->controller->token->output('update_search_index');?>
 			<fieldset>
-			<legend><?=t('Indexing Method')?></legend>
+			<legend><?php echo t('Indexing Method')?></legend>
 			<div class="form-group">
-			<? $methods = array(
+			<?php $methods = array(
 				'whitelist' => t('Whitelist: Selected areas are only areas indexed.'),
 				'blacklist' => t('Blacklist: Every area but the selected areas are indexed.')
 			);
@@ -15,21 +15,21 @@ use \Concrete\Core\Page\Search\IndexedSearch; ?>
 			</fieldset>
 
 			<fieldset>
-			<legend><?=t('Areas')?></legend>
+			<legend><?php echo t('Areas')?></legend>
 			<div class="form-group">
 
-			<? foreach($areas as $a) { ?>
+			<?php foreach($areas as $a) { ?>
                 <div class="checkbox">
-				    <label><?=$form->checkbox('arHandle[]', h($a), in_array($a, $selectedAreas))?> <?=h($a)?></label>
+				    <label><?php echo $form->checkbox('arHandle[]', h($a), in_array($a, $selectedAreas))?> <?php echo h($a)?></label>
                 </div>
-			<? } ?>
+			<?php } ?>
 			</div>
 			</fieldset>
 
 		</div>
 		<div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">
-			<button class="btn btn-danger ccm-button-left" name="reindex" value="1" onclick="return confirm('<?=t('Once the index is clear, you must reindex your site from the Automated Jobs page.')?>')"><?=t('Clear Search Index')?></button>
+			<button class="btn btn-danger ccm-button-left" name="reindex" value="1" onclick="return confirm('<?php echo t('Once the index is clear, you must reindex your site from the Automated Jobs page.')?>')"><?php echo t('Clear Search Index')?></button>
 			<?php
 			$ih = Loader::helper('concrete/ui');
 			print $ih->submit(t('Save'), 'ccm-search-index-manage', 'right', 'btn-primary');

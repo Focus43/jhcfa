@@ -7,15 +7,15 @@ $ih = Loader::helper('concrete/ui');
 if ($this->controller->getTask() == 'viewDetail') {
     ?>
 
-    <?= Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(
+    <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(
         t('Results for &#34;%s&#34;', $current_survey),
         false,
         false,
         false); ?>
 
     <div class="ccm-dashboard-header-buttons">
-        <a href="<?= $view->action('view') ?>" class="btn btn-default">
-            <?= t('Go back') ?>
+        <a href="<?php echo $view->action('view') ?>" class="btn btn-default">
+            <?php echo t('Go back') ?>
         </a>
     </div>
 
@@ -26,10 +26,10 @@ if ($this->controller->getTask() == 'viewDetail') {
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th><span><?= t('Option') ?></span></th>
-                        <th><span><?= t('IP Address') ?></span></th>
-                        <th><span><?= t('Date') ?></span></th>
-                        <th><span><?= t('User') ?></span></th>
+                        <th><span><?php echo t('Option') ?></span></th>
+                        <th><span><?php echo t('IP Address') ?></span></th>
+                        <th><span><?php echo t('Date') ?></span></th>
+                        <th><span><?php echo t('User') ?></span></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,12 +37,12 @@ if ($this->controller->getTask() == 'viewDetail') {
                     foreach ($survey_details as $detail) {
                         ?>
                         <tr>
-                            <td><?= $detail['option'] ?></td>
-                            <td><?= $detail['ipAddress'] ?></td>
-                            <td><?= $detail['date'] ?></td>
-                            <td><?= $detail['user'] ?></td>
+                            <td><?php echo $detail['option'] ?></td>
+                            <td><?php echo $detail['ipAddress'] ?></td>
+                            <td><?php echo $detail['date'] ?></td>
+                            <td><?php echo $detail['user'] ?></td>
                         </tr>
-                    <? } ?>
+                    <?php } ?>
                 </tbody>
             </table>
 
@@ -52,49 +52,49 @@ if ($this->controller->getTask() == 'viewDetail') {
 
             <div>
                 <div class="text-center">
-                    <?= $pie_chart ?>
+                    <?php echo $pie_chart ?>
                 </div>
-                <?= $chart_options ?>
+                <?php echo $chart_options ?>
             </div>
 
         </div>
 
     </div>
 
-    <?= Loader::helper('concrete/dashboard')->getDashboardPaneFooterWrapper(false) ?>
+    <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneFooterWrapper(false) ?>
 
-<? } else { ?>
+<?php } else { ?>
 
-    <?= Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Surveys'), false, false); ?>
+    <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Surveys'), false, false); ?>
 
-    <? if (count($surveys) == 0) { ?>
+    <?php if (count($surveys) == 0) { ?>
         <p>
-            <?= t('You have not created any surveys.') ?>
+            <?php echo t('You have not created any surveys.') ?>
         </p>
-    <? } else { ?>
+    <?php } else { ?>
 
         <div class="ccm-dashboard-content-full">
             <table class="ccm-search-results-table">
                 <thead>
                 <tr>
-                    <th class="<?= $surveyList->getSearchResultsClass('question') ?>">
-                        <a href="<?= $surveyList->getSortByURL('question', 'asc') ?>">
-                            <?= t('Name') ?>
+                    <th class="<?php echo $surveyList->getSearchResultsClass('question') ?>">
+                        <a href="<?php echo $surveyList->getSortByURL('question', 'asc') ?>">
+                            <?php echo t('Name') ?>
                         </a>
                     </th>
-                    <th class="<?= $surveyList->getSearchResultsClass('cvName') ?>">
-                        <a href="<?= $surveyList->getSortByURL('cvName', 'asc') ?>">
-                            <?= t('Found on Page') ?>
+                    <th class="<?php echo $surveyList->getSearchResultsClass('cvName') ?>">
+                        <a href="<?php echo $surveyList->getSortByURL('cvName', 'asc') ?>">
+                            <?php echo t('Found on Page') ?>
                         </a>
                     </th>
-                    <th class="<?= $surveyList->getSearchResultsClass('lastResponse') ?>">
-                        <a href="<?= $surveyList->getSortByURL('lastResponse', 'desc') ?>">
-                            <?= t('Last Response') ?>
+                    <th class="<?php echo $surveyList->getSearchResultsClass('lastResponse') ?>">
+                        <a href="<?php echo $surveyList->getSortByURL('lastResponse', 'desc') ?>">
+                            <?php echo t('Last Response') ?>
                         </a>
                     </th>
-                    <th class="col-sm-2 text-right <?= $surveyList->getSearchResultsClass('numberOfResponses') ?>" style="white-space: nowrap" ">
-                        <a href="<?= $surveyList->getSortByURL('numberOfResponses', 'desc') ?>">
-                            <?= t('Number of Responses') ?>
+                    <th class="col-sm-2 text-right <?php echo $surveyList->getSearchResultsClass('numberOfResponses') ?>" style="white-space: nowrap" ">
+                        <a href="<?php echo $surveyList->getSortByURL('numberOfResponses', 'desc') ?>">
+                            <?php echo t('Number of Responses') ?>
                         </a>
                     </th>
                 </tr>
@@ -106,22 +106,22 @@ if ($this->controller->getTask() == 'viewDetail') {
                     <tr>
                         <td>
                             <strong>
-                                <a href="<?= $view->action(
+                                <a href="<?php echo $view->action(
                                     'viewDetail',
                                     $survey['bID'],
                                     $survey['cID']) ?>">
-                                    <?= $survey['question'] ?>
+                                    <?php echo $survey['question'] ?>
                                 </a>
                             </strong>
                         </td>
                         <td>
-                            <?= $survey['cvName'] ?>
+                            <?php echo $survey['cvName'] ?>
                         </td>
                         <td>
-                            <?= $this->controller->formatDate($survey['lastResponse']) ?>
+                            <?php echo $this->controller->formatDate($survey['lastResponse']) ?>
                         </td>
                         <td class="text-right">
-                            <?= $survey['numberOfResponses'] ?>
+                            <?php echo $survey['numberOfResponses'] ?>
                         </td>
                     </tr>
                 <?php
@@ -136,6 +136,6 @@ if ($this->controller->getTask() == 'viewDetail') {
     $surveyList->displayPagingV2();
     ?>
 
-    <?= Loader::helper('concrete/dashboard')->getDashboardPaneFooterWrapper() ?>
+    <?php echo Loader::helper('concrete/dashboard')->getDashboardPaneFooterWrapper() ?>
 
-<? } ?>
+<?php } ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Concrete\Controller\Panel\Page;
 use \Concrete\Controller\Backend\UserInterface\Page as BackendUIPageController;
 use Concrete\Core\Page\Collection\Version\Version;
@@ -192,7 +192,7 @@ class Design extends BackendUIPageController {
                     $u->unloadCollectionEdit();
                 }
             } else {
-  				$r->setRedirectURL(BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME . '?cID=' . $c->getCollectionID());
+  				$r->setRedirectURL(\URL::to($c));
             }
 			$r->outputJSON();
 		}

@@ -7,7 +7,6 @@ defined('C5_EXECUTE') or die('Access denied.');
 $r = ResponseAssetGroup::get();
 $r->requireAsset('javascript', 'underscore');
 $r->requireAsset('javascript', 'core/events');
-$r->requireAsset('core/legacy');
 
 $activeAuths = AuthenticationType::getList(true, true);
 $form = Loader::helper('form');
@@ -25,12 +24,12 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
 ?>
 <style>
     body {
-        background: url("<?= ASSETS_URL_IMAGES ?>/bg_login.png");
+        background: url("<?php echo ASSETS_URL_IMAGES ?>/bg_login.png");
     }
 </style>
 <div class="login-page">
     <div class="col-sm-6 col-sm-offset-3 login-title">
-        <span><?= !$attribute_mode ? t('Sign into your website.') : t('Required Attributes') ?></span>
+        <span><?php echo !$attribute_mode ? t('Sign into your website.') : t('Required Attributes') ?></span>
     </div>
     <div class="col-sm-6 col-sm-offset-3 login-form">
         <div class="row">
@@ -39,7 +38,7 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
                 if ($attribute_mode) {
                     ?>
                     <i class="fa fa-question"></i>
-                    <span><?= t('Attributes') ?></span>
+                    <span><?php echo t('Attributes') ?></span>
                 <?php
                 } else if (count($activeAuths) > 1) {
                     ?>
@@ -47,8 +46,8 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
                         <?php
                         foreach ($activeAuths as $auth) {
                             ?>
-                            <option value="<?= $auth->getAuthenticationTypeHandle() ?>">
-                                <?= $auth->getAuthenticationTypeName() ?>
+                            <option value="<?php echo $auth->getAuthenticationTypeHandle() ?>">
+                                <?php echo $auth->getAuthenticationTypeName() ?>
                             </option>
                         <?php
                         }
@@ -69,16 +68,16 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
                         ?>
                         <li data-handle="required_attributes">
                             <i class="fa fa-question"></i>
-                            <span><?= t('Attributes') ?></span>
+                            <span><?php echo t('Attributes') ?></span>
                         </li>
                         <?php
                     } else {
                         /** @var AuthenticationType[] $activeAuths */
                         foreach ($activeAuths as $auth) {
                             ?>
-                            <li data-handle="<?= $auth->getAuthenticationTypeHandle() ?>">
-                                <?= $auth->getAuthenticationTypeIconHTML() ?>
-                                <span><?= $auth->getAuthenticationTypeName() ?></span>
+                            <li data-handle="<?php echo $auth->getAuthenticationTypeHandle() ?>">
+                                <?php echo $auth->getAuthenticationTypeIconHTML() ?>
+                                <span><?php echo $auth->getAuthenticationTypeName() ?></span>
                             </li>
                         <?php
                         }
@@ -91,7 +90,7 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
                 if ($attribute_mode) {
                     $attribute_helper = new Concrete\Core\Form\Service\Widget\Attribute();
                     ?>
-                    <form action="<?= View::action('fill_attributes') ?>" method="POST">
+                    <form action="<?php echo View::action('fill_attributes') ?>" method="POST">
                         <div data-handle="required_attributes"
                              class="authentication-type authentication-type-required-attributes">
                             <div class="ccm-required-attribute-form"
@@ -103,7 +102,7 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
                                 ?>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-primary pull-right"><?= t('Submit') ?></button>
+                                <button class="btn btn-primary pull-right"><?php echo t('Submit') ?></button>
                             </div>
 
                         </div>
@@ -114,8 +113,8 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
 
                     foreach ($activeAuths as $auth) {
                         ?>
-                        <div data-handle="<?= $auth->getAuthenticationTypeHandle() ?>"
-                             class="authentication-type authentication-type-<?= $auth->getAuthenticationTypeHandle() ?>">
+                        <div data-handle="<?php echo $auth->getAuthenticationTypeHandle() ?>"
+                             class="authentication-type authentication-type-<?php echo $auth->getAuthenticationTypeHandle() ?>">
                             <?php $auth->renderForm($authTypeElement ?: 'form', $authTypeParams ?: array()) ?>
                         </div>
                     <?php
@@ -126,7 +125,7 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
         </div>
     </div>
     <div class="background-credit" style="display:none">
-        <?= t('Photo Credit:') ?>
+        <?php echo t('Photo Credit:') ?>
         <a href="#" style="pull-right"></a>
     </div>
 
@@ -190,7 +189,7 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
                     .append(
                     $('<img/>')
                         .css({ width: '100%', height: '100%' })
-                        .attr('src', '<?= DIR_REL ?>/concrete/images/login_fade.png'))
+                        .attr('src', '<?php echo DIR_REL ?>/concrete/images/login_fade.png'))
                     .fadeIn();
             }, 0);
 
@@ -198,7 +197,7 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
             <?php if(Config::get('concrete.white_label.background_image') !== 'none') { ?>
             $(function () {
                 var shown = false, info;
-                $.getJSON('<?= BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME . '/tools/required/dashboard/get_image_data' ?>', { image: '<?= $image ?>' }, function (data) {
+                $.getJSON('<?php echo Core::getApplicationURL() . '/' . DISPATCHER_FILENAME . '/tools/required/dashboard/get_image_data' ?>', { image: '<?php echo $image ?>' }, function (data) {
                     if (shown) {
                         $('div.background-credit').fadeIn().children().attr('href', data.link).text(data.author.join());
                     } else {
@@ -213,7 +212,7 @@ $attribute_mode = (isset($required_attributes) && count($required_attributes));
                     }
 
                 });
-                $.backstretch("<?= Config::get('concrete.urls.background_feed') . '/' . $image ?>", {
+                $.backstretch("<?php echo Config::get('concrete.urls.background_feed') . '/' . $image ?>", {
                     fade: 500
                 });
             });

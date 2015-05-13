@@ -23,12 +23,12 @@ do {
 
 <div style="display: none">
 <div class="btn-group" id="ccm-account-menu">
-  <a class="btn btn-default" href="<?=Core::make('helper/navigation')->getLinkToCollection($account)?>"><i class="fa fa-user"></i> <?=t('My Account')?></a>
+  <a class="btn btn-default" href="<?php echo Core::make('helper/navigation')->getLinkToCollection($account)?>"><i class="fa fa-user"></i> <?php echo t('My Account')?></a>
   <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 	<span class="caret"></span>
   </button>
   <ul class="dropdown-menu pull-right" role="menu">
-  <?
+  <?php
 	$children = $account->getCollectionChildrenArray(true);
 	foreach($children as $cID) {
 		$nc = Page::getByID($cID, 'ACTIVE');
@@ -39,15 +39,15 @@ do {
 	}
 
 	foreach($categories as $cc) { ?>
-		<li><a href="<?=Core::make('helper/navigation')->getLinkToCollection($cc)?>"><?=h(t($cc->getCollectionName()))?></a></li><?
+		<li><a href="<?php echo Core::make('helper/navigation')->getLinkToCollection($cc)?>"><?php echo h(t($cc->getCollectionName()))?></a></li><?php
 	}
 	?>
 	<li class="divider"></li>
-	<li><a href="<?=URL::to('/')?>"><i class="fa fa-home"></i> <?=t("Home")?></a></li>
-	<li><a href="<?=URL::to('/login', 'logout', Loader::helper('validation/token')->generate('logout'))?>"><i class="fa fa-sign-out"></i> <?=t("Sign Out")?></a></li>
+	<li><a href="<?php echo URL::to('/')?>"><i class="fa fa-home"></i> <?php echo t("Home")?></a></li>
+	<li><a href="<?php echo URL::to('/login', 'logout', Loader::helper('validation/token')->generate('logout'))?>"><i class="fa fa-sign-out"></i> <?php echo t("Sign Out")?></a></li>
  </ul>
 </div>
 </div>
 
-<?
+<?php
 } while(false);

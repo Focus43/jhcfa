@@ -3,53 +3,55 @@ $form = Loader::helper('form');
 $file = Loader::helper('file');
 echo Loader::helper('concrete/dashboard')->getDashboardPaneHeaderWrapper(t('Conversations Settings'), false, 'span8 offset2', false);
 ?>
-<form action="<?=$view->action('save')?>" method='post'>
+<form action="<?php echo $view->action('save')?>" method='post'>
 		<fieldset>
 			<legend><?php echo t('Attachment Settings'); ?></legend>
 			<p style="margin-bottom: 25px; color: #aaa; display: block;" class="small"><?php echo t('Note: These settings can be overridden in the block edit form for individual conversations.') ?></p>
             <div class="form-group">
-                <label class="control-label"><?=t('Enable Attachments')?></label>
-                <?=$form->checkbox('attachmentsEnabled', 1, $attachmentsEnabled)?>
+                <label class="control-label"><?php echo t('Enable Attachments')?></label>
+                <?php echo $form->checkbox('attachmentsEnabled', 1, $attachmentsEnabled)?>
             </div>
 			<div class="form-group">
-				<label class="control-label"><?=t('Max Attachment Size for Guest Users. (MB)')?></label>
-				<?=$form->text('maxFileSizeGuest', $maxFileSizeGuest > 0 ? $maxFileSizeGuest : '')?>
+				<label class="control-label"><?php echo t('Max Attachment Size for Guest Users. (MB)')?></label>
+				<?php echo $form->text('maxFileSizeGuest', $maxFileSizeGuest > 0 ? $maxFileSizeGuest : '')?>
 			</div>
             <div class="form-group">
-				<label class="control-label"><?=t('Max Attachment Size for Registered Users. (MB)')?></label>
-				<?=$form->text('maxFileSizeRegistered', $maxFileSizeRegistered > 0 ? $maxFileSizeRegistered : '')?>
+				<label class="control-label"><?php echo t('Max Attachment Size for Registered Users. (MB)')?></label>
+				<?php echo $form->text('maxFileSizeRegistered', $maxFileSizeRegistered > 0 ? $maxFileSizeRegistered : '')?>
 			</div>
             <div class="form-group">
-				<label class="control-label"><?=t('Max Attachments Per Message for Guest Users.')?></label>
-				<?=$form->text('maxFilesGuest', $maxFilesGuest > 0 ? $maxFilesGuest : '')?>
+				<label class="control-label"><?php echo t('Max Attachments Per Message for Guest Users.')?></label>
+				<?php echo $form->text('maxFilesGuest', $maxFilesGuest > 0 ? $maxFilesGuest : '')?>
 			</div>
             <div class="form-group">
-				<label class="control-label"><?=t('Max Attachments Per Message for Registered Users')?></label>
-				<?=$form->text('maxFilesRegistered', $maxFilesRegistered > 0 ?  $maxFilesRegistered : '')?>
+				<label class="control-label"><?php echo t('Max Attachments Per Message for Registered Users')?></label>
+				<?php echo $form->text('maxFilesRegistered', $maxFilesRegistered > 0 ?  $maxFilesRegistered : '')?>
 			</div>
             <div class="form-group">
-				<label class="control-label"><?=t('Allowed File Extensions (Comma separated, no periods).')?></label>
-    			<?=$form->textarea('fileExtensions', $fileExtensions)?>
+				<label class="control-label"><?php echo t('Allowed File Extensions (Comma separated, no periods).')?></label>
+    			<?php echo $form->textarea('fileExtensions', $fileExtensions)?>
 			</div>
 		</fieldset>
     <fieldset>
-        <legend><?=t('Editor')?></legend>
+        <legend><?php echo t('Editor')?></legend>
         <div class="form-group">
-            <?=$form->label('activeEditor', t('Active Conversation Editor'))?>
-            <?=Loader::helper('form')->select('activeEditor', $editors, $active);?>
+            <?php echo $form->label('activeEditor', t('Active Conversation Editor'))?>
+            <?php echo Loader::helper('form')->select('activeEditor', $editors, $active);?>
         </div>
     </fieldset>
 	<fieldset>
-		<legend><?=t('Notification')?></legend>
+		<legend><?php echo t('Notification')?></legend>
 		<div class="form-group">
-			<div class="checkbox"><label>
-				<?=$form->checkbox('notification', 1, $notification)?>
-				<?=t('Send an email when a message is posted.')?>
-			</label></div>
+			<label class="control-label"><?php echo t('Users To Receive Conversation Notifications')?></label>
+			<?php echo Core::make("helper/form/user_selector")->selectMultipleUsers('defaultUsers', $notificationUsers)?>
 		</div>
 		<div class="form-group">
-			<label class="control-label"><?=t('Email Address')?></label>
-			<?=$form->text('notificationEmail', $notification > 0 ? $notificationEmail : '')?>
+			<label class="control-label"><?php echo t('Subscribe Option')?></label>
+			<div class="checkbox">
+				<label><?php echo $form->checkbox('subscriptionEnabled', 1, $subscriptionEnabled)?>
+					<?php echo t('Yes, allow registered users to choose to subscribe to conversations.')?>
+				</label>
+			</div>
 		</div>
 	</fieldset>
     <div class="ccm-dashboard-form-actions-wrapper">

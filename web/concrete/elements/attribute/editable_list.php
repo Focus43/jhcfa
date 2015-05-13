@@ -25,20 +25,20 @@
     $canEdit = $permissionsCallback($ak, $permissionsArguments); ?>
 
 	<div class="row">
-		<div class="col-md-3"><p><?=$ak->getAttributeKeyDisplayName()?></p></div>
+		<div class="col-md-3"><p><?php echo $ak->getAttributeKeyDisplayName()?></p></div>
 		<div class="col-md-9" <?php if ($canEdit) { ?>data-editable-field-inline-commands="true"<?php } ?>>
 		<?php if ($canEdit) { ?>
 		<ul class="ccm-edit-mode-inline-commands">
-			<li><a href="#" data-key-id="<?=$ak->getAttributeKeyID()?>" data-url="<?=$clearAction?>" data-editable-field-command="clear_attribute"><i class="fa fa-trash-o"></i></a></li>
+			<li><a href="#" data-key-id="<?php echo $ak->getAttributeKeyID()?>" data-url="<?php echo $clearAction?>" data-editable-field-command="clear_attribute"><i class="fa fa-trash-o"></i></a></li>
 		</ul>
-		<?php } ?><p><span <?php if ($canEdit) { ?>data-title="<?=$ak->getAttributeKeyDisplayName()?>" data-key-id="<?=$ak->getAttributeKeyID()?>" data-name="<?=$ak->getAttributeKeyID()?>" data-editable-field-type="xeditableAttribute" data-url="<?=$saveAction?>" data-type="concreteattribute"<?php } ?>><?=$display?></span></p>
+		<?php } ?><p><span <?php if ($canEdit) { ?>data-title="<?php echo $ak->getAttributeKeyDisplayName()?>" data-key-id="<?php echo $ak->getAttributeKeyID()?>" data-name="<?php echo $ak->getAttributeKeyID()?>" data-editable-field-type="xeditableAttribute" data-url="<?php echo $saveAction?>" data-type="concreteattribute"<?php } ?>><?php echo $display?></span></p>
 	</div>
 	</div>
 
 	<?php if ($canEdit) { ?>
 
 		<div style="display: none">
-		<div data-editable-attribute-key-id="<?=$ak->getAttributeKeyID()?>">
+		<div data-editable-attribute-key-id="<?php echo $ak->getAttributeKeyID()?>">
 			<?php
             $value = $object->getAttributeValueObject($ak);
             $ak->render('form', $value);

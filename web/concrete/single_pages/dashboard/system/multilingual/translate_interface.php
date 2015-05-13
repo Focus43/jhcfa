@@ -10,54 +10,47 @@ if ($this->controller->getTask() == 'translate_po') {
     ?>
     <script>
     $(document).ready(function() {
-      ccmTranslator.setI18NDictionart({
-        AskDiscardDirtyTranslation: <?php echo json_encode(t("The current item has changed.\nIf you proceed you will lose your changes.\n\nDo you want to proceed anyway?")); ?>,
-        Comments: <?php echo json_encode(t('Comments')); ?>,
-        Context: <?php echo json_encode(t('Context')); ?>,
-        ExamplePH: <?php echo json_encode(t('Example: %s')); ?>,
-        Filter: <?php echo json_encode(t('Filter')); ?>,
-        Original_String: <?php echo json_encode(t('Original String')); ?>,
-        Please_fill_in_all_plurals: <?php echo json_encode(t('Please fill-in all plural forms')); ?>,
-        Plural_Original_String: <?php echo json_encode(t('Plural Original String')); ?>,
-        References: <?php echo json_encode(t('References')); ?>,
-        Save_and_Continue: <?php echo json_encode(t('Save & Continue')); ?>,
-        Search_for_: <?php echo json_encode(t('Search for...')); ?>,
-        Search_in_contexts: <?php echo json_encode(t('Search in contexts')); ?>,
-        Search_in_originals: <?php echo json_encode(t('Search in originals')); ?>,
-        Search_in_translations: <?php echo json_encode(t('Search in translations')); ?>,
-        Show_approved: <?php echo json_encode(t('Show approved')); ?>,
-        Show_translated: <?php echo json_encode(t('Show translated')); ?>,
-        Show_unapproved: <?php echo json_encode(t('Show unapproved')); ?>,
-        Show_untranslated: <?php echo json_encode(t('Show untranslated')); ?>,
-        Singular_Original_String: <?php echo json_encode(t('Singular Original String')); ?>,
-        Toggle_Dropdown: <?php echo json_encode(t('Toggle Dropdown')); ?>,
-        TAB: <?php echo json_encode(t('[TAB] Forward')); ?>,
-        TAB_SHIFT: <?php echo json_encode(t('[SHIFT]+[TAB] Backward')); ?>,
-        Translate: <?php echo json_encode(t('Translate')); ?>,
-        Translation: <?php echo json_encode(t('Translation')); ?>,
-        PluralNames: {
-          zero: <?php echo json_encode(tc('PluralCase', 'Zero')); ?>,
-          one: <?php echo json_encode(tc('PluralCase', 'One')); ?>,
-          two: <?php echo json_encode(tc('PluralCase', 'Two')); ?>,
-          few: <?php echo json_encode(tc('PluralCase', 'Few')); ?>,
-          many: <?php echo json_encode(tc('PluralCase', 'Many')); ?>,
-          other: <?php echo json_encode(tc('PluralCase', 'Other')); ?>
-        }
-      });
       ccmTranslator.initialize({
         container: '#ccm-translator-interface',
         height: $(window).height() - 300,
         saveAction: <?php echo json_encode($this->action('save_translation')); ?>,
         plurals: <?php echo json_encode($section->getPluralsCases()); ?>,
-        translations: <?php echo json_encode($translations, $jsonOptions); ?>,
-        fuzzySupport: false
-      })
+        translations: <?php echo json_encode($translations); ?>,
+        approvalSupport: false
+      });
+      var saveToFileToken = <?php echo json_encode(Core::make('token')->generate('export_translations')); ?>;
+      $('.ccm-save-to-file').on('click', function() {
+        var $btn = $(this);
+        $btn.addClass('disabled').css('width', $btn.outerWidth() + 'px').html('<span class="fa fa-spinner fa-spin"></span>');
+        $.ajax({
+          cache: false,
+          dataType: 'json',
+          method: 'POST',
+          data: {ccm_token: saveToFileToken},
+          url: <?php echo json_encode($controller->action('export_translations', $section->getLocale())); ?>
+        })
+        .done(function(data) {
+          if (data && data.message) {
+            alert(data.message);
+          }
+          if (data && data.newToken) {
+          	saveToFileToken = data.newToken;
+          }
+        })
+        .fail(function(xhr, status, error) {
+          alert(xhr.responseText || error);
+        })
+        .always(function() {
+          $btn.removeClass('disabled').css('width', 'auto').text(<?php echo json_encode(t('Save to file')); ?>);
+        }); 
+      });
     });
     </script>
     <div id="ccm-translator-interface" class="ccm-translator"></div>
 
     <div class="ccm-dashboard-header-buttons">
         <a href="<?php echo $controller->action('view'); ?>" class="btn btn-default"><?php echo t('Back to List'); ?></a>
+        <a href="javascript:void(0)" class="btn btn-primary ccm-save-to-file"><?php echo t('Save to file'); ?></a>
     </div>
     <?php
 
@@ -148,7 +141,7 @@ if ($this->controller->getTask() == 'translate_po') {
             <form method="post" action="<?php echo $controller->action('submit'); ?>">
                 <div class="ccm-dashboard-header-buttons btn-group">
                     <button class="btn btn-default" type="submit" name="action" value="reload"><?php echo t('Reload Strings'); ?></button>
-                    <button class="btn btn-default" type="submit" name="action" value="export"><?php echo t('Export to .PO'); ?></button>
+                    <button class="btn btn-default" type="submit" name="action" value="export"><?php echo t('Save to file'); ?></button>
                     <?php echo $valt->output(); ?>
                     <button class="btn btn-danger" type="button" data-dialog="reset" value="reset"><?php echo t('Reset All'); ?></button>
                 </div>

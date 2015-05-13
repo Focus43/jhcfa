@@ -59,26 +59,7 @@ class AssetList
 
         $class = '\\Concrete\\Core\\Asset\\' . Object::camelcase($assetType) . 'Asset';
         $o = new $class($assetHandle);
-        if ($pkg != false) {
-            if (!($pkg instanceof Package)) {
-                $pkg = Package::getByHandle($pkg);
-            }
-            $o->setPackageObject($pkg);
-        }
-        $o->setAssetIsLocal($args['local']);
-        $o->mapAssetLocation($filename);
-        if ($args['minify'] === true || $args['minify'] === false) {
-            $o->setAssetSupportsMinification($args['minify']);
-        }
-        if ($args['combine'] === true || $args['combine'] === false) {
-            $o->setAssetSupportsCombination($args['combine']);
-        }
-        if ($args['version']) {
-            $o->setAssetVersion($args['version']);
-        }
-        if ($args['position']) {
-            $o->setAssetPosition($args['position']);
-        }
+        $o->register($filename, $args, $pkg);
         $this->registerAsset($o);
         return $o;
     }
@@ -153,7 +134,7 @@ class AssetList
      */
     public function getAsset($assetType, $assetHandle)
     {
-        return $this->assets[$assetType][$assetHandle];
+        return isset($this->assets[$assetType][$assetHandle]) ? $this->assets[$assetType][$assetHandle] : null;
     }
 
     /**

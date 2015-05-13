@@ -7,15 +7,15 @@ $view = View::getInstance();
     <?php echo $this->controller->token->output('update_debug') ?>
 
     <fieldset>
-        <legend><?= t('Display Errors') ?></legend>
+        <legend><?php echo t('Display Errors') ?></legend>
         <div class="form-group">
 
             <div class="checkbox">
                 <label>
-                    <input data-sample='<?= $view->action('disabled_example') ?>' type="checkbox" name="debug_enabled"
-                           value="1" <?= $debug_enabled ? 'checked' : '' ?> />
+                    <input data-sample='<?php echo $view->action('disabled_example') ?>' type="checkbox" name="debug_enabled"
+                           value="1" <?php echo $debug_enabled ? 'checked' : '' ?> />
                     <span><?php echo t('Output error information to site users') ?></span>
-                    <span class="help-block"><?= t('Disable to show a generic error message') ?></span>
+                    <span class="help-block"><?php echo t('Disable to show a generic error message') ?></span>
                 </label>
             </div>
 
@@ -23,20 +23,20 @@ $view = View::getInstance();
     </fieldset>
 
     <fieldset>
-        <legend><?= t('Error detail') ?></legend>
+        <legend><?php echo t('Error detail') ?></legend>
         <div class="form-group">
 
             <div class="radio">
                 <label>
-                    <input data-sample='<?= $view->action('message_example') ?>' type="radio" name="debug_detail"
-                           value="message" <?= $debug_detail != 'debug' ? 'checked' : '' ?> />
+                    <input data-sample='<?php echo $view->action('message_example') ?>' type="radio" name="debug_detail"
+                           value="message" <?php echo $debug_detail != 'debug' ? 'checked' : '' ?> />
                     <span><?php echo t('Show the error message but nothing else') ?></span>
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <input data-sample='<?= $view->action('debug_example') ?>' type="radio" name="debug_detail"
-                           value="debug" <?= $debug_detail == 'debug' ? 'checked' : '' ?> />
+                    <input data-sample='<?php echo $view->action('debug_example') ?>' type="radio" name="debug_detail"
+                           value="debug" <?php echo $debug_detail == 'debug' ? 'checked' : '' ?> />
                     <span><?php echo t('Show the debug error output') ?></span>
 
                     <p class="help-block">
@@ -51,7 +51,7 @@ $view = View::getInstance();
     </fieldset>
 
     <fieldset>
-        <legend><?= t('Example') ?></legend>
+        <legend><?php echo t('Example') ?></legend>
         <iframe class="sample" style="display:none"></iframe>
     </fieldset>
 

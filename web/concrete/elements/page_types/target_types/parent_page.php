@@ -1,4 +1,4 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $form = Loader::helper('form');
 
@@ -10,9 +10,9 @@ if (is_object($pagetype) && $pagetype->getPageTypePublishTargetTypeID() == $type
 
 ?>
 	<div class="control-group">
-		<?=$form->label('cParentID', t('Publish Beneath Page'))?>
+		<?php echo $form->label('cParentID', t('Publish Beneath Page'))?>
 		<div class="controls">
-			<? 
+			<?php 
 			$pf = Loader::helper('form/page_selector');
 			print $pf->selectPage('cParentID', $cID);
 			?>

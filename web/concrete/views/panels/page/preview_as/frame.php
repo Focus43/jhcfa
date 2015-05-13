@@ -1,8 +1,8 @@
 <div class="preview-frame-container">
     <iframe
         style="display:none"
-        src="<?= URL::to('/ccm/system/panels/page/preview_as_user/render') . '?cID=' . Request::request('cID') ?>"
-        data-src="<?= URL::to('/ccm/system/panels/page/preview_as_user/render') ?>"></iframe>
+        src="<?php echo URL::to('/ccm/system/panels/page/preview_as_user/render') . '?cID=' . Request::request('cID') ?>"
+        data-src="<?php echo URL::to('/ccm/system/panels/page/preview_as_user/render') ?>"></iframe>
     <div class="cover"></div>
     <div class="loader">
         <div class="icon">

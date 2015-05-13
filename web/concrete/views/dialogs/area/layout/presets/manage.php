@@ -1,22 +1,22 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <div class="ccm-ui">
 
 
-<? if (count($presets) > 0) { ?>
-    <div class="alert alert-info"><?=t("Deleting a preset will not affect any layouts that have used that preset in the past.")?></div>
+<?php if (count($presets) > 0) { ?>
+    <div class="alert alert-info"><?php echo t("Deleting a preset will not affect any layouts that have used that preset in the past.")?></div>
 
     <ul class="item-select-list">
-    <? foreach($presets as $preset) { ?>
-        <li data-preset-row="<?=$preset->getAreaLayoutPresetID()?>"><span><?=$preset->getAreaLayoutPresetName()?>
+    <?php foreach($presets as $preset) { ?>
+        <li data-preset-row="<?php echo $preset->getAreaLayoutPresetID()?>"><span><?php echo $preset->getAreaLayoutPresetName()?>
         <a href="javascript:void(0)" class="pull-right icon-link delete-area-layout-preset" data-action="delete-area-layout-preset"><i class="fa fa-trash-o"></i></a>
         </span></li>
-    <? } ?>
+    <?php } ?>
     </ul>
 
-<? } else { ?>
+<?php } else { ?>
     <p>You have no presets.</p>
-<? } ?>
+<?php } ?>
 
 
 </div>
@@ -26,7 +26,7 @@
         $('a[data-action=delete-area-layout-preset]').on('click', function() {
             var $row = $(this).parent().parent();
             $.concreteAjax({
-                url: '<?=$controller->action('delete')?>',
+                url: '<?php echo $controller->action('delete')?>',
                 data: {'arLayoutPresetID': $row.attr('data-preset-row')},
                 success: function(r) {
                     $row.queue(function() {

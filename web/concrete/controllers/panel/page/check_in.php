@@ -1,4 +1,4 @@
-<?
+<?php
 namespace Concrete\Controller\Panel\Page;
 
 use \Concrete\Controller\Backend\UserInterface\Page as BackendInterfacePageController;
@@ -45,16 +45,8 @@ class CheckIn extends BackendInterfacePageController
         }
         $pagetype = $c->getPageTypeObject();
         if (is_object($pagetype)) {
-            $controls = PageTypeComposerControl::getList($pagetype);
-            foreach ($controls as $oc) {
-                if ($oc->isPageTypeComposerFormControlRequiredOnThisRequest()) {
-                    $oc->setPageObject($c);
-                    $r = $oc->validate();
-                    if ($r instanceof \Concrete\Core\Error\Error) {
-                        $e->add($r);
-                    }
-                }
-            }
+            $validator = $pagetype->getPageTypeValidatorObject();
+            $e->add($validator->validatePublishDraftRequest($c));
         }
 
         if ($c->isPageDraft() && !$e->has()) {

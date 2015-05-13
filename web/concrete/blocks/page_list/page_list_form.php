@@ -5,18 +5,18 @@ $form = Loader::helper('form/page_selector');
 <div class="row pagelist-form">
     <div class="col-xs-6">
 
-        <input type="hidden" name="pageListToolsDir" value="<?= Loader::helper('concrete/urls')->getBlockTypeToolsURL($bt) ?>/"/>
+        <input type="hidden" name="pageListToolsDir" value="<?php echo Loader::helper('concrete/urls')->getBlockTypeToolsURL($bt) ?>/"/>
 
         <fieldset>
-        <legend><?= t('Settings') ?></legend>
+        <legend><?php echo t('Settings') ?></legend>
         
         <div class="form-group">
-            <label class='control-label'><?= t('Number of Pages to Display') ?></label>
-            <input type="text" name="num" value="<?= $num ?>" class="form-control">
+            <label class='control-label'><?php echo t('Number of Pages to Display') ?></label>
+            <input type="text" name="num" value="<?php echo $num ?>" class="form-control">
         </div>
 
         <div class="form-group">
-            <label class="control-label"><?= t('Page Type') ?></label>
+            <label class="control-label"><?php echo t('Page Type') ?></label>
             <?php
             $ctArray = PageType::getList();
 
@@ -28,8 +28,8 @@ $form = Loader::helper('form/page_selector');
                     foreach ($ctArray as $ct) {
                         ?>
                         <option
-                            value="<?= $ct->getPageTypeID() ?>" <? if ($ptID == $ct->getPageTypeID()) { ?> selected <? } ?>>
-                            <?= $ct->getPageTypeDisplayName() ?>
+                            value="<?php echo $ct->getPageTypeID() ?>" <?php if ($ptID == $ct->getPageTypeID()) { ?> selected <?php } ?>>
+                            <?php echo $ct->getPageTypeDisplayName() ?>
                         </option>
                     <?php
                     }
@@ -42,92 +42,129 @@ $form = Loader::helper('form/page_selector');
 		</fieldset>
 		
 		<fieldset>
-        <legend><?= t('Filtering') ?></legend>
+            <legend><?php echo t('Topics') ?></legend>
+        <div class="radio">
+            <label>
+                <input type="radio" name="topicFilter" id="topicFilter"
+                       value="" <?php if (!$filterByRelated && !$filterByCustomTopic) { ?> checked<?php } ?> />
+                <?php echo t('No topic filtering') ?>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="topicFilter" id="topicFilterCustom"
+                       value="custom" <?php if ($filterByCustomTopic) { ?> checked<?php } ?>>
+                <?php echo t('Custom Topic') ?>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="topicFilter" id="topicFilterRelated"
+                       value="related" <?php if ($filterByRelated) { ?> checked<?php } ?> >
+                <?php echo t('Related Topic') ?>
+            </label>
+        </div>
+        <div data-row="custom-topic">
+            <div class="form-group">
+                <select class="form-control" name="customTopicAttributeKeyHandle" id="customTopicAttributeKeyHandle">
+                    <option value=""><?php echo t('Choose topics attribute.')?></option>
+                    <?php foreach($attributeKeys as $attributeKey) {
+                        $attributeController = $attributeKey->getController();
+                        ?>
+                        <option data-topic-tree-id="<?php echo $attributeController->getTopicTreeID()?>" value="<?php echo $attributeKey->getAttributeKeyHandle()?>" <?php if ($attributeKey->getAttributeKeyHandle() == $customTopicAttributeKeyHandle) { ?>selected<?php } ?>><?php echo $attributeKey->getAttributeKeyDisplayName()?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            <div class="tree-view-container">
+                <div class="tree-view-template">
+                </div>
+            </div>
+            <input type="hidden" name="customTopicTreeNodeID" value="<?php echo $customTopicTreeNodeID ?>">
+
+        </div>
+        <div data-row="related-topic">
+            <div class="form-group">
+                <span class="help-block"><?php echo t('Allows other blocks like the topic list block to pass search criteria to this page list block.')?></span>
+            <select class="form-control" name="relatedTopicAttributeKeyHandle" id="relatedTopicAttributeKeyHandle">
+                <option value=""><?php echo t('Choose topics attribute.')?></option>
+                <?php foreach($attributeKeys as $attributeKey) { ?>
+                    <option value="<?php echo $attributeKey->getAttributeKeyHandle()?>" <?php if ($attributeKey->getAttributeKeyHandle() == $relatedTopicAttributeKeyHandle) { ?>selected<?php } ?>><?php echo $attributeKey->getAttributeKeyDisplayName()?></option>
+                <?php } ?>
+            </select>
+        </div>
+        </fieldset>
+
+        <fieldset>
+        <legend><?php echo t('Other Filters') ?></legend>
         <div class="checkbox">
             <label>
-                <input <? if (!is_object($featuredAttribute)) { ?> disabled <? } ?> type="checkbox" name="displayFeaturedOnly"
-                                                                       value="1" <? if ($displayFeaturedOnly == 1) { ?> checked <? } ?>
+                <input <?php if (!is_object($featuredAttribute)) { ?> disabled <?php } ?> type="checkbox" name="displayFeaturedOnly"
+                                                                       value="1" <?php if ($displayFeaturedOnly == 1) { ?> checked <?php } ?>
                                                                        style="vertical-align: middle"/>
-                <?= t('Featured pages only.') ?>
+                <?php echo t('Featured pages only.') ?>
             </label>
-            <? if (!is_object($featuredAttribute)) { ?>
-                <span class="help-block"><?=
+            <?php if (!is_object($featuredAttribute)) { ?>
+                <span class="help-block"><?php echo
                     t(
                         '(<strong>Note</strong>: You must create the "is_featured" page attribute first.)'); ?></span>
-            <? } ?>
+            <?php } ?>
         </div>
 
         <div class="checkbox">
             <label>
                 <input type="checkbox" name="displayAliases"
-                       value="1" <? if ($displayAliases == 1) { ?> checked <? } ?> />
-                <?= t('Display page aliases.') ?>
+                       value="1" <?php if ($displayAliases == 1) { ?> checked <?php } ?> />
+                <?php echo t('Display page aliases.') ?>
             </label>
         </div>
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="enableExternalFiltering" value="1" <? if ($enableExternalFiltering) { ?>checked<? } ?> />
-                <?= t('Enable Other Blocks to Filter This Page List.') ?>
-            </label>
-            <span class="help-block"><?=t('Allows other blocks like the topic list block to pass search criteria to this page list block.')?></span>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="filterByRelated"
-                       value="1" <? if ($filterByRelated == 1) { ?> checked <? } ?> />
-                <?= t('Filter by Related Topic.') ?>
+                <input type="checkbox" name="enableExternalFiltering" value="1" <?php if ($enableExternalFiltering) { ?>checked<?php } ?> />
+                <?php echo t('Enable Other Blocks to Filter This Page List.') ?>
             </label>
         </div>
 
-        <div class="form-group" data-row="related-topic">
-            <select class="form-control" name="relatedTopicAttributeKeyHandle" id="relatedTopicAttributeKeyHandle">
-                    <option value=""><?=t('Choose topics attribute.')?></option>
-                <? foreach($attributeKeys as $attributeKey) { ?>
-                    <option value="<?=$attributeKey->getAttributeKeyHandle()?>" <? if ($attributeKey->getAttributeKeyHandle() == $relatedTopicAttributeKeyHandle) { ?>selected<? } ?>><?=$attributeKey->getAttributeKeyDisplayName()?></option>
-                <? } ?>
-            </select>
-        </div>
 		</fieldset>
 		
 		<fieldset>
-        <legend><?= t('Pagination') ?></legend>
+        <legend><?php echo t('Pagination') ?></legend>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="paginate" value="1" <? if ($paginate == 1) { ?> checked <? } ?> />
-                <?= t('Display pagination interface if more items are available than are displayed.') ?>
+                <input type="checkbox" name="paginate" value="1" <?php if ($paginate == 1) { ?> checked <?php } ?> />
+                <?php echo t('Display pagination interface if more items are available than are displayed.') ?>
             </label>
         </div>
 		</fieldset>
 		
 		<fieldset>
-        <legend><?= t('Location') ?></legend>
+        <legend><?php echo t('Location') ?></legend>
         <div class="radio">
             <label>
                 <input type="radio" name="cParentID" id="cEverywhereField"
-                       value="0" <? if ($cParentID == 0) { ?> checked<? } ?> />
-                <?= t('Everywhere') ?>
+                       value="0" <?php if ($cParentID == 0) { ?> checked<?php } ?> />
+                <?php echo t('Everywhere') ?>
             </label>
         </div>
         <div class="radio">
             <label>
                 <input type="radio" name="cParentID" id="cThisPageField"
-                       value="<?= $c->getCollectionID() ?>" <? if ($cParentID == $c->getCollectionID() || $cThis) { ?> checked<? } ?>>
-                <?= t('Beneath this page') ?>
+                       value="<?php echo $c->getCollectionID() ?>" <?php if ($cParentID == $c->getCollectionID() || $cThis) { ?> checked<?php } ?>>
+                <?php echo t('Beneath this page') ?>
             </label>
          </div>
         <div class="radio">
             <label>
                 <input type="radio" name="cParentID" id="cOtherField"
-                       value="OTHER" <? if ($isOtherPage) { ?> checked<? } ?>>
-                <?= t('Beneath another page') ?>
+                       value="OTHER" <?php if ($isOtherPage) { ?> checked<?php } ?>>
+                <?php echo t('Beneath another page') ?>
             </label>
         </div>
 
-        <div class="ccm-page-list-page-other" <? if (!$isOtherPage) { ?> style="display: none" <? } ?>>
+        <div class="ccm-page-list-page-other" <?php if (!$isOtherPage) { ?> style="display: none" <?php } ?>>
 
             <div class="form-group">
-                <?= $form->selectPage('cParentIDValue', $isOtherPage ? $cParentID : false); ?>
+                <?php echo $form->selectPage('cParentIDValue', $isOtherPage ? $cParentID : false); ?>
             </div>
         </div>
 
@@ -146,186 +183,186 @@ $form = Loader::helper('form/page_selector');
 		</fieldset>
 		
 		<fieldset>
-        <legend><?= t('Sort') ?></legend>
+        <legend><?php echo t('Sort') ?></legend>
         <div class="form-group">
             <select name="orderBy" class="form-control">
-                <option value="display_asc" <? if ($orderBy == 'display_asc') { ?> selected <? } ?>>
-                    <?= t('Sitemap order') ?>
+                <option value="display_asc" <?php if ($orderBy == 'display_asc') { ?> selected <?php } ?>>
+                    <?php echo t('Sitemap order') ?>
                 </option>
-                <option value="chrono_desc" <? if ($orderBy == 'chrono_desc') { ?> selected <? } ?>>
-                    <?= t('Most recent first') ?>
+                <option value="chrono_desc" <?php if ($orderBy == 'chrono_desc') { ?> selected <?php } ?>>
+                    <?php echo t('Most recent first') ?>
                 </option>
-                <option value="chrono_asc" <? if ($orderBy == 'chrono_asc') { ?> selected <? } ?>>
-                    <?= t('Earliest first') ?>
+                <option value="chrono_asc" <?php if ($orderBy == 'chrono_asc') { ?> selected <?php } ?>>
+                    <?php echo t('Earliest first') ?>
                 </option>
-                <option value="alpha_asc" <? if ($orderBy == 'alpha_asc') { ?> selected <? } ?>>
-                    <?= t('Alphabetical order') ?>
+                <option value="alpha_asc" <?php if ($orderBy == 'alpha_asc') { ?> selected <?php } ?>>
+                    <?php echo t('Alphabetical order') ?>
                 </option>
-                <option value="alpha_desc" <? if ($orderBy == 'alpha_desc') { ?> selected <? } ?>>
-                    <?= t('Reverse alphabetical order') ?>
+                <option value="alpha_desc" <?php if ($orderBy == 'alpha_desc') { ?> selected <?php } ?>>
+                    <?php echo t('Reverse alphabetical order') ?>
                 </option>
-                <option value="random" <? if ($orderBy == 'random') { ?> selected <? } ?>>
-                    <?= t('Random') ?>
+                <option value="random" <?php if ($orderBy == 'random') { ?> selected <?php } ?>>
+                    <?php echo t('Random') ?>
                 </option>
             </select>
         </div>
 		</fieldset>
 		
 		<fieldset>
-        <legend><?= t('Output') ?></legend>
+        <legend><?php echo t('Output') ?></legend>
         <div class="form-group">
-            <label class="control-label"><?= t('Provide RSS Feed') ?></label>
+            <label class="control-label"><?php echo t('Provide RSS Feed') ?></label>
             <div class="radio">
                 <label>
                     <input type="radio" name="rss" class="rssSelector"
-                           value="0" <?= (is_object($rssFeed) ? "" : "checked=\"checked\"") ?>/> <?= t('No') ?>
+                           value="0" <?php echo (is_object($rssFeed) ? "" : "checked=\"checked\"") ?>/> <?php echo t('No') ?>
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input id="ccm-pagelist-rssSelectorOn" type="radio" name="rss" class="rssSelector"
-                           value="1" <?= (is_object($rssFeed) ? "checked=\"checked\"" : "") ?>/> <?= t('Yes') ?>
+                           value="1" <?php echo (is_object($rssFeed) ? "checked=\"checked\"" : "") ?>/> <?php echo t('Yes') ?>
                 </label>
              </div>
-            <div id="ccm-pagelist-rssDetails" <?= (is_object($rssFeed) ? "" : "style=\"display:none;\"") ?>>
-                <? if (is_object($rssFeed)) { ?>
-                    <?=t('RSS Feed can be found here: <a href="%s" target="_blank">%s</a>', $rssFeed->getFeedURL(), $rssFeed->getFeedURL())?>
-                <? } else { ?>
+            <div id="ccm-pagelist-rssDetails" <?php echo (is_object($rssFeed) ? "" : "style=\"display:none;\"") ?>>
+                <?php if (is_object($rssFeed)) { ?>
+                    <?php echo t('RSS Feed can be found here: <a href="%s" target="_blank">%s</a>', $rssFeed->getFeedURL(), $rssFeed->getFeedURL())?>
+                <?php } else { ?>
                     <div class="form-group">
-                        <label class="control-label"><?= t('RSS Feed Title') ?></label>
+                        <label class="control-label"><?php echo t('RSS Feed Title') ?></label>
                         <input class="form-control" id="ccm-pagelist-rssTitle" type="text" name="rssTitle"
                                value=""/>
                     </div>
                     <div class="form-group">
-                        <label class="control-label"><?= t('RSS Feed Description') ?></label>
+                        <label class="control-label"><?php echo t('RSS Feed Description') ?></label>
                         <textarea name="rssDescription" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="control-label"><?= t('RSS Feed Location') ?></label>
+                        <label class="control-label"><?php echo t('RSS Feed Location') ?></label>
                         <div class="input-group">
-                            <span class="input-group-addon"><?=BASE_URL . DIR_REL . '/' . DISPATCHER_FILENAME?>/rss/</span>
+                            <span class="input-group-addon"><?php echo URL::to('/rss')?>/</span>
                             <input type="text" name="rssHandle" value="" />
                         </div>
                     </div>
-                <? } ?>
+                <?php } ?>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label"><?= t('Include Page Name') ?></label>
+            <label class="control-label"><?php echo t('Include Page Name') ?></label>
             <div class="radio">
                 <label>
                     <input type="radio" name="includeName"
-                           value="0" <?= ($includeName ? "" : "checked=\"checked\"") ?>/> <?= t('No') ?>
+                           value="0" <?php echo ($includeName ? "" : "checked=\"checked\"") ?>/> <?php echo t('No') ?>
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="includeName"
-                           value="1" <?= ($includeName ? "checked=\"checked\"" : "") ?>/> <?= t('Yes') ?>
+                           value="1" <?php echo ($includeName ? "checked=\"checked\"" : "") ?>/> <?php echo t('Yes') ?>
                 </label>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label"><?= t('Include Page Description') ?></label>
+            <label class="control-label"><?php echo t('Include Page Description') ?></label>
             <div class="radio">
                 <label>
                     <input type="radio" name="includeDescription"
-                           value="0" <?= ($includeDescription ? "" : "checked=\"checked\"") ?>/> <?= t('No') ?>
+                           value="0" <?php echo ($includeDescription ? "" : "checked=\"checked\"") ?>/> <?php echo t('No') ?>
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="includeDescription"
-                           value="1" <?= ($includeDescription ? "checked=\"checked\"" : "") ?>/> <?= t('Yes') ?>
+                           value="1" <?php echo ($includeDescription ? "checked=\"checked\"" : "") ?>/> <?php echo t('Yes') ?>
                 </label>
             </div>
-            <div class="ccm-page-list-truncate-description" <?= ($includeDescription ? "" : "style=\"display:none;\"") ?>>
-                <label class="control-label"><?=t('Display Truncated Description')?></label>
+            <div class="ccm-page-list-truncate-description" <?php echo ($includeDescription ? "" : "style=\"display:none;\"") ?>>
+                <label class="control-label"><?php echo t('Display Truncated Description')?></label>
                 <div class="input-group">
                 <span class="input-group-addon">
                     <input id="ccm-pagelist-truncateSummariesOn" name="truncateSummaries" type="checkbox"
-                           value="1" <?= ($truncateSummaries ? "checked=\"checked\"" : "") ?> />
+                           value="1" <?php echo ($truncateSummaries ? "checked=\"checked\"" : "") ?> />
                 </span>
-                    <input class="form-control" id="ccm-pagelist-truncateChars" <?= ($truncateSummaries ? "" : "disabled=\"disabled\"") ?>
-                           type="text" name="truncateChars" size="3" value="<?= intval($truncateChars) ?>" />
+                    <input class="form-control" id="ccm-pagelist-truncateChars" <?php echo ($truncateSummaries ? "" : "disabled=\"disabled\"") ?>
+                           type="text" name="truncateChars" size="3" value="<?php echo intval($truncateChars) ?>" />
                 <span class="input-group-addon">
-                    <?= t('characters') ?>
+                    <?php echo t('characters') ?>
                 </span>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label"><?= t('Include Public Page Date') ?></label>
+            <label class="control-label"><?php echo t('Include Public Page Date') ?></label>
             <div class="radio">
                 <label>
                     <input type="radio" name="includeDate"
-                           value="0" <?= ($includeDate ? "" : "checked=\"checked\"") ?>/> <?= t('No') ?>
+                           value="0" <?php echo ($includeDate ? "" : "checked=\"checked\"") ?>/> <?php echo t('No') ?>
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="includeDate"
-                           value="1" <?= ($includeDate ? "checked=\"checked\"" : "") ?>/> <?= t('Yes') ?>
+                           value="1" <?php echo ($includeDate ? "checked=\"checked\"" : "") ?>/> <?php echo t('Yes') ?>
                 </label>
             </div>
-            <span class="help-block"><?=t('This is usually the date the page is created. It can be changed from the page attributes panel.')?></span>
+            <span class="help-block"><?php echo t('This is usually the date the page is created. It can be changed from the page attributes panel.')?></span>
         </div>
         <div class="form-group">
-            <label class="control-label"><?= t('Display Thumbnail Image') ?></label>
+            <label class="control-label"><?php echo t('Display Thumbnail Image') ?></label>
             <div class="radio">
                 <label>
                     <input type="radio" name="displayThumbnail"
-                           <?= (!is_object($thumbnailAttribute) ? 'disabled ' : '')?>
-                           value="0" <?= ($displayThumbnail ? "" : "checked=\"checked\"") ?>/> <?= t('No') ?>
+                           <?php echo (!is_object($thumbnailAttribute) ? 'disabled ' : '')?>
+                           value="0" <?php echo ($displayThumbnail ? "" : "checked=\"checked\"") ?>/> <?php echo t('No') ?>
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="displayThumbnail"
-                        <?= (!is_object($thumbnailAttribute) ? 'disabled ' : '')?>
-                           value="1" <?= ($displayThumbnail ? "checked=\"checked\"" : "") ?>/> <?= t('Yes') ?>
+                        <?php echo (!is_object($thumbnailAttribute) ? 'disabled ' : '')?>
+                           value="1" <?php echo ($displayThumbnail ? "checked=\"checked\"" : "") ?>/> <?php echo t('Yes') ?>
                 </label>
             </div>
-            <? if (!is_object($thumbnailAttribute)) { ?>
+            <?php if (!is_object($thumbnailAttribute)) { ?>
                 <div class="help-block">
-                <?=t('You must create an attribute with the \'thumbnail\' handle in order to use this option.')?>
+                <?php echo t('You must create an attribute with the \'thumbnail\' handle in order to use this option.')?>
                 </div>
-            <? } ?>
+            <?php } ?>
         </div>
 
         <div class="form-group">
-            <label class="control-label"><?= t('Use Different Link than Page Name') ?></label>
+            <label class="control-label"><?php echo t('Use Different Link than Page Name') ?></label>
             <div class="radio">
                 <label>
                     <input type="radio" name="useButtonForLink"
-                           value="0" <?= ($useButtonForLink ? "" : "checked=\"checked\"") ?>/> <?= t('No') ?>
+                           value="0" <?php echo ($useButtonForLink ? "" : "checked=\"checked\"") ?>/> <?php echo t('No') ?>
                 </label>
             </div>
             <div class="radio">
                 <label>
                     <input type="radio" name="useButtonForLink"
-                           value="1" <?= ($useButtonForLink ? "checked=\"checked\"" : "") ?>/> <?= t('Yes') ?>
+                           value="1" <?php echo ($useButtonForLink ? "checked=\"checked\"" : "") ?>/> <?php echo t('Yes') ?>
                 </label>
             </div>
-            <div class="ccm-page-list-button-text" <?= ($useButtonForLink ? "" : "style=\"display:none;\"") ?>>
+            <div class="ccm-page-list-button-text" <?php echo ($useButtonForLink ? "" : "style=\"display:none;\"") ?>>
                 <div class="form-group">
-                    <label class="control-label"><?= t('Link Text') ?></label>
-                    <input class="form-control" type="text" name="buttonLinkText" value="<?=$buttonLinkText?>" />
+                    <label class="control-label"><?php echo t('Link Text') ?></label>
+                    <input class="form-control" type="text" name="buttonLinkText" value="<?php echo $buttonLinkText?>" />
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label"><?= t('Title of Page List') ?></label>
-            <input type="text" class="form-control" name="pageListTitle" value="<?=$pageListTitle?>" />
+            <label class="control-label"><?php echo t('Title of Page List') ?></label>
+            <input type="text" class="form-control" name="pageListTitle" value="<?php echo $pageListTitle?>" />
         </div>
 
         <div class="form-group">
-            <label class="control-label"><?= t('Message to Display When No Pages Listed.') ?></label>
-            <textarea class="form-control" name="noResultsMessage"><?=$noResultsMessage?></textarea>
+            <label class="control-label"><?php echo t('Message to Display When No Pages Listed.') ?></label>
+            <textarea class="form-control" name="noResultsMessage"><?php echo $noResultsMessage?></textarea>
         </div>
         <fieldset>
 
@@ -337,7 +374,7 @@ $form = Loader::helper('form/page_selector');
 
     <div class="col-xs-6" id="ccm-tab-content-page-list-preview">
         <fieldset>
-        <legend><?= t('Included Pages') ?></legend>
+        <legend><?php echo t('Included Pages') ?></legend>
         <div class="preview">
             	<div class="render">
 
@@ -377,13 +414,46 @@ $form = Loader::helper('form/page_selector');
 <script type="application/javascript">
     Concrete.event.publish('pagelist.edit.open');
     $(function() {
-        $('input[name=filterByRelated]').on('change', function() {
-            if ($(this).is(':checked')) {
+        $('input[name=topicFilter]').on('change', function() {
+            if ($(this).val() == 'related') {
                 $('div[data-row=related-topic]').show();
+                $('div[data-row=custom-topic]').hide();
+            } else if ($(this).val() == 'custom') {
+                $('div[data-row=custom-topic]').show();
+                $('div[data-row=related-topic]').hide();
             } else {
                 $('div[data-row=related-topic]').hide();
+                $('div[data-row=custom-topic]').hide();
             }
-        }).trigger('change');
+        });
+
+        var treeViewTemplate = $('.tree-view-template');
+
+        $('select[name=customTopicAttributeKeyHandle]').on('change', function() {
+            var toolsURL = '<?php echo Loader::helper('concrete/urls')->getToolsURL('tree/load'); ?>';
+            var chosenTree = $(this).find('option:selected').attr('data-topic-tree-id');
+            $('.tree-view-template').remove();
+            if (!chosenTree) {
+                return;
+            }
+            $('.tree-view-container').append(treeViewTemplate);
+            $('.tree-view-template').ccmtopicstree({
+                'treeID': chosenTree,
+                'chooseNodeInForm': true,
+                'selectNodesByKey': [<?php echo intval($customTopicTreeNodeID)?>],
+                'onSelect' : function(select, node) {
+                    if (select) {
+                        $('input[name=customTopicTreeNodeID]').val(node.data.key);
+                    } else {
+                        $('input[name=customTopicTreeNodeID]').val('');
+                    }
+                }
+            });
+        });
+        $('input[name=topicFilter]:checked').trigger('change');
+        if ($('#topicFilterCustom').is(':checked')) {
+            $('select[name=customTopicAttributeKeyHandle]').trigger('change');
+        }
     });
 
 </script>

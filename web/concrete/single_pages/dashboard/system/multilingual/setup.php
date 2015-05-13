@@ -1,5 +1,5 @@
 <?php defined('C5_EXECUTE') or die("Access Denied.");?>
-<?
+<?php
 use Concrete\Core\Multilingual\Page\Section\Section as MultilingualSection;
 ?>
 <script type="text/javascript">
@@ -147,11 +147,11 @@ var ccmCountryForLanguageLister = (function() {
             <label class="control-label"><?php echo t('Language Icon')?></label>
             <div id="ccm-multilingual-language-icon"><?php echo t('None')?></div>
         </div>
-        <div class="alert alert-info"><?=t('Your locale will be computed from your choice of language and country. Your language icon will be chosen based on the country.')?></div>
+        <div class="alert alert-info"><?php echo t('Your locale will be computed from your choice of language and country. Your language icon will be chosen based on the country.')?></div>
 
         <div class="form-group">
             <?php echo Loader::helper('validation/token')->output('add_content_section')?>
-            <button class="btn btn-default pull-left" type="submit" name="add"><?=t('Add Content Section')?></button>
+            <button class="btn btn-default pull-left" type="submit" name="add"><?php echo t('Add Content Section')?></button>
         </div>
     </form>
 </fieldset>
@@ -178,7 +178,7 @@ ccm_multilingualPopulateIcons = function(country) {
 
 <fieldset>
     <legend><?php echo t('Copy Locale Tree')?></legend>
-<?
+<?php
 $u = new User();
 $copyLocales = array();
 $includesHome = false;
@@ -208,7 +208,7 @@ if ($u->isSuperUser() && !$includesHome) { ?>
 		</div>
 
         <?php echo Loader::helper('validation/token')->output('copy_tree')?>
-        <button class="btn btn-default pull-left" type="submit" name="copy"><?=t('Copy Tree')?></button>
+        <button class="btn btn-default pull-left" type="submit" name="copy"><?php echo t('Copy Tree')?></button>
 
 	<?php } else if (count($pages) == 1) { ?>
 		<p><?php echo t("You must have more than one multilingual section to use this tool.")?></p>
@@ -216,7 +216,7 @@ if ($u->isSuperUser() && !$includesHome) { ?>
 		<p><?php echo t('You have not created any multilingual content sections yet.')?></p>
 	<?php } ?>
 
-	<? if(version_compare(APP_VERSION, '5.6.0.3', '>')) {
+	<?php if(version_compare(APP_VERSION, '5.6.0.3', '>')) {
 			// 5.6.1 OR GREATER
 		?>
 		<script type="text/javascript">
@@ -227,27 +227,32 @@ if ($u->isSuperUser() && !$includesHome) { ?>
 				if (ctt > 0 && ctf > 0 && ctt != ctf) {
 					ccm_triggerProgressiveOperation(
 						CCM_TOOLS_PATH + '/dashboard/sitemap_copy_all',
-						[{'name': 'origCID', 'value': ctf}, {'name': 'destCID', 'value': ctt}, {'name': 'copyChildrenOnly', 'value': true}],
-						"<?=t('Copy Locale Tree')?>", function() {
-							window.location.href= "<?=$this->action('tree_copied')?>";
+						[
+							{'name': 'origCID', 'value': ctf},
+							{'name': 'destCID', 'value': ctt},
+							{'name': 'copyChildrenOnly', 'value': true},
+							{'name': 'multilingual', 'value': true}
+						],
+						"<?php echo t('Copy Locale Tree')?>", function() {
+							window.location.href= "<?php echo $this->action('tree_copied')?>";
 						}
 					);
 				} else {
-					alert("<?=t('You must choose two separate multilingual sections to copy from/to')?>");
+					alert("<?php echo t('You must choose two separate multilingual sections to copy from/to')?>");
 				}
 				return false;
 			});
 		});
 		</script>
 
-	<? } ?>
+	<?php } ?>
 
 </form>
-<? } else if (!$u->isSuperUser()) { ?>
-	<p><?=t('Only the super user may copy locale trees.')?></p>
-<? } else if ($includesHome) { ?>
-	<p><?=t('Since one of your multilingual sections is the home page, you may not duplicate your site tree using this tool. You must manually assign pages using the page report.')?></p>
-<? } ?>
+<?php } else if (!$u->isSuperUser()) { ?>
+	<p><?php echo t('Only the super user may copy locale trees.')?></p>
+<?php } else if ($includesHome) { ?>
+	<p><?php echo t('Since one of your multilingual sections is the home page, you may not duplicate your site tree using this tool. You must manually assign pages using the page report.')?></p>
+<?php } ?>
 </fieldset>
 
 <div class="spacer-row-6"></div>
@@ -307,7 +312,7 @@ if ($u->isSuperUser() && !$includesHome) { ?>
                 echo $form->select('defaultSourceLanguage', array_merge(array('' => t('*** Unknown or mixed language')), $languages), $defaultSourceLanguage);
                 ?>
 
-                    <?
+                    <?php
                 echo $form->select('defaultSourceCountry', array_merge(array('' => t('*** Undetermined country')), $countries), $defaultSourceCountry);
                 ?>
                 </div>
@@ -320,7 +325,7 @@ if ($u->isSuperUser() && !$includesHome) { ?>
 
             <div class="form-group">
                 <?php echo Loader::helper('validation/token')->output('set_default')?>
-                <button class="btn btn-default pull-left" type="submit" name="save"><?=t('Save Settings')?></button>
+                <button class="btn btn-default pull-left" type="submit" name="save"><?php echo t('Save Settings')?></button>
             </div>
         </form>
     </fieldset>

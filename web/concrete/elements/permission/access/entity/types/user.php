@@ -1,6 +1,6 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
-<? $url = $type->getAccessEntityTypeToolsURL(); ?>
+<?php $url = $type->getAccessEntityTypeToolsURL(); ?>
 
 <script type="text/javascript">
     (function() {
@@ -8,7 +8,7 @@
         Concrete.event.bind('UserSearchDialogSelectUser.core', function(event, data) {
             Concrete.event.unbind(event);
             $('#ccm-permissions-access-entity-form .btn-group').removeClass('open');
-            $.getJSON('<?=$url?>', {
+            $.getJSON('<?php echo $url?>', {
                 'uID': data.uID
             }, function(r) {
                 $.fn.dialog.closeTop();

@@ -1,24 +1,24 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $draft = $control->getPageObject();
 ?>
 
 <div class="form-group ccm-composer-url-slug" data-composer-field="url_slug" style="position: relative">
-	<label class="control-label"><?=$label?></label>
-	<? if($description): ?>
-	<i class="fa fa-question-circle launch-tooltip" title="" data-original-title="<?=$description?>"></i>
-	<? endif; ?>
+	<label class="control-label"><?php echo $label?></label>
+	<?php if($description): ?>
+	<i class="fa fa-question-circle launch-tooltip" title="" data-original-title="<?php echo $description?>"></i>
+	<?php endif; ?>
 
-    <?
+    <?php
     $element = $form->text($this->field('url_slug'), $control->getPageTypeComposerControlDraftValue(), array('class' => 'span4'));
     ?>
     <div>
         <i class="fa-refresh fa-spin fa ccm-composer-url-slug-loading"></i>
-        <? if (is_object($draft) && !$draft->isPageDraft()) { ?>
-            <div><a href="#" class="icon-link" data-composer-field="edit_url_slug"><i class="fa fa-pencil"></i></a> <span><?=$control->getPageTypeComposerControlDraftValue()?></span></div>
-        <? } else { ?>
-            <?=$element?>
-        <? } ?>
+        <?php if (is_object($draft) && !$draft->isPageDraft()) { ?>
+            <div><a href="#" class="icon-link" data-composer-field="edit_url_slug"><i class="fa fa-pencil"></i></a> <span><?php echo $control->getPageTypeComposerControlDraftValue()?></span></div>
+        <?php } else { ?>
+            <?php echo $element?>
+        <?php } ?>
     </div>
 </div>
 
@@ -33,7 +33,7 @@ $draft = $control->getPageObject();
 </style>
 
 <script type="text/javascript">
-    var slugHTML = '<?=addslashes($element)?>';
+    var slugHTML = '<?php echo addslashes($element)?>';
     $(function() {
         $('a[data-composer-field=edit_url_slug]').on('click', function(e) {
             e.preventDefault();
@@ -47,8 +47,8 @@ $draft = $control->getPageObject();
                 clearTimeout(concreteComposerAddPageTimer);
                 concreteComposerAddPageTimer = setTimeout(function() {
                     $('.ccm-composer-url-slug-loading').show();
-                    $.post('<?=REL_DIR_FILES_TOOLS_REQUIRED?>/pages/url_slug', {
-                        'token': '<?=Loader::helper('validation/token')->generate('get_url_slug')?>',
+                    $.post('<?php echo REL_DIR_FILES_TOOLS_REQUIRED?>/pages/url_slug', {
+                        'token': '<?php echo Loader::helper('validation/token')->generate('get_url_slug')?>',
                         'name': val
                     }, function(r) {
                         $('.ccm-composer-url-slug-loading').hide();

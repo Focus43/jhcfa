@@ -1,12 +1,12 @@
-<? defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php
 if (is_object($configuration)) { 
 	$flickrFeedTags = $configuration->getFlickrFeedTags();
 }
 ?>
 <div class="control-group">
-	<label class="control-label"><?=t('Tags')?></label>
+	<label class="control-label"><?php echo t('Tags')?></label>
 	<div class="controls">
-		<?=$form->text($source->optionFormKey('flickrFeedTags'), $flickrFeedTags)?>
+		<?php echo $form->text($source->optionFormKey('flickrFeedTags'), $flickrFeedTags)?>
 	</div>
 </div>

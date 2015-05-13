@@ -2,10 +2,10 @@
 $form = Loader::helper('form');
 ?>
 <div class="alert alert-sucess">
-    <?= t('Successfully changed password'); ?>
+    <?php echo t('Successfully changed password'); ?>
 </div>
 <div>
-    <a href="<?= URL::to('login', 'callback', 'concrete') ?>" class="btn btn-block btn-success">
-        <?= t('Click here to log in'); ?>
+    <a href="<?php echo URL::to('login', 'callback', 'concrete') ?>" class="btn btn-block btn-success">
+        <?php echo t('Click here to log in'); ?>
     </a>
 </div>

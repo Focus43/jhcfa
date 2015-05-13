@@ -1,4 +1,4 @@
-<?
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $u = new User();
 $form = Loader::helper('form');
@@ -14,13 +14,13 @@ if (isset($_REQUEST['fvID'])) {
 }
 
 $fp = new Permissions($f);
-if (!$fp->canViewFile()) {
+if (!$fp->canViewFileInFileManager()) {
 	die(t("Access Denied."));
 }
 ?>
 <div style="text-align: center">
 
-<?
+<?php
 $to = $fv->getTypeObject();
 if ($to->getPackageHandle() != '') {
 	Loader::packageElement('files/view/' . $to->getView(), $to->getPackageHandle(), array('fv' => $fv));
@@ -31,7 +31,7 @@ if ($to->getPackageHandle() != '') {
 </div>
 
 <div class="dialog-buttons">
-<form method="post" action="<?=REL_DIR_FILES_TOOLS_REQUIRED?>/files/download?fID=<?=$f->getFileID()?>&fvID=<?=$f->getFileVersionID()?>" style="margin: 0px">
-<?=$form->submit('submit', t('Download'), array('class' => 'btn btn-primary pull-right'))?>
+<form method="post" action="<?php echo REL_DIR_FILES_TOOLS_REQUIRED?>/files/download?fID=<?php echo $f->getFileID()?>&fvID=<?php echo $f->getFileVersionID()?>" style="margin: 0px">
+<?php echo $form->submit('submit', t('Download'), array('class' => 'btn btn-primary pull-right'))?>
 </form>
 </div>

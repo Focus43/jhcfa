@@ -1,5 +1,5 @@
 <?php defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?
+<?php
 use \Concrete\Core\Page\Type\Composer\FormLayoutSet as PageTypeComposerFormLayoutSet;
 use \Concrete\Core\Page\Type\Composer\FormLayoutSetControl as PageTypeComposerFormLayoutSetControl;
 use \Concrete\Core\Page\Type\Composer\Control\Type\Type as PageTypeComposerControlType;
@@ -41,34 +41,34 @@ if ($cp->canViewPage()) {
 	?>
 
 	<div class="ccm-ui">
-		<form data-edit-set-form-control="<?=$control->getPageTypeComposerFormLayoutSetControlID()?>" action="#" method="post">
+		<form data-edit-set-form-control="<?php echo $control->getPageTypeComposerFormLayoutSetControlID()?>" action="#" method="post">
 		<div class="form-group">
-			<?=$form->label('ptComposerFormLayoutSetControlCustomLabel', t('Custom Label'))?>
-			<?=$form->text('ptComposerFormLayoutSetControlCustomLabel', $control->getPageTypeComposerFormLayoutSetControlCustomLabel())?>
+			<?php echo $form->label('ptComposerFormLayoutSetControlCustomLabel', t('Custom Label'))?>
+			<?php echo $form->text('ptComposerFormLayoutSetControlCustomLabel', $control->getPageTypeComposerFormLayoutSetControlCustomLabel())?>
 		</div>
 		<div class="form-group">
-			<?=$form->label('ptComposerFormLayoutSetControlCustomTemplate', t('Custom Template'))?>
-			<?=$form->select('ptComposerFormLayoutSetControlCustomTemplate', $templates, $control->getPageTypeComposerFormLayoutSetControlCustomTemplate())?>
+			<?php echo $form->label('ptComposerFormLayoutSetControlCustomTemplate', t('Custom Template'))?>
+			<?php echo $form->select('ptComposerFormLayoutSetControlCustomTemplate', $templates, $control->getPageTypeComposerFormLayoutSetControlCustomTemplate())?>
 		</div>
 		<div class="form-group">
-			<?=$form->label('ptComposerFormLayoutSetControlDescription', t('Description'))?>
-			<?=$form->text('ptComposerFormLayoutSetControlDescription', $control->getPageTypeComposerFormLayoutSetControlDescription())?>
+			<?php echo $form->label('ptComposerFormLayoutSetControlDescription', t('Description'))?>
+			<?php echo $form->text('ptComposerFormLayoutSetControlDescription', $control->getPageTypeComposerFormLayoutSetControlDescription())?>
 		</div>
 
-		<? if ($object->pageTypeComposerFormControlSupportsValidation()) { ?>
+		<?php if ($object->pageTypeComposerFormControlSupportsValidation()) { ?>
 		<div class="form-group">
-			<?=$form->label('ptComposerFormLayoutSetControlRequired', t('Required'))?>
+			<?php echo $form->label('ptComposerFormLayoutSetControlRequired', t('Required'))?>
 			<div class="checkbox">
-			<label><?=$form->checkbox('ptComposerFormLayoutSetControlRequired', 1, $control->isPageTypeComposerFormLayoutSetControlRequired())?> <?=t('Yes, require this form element')?></label>
+			<label><?php echo $form->checkbox('ptComposerFormLayoutSetControlRequired', 1, $control->isPageTypeComposerFormLayoutSetControlRequired())?> <?php echo t('Yes, require this form element')?></label>
 			</div>
 		</div>
-		<? } ?>
+		<?php } ?>
 
-		<?=Loader::helper('validation/token')->output('update_set_control')?>
+		<?php echo Loader::helper('validation/token')->output('update_set_control')?>
 		</form>
 		<div class="dialog-buttons">
-			<button class="btn btn-default" onclick="jQuery.fn.dialog.closeTop()"><?=t('Cancel')?></button>
-			<button class="btn btn-primary pull-right" data-submit-set-form="<?=$control->getPageTypeComposerFormLayoutSetControlID()?>"><?=t('Save')?></button>
+			<button class="btn btn-default" onclick="jQuery.fn.dialog.closeTop()"><?php echo t('Cancel')?></button>
+			<button class="btn btn-primary pull-right" data-submit-set-form="<?php echo $control->getPageTypeComposerFormLayoutSetControlID()?>"><?php echo t('Save')?></button>
 		</div>
 
 	</div>
@@ -90,11 +90,11 @@ $(function() {
 		$.ajax({
 			type: 'post',
 			data: formData,
-			url: '<?=REL_DIR_FILES_TOOLS_REQUIRED?>/page_types/composer/form/edit_control',
+			url: '<?php echo REL_DIR_FILES_TOOLS_REQUIRED?>/page_types/composer/form/edit_control',
 			success: function(html) {
 				jQuery.fn.dialog.hideLoader();
 				jQuery.fn.dialog.closeTop();
-				$('div[data-page-type-composer-form-layout-control-set-control-id=<?=$control->getPageTypeComposerFormLayoutSetControlID()?>]').html(html);
+				$('div[data-page-type-composer-form-layout-control-set-control-id=<?php echo $control->getPageTypeComposerFormLayoutSetControlID()?>]').html(html);
 				$('a[data-command=edit-form-set-control]').dialog();
 			}
 		});		
@@ -108,6 +108,6 @@ $(function() {
 </script>
 
 
-<?
+<?php
 
 }

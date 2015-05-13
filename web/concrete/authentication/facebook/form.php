@@ -1,12 +1,12 @@
 <?php
 if (isset($error)) {
     ?>
-    <div class="alert alert-danger"><?= $error ?></div>
+    <div class="alert alert-danger"><?php echo $error ?></div>
 <?php
 }
 if (isset($message)) {
     ?>
-    <div class="alert alert-success"><?= $message ?></div>
+    <div class="alert alert-success"><?php echo $message ?></div>
 <?php
 }
 
@@ -16,14 +16,14 @@ if ($user->isLoggedIn()) {
     ?>
     <div class="form-group">
         <span>
-            <?= t('Attach a %s account', t('facebook')) ?>
+            <?php echo t('Attach a %s account', t('facebook')) ?>
         </span>
         <hr>
     </div>
     <div class="form-group">
-        <a href="<?= \URL::to('/ccm/system/authentication/oauth2/facebook/attempt_attach'); ?>" class="btn btn-primary btn-facebook btn-block">
+        <a href="<?php echo \URL::to('/ccm/system/authentication/oauth2/facebook/attempt_attach'); ?>" class="btn btn-primary btn-facebook btn-block">
             <i class="fa fa-facebook"></i>
-            <?= t('Attach a %s account', t('facebook')) ?>
+            <?php echo t('Attach a %s account', t('facebook')) ?>
         </a>
     </div>
 <?php
@@ -31,14 +31,14 @@ if ($user->isLoggedIn()) {
     ?>
     <div class="form-group">
         <span>
-            <?= t('Sign in with %s', t('facebook')) ?>
+            <?php echo t('Sign in with %s', t('facebook')) ?>
         </span>
         <hr>
     </div>
     <div class="form-group">
-        <a href="<?= \URL::to('/ccm/system/authentication/oauth2/facebook/attempt_auth'); ?>" class="btn btn-primary btn-facebook btn-block">
+        <a href="<?php echo \URL::to('/ccm/system/authentication/oauth2/facebook/attempt_auth'); ?>" class="btn btn-primary btn-facebook btn-block">
             <i class="fa fa-facebook"></i>
-            <?= t('Log in with %s', 'facebook') ?>
+            <?php echo t('Log in with %s', 'facebook') ?>
         </a>
     </div>
 <?php

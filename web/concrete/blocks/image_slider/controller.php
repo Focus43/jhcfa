@@ -70,7 +70,7 @@ class Controller extends BlockController
         $this->requireAsset('javascript', 'jquery');
     }
 
-    public function view()
+    public function getEntries()
     {
         $db = Loader::db();
         $r = $db->GetAll('SELECT * from btImageSliderEntries WHERE bID = ? ORDER BY sortOrder', array($this->bID));
@@ -80,10 +80,16 @@ class Controller extends BlockController
             if (!$q['linkURL'] && $q['internalLinkCID']) {
                 $c = Page::getByID($q['internalLinkCID'], 'ACTIVE');
                 $q['linkURL'] = $c->getCollectionLink();
+                $q['linkPage'] = $c;
             }
             $rows[] = $q;
         }
-        $this->set('rows', $rows);
+        return $rows;
+    }
+
+    public function view()
+    {
+        $this->set('rows', $this->getEntries());
     }
 
     public function duplicate($newBID) {

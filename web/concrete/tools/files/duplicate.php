@@ -80,48 +80,48 @@ $searchInstance = Loader::helper('text')->entities($_REQUEST['searchInstance']);
 
 <div class="ccm-ui ccm-copy-form">
 
-    <? if ($fcnt == 0) { ?>
-        <?= t("You do not have permission to copy any of the selected files."); ?>
-    <? } else { ?>
-        <?= t('Are you sure you want to copy the following files?') ?><br/><br/>
+    <?php if ($fcnt == 0) { ?>
+        <?php echo t("You do not have permission to copy any of the selected files."); ?>
+    <?php } else { ?>
+        <?php echo t('Are you sure you want to copy the following files?') ?><br/><br/>
 
-        <form id="ccm-<?= $searchInstance ?>-duplicate-form" method="post"
-              action="<?= REL_DIR_FILES_TOOLS_REQUIRED ?>/files/duplicate">
-            <?= $form->hidden('task', 'duplicate_multiple_files') ?>
+        <form id="ccm-<?php echo $searchInstance ?>-duplicate-form" method="post"
+              action="<?php echo REL_DIR_FILES_TOOLS_REQUIRED ?>/files/duplicate">
+            <?php echo $form->hidden('task', 'duplicate_multiple_files') ?>
             <table border="0" cellspacing="0" cellpadding="0" width="100%" class="table table-bordered">
 
-                <? foreach ($files as $f) {
+                <?php foreach ($files as $f) {
                     $fp = new Permissions($f);
                     if ($fp->canCopyFile()) {
                         $fv = $f->getApprovedVersion();
                         if (is_object($fv)) {
                             ?>
 
-                            <?= $form->hidden('item[]', $f->getFileID()) ?>
+                            <?php echo $form->hidden('item[]', $f->getFileID()) ?>
 
                             <tr>
-                                <td><?= $fv->getType() ?></td>
+                                <td><?php echo $fv->getType() ?></td>
                                 <td class="ccm-file-list-filename" width="100%">
-                                    <div style="width: 150px; word-wrap: break-word"><?=h($fv->getTitle()) ?></div>
+                                    <div style="width: 150px; word-wrap: break-word"><?php echo h($fv->getTitle()) ?></div>
                                 </td>
-                                <td><?= $dh->formatDateTime($f->getDateAdded()->getTimestamp()) ?></td>
-                                <td><?= $fv->getSize() ?></td>
-                                <td><?= $fv->getAuthorName() ?></td>
+                                <td><?php echo $dh->formatDateTime($f->getDateAdded()->getTimestamp()) ?></td>
+                                <td><?php echo $fv->getSize() ?></td>
+                                <td><?php echo $fv->getAuthorName() ?></td>
                             </tr>
 
-                        <?
+                        <?php
                         }
                     }
 
                 } ?>
             </table>
-            <? $ih = Loader::helper('concrete/ui') ?>
+            <?php $ih = Loader::helper('concrete/ui') ?>
             <div class="dialog-buttons">
-                <button class="btn btn-default cancel"><?= t('Cancel') ?></button>
-                <button class="btn btn-primary pull-right submit"><?= t('Copy') ?></button>
+                <button class="btn btn-default cancel"><?php echo t('Cancel') ?></button>
+                <button class="btn btn-primary pull-right submit"><?php echo t('Copy') ?></button>
             </div>
         </form>
-    <?
+    <?php
 
     }
     }?>

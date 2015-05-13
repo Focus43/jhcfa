@@ -7,40 +7,40 @@ $fdh = Core::make('helper/form/date_time'); /* @var $fdh \Concrete\Core\Form\Ser
             <span class="fa fa-chevron-left"></span>
         </a>
         <a href="" data-panel-navigation="back">
-          <?=t('View as User')?>
+          <?php echo t('View as User')?>
         </a>
     </header>
     <form class="preview-panel-form">
         <div class="ccm-panel-content-inner" id="ccm-menu-page-attributes-list">
 
-            <h5><?= t('Date / time') ?></h5>
+            <h5><?php echo t('Date / time') ?></h5>
             <div class="form-group">
             	<?php echo $fdh->datetime('preview_as_user_datetime'); ?>
             </div>
 
-            <h5><?= t('View As') ?></h5>
+            <h5><?php echo t('View As') ?></h5>
             <div class="form-group">
                 <div class="btn-group">
-                    <button class="guest-button btn btn-default active"><?= t('Guest') ?></button>
-                    <button class="user-button btn btn-default"><?= t('Site User') ?></button>
+                    <button class="guest-button btn btn-default active"><?php echo t('Guest') ?></button>
+                    <button class="user-button btn btn-default"><?php echo t('Site User') ?></button>
                 </div>
                 <div class="site-user" style="display:none">
-                    <label for="user"><?= t('Username') ?></label>
+                    <label for="user"><?php echo t('Username') ?></label>
                     <input class="form-control input-sm custom-user" type="text" name="user" />
                 </div>
             </div>
             
-            <h5><?= t('Emulate Mobile') ?></h5>
+            <h5><?php echo t('Emulate Mobile') ?></h5>
             <div class="form-group">
                 <div class="btn-group">
-                    <button class="disable-mobile-button btn btn-default active"><?= t('Disable') ?></button>
-                    <button class="enable-mobile-button btn btn-default"><?= t('Enable') ?></button>
+                    <button class="disable-mobile-button btn btn-default active"><?php echo t('Disable') ?></button>
+                    <button class="enable-mobile-button btn btn-default"><?php echo t('Enable') ?></button>
                 </div>
                 <div class="resolution" style="display:none">
-                    <label for="resolution-width"><?= t('Width') ?></label>
+                    <label for="resolution-width"><?php echo t('Width') ?></label>
                     <div class="input-group">
                         <input class="form-control input-sm resolution-width" type="text" name="resolution-width" />
-                        <div class="input-group-addon"><?= t('px') ?></div>
+                        <div class="input-group-addon"><?php echo t('px') ?></div>
                     </div>
                 </div>
             </div>

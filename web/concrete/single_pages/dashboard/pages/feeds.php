@@ -1,6 +1,6 @@
-<? defined('C5_EXECUTE') or die("Access Denied.");?>
+<?php defined('C5_EXECUTE') or die("Access Denied.");?>
 
-<? if ($controller->getTask() == 'add'
+<?php if ($controller->getTask() == 'add'
     || $controller->getTask() == 'add_feed'
     || $controller->getTask() == 'edit'
     || $controller->getTask() == 'edit_feed'
@@ -40,23 +40,23 @@
         <button data-dialog="delete-feed" class="btn btn-danger"><?php echo t("Delete Feed")?></button>
     </div>
 
-    <? if (is_object($feed)) { ?>
+    <?php if (is_object($feed)) { ?>
 
         <div style="display: none">
             <div id="ccm-dialog-delete-feed" class="ccm-ui">
-                <form method="post" class="form-stacked" action="<?=$view->action('delete_feed')?>">
-                    <?=Loader::helper("validation/token")->output('delete_feed')?>
-                    <input type="hidden" name="pfID" value="<?=$feed->getID()?>" />
-                    <p><?=t('Are you sure? This action cannot be undone.')?></p>
+                <form method="post" class="form-stacked" action="<?php echo $view->action('delete_feed')?>">
+                    <?php echo Loader::helper("validation/token")->output('delete_feed')?>
+                    <input type="hidden" name="pfID" value="<?php echo $feed->getID()?>" />
+                    <p><?php echo t('Are you sure? This action cannot be undone.')?></p>
                 </form>
                 <div class="dialog-buttons">
-                    <button class="btn btn-default pull-left" onclick="jQuery.fn.dialog.closeTop()"><?=t('Cancel')?></button>
-                    <button class="btn btn-danger pull-right" onclick="$('#ccm-dialog-delete-feed form').submit()"><?=t('Delete Feed')?></button>
+                    <button class="btn btn-default pull-left" onclick="jQuery.fn.dialog.closeTop()"><?php echo t('Cancel')?></button>
+                    <button class="btn btn-danger pull-right" onclick="$('#ccm-dialog-delete-feed form').submit()"><?php echo t('Delete Feed')?></button>
                 </div>
             </div>
         </div>
 
-    <? } ?>
+    <?php } ?>
 
     <script type="text/javascript">
         $(function() {
@@ -65,106 +65,106 @@
                     element: '#ccm-dialog-delete-feed',
                     modal: true,
                     width: 320,
-                    title: '<?=t("Delete Feed")?>',
+                    title: '<?php echo t("Delete Feed")?>',
                     height: 'auto'
                 });
             });
         });
     </script>
 
-    <form method="post" class="form-stacked" action="<?=$action?>">
-        <?=$this->controller->token->output($token)?>
+    <form method="post" class="form-stacked" action="<?php echo $action?>">
+        <?php echo $this->controller->token->output($token)?>
         <div class="form-group">
-            <?=$form->label('pfTitle', t('Title'))?>
-            <?=$form->text('pfTitle', $pfTitle)?>
+            <?php echo $form->label('pfTitle', t('Title'))?>
+            <?php echo $form->text('pfTitle', $pfTitle)?>
         </div>
         <div class="form-group">
-            <?=$form->label('pfHandle', t('Handle'))?>
-            <?=$form->text('pfHandle', $pfHandle)?>
+            <?php echo $form->label('pfHandle', t('Handle'))?>
+            <?php echo $form->text('pfHandle', $pfHandle)?>
         </div>
         <div class="form-group">
-            <?=$form->label('pfDescription', t('Description'))?>
-            <?=$form->textarea('pfDescription', $pfDescription, array('rows' => 5))?>
+            <?php echo $form->label('pfDescription', t('Description'))?>
+            <?php echo $form->textarea('pfDescription', $pfDescription, array('rows' => 5))?>
         </div>
         <div class="form-group">
-            <label class="control-label"><?=t('Filter by Parent Page')?></label>
-            <?
+            <label class="control-label"><?php echo t('Filter by Parent Page')?></label>
+            <?php
             print Loader::helper('form/page_selector')->selectPage('cParentID', $cParentID);
             ?>
         </div>
         <div class="form-group">
-            <?=$form->label('ptID', t('Filter By Page Type'))?>
-            <?=$form->select('ptID', $pageTypes, $ptID)?>
+            <?php echo $form->label('ptID', t('Filter By Page Type'))?>
+            <?php echo $form->select('ptID', $pageTypes, $ptID)?>
         </div>
         <div class="form-group">
-            <label class="control-label"><?=t('Include All Sub-Pages of Parent?')?></label>
+            <label class="control-label"><?php echo t('Include All Sub-Pages of Parent?')?></label>
             <div class="radio">
                 <label>
-                    <?=$form->radio('pfIncludeAllDescendents', 1, $pfIncludeAllDescendents)?>
-                    <?=t('Yes')?>
+                    <?php echo $form->radio('pfIncludeAllDescendents', 1, $pfIncludeAllDescendents)?>
+                    <?php echo t('Yes')?>
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <?=$form->radio('pfIncludeAllDescendents', 0, $pfIncludeAllDescendents)?>
-                    <?=t('No')?>
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label"><?=t('Display Page Aliases?')?></label>
-            <div class="radio">
-                <label>
-                    <?=$form->radio('pfDisplayAliases', 1, $pfDisplayAliases)?>
-                    <?=t('Yes')?>
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <?=$form->radio('pfDisplayAliases', 0, $pfDisplayAliases)?>
-                    <?=t('No')?>
+                    <?php echo $form->radio('pfIncludeAllDescendents', 0, $pfIncludeAllDescendents)?>
+                    <?php echo t('No')?>
                 </label>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label"><?=t('Display Featured Only?')?></label>
+            <label class="control-label"><?php echo t('Display Page Aliases?')?></label>
             <div class="radio">
                 <label>
-                    <?=$form->radio('pfDisplayFeaturedOnly', 1, $pfDisplayFeaturedOnly)?>
-                    <?=t('Yes')?>
+                    <?php echo $form->radio('pfDisplayAliases', 1, $pfDisplayAliases)?>
+                    <?php echo t('Yes')?>
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <?=$form->radio('pfDisplayFeaturedOnly', 0, $pfDisplayFeaturedOnly)?>
-                    <?=t('No')?>
+                    <?php echo $form->radio('pfDisplayAliases', 0, $pfDisplayAliases)?>
+                    <?php echo t('No')?>
                 </label>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label"><?=t('Get Content From')?></label>
+            <label class="control-label"><?php echo t('Display Featured Only?')?></label>
             <div class="radio">
                 <label>
-                    <?=$form->radio('pfContentToDisplay', 'S', $pfContentToDisplay)?>
-                    <?=t('Short Description of Page')?>
+                    <?php echo $form->radio('pfDisplayFeaturedOnly', 1, $pfDisplayFeaturedOnly)?>
+                    <?php echo t('Yes')?>
                 </label>
             </div>
             <div class="radio">
                 <label>
-                    <?=$form->radio('pfContentToDisplay', 'A', $pfContentToDisplay)?>
-                    <?=t('Pull Content from Area')?>
+                    <?php echo $form->radio('pfDisplayFeaturedOnly', 0, $pfDisplayFeaturedOnly)?>
+                    <?php echo t('No')?>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label"><?php echo t('Get Content From')?></label>
+            <div class="radio">
+                <label>
+                    <?php echo $form->radio('pfContentToDisplay', 'S', $pfContentToDisplay)?>
+                    <?php echo t('Short Description of Page')?>
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <?php echo $form->radio('pfContentToDisplay', 'A', $pfContentToDisplay)?>
+                    <?php echo t('Pull Content from Area')?>
                 </label>
             </div>
         </div>
         <div class="form-group" data-row="area" style="display: none">
-            <?=$form->label('pfAreaHandleToDisplay', t('Select Area'))?>
-            <?=$form->select('pfAreaHandleToDisplay', $areas, $pfAreaHandleToDisplay)?>
+            <?php echo $form->label('pfAreaHandleToDisplay', t('Select Area'))?>
+            <?php echo $form->select('pfAreaHandleToDisplay', $areas, $pfAreaHandleToDisplay)?>
         </div>
 
         <div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">
-                <a href="<?=URL::to('/dashboard/pages/feeds')?>" class="btn btn-default pull-left"><?=t("Cancel")?></a>
-                <button class="pull-right btn btn-success" type="submit" ><?=$button?></button>
+                <a href="<?php echo URL::to('/dashboard/pages/feeds')?>" class="btn btn-default pull-left"><?php echo t("Cancel")?></a>
+                <button class="pull-right btn btn-success" type="submit" ><?php echo $button?></button>
             </div>
         </div>
     </form>
@@ -183,7 +183,7 @@
 
     </script>
 
-<? } else { ?>
+<?php } else { ?>
 
 
     <div class="ccm-dashboard-header-buttons">
@@ -191,14 +191,14 @@
     </div>
 
 
-    <? if (count($feeds) > 0) { ?>
+    <?php if (count($feeds) > 0) { ?>
         <ul class="item-select-list">
-            <? foreach($feeds as $feed) { ?>
-                <li><a href="<?=$view->action('edit', $feed->getID())?>"><i class="fa fa-rss"></i> <?=$feed->getTitle()?></a></li>
-            <? } ?>
+            <?php foreach($feeds as $feed) { ?>
+                <li><a href="<?php echo $view->action('edit', $feed->getID())?>"><i class="fa fa-rss"></i> <?php echo $feed->getTitle()?></a></li>
+            <?php } ?>
         </ul>
-    <? } else { ?>
-        <p><?=t("You have not added any feeds.")?></p>
-    <? } ?>
+    <?php } else { ?>
+        <p><?php echo t("You have not added any feeds.")?></p>
+    <?php } ?>
 
-<? } ?>
+<?php } ?>
