@@ -38,19 +38,21 @@
 </script>
 
 <div event-calendar data-route="'/_schedulizer/event_list'" ng-cloak>
-    <a class="event-result" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
-        <span class="layer-1">
-            <span class="date">{{ moment.format('MMM D,YYYY / h:mm a') }}</span>
-            <span class="title">{{ eventObj.title }}</span>
-        </span>
-        <span class="layer-2">
-            <span class="tabular">
-                <span class="cellular">
-                    <!--<div ng-bind-html="eventObj.description"></div>-->
-                    <h4>$22</h4>
-                    <span class="btn btn-primary btn-lg">Event Page</span>
+    <a class="event-result" href="{{eventObj.pagePath}}">
+        <span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>
+        <div class="event-content" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
+            <span class="layer-1">
+                <span class="title">{{ eventObj.title }}</span>
+            </span>
+            <span class="layer-2">
+                <span class="tabular">
+                    <span class="cellular">
+                        <!--<div ng-bind-html="eventObj.description"></div>-->
+                        <h4>$22</h4>
+                        <span class="btn btn-primary btn-lg">Event Page</span>
+                    </span>
                 </span>
             </span>
-        </span>
+        </div>
     </a>
 </div>

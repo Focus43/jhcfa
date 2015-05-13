@@ -53,7 +53,6 @@ angular.module('artsy.common').
                     'calendarID',
                     'title',
                     'description',
-                    'isSynthetic',
                     'computedStartUTC',
                     'computedStartLocal'
                 ];
@@ -66,7 +65,9 @@ angular.module('artsy.common').
                     tags:      null,
                     category:  null,
                     filepath:  true,
-                    pagepath:  true
+                    pagepath:  true,
+                    grouping:  true,
+                    end:       moment().add(7, 'days').format('YYYY-MM-DD')
                 };
 
                 /**
