@@ -20,30 +20,25 @@
                 $blockTypeNav->controller->displaySubPageLevels = 'all';
                 $blockTypeNav->render('templates/breadcrumbs');
             ?>
-            <div class="tabular">
-                <div class="cellular">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <?php
-                                /** @var $fileObj \Concrete\Core\File\File */
-                                $fileID = $eventObj->getFileID();
-                                if( !empty($fileID) ){
-                                    $fileObj = File::getByID($eventObj->getFileID());
-                                }
-                                if( is_object($fileObj) ){ ?>
-                                    <div class="event-img" style="background-image:url('<?php echo $fileObj->getRelativePath(); ?>');"></div>
-<!--                                    <img event-img src="--><?php //echo $fileObj->getRelativePath(); ?><!--" />-->
-                                <?php } ?>
-                                <!--                        <div style="padding-left:350px;text-align:left;padding-bottom:6%;">-->
-                                <div class="headline">
-                                    <div class="headline-inner">
-                                        <h1><?php echo $eventObj; ?></h1>
-                                        <div class="presenter">
-                                            <i class="icon-circle"></i>
-                                            <span>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></span>
-                                        </div>
-                                    </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <?php if( !empty($eventThumbnailPath) ){ ?>
+                            <div class="event-img" style="background-image:url('<?php echo $eventThumbnailPath; ?>');"></div>
+                        <?php }else{ ?>
+                            <div class="event-img unavailable">
+                                <div class="tabular">
+                                    <div class="cellular">Image Unavailable :(</div>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+                        <div class="headline">
+                            <div class="headline-inner">
+                                <h1><?php echo $eventObj; ?></h1>
+                                <div class="presenter">
+                                    <i class="icon-circle"></i>
+                                    <span>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></span>
                                 </div>
                             </div>
                         </div>

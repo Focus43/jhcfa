@@ -1104,8 +1104,6 @@ svg[svgize] {
 
 .pg-event #c-level-1 header {
   padding: 11rem 0 0; }
-  .pg-event #c-level-1 header .tabular .cellular {
-    vertical-align: bottom; }
   .pg-event #c-level-1 header .event-img {
     position: absolute;
     height: 17rem;
@@ -1117,9 +1115,13 @@ svg[svgize] {
     border: 5px solid #fff;
     -webkit-box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65);
     box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65); }
-    .pg-event #c-level-1 header .event-img .event-img-inner {
-      width: 100%;
-      height: 100%; }
+    .pg-event #c-level-1 header .event-img.unavailable {
+      background-image: -webkit-linear-gradient(top, #4f4f4f 0%, #1f1f1f 100%);
+      background-image: -o-linear-gradient(top, #4f4f4f 0%, #1f1f1f 100%);
+      background-image: linear-gradient(to bottom, #4f4f4f 0%, #1f1f1f 100%);
+      background-repeat: repeat-x;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF4F4F4F', endColorstr='#FF1F1F1F', GradientType=0);
+      color: #fff; }
   .pg-event #c-level-1 header .headline {
     padding-left: 43%;
     text-align: left; }

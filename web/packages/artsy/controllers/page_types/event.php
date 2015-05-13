@@ -1,7 +1,7 @@
 <?php namespace Concrete\Package\Artsy\Controller\PageType {
 
     use Page;
-    use FileSet;
+    use File;
     use Concrete\Package\Artsy\Controller\ArtsyPageController;
     use \Concrete\Package\Schedulizer\Src\Event AS SchedulizerEvent;
     use \Concrete\Package\Schedulizer\Src\Calendar AS SchedulizerCalendar;
@@ -18,8 +18,13 @@
             $eventObj = SchedulizerEvent::getByPageID($pageID);
             if( is_object($eventObj) ){
                 $this->set('eventObj', $eventObj);
-                $this->set('calendarObj', SchedulizerCalendar::getByID($eventObj->getCalendarID()));
+                $this->set('calendarObj', $eventObj->getCalendarObj());
                 $this->set('eventTimes', (array) $this->eventList($eventObj)->get());
+                // Event File
+                $eventFileObj = File::getByID($eventObj->getFileID());
+                if( is_object($eventFileObj) ){
+                    $this->set('eventThumbnailPath', $eventFileObj->getThumbnailURL('event_thumb'));
+                }
             }
         }
 

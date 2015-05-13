@@ -67,7 +67,7 @@ angular.module('artsy.common').
                     filepath:  true,
                     pagepath:  true,
                     grouping:  true,
-                    end:       moment().add(7, 'days').format('YYYY-MM-DD'),
+                    end:       moment().add(6, 'months').format('YYYY-MM-DD'),
                     attributes: 'presenting_organization'
                 };
 

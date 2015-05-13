@@ -34,7 +34,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.17';
+        protected $pkgVersion 			        = '0.18';
 
 
         /**
@@ -122,7 +122,8 @@
                 ->assignPageTypes()
                 ->setupSinglePages()
                 ->setupBlockTypeSets()
-                ->setupBlocks();
+                ->setupBlocks()
+                ->setupThumbnailTypes();
         }
 
 
@@ -360,6 +361,23 @@
             }
             if(!is_object(BlockType::getByHandle('resident'))) {
                 BlockType::installBlockTypeFromPackage('resident', $this->packageObject());
+            }
+
+            return $this;
+        }
+
+
+        /**
+         * @return Controller
+         */
+        private function setupThumbnailTypes(){
+            $eventThumbnail = \Concrete\Core\File\Image\Thumbnail\Type\Type::getByHandle('event_thumb');
+            if( ! is_object($eventThumbnail) ){
+                $type = new \Concrete\Core\File\Image\Thumbnail\Type\Type();
+                $type->setName('Event Thumb');
+                $type->setHandle('event_thumb');
+                $type->setWidth(740);
+                $type->save();
             }
 
             return $this;
