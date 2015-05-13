@@ -30,8 +30,8 @@
     });
 
 })(window, window.angular);
-angular.module('artsy.elements', []);
 angular.module('artsy.common', []);
+angular.module('artsy.elements', []);
 angular.module('artsy.common').
 
     directive('eventCalendar', ['$http', 'moment', function( $http, moment ){
@@ -101,7 +101,8 @@ angular.module('artsy.common').
                     filepath:  true,
                     pagepath:  true,
                     grouping:  true,
-                    end:       moment().add(7, 'days').format('YYYY-MM-DD')
+                    end:       moment().add(7, 'days').format('YYYY-MM-DD'),
+                    attributes: 'presenting_organization'
                 };
 
                 /**
@@ -129,7 +130,7 @@ angular.module('artsy.common').
                     });
                 };
 
-                _fetch();
+                $scope.formHandler();
             }]
         };
     }]);

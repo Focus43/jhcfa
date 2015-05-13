@@ -20,12 +20,12 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="btn-group">
+                <!--<div class="btn-group">
                     <button type="button" class="btn btn-default active">All Types</button>
                     <?php foreach($categoryList AS $optObj){ ?>
                         <button type="button" class="btn btn-default"><?php echo $optObj; ?></button>
                     <?php } ?>
-                </div>
+                </div>-->
                 <button type="submit" class="btn btn-search">Search</button>
             </div>
         </div>
@@ -48,8 +48,9 @@
                 <span class="tabular">
                     <span class="cellular">
                         <!--<div ng-bind-html="eventObj.description"></div>-->
-                        <h4>$22</h4>
-                        <span class="btn btn-primary btn-lg">Event Page</span>
+                        <small>Presented By</small>
+                        <h5>{{ eventObj.presenting_organization }}</h5>
+                        <span class="btn btn-primary btn-">Event Details</span>
                     </span>
                 </span>
             </span>

@@ -23,6 +23,24 @@
 
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-sm-12" style="position:relative;">
+                        <?php
+                        /** @var $fileObj \Concrete\Core\File\File */
+                        $fileID = $eventObj->getFileID();
+                        if( !empty($fileID) ){
+                            $fileObj = File::getByID($eventObj->getFileID());
+                        }
+                        if( is_object($fileObj) ){ ?>
+                            <img class="pull-left" event-img src="<?php echo $fileObj->getRelativePath(); ?>" />
+                        <?php } ?>
+                        <div style="padding-left:350px;text-align:left;padding-bottom:6%;">
+                            <h2><?php echo $eventObj; ?></h2>
+                            <p>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="row">
                     <div class="col-sm-12">
                         <h1><?php echo $eventObj; ?></h1>
                     </div>
@@ -32,16 +50,18 @@
                         <div class="event-info-inner">
                             <?php
                                 /** @var $fileObj \Concrete\Core\File\File */
-                                $fileObj = File::getByID($eventObj->getFileID());
+                                $fileID = $eventObj->getFileID();
+                                if( !empty($fileID) ){
+                                    $fileObj = File::getByID($eventObj->getFileID());
+                                }
                                 if( is_object($fileObj) ){ ?>
                                     <img event-img src="<?php echo $fileObj->getRelativePath(); ?>" />
                                 <?php } ?>
-                            <p>Presented by <a><?php echo $calendarObj->getTitle(); ?></a></p>
-                            <p>May 8, 2015 - May 9, 2015<br/>8:00 - 10:00 pm</p>
-<!--                            <p><br/><br/></p>-->
+                            <p>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></p>
                         </div>
                     </div>
-                </div>
+                </div>-->
+
             </div>
         </header>
 
@@ -56,14 +76,22 @@
                     ?>
                 </div>
                 <div class="col-sm-3">
-                    <p><strong>General Admission</strong><br/>$10 (includes processing fee)</p>
-                    <p><strong>Show Times</strong></p>
-                    <ul>
+                    <div style="background:#e1e1e1;margin-bottom:1rem;padding:0.5rem;">
+                        <?php
+                        $ticketPrice = (int)$eventObj->getAttribute('ticket_price');
+                        if( $ticketPrice > 0 ){ ?>
+                            <p><strong>$<?php echo $ticketPrice; ?></strong><br/> (includes processing fee)</p>
+                        <?php }else{ ?>
+                            <p>This is a <strong>free</strong> event.</p>
+                        <?php }?>
+                    </div>
+                    <p><strong>Times</strong></p>
+                    <ul class="list-unstyled">
                         <?php foreach($eventTimes AS $row): ?>
                             <li><?php echo (new \DateTime($row['computedStartLocal']))->format('g:i a (n/j/y)'); ?></li>
                         <?php endforeach; ?>
                     </ul>
-                    <a class="btn btn-lg btn-block btn-primary">Buy Tickets</a>
+                    <a class="btn btn-lg btn-block btn-primary" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Buy Tickets</a>
                 </div>
             </div>
 
