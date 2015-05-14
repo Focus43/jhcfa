@@ -55,7 +55,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 
 @media screen and (min-width:$screen-sm){
   #c-level-1 {
-    main {padding-left:$nav-sidebar-width;@include scrollOverflow;}
+    main {padding-left:$nav-sidebar-width;}//@include scrollOverflow;}
   }
 }
 
@@ -76,6 +76,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 @import 'components/footer';
 @import 'components/calendar';
 @import 'components/icomoon';
+@import 'components/masonry';
 @import 'page_types/home';
 @import 'page_types/default';
 @import 'page_types/resident';
