@@ -27,9 +27,9 @@ web1:
   php_default_locale: "en_US"
   php_short_open_tag: "1"
   php_file_uploads: "1"
-  php_upload_max_filesize: "20M"
-  php_post_max_size: "20M"
-  php_max_file_uploads: 20
+  php_upload_max_filesize: "5M"
+  php_post_max_size: "5M"
+  php_max_file_uploads: 5
   php_allow_url_fopen: "On"
   php_session_save_handler: "redis"
   php_session_save_path: "tcp://${CACHE1_HOST}:${CACHE1_PORT}"
