@@ -1,3 +1,11 @@
-<?php foreach((array)$fileListResults AS $fileObj): ?>
-    <img src="<?php echo $fileObj->getRelativePath(); ?>" style="max-width:600px;max-height:425px;" />
-<?php endforeach; ?>
+<div masonry>
+    <?php foreach((array)$fileListResults AS $fileObj): ?>
+        <div node>
+            <div nest>
+                <div nester style="background-image:url(<?php echo $fileObj->getThumbnailURL('event_thumb'); ?>);">
+                    <span class="title"><?php echo $fileObj->getTitle(); ?></span>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>

@@ -39,6 +39,12 @@ return array(
     'debug' => array(
         'detail' => 'debug'
     ),
+    'email' => array(
+        'default' => array(
+            'address' => 'something@test.com',
+            'name' => 'SomethingTest'
+        )
+    ),
     'cache' => array(
         'pages' => true,
         'levels' => array(

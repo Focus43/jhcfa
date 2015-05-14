@@ -25,7 +25,7 @@ angular.module('artsy.common').
     provider('Tween', function(){
         this.$get = ['$window', '$log',
             function( $window, $log ){
-                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Tween library unavailable!'), false);
+                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
             }
         ];
     }).
@@ -45,15 +45,15 @@ angular.module('artsy.common').
     }).
 
     /**
-     * @description Isotope provider
+     * @description Masonry provider
      * @param $window
      * @param $log
-     * @returns Isotope | false
+     * @returns Masonry | false
      */
-    provider('Isotope', function(){
+    provider('Masonry', function(){
         this.$get = ['$window', '$log',
             function( $window, $log ){
-                return $window['Isotope'] || ($log.warn('Isotope unavailable!'), false);
+                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
             }
         ];
     }).
