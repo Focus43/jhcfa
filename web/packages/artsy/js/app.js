@@ -1,36 +1,37 @@
 /* global FastClick */
 ;(function( window, angular, undefined ){ 'use strict';
 
-    angular.module('artsy', [
-            'artsy.common',
-            'artsy.elements',
-            'ngSanitize'
-        ]).
+    angular.module('artsy', ['artsy.common', 'ngSanitize']).
 
-        /**
-         * @description App configuration
-         * @param $provide
-         * @param $locationProvider
-         */
-        config(['$provide', '$locationProvider',
-            function( $provide ){
+    /**
+     * @description App configuration
+     * @param $provide
+     * @param $locationProvider
+     */
+    config(['$provide', '$locationProvider',
+        function( $provide ){
+
+            // @todo: disable html5 navigation
+
+        }
+    ]).
+
+    /**
+     * On run...
+     */
+    run(['FastClick', function( FastClick ){
+        FastClick.attach(document.body);
+    }]);
 
 
-
-            }
-        ]).
-
-        run(['FastClick', function( FastClick ){
-            FastClick.attach(document.body);
-        }]);
-
-    // Initialize manually instead of binding via HTML
+    /************************************************************
+    Bootstrap angular manually vs. binding w/ ng-app in the DOM
+    ************************************************************/
     angular.element(document).ready(function(){
         angular.bootstrap(document, ['artsy']);
     });
 
 })(window, window.angular);
-angular.module('artsy.elements', []);
 angular.module('artsy.common', []);
 angular.module('artsy.common').
 
@@ -154,43 +155,51 @@ angular.module('artsy.common').
     }]);
 angular.module("artsy.common").
 
-    directive('isotope', ['Isotope', 'imagesLoaded',
-        function( Isotope, imagesLoaded ){
+    directive('masonry', ['Masonry', 'imagesLoaded',
+        function( Masonry, imagesLoaded ){
 
             function _link(scope, $elem, attrs){
-                var element     = $elem[0],
-                    //filters     = element.querySelectorAll('[isotope-filters] a[data-filter]'),
-                    container   = element.querySelector('[isotope-grid]'),
-                    gridNodes   = element.querySelectorAll('.isotope-node');
+                var element = $elem[0];
 
-
-                // Initialize Isotope instance
-                imagesLoaded(container, function(){
-                    scope.isotopeInstance = new Isotope(container, {
-                        itemSelector: '.isotope-node',
-                        layoutMode: attrs.isotope || 'masonry',
-                        cellsByColumn: {
-                            columnWidth: '.grid-sizer',
-                            columnHeight: '.grid-sizer'
-                        }
-                    });
+                scope.masonry = new Masonry(element, {
+                    //columnWidth:  '.grid-sizer',
+                    itemSelector: '[node]',
+                    percentPosition: true
                 });
 
-                // Filters
-                //angular.element(filters).on('click', function(){
-                //    angular.element(filters).removeClass('active');
-                //    angular.element(this).addClass('active');
-                //    var _filter = this.getAttribute('data-filter');
-                //    scope.isotopeInstance.arrange({
-                //        filter: _filter
+                //var element     = $elem[0],
+                //    //filters     = element.querySelectorAll('[isotope-filters] a[data-filter]'),
+                //    container   = element.querySelector('[isotope-grid]'),
+                //    gridNodes   = element.querySelectorAll('.isotope-node');
+                //
+                //
+                //// Initialize Isotope instance
+                //imagesLoaded(container, function(){
+                //    scope.isotopeInstance = new Isotope(container, {
+                //        itemSelector: '.isotope-node',
+                //        layoutMode: attrs.isotope || 'masonry',
+                //        cellsByColumn: {
+                //            columnWidth: '.grid-sizer',
+                //            columnHeight: '.grid-sizer'
+                //        }
                 //    });
                 //});
-
-                // Click to activate
-                angular.element(gridNodes).on('click', function(){
-                    angular.element(gridNodes).removeClass('active');
-                    angular.element(this).addClass('active');
-                });
+                //
+                //// Filters
+                ////angular.element(filters).on('click', function(){
+                ////    angular.element(filters).removeClass('active');
+                ////    angular.element(this).addClass('active');
+                ////    var _filter = this.getAttribute('data-filter');
+                ////    scope.isotopeInstance.arrange({
+                ////        filter: _filter
+                ////    });
+                ////});
+                //
+                //// Click to activate
+                //angular.element(gridNodes).on('click', function(){
+                //    angular.element(gridNodes).removeClass('active');
+                //    angular.element(this).addClass('active');
+                //});
             }
 
             return {
@@ -332,7 +341,7 @@ angular.module('artsy.common').
     provider('Tween', function(){
         this.$get = ['$window', '$log',
             function( $window, $log ){
-                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Tween library unavailable!'), false);
+                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
             }
         ];
     }).
@@ -352,15 +361,15 @@ angular.module('artsy.common').
     }).
 
     /**
-     * @description Isotope provider
+     * @description Masonry provider
      * @param $window
      * @param $log
-     * @returns Isotope | false
+     * @returns Masonry | false
      */
-    provider('Isotope', function(){
+    provider('Masonry', function(){
         this.$get = ['$window', '$log',
             function( $window, $log ){
-                return $window['Isotope'] || ($log.warn('Isotope unavailable!'), false);
+                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
             }
         ];
     }).
