@@ -35,7 +35,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.19';
+        protected $pkgVersion 			        = '0.22';
 
 
         /**
@@ -369,6 +369,9 @@
             }
             if(!is_object(BlockType::getByHandle('resident'))) {
                 BlockType::installBlockTypeFromPackage('resident', $this->packageObject());
+            }
+            if(!is_object(BlockType::getByHandle('accordion'))) {
+                BlockType::installBlockTypeFromPackage('accordion', $this->packageObject());
             }
 
             return $this;
