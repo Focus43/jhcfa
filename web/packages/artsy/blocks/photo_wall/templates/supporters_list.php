@@ -14,7 +14,7 @@
                 <span class="tabular">
                     <span class="cellular">
                         <!-- @todo: remove abs url! -->
-                        <img src="<?php echo 'http://jhcenterforthearts.gopagoda.io/' . $fileObj->getRelativePath(); ?>" />
+                        <img src="<?php echo $fileObj->getRelativePath(); ?>" />
                     </span>
                 </span>
             </a>
