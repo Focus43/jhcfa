@@ -28,6 +28,7 @@
         const ATTR_COLLECTION_BACKGROUND_IMG    = 'header_background';
         const ATTR_FILE_LINK                    = 'link';
         const ATTR_FILE_PHOTO_CREDIT            = 'photo_credit';
+        const ATTR_FILE_EMAIL                   = 'email_address';
         const FILESET_BACKGROUND_IMG            = 'Random Header Backgrounds';
         const STACK_HOMEPAGE_VIDEO              = 'Homepage_Video';
         const AREA_MAIN                         = 'Main';
@@ -35,7 +36,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.22';
+        protected $pkgVersion 			        = '0.23';
 
 
         /**
@@ -180,6 +181,13 @@
                 FileAttributeKey::add($this->attributeType('text'), array(
                     'akHandle'  => self::ATTR_FILE_PHOTO_CREDIT,
                     'akName'    => 'Photo Credit'
+                ));
+            }
+
+            if( !is_object(FileAttributeKey::getByHandle(self::ATTR_FILE_EMAIL)) ){
+                FileAttributeKey::add($this->attributeType('text'), array(
+                    'akHandle'  => self::ATTR_FILE_EMAIL,
+                    'akName'    => 'Email'
                 ));
             }
 

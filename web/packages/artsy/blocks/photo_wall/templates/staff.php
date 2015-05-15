@@ -5,7 +5,11 @@
                 <span class="name"><?php echo $fileObj->getTitle(); ?></span>
                 <span class="descr"><?php echo $fileObj->getDescription(); ?></span>
             </span>
-            <a class="mail" href="mailto:loremipsum@test.com"><i class="icon-mail2"></i></a>
+            <?php
+                $email = $fileObj->getAttribute('email_address');
+                if( !empty($email) ){ ?>
+                    <a class="mail" href="mailto:<?php echo $email; ?>"><i class="icon-mail2"></i></a>
+            <?php } ?>
         </div>
     <?php endforeach; ?>
 </div>
