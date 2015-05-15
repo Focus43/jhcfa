@@ -6,10 +6,10 @@ build:
   lib_dir: web/concrete/vendor
 
   exec:
-    - "composer install --no-interaction --prefer-source --working-dir=web/concrete"
-
-#  after_exec:
-#    - "php _quickstart/after_exec.php"
+    - "composer install --no-interaction --working-dir=web/concrete"
+  after_exec:
+#    - "php _quickstart/generate_proxies.php"
+    - "cd web && ln -s application/files/sitemap.xml sitemap.xml"
 
 web1:
   name: web
@@ -50,6 +50,11 @@ web1:
   network_dirs:
     storage1:
       - web/application/files
+  before_deploy:
+    - "php _quickstart/purge_redis_cache.php"
+#    - "php _quickstart/update_packages.php"
+  after_deploy:
+    - "rm -R web/application/files/cache 2>/dev/null; echo File Cache Cleared"
 
 cache1:
   name: redis
