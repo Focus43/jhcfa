@@ -1,6 +1,6 @@
-<script type="text/ng-template" id="/calendar-form">
-    <!-- search form -->
-    <form class="event-search container-fluid" ng-submit="formHandler()">
+<div ng-controller="CtrlCalendarPage">
+
+    <form class="event-search container-fluid" ng-submit="fetch()">
         <div class="row">
             <div class="col-sm-12">
                 <input type="text" class="form-control" placeholder="Search" ng-model="filters.keywords" />
@@ -31,29 +31,24 @@
         </div>
     </form>
 
-    <!-- event results -->
-    <div class="event-list">
-        <!-- transcluded here -->
-    </div>
-</script>
-
-<div event-calendar data-route="'/_schedulizer/event_list'" ng-cloak>
-    <a class="event-result" href="{{eventObj.pagePath}}">
-        <span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>
-        <div class="event-content" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
+    <!-- Event results : items inside event-list are transcluded -->
+    <div event-list="eventData" ng-cloak>
+        <a class="event-result" href="{{eventObj.pagePath}}">
+            <span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>
+            <div class="event-content" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
             <span class="layer-1">
                 <span class="title">{{ eventObj.title }}</span>
             </span>
             <span class="layer-2">
                 <span class="tabular">
                     <span class="cellular">
-                        <!--<div ng-bind-html="eventObj.description"></div>-->
                         <small>Presented By</small>
                         <h5>{{ eventObj.presenting_organization }}</h5>
                         <span class="btn btn-primary btn-">Event Details</span>
                     </span>
                 </span>
             </span>
-        </div>
-    </a>
+            </div>
+        </a>
+    </div>
 </div>

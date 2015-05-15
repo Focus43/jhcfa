@@ -27,17 +27,30 @@
         <section class="sxn-3">
             <div class="tabular">
                 <div class="cellular">
-                    <div class="container-fluid" style="max-width:1300px;">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <?php
-                                    /** @var $a \Concrete\Core\Area\Area */
-                                    $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
-                                    $a->display($c);
-                                ?>
-                            </div>
+                    <div class="featured-events" ng-controller="CtrlFeaturedEvents">
+                        <div event-list="eventData" ng-cloak>
+                            <a href="{{eventObj.pagePath}}">
+                                <span class="inner">
+                                    <span class="event-img" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}"></span>
+                                    <span class="title">{{ eventObj.title }}</span>
+                                    <span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>
+                                </span>
+                            </a>
                         </div>
                     </div>
+
+
+<!--                    <div class="container-fluid" style="max-width:1300px;">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-12">-->
+<!--                                --><?php
+////                                    /** @var $a \Concrete\Core\Area\Area */
+////                                    $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
+////                                    $a->display($c);
+//                                ?>
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </section>

@@ -31,6 +31,20 @@ body.pg-home {background:url('#{$image-path}/video_screenshot.jpg') no-repeat 50
   }
 
   header {display:none;}
+
+  // Event styling
+  .featured-events {font-size:0;line-height:0;display:inline-block;width:96%;margin:0 auto;max-width:1100px;
+    [event-list] {display:block;width:100%;
+      a {float:left;display:inline-block;width:20%;padding:0.5rem;font-size:1rem;line-height:1;
+        .inner {text-align:left;display:block;background:#000;padding:1rem;@include border-radius(3px);
+          span {display:block;}
+          .event-img {display:inline-block;margin:0 auto 1rem;width:100%;padding-bottom:100%;background-size:cover;background:#fff no-repeat 50% 50%;@include border-radius(50%);}
+          .title {font-family:$theme-font-family-bold;font-size:120%;padding-bottom:0.5rem;}
+          .date {font-size:12px;color:$theme-extra-light-color;}
+        }
+      }
+    }
+  }
 }
 
 svg[svgize]{position:absolute;top:0;right:0;height:100%;width:100%;font-family:$theme-font-family;

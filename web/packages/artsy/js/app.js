@@ -53,29 +53,29 @@ angular.module('artsy.common').
     ]);
 angular.module('artsy.common').
 
-    directive('eventCalendar', ['$http', 'moment', function( $http, moment ){
+    /**
+     * Event rendering directive. This should be used inside a parent Controller or something
+     * that can control the scope and pass event list data.
+     * @usage: <div event-list="listData" />, whereas the parent controller can
+     * set the listData on the scope.
+     */
+    directive('eventList', ['moment', function( moment ){
 
         function _link( scope, $elem, attrs, Controller, transcludeFn ){
 
-            var transcludeTarget    = angular.element($elem[0].querySelector('.event-list')),
-                transcludedNodes    = [],
+            var transcludedNodes    = [],
                 transcludedScopes   = [];
 
-            // Initialize with values...
-            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
-            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
-            scope.$watch('eventResults', function( list ){
+            scope.$watch('_data', function( list ){
                 if( list ){
                     // @todo: do a check in here to see if we're appending but keeping the existing
                     // results, or replacing the existing ones, and cleanup old nodes/scopes if
                     // need be (https://docs.angularjs.org/api/ng/service/$compile see section on cleanup)
-                    var _node;
-                    while(_node = transcludedNodes.pop()){
+                    var _node; while(_node = transcludedNodes.pop()){
                         _node.remove();
                     }
 
-                    var _scope;
-                    while(_scope = transcludedScopes.pop()){
+                    var _scope; while(_scope = transcludedScopes.pop()){
                         _scope.$destroy();
                     }
 
@@ -84,75 +84,24 @@ angular.module('artsy.common').
                         $newScope.eventObj = eventObj;
                         $newScope.moment   = moment(eventObj.computedStartLocal);
                         transcludeFn($newScope, function( $cloned, $scope ){
-                            transcludeTarget.append($cloned);
+                            $elem.append($cloned);
                             transcludedNodes.push($cloned);
                             transcludedScopes.push($scope);
                         });
                     });
                 }
             }, true);
+
         }
 
-
         return {
-            scope:      {_route: '=route'},
             link:       _link,
             transclude: true,
-            templateUrl:   '/calendar-form',
-            controller: ['$scope', function( $scope ){
-                var _fields = [
-                    'eventID',
-                    'pageID',
-                    'calendarID',
-                    'title',
-                    'description',
-                    'computedStartUTC',
-                    'computedStartLocal'
-                ];
-
-                $scope.eventResults = [];
-
-                $scope.filters = {
-                    keywords:  null,
-                    calendars: null,
-                    tags:      null,
-                    category:  null,
-                    filepath:  true,
-                    pagepath:  true,
-                    grouping:  true,
-                    end:       moment().add(6, 'months').format('YYYY-MM-DD'),
-                    attributes: 'presenting_organization'
-                };
-
-                /**
-                 * Call and update...
-                 * @returns {HttpPromise}
-                 * @private
-                 */
-                function _fetch(){
-                    return $http.get($scope._route, {
-                        cache: true,
-                        params: angular.extend({
-                            fields: _fields.join(',')
-                        }, $scope.filters)
-                    });
-                }
-
-                /**
-                 * Search...
-                 */
-                $scope.formHandler = function(){
-                    _fetch().success(function( resp ){
-                        $scope.eventResults = resp;
-                    }).error(function( data, status, headers, config ){
-                        console.log(data);
-                    });
-                };
-
-                $scope.formHandler();
-            }]
+            scope:      {_data: '=eventList'},
+            controller: [function(){}]
         };
     }]);
+
 angular.module("artsy.common").
 
     directive('masonry', ['Masonry', 'imagesLoaded',
@@ -314,6 +263,58 @@ angular.module('artsy.common').
             link: _link
         };
     }]);
+angular.module('artsy.common').
+
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            // Initialize with values...
+            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
+            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  null,
+                tags:       null,
+                category:   null,
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization'
+            };
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer ){
+
+            $scope.eventData = [];
+
+            Schedulizer.fetch({
+                filepath:true,
+                limit:5
+            }).success(function( resp ){
+                $scope.eventData = resp;
+            });
+
+
+        }
+    ]);
 /* global Modernizr */
 /* global FastClick */
 angular.module('artsy.common').
@@ -415,3 +416,43 @@ angular.module('artsy.common').
             }
         ];
     });
+angular.module('artsy.common').
+
+    service('Schedulizer', ['$http', function( $http ){
+
+        var eventRoute      = '/_schedulizer/event_list',
+            defaultParams   = {
+                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
+                pagepath:   true,
+                grouping:   true
+            };
+
+        /**
+         * Joins the alwaysFields with custom fields and ensures no duplication.
+         * @param _fields
+         * @returns {*}
+         * @private
+         */
+        function mergeFields( a, b ){
+            var joined = a.concat(b);
+            return joined.filter(function( item, pos ){
+                return joined.indexOf(item) === pos;
+            });
+        }
+
+        /**
+         * @param fields array
+         * @param filters object
+         * @param cache bool
+         */
+        this.fetch = function( _filters, _cache ){
+            // Merge array fields passed in filters w/ defaults, then join as a string "a,b,c"
+            _filters['fields'] = mergeFields(_filters.fields || [], defaultParams.fields).join(',');
+            // Issue request and return promise
+            return $http.get(eventRoute, {
+                cache:  (_cache === false) ? false : true,
+                params: angular.extend(defaultParams, _filters)
+            });
+        };
+
+    }]);

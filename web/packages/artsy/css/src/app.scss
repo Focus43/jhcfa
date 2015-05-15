@@ -3,6 +3,9 @@
 * {-webkit-font-smoothing:antialiased;}
 html, body {height:100%;font-size:100%;}
 img {@include img-responsive(inline-block);padding-bottom:1rem;}
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 
 video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;}
 

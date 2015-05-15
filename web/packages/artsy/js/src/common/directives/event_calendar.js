@@ -1,28 +1,28 @@
 angular.module('artsy.common').
 
-    directive('eventCalendar', ['$http', 'moment', function( $http, moment ){
+    /**
+     * Event rendering directive. This should be used inside a parent Controller or something
+     * that can control the scope and pass event list data.
+     * @usage: <div event-list="listData" />, whereas the parent controller can
+     * set the listData on the scope.
+     */
+    directive('eventList', ['moment', function( moment ){
 
         function _link( scope, $elem, attrs, Controller, transcludeFn ){
 
-            var transcludeTarget    = angular.element($elem[0].querySelector('.event-list')),
-                transcludedNodes    = [],
+            var transcludedNodes    = [],
                 transcludedScopes   = [];
 
-            // Initialize with values...
-            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
-            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
-            scope.$watch('eventResults', function( list ){
+            scope.$watch('_data', function( list ){
                 if( list ){
                     // @todo: do a check in here to see if we're appending but keeping the existing
                     // results, or replacing the existing ones, and cleanup old nodes/scopes if
                     // need be (https://docs.angularjs.org/api/ng/service/$compile see section on cleanup)
-                    var _node;
-                    while(_node = transcludedNodes.pop()){
+                    var _node; while(_node = transcludedNodes.pop()){
                         _node.remove();
                     }
 
-                    var _scope;
-                    while(_scope = transcludedScopes.pop()){
+                    var _scope; while(_scope = transcludedScopes.pop()){
                         _scope.$destroy();
                     }
 
@@ -31,72 +31,20 @@ angular.module('artsy.common').
                         $newScope.eventObj = eventObj;
                         $newScope.moment   = moment(eventObj.computedStartLocal);
                         transcludeFn($newScope, function( $cloned, $scope ){
-                            transcludeTarget.append($cloned);
+                            $elem.append($cloned);
                             transcludedNodes.push($cloned);
                             transcludedScopes.push($scope);
                         });
                     });
                 }
             }, true);
+
         }
 
-
         return {
-            scope:      {_route: '=route'},
             link:       _link,
             transclude: true,
-            templateUrl:   '/calendar-form',
-            controller: ['$scope', function( $scope ){
-                var _fields = [
-                    'eventID',
-                    'pageID',
-                    'calendarID',
-                    'title',
-                    'description',
-                    'computedStartUTC',
-                    'computedStartLocal'
-                ];
-
-                $scope.eventResults = [];
-
-                $scope.filters = {
-                    keywords:  null,
-                    calendars: null,
-                    tags:      null,
-                    category:  null,
-                    filepath:  true,
-                    pagepath:  true,
-                    grouping:  true,
-                    end:       moment().add(6, 'months').format('YYYY-MM-DD'),
-                    attributes: 'presenting_organization'
-                };
-
-                /**
-                 * Call and update...
-                 * @returns {HttpPromise}
-                 * @private
-                 */
-                function _fetch(){
-                    return $http.get($scope._route, {
-                        cache: true,
-                        params: angular.extend({
-                            fields: _fields.join(',')
-                        }, $scope.filters)
-                    });
-                }
-
-                /**
-                 * Search...
-                 */
-                $scope.formHandler = function(){
-                    _fetch().success(function( resp ){
-                        $scope.eventResults = resp;
-                    }).error(function( data, status, headers, config ){
-                        console.log(data);
-                    });
-                };
-
-                $scope.formHandler();
-            }]
+            scope:      {_data: '=eventList'},
+            controller: [function(){}]
         };
     }]);
