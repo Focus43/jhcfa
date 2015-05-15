@@ -25,7 +25,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   .theme-dark-color {color:$theme-dark-color;}
 
   main {height:100%;width:100%;position:relative;
-    .area-main {padding:3rem 0;
+    .area-main {padding:3rem 0;overflow-x:hidden;
       .container {@include container-fixed();max-width:100%;}
     }
     // Page sections
@@ -58,7 +58,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 
 @media screen and (min-width:$screen-sm){
   #c-level-1 {
-    main {padding-left:$nav-sidebar-width;}//@include scrollOverflow;}
+    main {padding-left:$nav-sidebar-width;@include scrollOverflow;}
   }
 }
 
@@ -89,5 +89,8 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 // CMS Admin Mode
 .cms-admin {
   .pg-home header {top:48px;}
-  #c-level-1 nav {top:48px;height:calc(100% - 48px);}
+  #c-level-1 {
+    nav {top:48px;height:calc(100% - 48px);}
+    main {overflow:initial !important;}
+  }
 }
