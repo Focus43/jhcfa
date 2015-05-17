@@ -28,12 +28,14 @@ angular.module('artsy.common').
          * @param cache bool
          */
         this.fetch = function( _filters, _cache ){
-            // Merge array fields passed in filters w/ defaults, then join as a string "a,b,c"
-            _filters['fields'] = mergeFields(_filters.fields || [], defaultParams.fields).join(',');
-            // Issue request and return promise
+            // Have to extend an empty object so we don't rewrite the original
+            // _filters.fields property to a string!
+            var filtersCopy = angular.extend({}, _filters, {
+                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+            });
             return $http.get(eventRoute, {
                 cache:  (_cache === false) ? false : true,
-                params: angular.extend(defaultParams, _filters)
+                params: angular.extend({}, defaultParams, filtersCopy)
             });
         };
 
