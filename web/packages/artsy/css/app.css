@@ -1806,18 +1806,21 @@ svg[svgize] {
       width: 18%;
       margin: 2% 1%;
       padding-bottom: 16%; } }
-.pg-box_office .quads {
+.pg-box_office #c-level-1 .area-main {
+  padding-top: 0; }
+.pg-box_office #c-level-1 .quads {
   font-size: 0;
   line-height: 0; }
-.pg-box_office .quad {
+.pg-box_office #c-level-1 .quad {
   position: relative;
   display: inline-block;
   text-align: center;
   font-size: 1rem;
   line-height: 1;
-  width: 50%;
+  width: 48%;
+  margin: 1%;
   padding-bottom: 30%; }
-  .pg-box_office .quad [class*="ccm-custom-style"] {
+  .pg-box_office #c-level-1 .quad [class*="ccm-custom-style"] {
     padding-top: 1rem;
     font-size: 115%;
     color: #fff;

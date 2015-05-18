@@ -6,9 +6,9 @@ if( Page::getCurrentPage()->isEditMode() ){ ?>
 <?php } ?>
 
 
-<video class="fullscreen" autoplay loop<?php echo $posterURL ? ' poster="'.$posterURL.'"' : ''; ?>>
+<video class="fullscreen" autoplay loop style="background-image:url('<?php echo $posterURL; ?>');"> <?php //echo $posterURL ? ' poster="'.$posterURL.'"' : ''; ?>
     <?php if($webmURL): ?>
-    <source src="<?php echo $webmURL ?>" type="video/webm" />
+        <source src="<?php echo $webmURL ?>" type="video/webm" />
     <?php endif; ?>
     <?php if($mp4URL): ?>
         <source src="<?php echo $mp4URL ?>" type="video/mp4" />
