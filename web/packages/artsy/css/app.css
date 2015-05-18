@@ -1877,7 +1877,9 @@ svg[svgize] {
   padding-bottom: 0; }
 .pg-box_office #c-level-1 .quads {
   font-size: 0;
-  line-height: 0; }
+  line-height: 0;
+  max-width: 1060px;
+  margin: 0 auto; }
 .pg-box_office #c-level-1 .quad {
   position: relative;
   display: inline-block;
