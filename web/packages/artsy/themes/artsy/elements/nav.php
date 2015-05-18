@@ -2,13 +2,13 @@
     <a trigger ng-click="toggle()" class="icon-menu"></a>
     <div class="level-1">
         <?php
-            $blockTypeNav                                       = BlockType::getByHandle('autonav');
-            $blockTypeNav->controller->orderBy                  = 'display_asc';
-            $blockTypeNav->controller->displayPages             = 'top';
-            $blockTypeNav->controller->displaySubPages          = 'all';
-            $blockTypeNav->controller->displaySubPageLevels     = 'custom';
-            $blockTypeNav->controller->displaySubPageLevelsNum  = 1;
-            $blockTypeNav->render('templates/sidebar_nav');
+        $blockTypeNav                                       = BlockType::getByHandle('autonav');
+        $blockTypeNav->controller->orderBy                  = 'display_asc';
+        $blockTypeNav->controller->displayPages             = 'top';
+        $blockTypeNav->controller->displaySubPages          = 'all';
+        $blockTypeNav->controller->displaySubPageLevels     = 'custom';
+        $blockTypeNav->controller->displaySubPageLevelsNum  = 1;
+        $blockTypeNav->render('templates/sidebar_nav');
         ?>
 
         <div class="bottom">

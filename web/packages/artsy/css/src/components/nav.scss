@@ -1,22 +1,25 @@
-#c-level-1 nav {line-height:1;font-family:$theme-font-family-bold;text-transform:uppercase;font-size:135%;z-index:3;position:fixed;height:100%;width:100%;max-width:100%;right:100%;top:0;bottom:0;background:lighten($theme-dark-color, 12%);//@include transition(all 0.25s ease);@include transform(translateX(0));
+#c-level-1 nav {line-height:1;font-family:$theme-font-family-bold;text-transform:uppercase;font-size:110%;z-index:3;position:fixed;height:100%;width:100%;max-width:100%;right:100%;top:0;bottom:0;background:lighten($theme-dark-color, 12%);//@include transition(all 0.25s ease);@include transform(translateX(0));
   a {color:#fff;
     &:hover, &:focus, &:active {text-decoration:none;}
     &[trigger]{margin:0.75rem;position:absolute;top:0;left:100%;font-size:2rem;line-height:1;z-index:2;}
   }
-  .level-1 {width:100%;height:100%;display:table;z-index:1;position:relative;
-    ul {font-size:180%;list-style:none;margin:0;padding:2rem;width:100%;height:100%;display:table-cell;vertical-align:top;
-      li {}
+  .level-1 {width:100%;height:100%;z-index:1;position:relative;@include scrollOverflow;
+    ul {font-size:180%;list-style:none;margin:0;padding:2rem;width:100%;height:100%;
+      li {
+        a {display:block;padding:0.25rem 0;}
+      }
     }
-    .bottom {position:absolute;left:0;right:0;bottom:0;width:100%;
-      .btn-donate {@include button-variant($theme-extra-light-color, lighten($theme-primary-color, 8%), $theme-primary-color);border:0;}
+    .majority {height:auto;}
+    .sub {font-size:70%;padding:0.5rem 1rem;
+      li {
+        a {}
+      }
     }
-    .sub {display:none;}
   }
 }
 
 // Place this somewhere else as it applies to other things not
 // just navigation
-//#c-level-1 {@include transform(translateX(0));@include transition(all 0.2s ease);}
 html:not(.cms-admin) #c-level-1 {@include transform(translateX(0));@include transition(all 0.2s ease);}
 html.nav-open {overflow:hidden;
   body {overflow:hidden;}
@@ -28,22 +31,11 @@ html.nav-open {overflow:hidden;
     }
   }
 }
-//#c-level-1 main {@include transition(all 0.25s ease);}
-//body.nav-open {
-//  #c-level-1 {
-//    nav {@include transform(translateX(100%));
-//      a[trigger]{left:auto;right:0;top:0;color:#fff;
-//        &:before {content:"\e626";}
-//      }
-//    }
-//    main {@include transform(translateX(100%));}
-//  }
-//}
 
 @media screen and (min-width:$screen-sm){
   #c-level-1 nav {width:$nav-sidebar-width;font-size:115%;right:auto;left:0;@include box-shadow(0 0 10px rgba(0,0,0,0.35));
     a[trigger]{display:none;}
-    .level-1 {width:100%;height:100%;z-index:1;position:relative;
+    .level-1 {width:100%;height:100%;z-index:1;position:relative;overflow:visible;
       ul {font-size:100%;text-align:right;list-style:none;margin:0;padding:0;width:100%;height:100%;display:block;
         li {display:block;position:relative;
           &::before {content:'';position:absolute;display:inline-block;width:8px;top:0;left:0;bottom:0;background:darken($theme-primary-color,20%);@include transform(translateX(-100%));@include transition(all 0.15s ease);}
@@ -61,7 +53,7 @@ html.nav-open {overflow:hidden;
         > li:first-of-type a {padding-top:3.5rem;}
       }
 
-      .sub {text-align:left;background:rgba(lighten($theme-dark-color,8%),0.9);padding:1rem;display:block;width:auto;white-space:nowrap;visibility:hidden;opacity:0;left:100%;top:0;position:absolute;height:auto;z-index:-1;@include transition(all 0.15s ease);
+      .sub {font-size:100%;text-align:left;background:rgba(lighten($theme-dark-color,8%),0.9);padding:1rem;display:block;width:auto;white-space:nowrap;visibility:hidden;opacity:0;left:100%;top:0;position:absolute;height:auto;z-index:-1;@include transition(all 0.15s ease);
         li {border-top:1px dotted #fff;
           &::before {display:none;}
           &:hover, &.active, &.nav-selected, &.nav-path-selected {background:none;
@@ -74,6 +66,9 @@ html.nav-open {overflow:hidden;
       .majority li:hover .sub {top:-1rem;visibility:visible;opacity:1;z-index:1;}
 
       .bottom .btn {border:0;}
+      .bottom {position:absolute;left:0;right:0;bottom:0;width:100%;
+        .btn-donate {@include button-variant($theme-extra-light-color, lighten($theme-primary-color, 8%), $theme-primary-color);border:0;}
+      }
     }
   }
 }

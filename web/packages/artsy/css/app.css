@@ -68,7 +68,10 @@ video.fullscreen {
   min-height: 100%;
   width: auto;
   height: auto;
-  z-index: -100; }
+  z-index: -100;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat; }
 
 #c-level-1 {
   height: 100%; }
@@ -689,7 +692,7 @@ video.fullscreen {
   line-height: 1;
   font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
   text-transform: uppercase;
-  font-size: 135%;
+  font-size: 110%;
   z-index: 3;
   position: fixed;
   height: 100%;
@@ -714,43 +717,26 @@ video.fullscreen {
   #c-level-1 nav .level-1 {
     width: 100%;
     height: 100%;
-    display: table;
     z-index: 1;
-    position: relative; }
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; }
     #c-level-1 nav .level-1 ul {
       font-size: 180%;
       list-style: none;
       margin: 0;
       padding: 2rem;
       width: 100%;
-      height: 100%;
-      display: table-cell;
-      vertical-align: top; }
-    #c-level-1 nav .level-1 .bottom {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100%; }
-      #c-level-1 nav .level-1 .bottom .btn-donate {
-        color: #e7e7e7;
-        background-color: #84c460;
-        border-color: #6DB844;
-        border: 0; }
-        #c-level-1 nav .level-1 .bottom .btn-donate:hover, #c-level-1 nav .level-1 .bottom .btn-donate:focus, #c-level-1 nav .level-1 .bottom .btn-donate:active, #c-level-1 nav .level-1 .bottom .btn-donate.active, .open > #c-level-1 nav .level-1 .bottom .btn-donate.dropdown-toggle {
-          color: #e7e7e7;
-          background-color: #69b141;
-          border-color: #538b33; }
-        #c-level-1 nav .level-1 .bottom .btn-donate:active, #c-level-1 nav .level-1 .bottom .btn-donate.active, .open > #c-level-1 nav .level-1 .bottom .btn-donate.dropdown-toggle {
-          background-image: none; }
-        #c-level-1 nav .level-1 .bottom .btn-donate.disabled, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:hover, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:focus, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:active, #c-level-1 nav .level-1 .bottom .btn-donate.disabled.active, #c-level-1 nav .level-1 .bottom .btn-donate[disabled], #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:hover, #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:focus, #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:active, #c-level-1 nav .level-1 .bottom .btn-donate[disabled].active, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:hover, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:focus, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:active, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate.active {
-          background-color: #84c460;
-          border-color: #6DB844; }
-        #c-level-1 nav .level-1 .bottom .btn-donate .badge {
-          color: #84c460;
-          background-color: #e7e7e7; }
+      height: 100%; }
+      #c-level-1 nav .level-1 ul li a {
+        display: block;
+        padding: 0.25rem 0; }
+    #c-level-1 nav .level-1 .majority {
+      height: auto; }
     #c-level-1 nav .level-1 .sub {
-      display: none; }
+      font-size: 70%;
+      padding: 0.5rem 1rem; }
 
 html:not(.cms-admin) #c-level-1 {
   -moz-transform: translateX(0);
@@ -792,7 +778,8 @@ html.nav-open {
       width: 100%;
       height: 100%;
       z-index: 1;
-      position: relative; }
+      position: relative;
+      overflow: visible; }
       #c-level-1 nav .level-1 ul {
         font-size: 100%;
         text-align: right;
@@ -841,6 +828,7 @@ html.nav-open {
       #c-level-1 nav .level-1 .majority > li:first-of-type a {
         padding-top: 3.5rem; }
       #c-level-1 nav .level-1 .sub {
+        font-size: 100%;
         text-align: left;
         background: rgba(20, 20, 20, 0.9);
         padding: 1rem;
@@ -874,7 +862,30 @@ html.nav-open {
         opacity: 1;
         z-index: 1; }
       #c-level-1 nav .level-1 .bottom .btn {
-        border: 0; } }
+        border: 0; }
+      #c-level-1 nav .level-1 .bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%; }
+        #c-level-1 nav .level-1 .bottom .btn-donate {
+          color: #e7e7e7;
+          background-color: #84c460;
+          border-color: #6DB844;
+          border: 0; }
+          #c-level-1 nav .level-1 .bottom .btn-donate:hover, #c-level-1 nav .level-1 .bottom .btn-donate:focus, #c-level-1 nav .level-1 .bottom .btn-donate:active, #c-level-1 nav .level-1 .bottom .btn-donate.active, .open > #c-level-1 nav .level-1 .bottom .btn-donate.dropdown-toggle {
+            color: #e7e7e7;
+            background-color: #69b141;
+            border-color: #538b33; }
+          #c-level-1 nav .level-1 .bottom .btn-donate:active, #c-level-1 nav .level-1 .bottom .btn-donate.active, .open > #c-level-1 nav .level-1 .bottom .btn-donate.dropdown-toggle {
+            background-image: none; }
+          #c-level-1 nav .level-1 .bottom .btn-donate.disabled, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:hover, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:focus, #c-level-1 nav .level-1 .bottom .btn-donate.disabled:active, #c-level-1 nav .level-1 .bottom .btn-donate.disabled.active, #c-level-1 nav .level-1 .bottom .btn-donate[disabled], #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:hover, #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:focus, #c-level-1 nav .level-1 .bottom .btn-donate[disabled]:active, #c-level-1 nav .level-1 .bottom .btn-donate[disabled].active, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:hover, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:focus, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate:active, fieldset[disabled] #c-level-1 nav .level-1 .bottom .btn-donate.active {
+            background-color: #84c460;
+            border-color: #6DB844; }
+          #c-level-1 nav .level-1 .bottom .btn-donate .badge {
+            color: #84c460;
+            background-color: #e7e7e7; } }
 .pg-home #c-level-1 nav {
   background: rgba(20, 20, 20, 0.8); }
 
@@ -1308,7 +1319,7 @@ body.pg-home {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(35, 25, 32, 0.55);
+  background: rgba(35, 25, 32, 0.4);
   z-index: -11; }
 .pg-home #c-level-1 section {
   padding: 7rem 0;
@@ -1432,8 +1443,7 @@ body.pg-home {
     width: 46%;
     margin: 2%;
     padding-bottom: 32%; }
-
-  .view-all {
+  .featured-events .view-all {
     display: inline-block;
     margin-right: 2%; } }
 @media screen and (min-width: 992px) {
@@ -1441,8 +1451,7 @@ body.pg-home {
     width: 31%;
     margin: 1%;
     padding-bottom: 25%; }
-
-  .view-all {
+  .featured-events .view-all {
     margin-right: 1%; } }
 @media screen and (min-width: 1400px) {
   .featured-events .event {
@@ -1584,6 +1593,7 @@ svg[svgize] {
 .pg-event #c-level-1 header {
   padding: 6rem 0 0; }
   .pg-event #c-level-1 header .container-fluid {
+    color: #000000;
     margin-right: auto;
     margin-left: auto;
     padding-left: 30px;
@@ -1617,7 +1627,6 @@ svg[svgize] {
     margin-bottom: 0; }
   .pg-event #c-level-1 header .headline .presenter {
     font-size: 1rem;
-    color: #000;
     position: absolute;
     margin-top: 1rem;
     top: 100%;
@@ -1903,6 +1912,28 @@ svg[svgize] {
     height: 100%;
     background-size: cover;
     background-position: 50% 100%; }
+  .pg-box_office #c-level-1 .quad a {
+    font-size: 2rem;
+    font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: 1.5rem;
+    text-transform: uppercase;
+    color: inherit;
+    background: transparent;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease; }
+    .pg-box_office #c-level-1 .quad a:hover {
+      text-decoration: none;
+      background: rgba(0, 0, 0, 0.35);
+      padding-top: 2rem; }
+
+.cms-edit-mode .pg-box_office #c-level-1 .quad a {
+  position: relative; }
 
 .cms-admin .pg-home header {
   top: 48px; }
@@ -1911,5 +1942,8 @@ svg[svgize] {
   height: calc(100% - 48px); }
 .cms-admin #c-level-1 main {
   overflow: initial !important; }
+
+.cms-edit-mode.ccm-panel-open {
+  height: auto; }
 
 /*# sourceMappingURL=app.css.map */

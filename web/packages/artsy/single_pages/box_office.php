@@ -1,9 +1,9 @@
 <div class="box-office-top">
     <?php
-    /** @var $a \Concrete\Core\Area\Area */
-    $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
-    $a->enableGridContainer();
-    $a->display($c);
+        /** @var $a \Concrete\Core\Area\Area */
+        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
+        $a->enableGridContainer();
+        $a->display($c);
     ?>
 </div>
 

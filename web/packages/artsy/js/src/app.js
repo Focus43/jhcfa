@@ -4,21 +4,21 @@
     angular.module('artsy', ['artsy.common', 'ngSanitize']).
 
     /**
-     * @description App configuration
-     * @param $provide
-     * @param $locationProvider
-     */
+    * @description App configuration
+    * @param $provide
+    * @param $locationProvider
+    */
     config(['$provide', '$locationProvider',
-        function( $provide ){
+        function( $provide, $locationProvider ){
 
-            // @todo: disable html5 navigation
+            // @todo: fix interfering links
 
         }
     ]).
 
     /**
-     * On run...
-     */
+    * On run...
+    */
     run(['FastClick', function( FastClick ){
         FastClick.attach(document.body);
     }]);
@@ -28,7 +28,7 @@
     Bootstrap angular manually vs. binding w/ ng-app in the DOM
     ************************************************************/
     angular.element(document).ready(function(){
-        angular.bootstrap(document, ['artsy']);
+        angular.bootstrap(document.body, ['artsy']);
     });
 
 })(window, window.angular);

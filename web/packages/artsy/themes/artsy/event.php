@@ -8,7 +8,8 @@
 
     <main>
         <?php $mastheadImageSrc = $mastheadHelper->getSingleImageSrc(); ?>
-        <header<?php if(!empty($mastheadImageSrc)){echo ' style="background-image:url('.$mastheadImageSrc.');"';} ?>>
+        <!--<header<?php if(!empty($mastheadImageSrc)){echo ' style="background-image:url('.$mastheadImageSrc.');"';} ?>>-->
+        <header>
             <a class="logo">
                 <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
             </a>
