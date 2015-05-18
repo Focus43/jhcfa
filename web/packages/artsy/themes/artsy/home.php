@@ -45,7 +45,7 @@
                         </div>
 
                         <div style="text-align:right;">
-                            <a href="/calendar" class="view-all">View All Events <i class="icon-angle-right-circle"></i></a>
+                            <a href="/calendar" class="btn btn-primary view-all">View All Events <i class="icon-angle-right-circle"></i></a>
                         </div>
                     </div>
                 </div>

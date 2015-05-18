@@ -49,38 +49,40 @@
 
         <div class="area-main">
             <div class="container">
-                <div class="col-sm-8">
-                    <?php
+                <div class="row">
+                    <div class="col-sm-7 col-md-8">
+                        <?php
                         echo $eventObj->getDescription();
                         /** @var $a \Concrete\Core\Area\Area */
-//                        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
-//                        $a->display($c);
-                    ?>
-                </div>
-                <div class="col-sm-4">
-                    <div class="sidebar-box">
-                        <label>Price</label>
-                        <?php $ticketPrice = (int)$eventObj->getAttribute('ticket_price');
-                        if( $ticketPrice > 0 ){ ?>
-                            <p class="price">$<?php echo $ticketPrice; ?></p>
-                            <small>(includes processing fee)</small>
-                        <?php }else{ ?>
-                            <p class="price">Free</p>
-                        <?php }?>
+                        //                        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
+                        //                        $a->display($c);
+                        ?>
                     </div>
-                    <div class="sidebar-box">
-                        <label>Event Time(s)</label>
-                        <ul class="event-times list-unstyled">
-                            <?php foreach($eventTimes AS $row): ?>
-                                <li>
-                                    <?php
+                    <div class="col-sm-5 col-md-4">
+                        <div class="sidebar-box">
+                            <label>Price</label>
+                            <?php $ticketPrice = (int)$eventObj->getAttribute('ticket_price');
+                            if( $ticketPrice > 0 ){ ?>
+                                <p class="price">$<?php echo $ticketPrice; ?></p>
+                                <small>(includes processing fee)</small>
+                            <?php }else{ ?>
+                                <p class="price">Free</p>
+                            <?php }?>
+                        </div>
+                        <div class="sidebar-box">
+                            <label>Event Time(s)</label>
+                            <ul class="event-times list-unstyled">
+                                <?php foreach($eventTimes AS $row): ?>
+                                    <li>
+                                        <?php
                                         $dtObj = new \DateTime($row['computedStartLocal']);
                                         echo sprintf("%s - <strong>%s</strong>", $dtObj->format('D M j, Y'), $dtObj->format('g:i A'));
-                                    ?>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Get Tickets</a>
+                                        ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Get Tickets</a>
+                        </div>
                     </div>
                 </div>
             </div>
