@@ -75,7 +75,7 @@
          */
         protected function applyFileListFilters( \Concrete\Core\File\FileList $fileListObj ){
             if( (int)$this->fileSource === self::FILE_SOURCE_CUSTOM ){
-                $fileListObj->getQueryObject()->rightJoin('f', $this->btTableSecondary, 'btsecondary', 'f.fID = btsecondary.fileID');
+                $fileListObj->getQueryObject()->join('f', $this->btTableSecondary, 'btsecondary', 'f.fID = btsecondary.fileID');
                 $fileListObj->getQueryObject()->andWhere('btsecondary.bID = :bRecordID');
                 $fileListObj->getQueryObject()->setParameter(':bRecordID', $this->bID);
                 $fileListObj->getQueryObject()->orderBy('btsecondary.displayOrder', 'asc');
