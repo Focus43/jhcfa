@@ -84,7 +84,8 @@
             if( (int)$this->fileSource === self::FILE_SOURCE_SET ){
                 $fileSetObj = FileSet::getByID((int)$this->fileSetID);
                 if( is_object($fileSetObj) ){
-                    $this->_fileListObj->filterBySet($fileSetObj);
+                    $fileListObj->filterBySet($fileSetObj);
+                    $fileListObj->sortByFileSetDisplayOrder();
                 }
             }
         }

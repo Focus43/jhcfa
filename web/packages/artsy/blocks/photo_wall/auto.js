@@ -25,10 +25,15 @@ function _photoWallHandler( opts ){
      */
     function _onCustomFileChosen( data ){
         ConcreteFileManager.getFileDetails(data.fID, function( resp ){
-            var fileObj = resp.files[0];
+            var fileObj     = resp.files[0],
+                $inMemImg   = $(fileObj.resultsThumbnailImg),
+                thumbPath   = $inMemImg.attr('src');
+
+            console.log(thumbPath);
+
             $chosenFilesPaneCustom.append($('<div />', {
                 'class' : 'node',
-                'style' : 'background-image:url('+fileObj.urlInline+')',
+                'style' : 'background-image:url('+thumbPath+')',
                 'html'  : '<a class="remover">&#x2715;</a><input name="fileID[]" type="hidden" value="'+fileObj.fID+'" />'
             })).sortable('refresh');
         });

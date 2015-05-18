@@ -7,7 +7,7 @@ use FileSet;
 
     if( is_object($fileSetObj) ){
         $filesInSet = $fileSetObj->getFiles();
-        if(!empty($filesInSet)): foreach($filesInSet AS $fileObj): /** @var $fileObj \Concrete\Core\File\File */
+        if(!empty($filesInSet)): foreach($filesInSet AS $fileObj): if(is_object($fileObj)): /** @var $fileObj \Concrete\Core\File\File */
             echo '<div class="node" style="background-image:url(\''.$fileObj->getThumbnailURL('file_manager_listing').'\');"></div>';
-        endforeach; endif;
+        endif; endforeach; endif;
     }

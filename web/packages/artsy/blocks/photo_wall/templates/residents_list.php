@@ -1,30 +1,14 @@
-<?php
-$count = 0;
+<div class="resident-logo-list">
+    <?php foreach((array)$fileListResults AS $fileObj): if( is_object($fileObj) ){
+        $pageObj = Page::getByID($fileObj->getAttribute('link'));
+        if( is_object($pageObj) ){
+            $link = $pageObj->getCollectionPath();
+        } ?>
 
-foreach((array)$fileListResults AS $fileObj):
-    $fileVersionObj = $fileObj->getApprovedVersion();
-    $linkToPageObj  = Page::getByID($fileObj->getAttribute('link'));
-    if( is_object($linkToPageObj) ){
-        $link = $linkToPageObj->getCollectionPath();
-    }
-    if($count === 0){
-        echo "\n" . '<div class="row">' . "\n";
-    }
-    ?>
-    <div class="col-xs-6 col-sm-3">
-        <a class="resident-list" href="<?php echo $link; ?>">
-            <div class="circ">
-                <img src="<?php echo $fileObj->getRelativePath();  ?>" />
-            </div>
-            <span><?php echo $fileVersionObj->getTitle(); ?></span>
+        <a class="resident-item" href="<?php echo $link; ?>">
+            <div class="res-logo" style="background-image:url('<?php echo $fileObj->getRelativePath();  ?>');"></div>
+            <span><?php echo $fileObj->getTitle(); ?></span>
         </a>
-    </div>
-    <?php
-    $count = $count < 4 ? $count + 1 : 0;
-    if( $count === 4 ){echo "\n" . '</div>' . "\n"; $count = 0;}
-endforeach;
 
-// final </div>
-if( $count > 0 ){
-    echo '</div>';
-}
+    <?php } endforeach; ?>
+</div>
