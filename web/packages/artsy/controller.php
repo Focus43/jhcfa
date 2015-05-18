@@ -36,7 +36,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.23';
+        protected $pkgVersion 			        = '0.24';
 
 
         /**
@@ -351,6 +351,7 @@
          */
         private function setupSinglePages(){
             SinglePage::add('/calendar', $this->packageObject());
+            SinglePage::add('/box_office', $this->packageObject());
 
             return $this;
         }
