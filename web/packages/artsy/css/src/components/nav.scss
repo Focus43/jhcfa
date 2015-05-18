@@ -16,7 +16,8 @@
 
 // Place this somewhere else as it applies to other things not
 // just navigation
-#c-level-1 {@include transform(translateX(0));@include transition(all 0.2s ease);}
+//#c-level-1 {@include transform(translateX(0));@include transition(all 0.2s ease);}
+html:not(.cms-admin) #c-level-1 {@include transform(translateX(0));@include transition(all 0.2s ease);}
 html.nav-open {overflow:hidden;
   body {overflow:hidden;}
   #c-level-1 {@include transform(translateX(100%));

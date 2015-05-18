@@ -93,4 +93,5 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
     nav {top:48px;height:calc(100% - 48px);}
     main {overflow:initial !important;}
   }
+  //&.ccm-panel-ready.ccm-panel-left #c-level-1.ccm-page {@include transform(translate(320px, 0));}
 }
