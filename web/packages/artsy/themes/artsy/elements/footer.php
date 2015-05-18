@@ -1,10 +1,5 @@
 <footer>
     <div class="inner">
-        <?php
-//            $a = new GlobalArea('Footer');
-//            $a->enableGridContainer();
-//            $a->display($c);
-        ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6 col-md-3">
@@ -28,12 +23,12 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="inner-content">
                         <h3>Socialize</h3>
-                        <a class="icon-circle-facebook socialize"></a>
-                        <a class="icon-circle-twitter socialize"></a>
-                        <a class="icon-circle-instagram socialize"></a>
-                        <a class="icon-circle-pinterest socialize"></a>
-                        <a class="icon-circle-youtube socialize"></a>
-                        <a class="icon-circle-google-plus socialize"></a>
+                        <a class="icon-circle-facebook socialize" target="_blank" href="http://facebook.com/jhcenterforthearts"></a>
+                        <a class="icon-circle-twitter socialize" target="_blank" href="http://twitter.com/jhcenterforarts"></a>
+                        <a class="icon-circle-instagram socialize" target="_blank" href="http://instagram.com/thecenterjh"></a>
+                        <a class="icon-circle-pinterest socialize" target="_blank" href="http://pinterest.com/thecenterjh"></a>
+                        <!--<a class="icon-circle-youtube socialize" target="_blank" href=""></a>-->
+                        <a class="icon-circle-google-plus socialize" target="_blank" href="https://plus.google.com/113085364394299174338"></a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
@@ -47,11 +42,6 @@
                     </div>
                 </div>
             </div>
-            <!--<div class="row">
-                <div class="col-sm-12">
-                    <p class="legal">Copyright &copy; <?php echo date('Y'); ?></p>
-                </div>
-            </div>-->
         </div>
     </div>
     <span class="legalese">Copyright &copy; <?php echo date('Y'); ?> Center for the Arts. All Rights Reserved.</span>
