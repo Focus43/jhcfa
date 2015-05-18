@@ -5,7 +5,7 @@ angular.module('artsy.common').
         function _link( scope, $elem, attrs ){
 
             scope.toggle = function(){
-                angular.element(document.body).toggleClass('nav-open');
+                angular.element(document.documentElement).toggleClass('nav-open');
             };
 
         }

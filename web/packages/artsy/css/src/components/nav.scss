@@ -1,10 +1,10 @@
-#c-level-1 nav {line-height:1;font-family:$theme-font-family-bold;text-transform:uppercase;font-size:135%;z-index:3;position:fixed;height:100%;width:100%;right:100%;top:0;bottom:0;background:lighten($theme-dark-color, 12%);@include transition(all 0.25s ease);@include transform(translateX(0));
+#c-level-1 nav {line-height:1;font-family:$theme-font-family-bold;text-transform:uppercase;font-size:135%;z-index:3;position:fixed;height:100%;width:100%;max-width:100%;right:100%;top:0;bottom:0;background:lighten($theme-dark-color, 12%);//@include transition(all 0.25s ease);@include transform(translateX(0));
   a {color:#fff;
     &:hover, &:focus, &:active {text-decoration:none;}
-    &[trigger]{margin:0.75rem;position:absolute;top:1.1rem;left:100%;font-size:2rem;line-height:1;z-index:2;}
+    &[trigger]{margin:0.75rem;position:absolute;top:0;left:100%;font-size:2rem;line-height:1;z-index:2;}
   }
   .level-1 {width:100%;height:100%;display:table;z-index:1;position:relative;
-    ul {font-size:220%;list-style:none;margin:0;padding:2rem;width:100%;height:100%;display:table-cell;vertical-align:middle;
+    ul {font-size:180%;list-style:none;margin:0;padding:2rem;width:100%;height:100%;display:table-cell;vertical-align:top;
       li {}
     }
     .bottom {position:absolute;left:0;right:0;bottom:0;width:100%;
@@ -16,17 +16,28 @@
 
 // Place this somewhere else as it applies to other things not
 // just navigation
-#c-level-1 main {@include transition(all 0.25s ease);}
-body.nav-open {
-  #c-level-1 {
-    nav {@include transform(translateX(100%));
+#c-level-1 {@include transform(translateX(0));@include transition(all 0.2s ease);}
+html.nav-open {overflow:hidden;
+  body {overflow:hidden;}
+  #c-level-1 {@include transform(translateX(100%));
+    nav {
       a[trigger]{left:auto;right:0;top:0;color:#fff;
         &:before {content:"\e626";}
       }
     }
-    main {@include transform(translateX(100%));}
   }
 }
+//#c-level-1 main {@include transition(all 0.25s ease);}
+//body.nav-open {
+//  #c-level-1 {
+//    nav {@include transform(translateX(100%));
+//      a[trigger]{left:auto;right:0;top:0;color:#fff;
+//        &:before {content:"\e626";}
+//      }
+//    }
+//    main {@include transform(translateX(100%));}
+//  }
+//}
 
 @media screen and (min-width:$screen-sm){
   #c-level-1 nav {width:$nav-sidebar-width;font-size:115%;right:auto;left:0;@include box-shadow(0 0 10px rgba(0,0,0,0.35));

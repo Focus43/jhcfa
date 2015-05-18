@@ -429,17 +429,11 @@ video.fullscreen {
   position: fixed;
   height: 100%;
   width: 100%;
+  max-width: 100%;
   right: 100%;
   top: 0;
   bottom: 0;
-  background: #1f1f1f;
-  -webkit-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  transition: all 0.25s ease;
-  -moz-transform: translateX(0);
-  -ms-transform: translateX(0);
-  -webkit-transform: translateX(0);
-  transform: translateX(0); }
+  background: #1f1f1f; }
   #c-level-1 nav a {
     color: #fff; }
     #c-level-1 nav a:hover, #c-level-1 nav a:focus, #c-level-1 nav a:active {
@@ -447,7 +441,7 @@ video.fullscreen {
     #c-level-1 nav a[trigger] {
       margin: 0.75rem;
       position: absolute;
-      top: 1.1rem;
+      top: 0;
       left: 100%;
       font-size: 2rem;
       line-height: 1;
@@ -459,14 +453,14 @@ video.fullscreen {
     z-index: 1;
     position: relative; }
     #c-level-1 nav .level-1 ul {
-      font-size: 220%;
+      font-size: 180%;
       list-style: none;
       margin: 0;
       padding: 2rem;
       width: 100%;
       height: 100%;
       display: table-cell;
-      vertical-align: middle; }
+      vertical-align: top; }
     #c-level-1 nav .level-1 .bottom {
       position: absolute;
       left: 0;
@@ -493,28 +487,31 @@ video.fullscreen {
     #c-level-1 nav .level-1 .sub {
       display: none; }
 
-#c-level-1 main {
-  -webkit-transition: all 0.25s ease;
-  -o-transition: all 0.25s ease;
-  transition: all 0.25s ease; }
+#c-level-1 {
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
 
-body.nav-open #c-level-1 nav {
-  -moz-transform: translateX(100%);
-  -ms-transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%); }
-  body.nav-open #c-level-1 nav a[trigger] {
-    left: auto;
-    right: 0;
-    top: 0;
-    color: #fff; }
-    body.nav-open #c-level-1 nav a[trigger]:before {
-      content: "\e626"; }
-body.nav-open #c-level-1 main {
-  -moz-transform: translateX(100%);
-  -ms-transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%); }
+html.nav-open {
+  overflow: hidden; }
+  html.nav-open body {
+    overflow: hidden; }
+  html.nav-open #c-level-1 {
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%); }
+    html.nav-open #c-level-1 nav a[trigger] {
+      left: auto;
+      right: 0;
+      top: 0;
+      color: #fff; }
+      html.nav-open #c-level-1 nav a[trigger]:before {
+        content: "\e626"; }
 
 @media screen and (min-width: 768px) {
   #c-level-1 nav {
@@ -633,6 +630,8 @@ header {
     header .logo svg {
       max-width: 100%;
       max-height: 100%; }
+  header .breadcrumbs {
+    display: none; }
   header .container-fluid {
     line-height: 1;
     font-size: 140%;
@@ -643,6 +642,25 @@ header {
   header h1 {
     font-size: 260%;
     font-family: "TradeGothicLT-Bold", "Oswald", sans-serif; }
+
+.pg-home header {
+  text-align: right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 1rem; }
+  .pg-home header .logo {
+    display: block;
+    position: relative; }
+
+@media screen and (min-width: 768px) {
+  header .logo {
+    max-width: 185px;
+    top: 0;
+    right: 1rem; }
+    header .logo svg {
+      max-height: 80px; }
   header .breadcrumbs {
     z-index: 2;
     list-style: none;
@@ -681,31 +699,12 @@ header {
         padding: 0.6rem 1rem 0.55rem; }
         header .breadcrumbs li a:hover {
           text-decoration: underline;
-          color: #e7e7e7; }
-
-.pg-home header {
-  text-align: right;
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  padding: 0 1rem; }
-  .pg-home header .logo {
-    display: block;
-    position: relative; }
-
-@media screen and (min-width: 768px) {
-  header .logo {
-    max-width: 185px;
-    top: 0;
-    right: 1rem; }
-    header .logo svg {
-      max-height: 80px; } }
+          color: #e7e7e7; } }
 footer {
   color: #000;
   position: relative;
-  margin-top: 3rem;
-  padding: 2rem 2rem 15% 2rem;
+  margin-top: 1rem;
+  padding: 1rem 1rem 15% 1rem;
   background: transparent; }
   footer a:hover {
     text-decoration: none; }
@@ -718,15 +717,16 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 55%;
-    background: transparent url("/packages/artsy/images/mtn_footer4.png") no-repeat 50% 100%;
+    height: 12%;
+    background: transparent url("/packages/artsy/images/mtn_footer4.png") no-repeat 50% 0;
     background-size: cover; }
   footer .inner {
     position: relative;
     z-index: 2; }
   footer .inner-content {
     border-top: 3px solid #6DB844;
-    padding: 1rem 0 0; }
+    padding: 1rem 0 0;
+    margin-bottom: 1rem; }
   footer h3 {
     font-size: 140%;
     margin-top: 0; }
@@ -752,7 +752,7 @@ footer {
     left: 0;
     right: 0;
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem;
     z-index: 1; }
 
 #c-level-1 footer [class*="col-"] {
@@ -764,6 +764,17 @@ footer {
   margin-top: 0;
   color: #fff; }
 
+@media screen and (min-width: 768px) {
+  footer {
+    margin-top: 2rem;
+    padding: 2rem 2rem 15% 2rem; }
+    footer::after {
+      height: 22%; }
+    footer .inner-content {
+      margin-bottom: 0; } }
+@media screen and (min-width: 992px) {
+  footer::after {
+    height: 55%; } }
 #c-level-1 [calendar] [calendar-body] {
   white-space: nowrap;
   font-size: 0;
