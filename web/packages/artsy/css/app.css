@@ -432,7 +432,7 @@ video.fullscreen {
   right: 100%;
   top: 0;
   bottom: 0;
-  background: #6DB844;
+  background: #1f1f1f;
   -webkit-transition: all 0.25s ease;
   -o-transition: all 0.25s ease;
   transition: all 0.25s ease;
@@ -459,6 +459,7 @@ video.fullscreen {
     z-index: 1;
     position: relative; }
     #c-level-1 nav .level-1 ul {
+      font-size: 220%;
       list-style: none;
       margin: 0;
       padding: 2rem;
@@ -466,8 +467,6 @@ video.fullscreen {
       height: 100%;
       display: table-cell;
       vertical-align: middle; }
-      #c-level-1 nav .level-1 ul li {
-        border-top: 1px solid #64a93e; }
     #c-level-1 nav .level-1 .bottom {
       position: absolute;
       left: 0;
@@ -510,7 +509,7 @@ body.nav-open #c-level-1 nav {
     top: 0;
     color: #fff; }
     body.nav-open #c-level-1 nav a[trigger]:before {
-      content: "\e600"; }
+      content: "\e626"; }
 body.nav-open #c-level-1 main {
   -moz-transform: translateX(100%);
   -ms-transform: translateX(100%);
@@ -530,17 +529,17 @@ body.nav-open #c-level-1 main {
     #c-level-1 nav .level-1 {
       width: 100%;
       height: 100%;
-      /*display:table;*/
       z-index: 1;
       position: relative; }
       #c-level-1 nav .level-1 ul {
+        font-size: 100%;
+        text-align: right;
         list-style: none;
         margin: 0;
         padding: 0;
         width: 100%;
         height: 100%;
-        display: block;
-        vertical-align: top; }
+        display: block; }
         #c-level-1 nav .level-1 ul li {
           display: block;
           position: relative; }
@@ -552,7 +551,7 @@ body.nav-open #c-level-1 main {
             top: 0;
             left: 0;
             bottom: 0;
-            background: #000;
+            background: #416e28;
             -moz-transform: translateX(-100%);
             -ms-transform: translateX(-100%);
             -webkit-transform: translateX(-100%);
@@ -577,8 +576,11 @@ body.nav-open #c-level-1 main {
               transform: translateX(0); }
             #c-level-1 nav .level-1 ul li:hover > a, #c-level-1 nav .level-1 ul li.active > a, #c-level-1 nav .level-1 ul li.nav-selected > a, #c-level-1 nav .level-1 ul li.nav-path-selected > a {
               padding: 1.1rem 1.5rem 1rem 2.5rem; }
+      #c-level-1 nav .level-1 .majority > li:first-of-type a {
+        padding-top: 3.5rem; }
       #c-level-1 nav .level-1 .sub {
-        background: rgba(0, 0, 0, 0.75);
+        text-align: left;
+        background: rgba(20, 20, 20, 0.9);
         padding: 1rem;
         display: block;
         width: auto;
@@ -608,26 +610,9 @@ body.nav-open #c-level-1 main {
         top: -1rem;
         visibility: visible;
         opacity: 1;
-        z-index: 1; } }
-#c-level-1 nav {
-  background: #1f1f1f; }
-  #c-level-1 nav .level-1 ul {
-    text-align: right; }
-    #c-level-1 nav .level-1 ul li {
-      border-top: 0; }
-      #c-level-1 nav .level-1 ul li::before {
-        background: #416e28; }
-      #c-level-1 nav .level-1 ul li:first-of-type {
-        border-top: 0;
-        padding-top: 3rem; }
-  #c-level-1 nav .level-1 .bottom .btn {
-    border: 0; }
-  #c-level-1 nav .level-1 .sub {
-    text-align: left;
-    background: rgba(20, 20, 20, 0.9); }
-    #c-level-1 nav .level-1 .sub li:first-of-type {
-      padding-top: 0; }
-
+        z-index: 1; }
+      #c-level-1 nav .level-1 .bottom .btn {
+        border: 0; } }
 .pg-home #c-level-1 nav {
   background: rgba(20, 20, 20, 0.8); }
 
@@ -639,6 +624,7 @@ header {
   header .logo {
     position: absolute;
     top: -0.25rem;
+    right: 0;
     display: block;
     max-width: 155px;
     height: auto;
