@@ -32,7 +32,7 @@
                         <h2 style="margin-bottom:2rem;">Upcoming Events</h2>
 
                         <div class="clearfix" event-list="eventData" ng-cloak>
-                            <a class="event" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
+                            <a class="event" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
                                 <div class="inner">
                                     <div class="tabular">
                                         <div class="cellular">
