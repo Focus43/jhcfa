@@ -1643,7 +1643,7 @@ svg[svgize] {
     -webkit-border-radius: 0;
     border-radius: 0; }
     .pg-calendar #c-level-1 main .event-search .form-control[type="text"] {
-      padding: 8px; }
+      padding: 5px 10px 7px; }
   .pg-calendar #c-level-1 main .event-search .select-wrap {
     max-width: 180px;
     background: #fff;
@@ -1807,7 +1807,7 @@ svg[svgize] {
       margin: 2% 1%;
       padding-bottom: 16%; } }
 .pg-box_office #c-level-1 .area-main {
-  padding-top: 0; }
+  padding-bottom: 0; }
 .pg-box_office #c-level-1 .quads {
   font-size: 0;
   line-height: 0; }
