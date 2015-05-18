@@ -29,29 +29,25 @@
             <div class="tabular">
                 <div class="cellular">
                     <div class="featured-events" ng-controller="CtrlFeaturedEvents">
-                        <div event-list="eventData" ng-cloak>
-                            <a href="{{eventObj.pagePath}}">
-                                <span class="inner">
-                                    <span class="event-img" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}"></span>
-                                    <span class="title">{{ eventObj.title }}</span>
-                                    <span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>
-                                </span>
+                        <h2 style="margin-bottom:2rem;">Upcoming Events</h2>
+
+                        <div class="clearfix" event-list="eventData" ng-cloak>
+                            <a class="event" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
+                                <div class="inner">
+                                    <div class="tabular">
+                                        <div class="cellular">
+                                            <span class="title">{{ eventObj.title }}</span>
+                                            <span class="date">{{ eventObj.date_display }}</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </a>
                         </div>
+
+                        <div style="text-align:right;">
+                            <a href="/calendar" class="view-all">View All Events <i class="icon-angle-right-circle"></i></a>
+                        </div>
                     </div>
-
-
-<!--                    <div class="container-fluid" style="max-width:1300px;">-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-sm-12">-->
-<!--                                --><?php
-////                                    /** @var $a \Concrete\Core\Area\Area */
-////                                    $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
-////                                    $a->display($c);
-//                                ?>
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
             </div>
         </section>
