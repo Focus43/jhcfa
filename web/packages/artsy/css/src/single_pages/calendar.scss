@@ -2,11 +2,13 @@
   .area-main {padding-top:0}
 
   .event-search{background:$theme-primary-color;padding:1rem;text-align:center;
-    .form-control {display:inline-block;width:auto;border:0;@include border-radius(0);}
-    .select-wrap{background:#fff;display:inline-block;position:relative;z-index:2;
-      &::after {content: "\e608";font-family:'icomoon';position:absolute;top:50%;right:5px;font-size:24px;z-index:-1;@include transform(translateY(-50%));}
+    .form-control {display:inline-block;height:auto;width:auto;border:0;@include border-radius(0);
+      &[type="text"]{padding:8px;}
+    }
+    .select-wrap{max-width:180px;background:#fff;display:inline-block;position:relative;z-index:2;
+      &::after {content: "\e636";font-family:'icomoon';position:absolute;top:50%;right:5px;font-size:24px;z-index:-1;@include transform(translateY(-50%));}
       &.block {display:block;}
-      select {height:auto;line-height:1;padding:8px 25px 10px 8px;text-transform:capitalize;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;@include border-radius(0);}
+      select {height:auto;line-height:1;max-width:100%;padding:8px 40px 10px 8px;text-transform:capitalize;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;@include border-radius(0);}
     }
     .btn-group .btn {border:0;}
     .btn-search {font-family:$theme-font-family-bold;@include button-variant(lighten($theme-primary-color,45%), darken($theme-primary-color, 8%), $theme-primary-color);border:0;}

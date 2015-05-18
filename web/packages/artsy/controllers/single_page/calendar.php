@@ -2,6 +2,7 @@
 
     use \Concrete\Package\Schedulizer\Src\Calendar AS SchedulizerCalendar;
     use \Concrete\Package\Schedulizer\Src\EventTag AS SchedulizerTag;
+    use \Concrete\Package\Schedulizer\Src\EventCategory AS SchedulizerCategory;
     use \Concrete\Package\Schedulizer\Src\Attribute\Key\SchedulizerEventKey;
     use \Concrete\Package\Artsy\Controller\ArtsyPageController;
 
@@ -38,9 +39,10 @@
 
         protected function categoryList(){
             if( $this->_categoryList === null ){
-                $akObj               = SchedulizerEventKey::getByHandle('category');
-                $contr               = $akObj->getController();
-                $this->_categoryList = $contr->getOptions();
+                $this->_categoryList = array();
+                foreach(SchedulizerCategory::fetchAll() AS $categoryObj){
+                    $this->_categoryList[$categoryObj->getID()] = $categoryObj->getDisplayText();
+                }
             }
             return $this->_categoryList;
         }

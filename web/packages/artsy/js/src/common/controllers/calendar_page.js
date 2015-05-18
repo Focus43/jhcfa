@@ -14,10 +14,10 @@ angular.module('artsy.common').
                 keywords:   null,
                 calendars:  null,
                 tags:       null,
-                category:   null,
+                categories: null,
                 filepath:   true,
                 end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization'
+                attributes: 'presenting_organization,date_display'
             };
 
             $scope.fetch = function(){
@@ -26,6 +26,10 @@ angular.module('artsy.common').
                 }).error(function(){
                     console.log('err');
                 });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
             };
 
             $scope.fetch();

@@ -16,6 +16,7 @@
                 $stack->display();
             }
         ?>
+
         <section class="sxn-1">
             <div class="tabular">
                 <div class="cellular">

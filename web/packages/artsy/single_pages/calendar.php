@@ -20,12 +20,14 @@
                         <?php } ?>
                     </select>
                 </div>
-                <!--<div class="btn-group">
-                    <button type="button" class="btn btn-default active">All Types</button>
-                    <?php foreach($categoryList AS $optObj){ ?>
-                        <button type="button" class="btn btn-default"><?php echo $optObj; ?></button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default active" ng-click="setCategory(null)" ng-class="{active:!filters.categories}">All</button>
+                    <?php foreach($categoryList AS $id => $label){ ?>
+                        <button type="button" class="btn btn-default" ng-click="setCategory(<?php echo $id; ?>)" ng-class="{active:filters.categories == <?php echo $id; ?>}">
+                            <?php echo $label; ?>
+                        </button>
                     <?php } ?>
-                </div>-->
+                </div>
                 <button type="submit" class="btn btn-search">Search</button>
             </div>
         </div>
@@ -34,7 +36,8 @@
     <!-- Event results : items inside event-list are transcluded -->
     <div event-list="eventData" ng-cloak>
         <a class="event-result" href="{{eventObj.pagePath}}">
-            <span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>
+            <!--<span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>-->
+            <span class="date">{{ eventObj.date_display }}</span>
             <div class="event-content" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
             <span class="layer-1">
                 <span class="title">{{ eventObj.title }}</span>
