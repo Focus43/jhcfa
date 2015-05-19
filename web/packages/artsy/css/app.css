@@ -852,6 +852,11 @@ nav[primary] {
 
 .pg-home nav[primary] [trigger] {
   top: 0; }
+.pg-home video.fullscreen {
+  -moz-transition: -moz-transform 0.2s linear;
+  -o-transition: -o-transform 0.2s linear;
+  -webkit-transition: -webkit-transform 0.2s linear;
+  transition: transform 0.2s linear; }
 
 [revealing] {
   -moz-transform: translateZ(0) translateX(0);
@@ -865,7 +870,7 @@ nav[primary] {
 
 html.nav-open {
   overflow-x: hidden; }
-  html.nav-open [revealing] {
+  html.nav-open [revealing], html.nav-open .pg-home video.fullscreen {
     -moz-transform: translateZ(0) translateX(300px);
     -ms-transform: translateZ(0) translateX(300px);
     -webkit-transform: translateZ(0) translateX(300px);
@@ -1036,6 +1041,8 @@ footer {
   background: rgba(35, 25, 32, 0.5);
   margin-top: 0;
   color: #fff; }
+  .pg-home footer h3 {
+    color: #fff; }
 
 @media screen and (min-width: 768px) {
   footer {

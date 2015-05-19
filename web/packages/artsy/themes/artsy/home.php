@@ -3,16 +3,13 @@
 <?php $this->inc('elements/head.php'); ?>
 <body class="<?php echo $templateHandle; ?>">
 
-<div revealing>
-    <?php
-        /** @var $stack \Concrete\Core\Page\Stack\Stack */
-        $stack = Stack::getByName(Concrete\Package\Artsy\Controller::STACK_HOMEPAGE_VIDEO); // Should only contain one block, being the video
-        if( is_object($stack) ){
-            $stack->display();
-        }
-    ?>
-</div>
-
+<?php
+    /** @var $stack \Concrete\Core\Page\Stack\Stack */
+    $stack = Stack::getByName(Concrete\Package\Artsy\Controller::STACK_HOMEPAGE_VIDEO); // Should only contain one block, being the video
+    if( is_object($stack) ){
+        $stack->display();
+    }
+?>
 
 <div id="c-level-1" class="<?php echo $c->getPageWrapperClass(); ?>">
 
