@@ -61,6 +61,12 @@
          */
         public function on_start(){
             define('ARTSY_IMAGE_PATH', DIR_REL . '/packages/' . $this->pkgHandle . '/images/');
+
+            // Search
+            Route::register(
+                Router::route(array('site_search', 'artsy')),
+                '\Concrete\Package\Artsy\Controller\SiteSearch::search'
+            );
         }
 
 

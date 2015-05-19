@@ -472,6 +472,84 @@ video.fullscreen {
       display: table; }
     #c-level-1 main .area-main .container:after {
       clear: both; } }
+[search-box] {
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -99;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(35, 25, 32, 0.92);
+  padding: 2rem 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -moz-transform: scale(2, 2);
+  -ms-transform: scale(2, 2);
+  -webkit-transform: scale(2, 2);
+  transform: scale(2, 2);
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
+  [search-box].open {
+    visibility: visible;
+    opacity: 1;
+    z-index: 99;
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1); }
+  [search-box] a:hover {
+    text-decoration: none; }
+  [search-box] [closer] {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 3rem;
+    color: #fff;
+    z-index: 2; }
+  [search-box] input {
+    color: #e7e7e7;
+    font-size: 350%;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px dotted #fff;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.35); }
+  [search-box] .results {
+    text-align: left; }
+    [search-box] .results a {
+      display: block;
+      color: #fff;
+      padding: 1rem; }
+      [search-box] .results a h4 {
+        font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
+        font-size: 170%;
+        margin: 0 0 0.3rem; }
+      [search-box] .results a span {
+        display: block; }
+      [search-box] .results a small {
+        font-family: "TradeGothicLT-Light", "Oswald", sans-serif; }
+      [search-box] .results a:hover {
+        background: rgba(255, 255, 255, 0.1); }
+
+@media screen and (min-width: 768px) {
+  [search-box] {
+    padding: 4rem; }
+    [search-box] [closer] {
+      font-size: 4rem; }
+    [search-box] input {
+      font-size: 500%; } }
 .resident-logo-list {
   font-size: 0;
   line-height: 0; }
@@ -502,6 +580,7 @@ video.fullscreen {
     background-position: 50% 50%;
     background-repeat: no-repeat; }
   .resident-item span {
+    font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
     padding: 5%;
     display: block;
     text-align: center;
@@ -726,21 +805,33 @@ video.fullscreen {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch; }
+    #c-level-1 nav .level-1 [search] {
+      font-size: 1.5rem;
+      position: absolute;
+      z-index: 2;
+      top: 0.5rem;
+      left: 0.5rem;
+      color: #838383; }
+      #c-level-1 nav .level-1 [search]:hover {
+        color: #e7e7e7; }
     #c-level-1 nav .level-1 ul {
       font-size: 180%;
       list-style: none;
       margin: 0;
-      padding: 2rem;
+      padding: 0;
       width: 100%;
       height: 100%; }
-      #c-level-1 nav .level-1 ul li a {
-        display: block;
-        padding: 0.25rem 0; }
+      #c-level-1 nav .level-1 ul li {
+        border-top: 1px dotted #404040; }
+        #c-level-1 nav .level-1 ul li a {
+          display: block;
+          padding: 1rem; }
     #c-level-1 nav .level-1 .majority {
       height: auto; }
     #c-level-1 nav .level-1 .sub {
-      font-size: 70%;
-      padding: 0.5rem 1rem; }
+      font-size: 70%; }
+      #c-level-1 nav .level-1 .sub li a {
+        padding-left: 2rem; }
 
 html:not(.cms-admin) #c-level-1 {
   -moz-transform: translateX(0);
@@ -795,7 +886,8 @@ html.nav-open {
         display: block; }
         #c-level-1 nav .level-1 ul li {
           display: block;
-          position: relative; }
+          position: relative;
+          border: 0; }
           #c-level-1 nav .level-1 ul li::before {
             content: '';
             position: absolute;
@@ -860,6 +952,8 @@ html.nav-open {
               padding-left: 1.5rem; }
           #c-level-1 nav .level-1 .sub li:first-of-type {
             border-top: 0; }
+          #c-level-1 nav .level-1 .sub li a {
+            padding-left: 1rem; }
       #c-level-1 nav .level-1 .majority li:hover .sub {
         top: -1rem;
         visibility: visible;
@@ -985,7 +1079,7 @@ footer {
   color: #000;
   position: relative;
   margin-top: 1rem;
-  padding: 1rem 1rem 15% 1rem;
+  padding: 1rem 0 15% 0;
   background: transparent; }
   footer a:hover {
     text-decoration: none; }
@@ -1006,11 +1100,13 @@ footer {
     z-index: 2; }
   footer .inner-content {
     border-top: 3px solid #6DB844;
-    padding: 1rem 0 0;
     margin-bottom: 1rem; }
   footer h3 {
     font-size: 140%;
-    margin-top: 0; }
+    margin-top: 0;
+    padding: 1rem;
+    background: #000000;
+    color: #fff; }
   footer .footer-logo {
     max-height: 105px; }
   footer address {
@@ -1052,7 +1148,12 @@ footer {
     footer::after {
       height: 22%; }
     footer .inner-content {
-      margin-bottom: 0; } }
+      margin-bottom: 0;
+      padding-top: 1rem; }
+    footer h3 {
+      background: none;
+      padding: 0;
+      color: #000; } }
 @media screen and (min-width: 992px) {
   footer::after {
     height: 55%; } }
@@ -1128,8 +1229,8 @@ footer {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("/packages/artsy/css/fonts/icomoon.eot?-amu434");
-  src: url("/packages/artsy/css/fonts/icomoon.eot?#iefix-amu434") format("embedded-opentype"), url("/packages/artsy/css/fonts/icomoon.woff?-amu434") format("woff"), url("/packages/artsy/css/fonts/icomoon.ttf?-amu434") format("truetype"), url("/packages/artsy/css/fonts/icomoon.svg?-amu434#icomoon") format("svg");
+  src: url("/packages/artsy/css/fonts/icomoon.eot?bo50wu");
+  src: url("/packages/artsy/css/fonts/icomoon.eot?#iefixbo50wu") format("embedded-opentype"), url("/packages/artsy/css/fonts/icomoon.woff?bo50wu") format("woff"), url("/packages/artsy/css/fonts/icomoon.ttf?bo50wu") format("truetype"), url("/packages/artsy/css/fonts/icomoon.svg?bo50wu#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
 [class^="icon-"], [class*=" icon-"] {
@@ -1207,6 +1308,9 @@ footer {
 .icon-ticket:before {
   content: "\e645"; }
 
+.icon-search:before {
+  content: "\e651"; }
+
 .icon-refresh:before {
   content: "\e657"; }
 
@@ -1231,6 +1335,9 @@ footer {
 .icon-mail2:before {
   content: "\e683"; }
 
+.icon-lintern:before {
+  content: "\e68a"; }
+
 .icon-link:before {
   content: "\e68b"; }
 
@@ -1242,6 +1349,9 @@ footer {
 
 .icon-info:before {
   content: "\e691"; }
+
+.icon-gleam:before {
+  content: "\e69a"; }
 
 .icon-expand1:before {
   content: "\e6a1"; }

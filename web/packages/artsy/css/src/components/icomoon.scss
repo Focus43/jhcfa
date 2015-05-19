@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:url('#{$icomoon-font-path}/icomoon.eot?-amu434');
-  src:url('#{$icomoon-font-path}/icomoon.eot?#iefix-amu434') format('embedded-opentype'),
-  url('#{$icomoon-font-path}/icomoon.woff?-amu434') format('woff'),
-  url('#{$icomoon-font-path}/icomoon.ttf?-amu434') format('truetype'),
-  url('#{$icomoon-font-path}/icomoon.svg?-amu434#icomoon') format('svg');
+  src:url('#{$icomoon-font-path}/icomoon.eot?bo50wu');
+  src:url('#{$icomoon-font-path}/icomoon.eot?#iefixbo50wu') format('embedded-opentype'),
+  url('#{$icomoon-font-path}/icomoon.woff?bo50wu') format('woff'),
+  url('#{$icomoon-font-path}/icomoon.ttf?bo50wu') format('truetype'),
+  url('#{$icomoon-font-path}/icomoon.svg?bo50wu#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -107,6 +107,10 @@
   content: "\e645";
 }
 
+.icon-search:before {
+  content: "\e651";
+}
+
 .icon-refresh:before {
   content: "\e657";
 }
@@ -139,6 +143,10 @@
   content: "\e683";
 }
 
+.icon-lintern:before {
+  content: "\e68a";
+}
+
 .icon-link:before {
   content: "\e68b";
 }
@@ -153,6 +161,10 @@
 
 .icon-info:before {
   content: "\e691";
+}
+
+.icon-gleam:before {
+  content: "\e69a";
 }
 
 .icon-expand1:before {

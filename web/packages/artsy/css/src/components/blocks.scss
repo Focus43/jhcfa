@@ -10,7 +10,7 @@
 .resident-logo-list {font-size:0;line-height:0;}
 .resident-item {position:relative;padding-top:20%;display:inline-block;width:23%;margin:1%;background-color:#fff;border:1px dotted transparent;@include transform(translateY(0));@include transition(all 0.25s ease);
   .res-logo {padding-top:70%;position:absolute;top:10%;left:5%;right:5%;display:block;background-size:contain;background-position:50% 50%;background-repeat:no-repeat;}
-  span {padding:5%;display:block;text-align:center;font-size:1rem;line-height:1;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  span {font-family:$theme-font-family-bold;padding:5%;display:block;text-align:center;font-size:1rem;line-height:1;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   &:hover {text-decoration:none;border-color:$theme-primary-color;@include transform(translateY(-10px));}
 }
 
