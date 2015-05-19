@@ -4,10 +4,18 @@ angular.module('artsy.common').
 
         function _link( scope, $elem, attrs ){
 
-            scope.toggle = function(){
-                angular.element(document.documentElement).toggleClass('nav-open');
+            scope.status = {
+                open: false
             };
 
+            scope.toggle = function(){
+                scope.status.open = !scope.status.open;
+
+            };
+
+            scope.$watch('status.open', function( _status ){
+                angular.element(document.documentElement).toggleClass('nav-open', _status);
+            });
         }
 
         return {

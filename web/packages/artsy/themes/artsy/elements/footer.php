@@ -27,7 +27,6 @@
                         <a class="icon-circle-twitter socialize" target="_blank" href="http://twitter.com/jhcenterforarts"></a>
                         <a class="icon-circle-instagram socialize" target="_blank" href="http://instagram.com/thecenterjh"></a>
                         <a class="icon-circle-pinterest socialize" target="_blank" href="http://pinterest.com/thecenterjh"></a>
-                        <!--<a class="icon-circle-youtube socialize" target="_blank" href=""></a>-->
                         <a class="icon-circle-google-plus socialize" target="_blank" href="https://plus.google.com/113085364394299174338"></a>
                     </div>
                 </div>

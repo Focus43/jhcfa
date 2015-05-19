@@ -6,7 +6,7 @@ $package-path:                  '/packages/artsy/';
 $icomoon-font-path:             '#{$package-path}css/fonts';
 $image-path:                    '#{$package-path}images';
 $font-family-icomoon:           'icomoon';
-$nav-sidebar-width:             220px;
+$nav-sidebar-width:             300px;
 $mask-animate-time:             0.5s;
 
 // Palette
@@ -48,10 +48,34 @@ $container-sm:                  100%;
 
 // Imports
 @import 'compass';
+// We can't just bulk-load all mixins from bootstrap as they override important (and better-handled)
+// mixins injected by compass! Specifically transition/transform.
+//@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins';
 @import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/variables';
-@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/image';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/grid';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/grid-framework';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/buttons';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/gradients';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/text-emphasis';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/background-variant';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/text-overflow';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/forms';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/table-row';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/tab-focus';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/center-block';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/hide-text';
+@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/mixins/responsive-visibility';
 
-// Mixins
+// Placeholder text (from bootstrap...mixins/vendor_prefixes)
+@mixin placeholder($color: $input-color-placeholder) {
+  &::-moz-placeholder           { color: $color;   // Firefox
+    opacity: 1; } // See https://github.com/twbs/bootstrap/pull/11526
+  &:-ms-input-placeholder       { color: $color; } // Internet Explorer 10+
+  &::-webkit-input-placeholder  { color: $color; } // Safari and Chrome
+}
+
+// Custom Mixins
 @mixin scrollOverflow {
   overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
 }

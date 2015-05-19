@@ -7,7 +7,7 @@
 
     <?php $this->inc('elements/nav.php'); ?>
 
-    <main>
+    <main revealing>
         <?php $this->inc('elements/header.php', array(
             'expanded'          => true,
             // @todo: good default image, and auto-include theme assets not via contoller methods

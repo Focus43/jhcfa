@@ -33,106 +33,6 @@
 
 })(window, window.angular);
 angular.module('artsy.common', []);
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            // Initialize with values...
-            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
-            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
-
-            $scope.eventData = [];
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  null,
-                tags:       null,
-                categories: null,
-                filepath:   true,
-                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
-            };
-
-            $scope.fetch = function(){
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            Schedulizer.fetch({
-                filepath:true,
-                limit:10,
-                end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                attributes: 'date_display'
-            }).success(function( resp ){
-                $scope.eventData = resp;
-            });
-
-
-        }
-    ]);
-angular.module('artsy.common').
-
-    service('Schedulizer', ['$http', function( $http ){
-
-        var eventRoute      = '/_schedulizer/event_list',
-            defaultParams   = {
-                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
-                pagepath:   true,
-                grouping:   true
-            };
-
-        /**
-         * Joins the alwaysFields with custom fields and ensures no duplication.
-         * @param _fields
-         * @returns {*}
-         * @private
-         */
-        function mergeFields( a, b ){
-            var joined = a.concat(b);
-            return joined.filter(function( item, pos ){
-                return joined.indexOf(item) === pos;
-            });
-        }
-
-        /**
-         * @param fields array
-         * @param filters object
-         * @param cache bool
-         */
-        this.fetch = function( _filters, _cache ){
-            // Have to extend an empty object so we don't rewrite the original
-            // _filters.fields property to a string!
-            var filtersCopy = angular.extend({}, _filters, {
-                fields: mergeFields(_filters.fields || [], defaultParams.fields)
-            });
-            return $http.get(eventRoute, {
-                cache:  (_cache === false) ? false : true,
-                params: angular.extend({}, defaultParams, filtersCopy)
-            });
-        };
-
-    }]);
 /* global Modernizr */
 /* global FastClick */
 angular.module('artsy.common').
@@ -234,6 +134,106 @@ angular.module('artsy.common').
             }
         ];
     });
+angular.module('artsy.common').
+
+    service('Schedulizer', ['$http', function( $http ){
+
+        var eventRoute      = '/_schedulizer/event_list',
+            defaultParams   = {
+                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
+                pagepath:   true,
+                grouping:   true
+            };
+
+        /**
+         * Joins the alwaysFields with custom fields and ensures no duplication.
+         * @param _fields
+         * @returns {*}
+         * @private
+         */
+        function mergeFields( a, b ){
+            var joined = a.concat(b);
+            return joined.filter(function( item, pos ){
+                return joined.indexOf(item) === pos;
+            });
+        }
+
+        /**
+         * @param fields array
+         * @param filters object
+         * @param cache bool
+         */
+        this.fetch = function( _filters, _cache ){
+            // Have to extend an empty object so we don't rewrite the original
+            // _filters.fields property to a string!
+            var filtersCopy = angular.extend({}, _filters, {
+                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+            });
+            return $http.get(eventRoute, {
+                cache:  (_cache === false) ? false : true,
+                params: angular.extend({}, defaultParams, filtersCopy)
+            });
+        };
+
+    }]);
+angular.module('artsy.common').
+
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            // Initialize with values...
+            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
+            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  null,
+                tags:       null,
+                categories: null,
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display'
+            };
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            Schedulizer.fetch({
+                filepath:true,
+                limit:10,
+                end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                attributes: 'date_display'
+            }).success(function( resp ){
+                $scope.eventData = resp;
+            });
+
+
+        }
+    ]);
 angular.module('artsy.common').
 
     directive('accordion', [
@@ -365,10 +365,18 @@ angular.module('artsy.common').
 
         function _link( scope, $elem, attrs ){
 
-            scope.toggle = function(){
-                angular.element(document.documentElement).toggleClass('nav-open');
+            scope.status = {
+                open: false
             };
 
+            scope.toggle = function(){
+                scope.status.open = !scope.status.open;
+
+            };
+
+            scope.$watch('status.open', function( _status ){
+                angular.element(document.documentElement).toggleClass('nav-open', _status);
+            });
         }
 
         return {

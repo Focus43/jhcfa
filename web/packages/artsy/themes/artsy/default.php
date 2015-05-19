@@ -7,7 +7,7 @@
 
     <?php $this->inc('elements/nav.php'); ?>
 
-    <main>
+    <main revealing>
         <?php $this->inc('elements/header.php', array(
             'expanded'          => true,
             'mastheadImageSrc'  => $mastheadHelper->getSingleImageSrc()

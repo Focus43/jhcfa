@@ -2,7 +2,9 @@
 
 * {-webkit-font-smoothing:antialiased;}
 html, body {height:100%;font-size:100%;}
+//body {overflow:hidden;}
 img {@include img-responsive(inline-block);padding-bottom:1rem;}
+a {cursor:pointer;}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
@@ -13,9 +15,8 @@ img {@include img-responsive(inline-block);padding-bottom:1rem;}
 video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-100;background-size:cover;background-position:50% 50%;background-repeat:no-repeat;}
 
 // Page wrapper
-#c-level-1 {height:100%;
+#c-level-1 {height:100%;//@include scrollOverflow;
   input, textarea, button, a {&:focus, &:active {outline:0 !important;@include box-shadow(none !important);}}
-  a, a:hover, a:active {cursor:pointer;/*text-decoration:none;*/}
   h1,h2,h3,h4,h5 {font-family:$theme-font-family-bold;text-transform:uppercase;letter-spacing:-1px;}
   @import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/tables';
 
@@ -60,7 +61,8 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 
 @media screen and (min-width:$screen-sm){
   #c-level-1 {
-    main {padding-left:$nav-sidebar-width;@include scrollOverflow;}
+    //main {padding-left:$nav-sidebar-width;@include scrollOverflow;}
+    //main {@include scrollOverflow;}
   }
 }
 

@@ -1,22 +1,3 @@
-//body.pg-home #c-level-1 header {text-align:right;position:fixed;top:0;right:0;z-index:2;padding:0 1rem;
-//  .logo {display:block;padding:1rem;}
-//}
-
-//body.pg-default #c-level-1 header, body.pg-resident #c-level-1 header {position:relative;padding:9rem 0;background:url('#{$image-path}/_scratch/blur.jpg') no-repeat 50% 50%;background-size:cover;
-//  .logo {display:block;padding:1rem;position:absolute;top:0;right:0;}
-//  .container-fluid {font-size:140%;color:#fff;text-align:center;max-width:979px;text-transform:uppercase;}
-//  h1 {font-size:220%;}
-//  .breadcrumbs {z-index:2;list-style:none;padding:0;margin:0;position:absolute;top:0;left:0;background:rgba(35, 25, 32, 0.35);
-//    li {display:inline-block;position:relative;font-size:80%;text-transform:uppercase;
-//      &::after {color:#fff;font-size:40px;display:block;content:"\e604";font-family:'icomoon';position:absolute;left:100%;top:17px;line-height:0;@include transform(translateX(-50%));}
-//      &:last-of-type::after {display:none;}
-//      a {color:#fff;display:block;padding:0.5rem 1rem;
-//        &:hover {text-decoration:none;color:$theme-primary-color;}
-//      }
-//    }
-//  }
-//}
-
 // Default header style on all pages
 #c-level-1 {
   header {position:relative;padding:9rem 0;background:transparent no-repeat 50% 50%;background-size:cover;

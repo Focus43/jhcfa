@@ -6,7 +6,7 @@
 <div id="c-level-1" class="<?php echo $c->getPageWrapperClass(); ?>">
     <?php $this->inc('elements/nav.php'); ?>
 
-    <main>
+    <main revealing>
         <?php $mastheadImageSrc = $mastheadHelper->getSingleImageSrc(); ?>
         <!--<header<?php if(!empty($mastheadImageSrc)){echo ' style="background-image:url('.$mastheadImageSrc.');"';} ?>>-->
         <header>
