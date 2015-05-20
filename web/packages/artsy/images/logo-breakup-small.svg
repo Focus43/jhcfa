@@ -1,8 +1,8 @@
-<svg logo version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<svg class="svg-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
  width="305.032px" height="75.403px" viewBox="0 0 305.032 75.403" style="enable-background:new 0 0 305.032 75.403;"
  xml:space="preserve">
 
-<g data-stroke>
+<g class="logo-stroke">
 <path style="fill:none;stroke:#ffffff;stroke-miterlimit:10;" d="M103.308,21.457v5.49h-7.245v26.999h-6.21V26.947h-7.245v-5.49
 H103.308z"/>
 <path style="fill:none;stroke:#ffffff;stroke-miterlimit:10;" d="M105.199,53.945V21.457h6.21v12.959h8.774V21.457h6.21v32.488
@@ -26,7 +26,7 @@ c7.47,0,11.025,3.6,11.025,9.72c0,4.05-1.44,6.975-4.905,8.279l6.12,14.489H297.618
 c2.745,0,4.41-1.35,4.41-4.5s-1.665-4.5-4.41-4.5h-3.194V35.586z"/>
 </g>
 
-<g data-fill>
+<g class="logo-fill">
 <path style="fill:#F1F2F2;" d="M103.308,21.457v5.49h-7.245v26.999h-6.21V26.947h-7.245v-5.49H103.308z"/>
 <path style="fill:#F1F2F2;" d="M105.199,53.945V21.457h6.21v12.959h8.774V21.457h6.21v32.488h-6.21V39.906h-8.774v14.039H105.199z"
 />

@@ -26,15 +26,15 @@
                     ));
                 }
 
-                $eventList = new EventList();
-                $eventList->setFullTextSearch($term);
-                $eventList->setEventGrouping(true);
-                $eventList->setIncludePagePathInResults(true);
-                $eventResults = $eventList->getSerializable();
+//                $eventList = new EventList();
+//                $eventList->setFullTextSearch($term);
+//                $eventList->setEventGrouping(true);
+//                $eventList->setIncludePagePathInResults(true);
+//                $eventResults = $eventList->getSerializable();
 
                 echo json_encode((object)array(
-                    'pages' => $pageResults,
-                    'events' => $eventResults
+                    'pages' => $pageResults
+                    //'events' => $eventResults
                 ));
             }
         }

@@ -33,149 +33,6 @@
 
 })(window, window.angular);
 angular.module('artsy.common', []);
-/* global Modernizr */
-/* global FastClick */
-angular.module('artsy.common').
-
-    /**
-     * @description Modernizr provider
-     * @param $window
-     * @param $log
-     * @returns Modernizr | false
-     */
-    provider('Modernizr', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description TweenLite OR TweenMax provider
-     * @param $window
-     * @param $log
-     * @returns TweenMax | TweenLite | false
-     */
-    provider('Tween', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description MomentJS
-     * @param $window
-     * @param $log
-     * @returns moment | TweenLite | false
-     */
-    provider('moment', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description Masonry provider
-     * @param $window
-     * @param $log
-     * @returns Masonry | false
-     */
-    provider('Masonry', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description imagesLoaded provider
-     * @param $window
-     * @param $log
-     * @returns imagesLoaded | false
-     */
-    provider('imagesLoaded', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description FastClick provider
-     * @param $window
-     * @param $log
-     * @returns FastClick | false
-     */
-    provider('FastClick', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description svg.js provider
-     * @param $window
-     * @param $log
-     * @returns SVG | false
-     */
-    provider('SVG', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
-            }
-        ];
-    });
-angular.module('artsy.common').
-
-    service('Schedulizer', ['$http', function( $http ){
-
-        var eventRoute      = '/_schedulizer/event_list',
-            defaultParams   = {
-                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
-                pagepath:   true,
-                grouping:   true
-            };
-
-        /**
-         * Joins the alwaysFields with custom fields and ensures no duplication.
-         * @param _fields
-         * @returns {*}
-         * @private
-         */
-        function mergeFields( a, b ){
-            var joined = a.concat(b);
-            return joined.filter(function( item, pos ){
-                return joined.indexOf(item) === pos;
-            });
-        }
-
-        /**
-         * @param fields array
-         * @param filters object
-         * @param cache bool
-         */
-        this.fetch = function( _filters, _cache ){
-            // Have to extend an empty object so we don't rewrite the original
-            // _filters.fields property to a string!
-            var filtersCopy = angular.extend({}, _filters, {
-                fields: mergeFields(_filters.fields || [], defaultParams.fields)
-            });
-            return $http.get(eventRoute, {
-                cache:  (_cache === false) ? false : true,
-                params: angular.extend({}, defaultParams, filtersCopy)
-            });
-        };
-
-    }]);
 angular.module('artsy.common').
 
     controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
@@ -361,9 +218,13 @@ angular.module("artsy.common").
     ]);
 angular.module('artsy.common').
 
-    directive('nav', [function(){
+    directive('nav', ['Tween', function(Tween){
 
         function _link( scope, $elem, attrs ){
+
+            var $inner    = angular.element($elem[0].querySelector('.inner')),
+                $majority = angular.element($elem[0].querySelector('.majority')),
+                $currentLiSub;
 
             scope.status = {
                 open: false
@@ -377,6 +238,17 @@ angular.module('artsy.common').
             scope.$watch('status.open', function( _status ){
                 angular.element(document.documentElement).toggleClass('nav-open', _status);
             });
+
+            angular.element($elem[0].querySelectorAll('.sub-trigger')).on('click', function(){
+                $currentLiSub = angular.element(this.parentNode.parentNode);
+                $currentLiSub.toggleClass('sub-active');
+                $majority.toggleClass('show-subs');
+            });
+
+            angular.element($elem[0].querySelectorAll('.unsub')).on('click', function(){
+                $currentLiSub.toggleClass('sub-active');
+                $majority.toggleClass('show-subs');
+            });
         }
 
         return {
@@ -386,57 +258,74 @@ angular.module('artsy.common').
     }]);
 angular.module('artsy.common').
 
-    directive('search', ['$http', '$compile', '$templateCache', function( $http, $compile, $templateCache ){
+    directive('searchable', ['$http', '$compile', '$templateCache',
+        function( $http, $compile, $templateCache ){
 
-        function _link( scope, $elem, attrs ){
-            scope.pageHits = [];
-            scope.eventHits = [];
+            function _link( $scope, $elem, attrs ){
+                var $html = angular.element(document.documentElement);
 
-            scope.status = {
-                open:  false,
-                value: ''
-            };
+                // Compile HTML within this directive
+                $compile($elem.contents())($scope);
 
-            var $tpl  = angular.element($templateCache.get('/search-form-tpl')),
-                $cpld = $compile($tpl),
-                $lnkd = $cpld(scope);
-            angular.element(document.body).append($lnkd);
+                // Compile the results template
+                var $tpl  = angular.element($templateCache.get('/search-form-tpl')),
+                    $cpld = $compile($tpl),
+                    $lnkd = $cpld($scope);
+                angular.element(document.body).append($lnkd);
 
-            $elem.on('click', function(){
-                console.log('clicked');
-                scope.status.open = !scope.status.open;
-                scope.$digest();
-            });
+                // If status is open, set on the HTML/document element
+                $scope.$watch('status.open', function( isOpen, lastIsOpen ){
+                    if( isOpen !== lastIsOpen ){
+                        $html.toggleClass('search-results-open', isOpen);
+                    }
+                });
+            }
 
-            scope.$watch('status.open', function(status){
-                if( status ){
-                    setTimeout(function(){
-                        document.querySelector('[search-box] input').focus();
-                    }, 150);
-                }
-            });
+            return {
+                scope: {
+                    searchPath: '@searchable'
+                },
+                restrict: 'A',
+                link: _link,
+                controller: ['$scope', function( $scope ){
+                    $scope.pageHits = [];
 
-            scope.$watch('status.value', function( searchValue ){
-                if( searchValue && scope.searchForm.$valid ){
-                    $http.get(scope.searchPath, {
-                        cache: false,
-                        params: {_s: scope.status.value}
-                    }).success(function( resp ){
-                        scope.pageHits  = resp.pages;
-                        scope.eventHits = resp.events;
+                    $scope.status = {
+                        open:  false,
+                        value: '',
+                        displayValue: '',
+                        loading: true
+                    };
+
+                    $scope.$watch('status.displayValue', function( searchValue ){
+                        $scope.status.open = (searchValue && searchValue.length >= 1);
                     });
-                }
-            });
-        }
 
-        return {
-            scope: {
-                searchPath: '@search'
-            },
-            restrict: 'A',
-            link: _link
-        };
-    }]);
+                    $scope.clear = function(){
+                        $scope.status.value = '';
+                        $scope.status.displayValue = '';
+                    };
+
+                    $scope.funcKeyup = function($event){
+                        $scope.status.displayValue = $event.target.value;
+                        $scope.status.loading = true;
+                    };
+
+                    $scope.$watch('status.value', function( searchValue ){
+                        if( searchValue && $scope.searchForm.$valid ){
+                            $http.get($scope.searchPath, {
+                                cache: false,
+                                params: {_s: $scope.status.value}
+                            }).success(function( resp ){
+                                $scope.pageHits = resp.pages;
+                                $scope.status.loading = false;
+                            });
+                        }
+                    });
+                }]
+            };
+        }
+    ]);
 angular.module('artsy.common').
 
     directive('svgize', ['SVG', function( SVG ){
@@ -525,3 +414,146 @@ angular.module('artsy.common').
             link: _link
         };
     }]);
+angular.module('artsy.common').
+
+    service('Schedulizer', ['$http', function( $http ){
+
+        var eventRoute      = '/_schedulizer/event_list',
+            defaultParams   = {
+                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
+                pagepath:   true,
+                grouping:   true
+            };
+
+        /**
+         * Joins the alwaysFields with custom fields and ensures no duplication.
+         * @param _fields
+         * @returns {*}
+         * @private
+         */
+        function mergeFields( a, b ){
+            var joined = a.concat(b);
+            return joined.filter(function( item, pos ){
+                return joined.indexOf(item) === pos;
+            });
+        }
+
+        /**
+         * @param fields array
+         * @param filters object
+         * @param cache bool
+         */
+        this.fetch = function( _filters, _cache ){
+            // Have to extend an empty object so we don't rewrite the original
+            // _filters.fields property to a string!
+            var filtersCopy = angular.extend({}, _filters, {
+                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+            });
+            return $http.get(eventRoute, {
+                cache:  (_cache === false) ? false : true,
+                params: angular.extend({}, defaultParams, filtersCopy)
+            });
+        };
+
+    }]);
+/* global Modernizr */
+/* global FastClick */
+angular.module('artsy.common').
+
+    /**
+     * @description Modernizr provider
+     * @param $window
+     * @param $log
+     * @returns Modernizr | false
+     */
+    provider('Modernizr', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description TweenLite OR TweenMax provider
+     * @param $window
+     * @param $log
+     * @returns TweenMax | TweenLite | false
+     */
+    provider('Tween', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description MomentJS
+     * @param $window
+     * @param $log
+     * @returns moment | TweenLite | false
+     */
+    provider('moment', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description Masonry provider
+     * @param $window
+     * @param $log
+     * @returns Masonry | false
+     */
+    provider('Masonry', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description imagesLoaded provider
+     * @param $window
+     * @param $log
+     * @returns imagesLoaded | false
+     */
+    provider('imagesLoaded', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description FastClick provider
+     * @param $window
+     * @param $log
+     * @returns FastClick | false
+     */
+    provider('FastClick', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description svg.js provider
+     * @param $window
+     * @param $log
+     * @returns SVG | false
+     */
+    provider('SVG', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
+            }
+        ];
+    });
