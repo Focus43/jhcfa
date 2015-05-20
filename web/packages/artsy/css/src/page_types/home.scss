@@ -3,8 +3,8 @@ body.pg-home {/*background:url('#{$image-path}/video_screenshot.jpg') no-repeat 
 $dark-sexy: #231920;
 
 .pg-home #c-level-1 {
-  main {
-    &::after {display:block;content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:rgba($dark-sexy, 0.4);z-index:-11;}
+  main {background:rgba($dark-sexy, 0.4);
+    //&::after {display:block;content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:rgba($dark-sexy, 0.4);z-index:-11;}
   }
 
   section {padding:7rem 0;overflow:hidden;position:relative;border-top:1px dotted #fff;
@@ -33,6 +33,7 @@ $dark-sexy: #231920;
 
   header {display:none;}
 }
+
 
 // Event styling
 .featured-events {display:inline-block;width:96%;margin:0 auto;

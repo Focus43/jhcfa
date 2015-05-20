@@ -342,13 +342,13 @@ angular.module('artsy.common').
                 logoScale       = 0.7;
 
             var logoGroup = draw.group();
-            logoGroup.svg(document.querySelector('svg[logo]').innerHTML);
+            logoGroup.svg(document.querySelector('svg.svg-logo').innerHTML);
             logoGroup.transform({scaleX:logoScale,scaleY:logoScale});
             var logoGroupBBox = logoGroup.bbox(),
                 logoGroupX    = (canvasWidth - logoGroupBBox.width) - 15,
                 logoGroupY    = 15;
             logoGroup.transform({x:logoGroupX, y:logoGroupY});
-            logoGroup.attr('logo', 'lorem');
+            logoGroup.attr('class', 'svg-logo');
 
             var tagLineGroup  = draw.group().attr({'class':'tag-line'}),
                 tagLineCircle = tagLineGroup.circle(circleDiameter),
