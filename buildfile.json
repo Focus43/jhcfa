@@ -1,0 +1,14 @@
+{
+	"project": {
+		"name": "CenterForTheArts",
+		"domains": "jhcenterforthearts.org"
+	},
+	"storage": {
+		"dirs": [
+			"web/application/files"
+		]
+	},
+	"composer": {
+		"workingDir": "web/concrete"
+	}
+}
