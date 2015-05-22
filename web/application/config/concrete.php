@@ -18,6 +18,7 @@ $redisStashCacheDriver = array(
 );
 
 return array(
+    'site' => 'Jackson Hole Center For the Arts',
     'seo' => array(
         'url_rewriting' => true,
         'url_rewriting_all' => true
