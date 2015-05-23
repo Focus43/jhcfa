@@ -26,7 +26,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3>Sorry, the event you were looking for no longer exists...</h3>
+                            <h3 style="text-align:center;">Sorry, the event you were looking for no longer exists...</h3>
                         </div>
                     </div>
                 </div>

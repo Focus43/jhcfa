@@ -63,3 +63,8 @@
  *
  * ----------------------------------------------------------------------------
  */
+
+// C5's autoloader if so shitty w/ packages... need to declare classes up here
+// so that we don't get a partial object since references are stored in the session
+include DIR_PACKAGES . '/schedulizer/src/Permission/Access/Entity/CalendarOwnerEntity.php';
+\Core::bind('\\Concrete\\Core\\Permission\\Access\\Entity\\CalendarOwnerEntity', '\\Concrete\\Package\\Schedulizer\\Src\\Permission\\Access\\Entity\\CalendarOwnerEntity');
