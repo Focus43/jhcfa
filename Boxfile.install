@@ -1,8 +1,0 @@
-build:
-  type: php
-  version: 5.6
-  stability: production
-
-web1:
-  before_deploy:
-    - "php _quickstart/install.php"
