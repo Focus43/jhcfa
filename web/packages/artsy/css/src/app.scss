@@ -27,8 +27,9 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 
   main {height:100%;width:100%;position:relative;overflow-x:hidden;
     .area-main {padding:3rem 0;overflow-x:hidden;
-      .container {@include container-fixed();max-width:100%;overflow:visible !important;}
-      .row {overflow:visible !important;}
+//      .container {@include container-fixed();max-width:100%;overflow:visible !important;}
+//      .row {overflow:visible !important;}
+
     }
     // Page sections
     [class*="wrap-theme-"]{position:relative;padding:5rem 0;margin:2rem 0;

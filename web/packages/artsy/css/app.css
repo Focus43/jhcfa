@@ -367,17 +367,6 @@ video.fullscreen {
     #c-level-1 main .area-main {
       padding: 3rem 0;
       overflow-x: hidden; }
-      #c-level-1 main .area-main .container {
-        margin-right: auto;
-        margin-left: auto;
-        padding-left: 30px;
-        padding-right: 30px;
-        overflow: hidden;
-        *zoom: 1;
-        max-width: 100%;
-        overflow: visible !important; }
-      #c-level-1 main .area-main .row {
-        overflow: visible !important; }
     #c-level-1 main [class*="wrap-theme-"] {
       position: relative;
       padding: 5rem 0;
