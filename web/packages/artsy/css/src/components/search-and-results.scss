@@ -1,0 +1,37 @@
+// Search module
+[search-results]{color:$theme-light-color;z-index:-99;position:fixed;top:0;right:0;bottom:0;left:$nav-sidebar-width;width:calc(100% - #{$nav-sidebar-width});height:100%;background:$theme-extra-light-color;@include scrollOverflow;@include transform(translateZ(0) translateY(-100%));@include transition(transform $revealers-animate-time $revealers-animate-function);
+  a {text-decoration:none !important;}
+  [closer]{display:inline-block;position:absolute;top:0;right:0;font-size:3rem;color:$theme-dark-color;z-index:2;}
+  .term-display {padding:1rem 2rem;line-height:1;text-transform:uppercase;background:darken($theme-extra-light-color, 5%);
+    small {}
+    .lead {margin:0;font-size:250%;}
+  }
+  .results {
+    a {display:block;color:$theme-light-color;padding:1rem 2rem;border-bottom:1px dotted darken($theme-extra-light-color, 10%);@include transition(all 0.15s ease);
+      h4 {font-family:$theme-font-family-bold;font-size:170%;margin:0 0 0.3rem;}
+      span {display:block;}
+      small {font-family:$theme-font-family;}
+      &:hover {background:darken($theme-extra-light-color, 5%);}
+    }
+    .no-results {text-align:center;}
+  }
+  .loading {text-align:center;padding:2rem 0;
+    .svg-logo {max-width:200px;
+      .logo-fill {visibility:hidden;}
+      .logo-stroke path {stroke-dasharray:50;stroke-width:2px;stroke:$theme-light-color !important;}
+    }
+  }
+}
+
+@include keyframes(logo-always-stroke){
+  0% {stroke-dashoffset:350;}
+  50% {stroke-dashoffset:50;}
+  100% {stroke-dashoffset:350;}
+}
+
+html.search-results-open {overflow:hidden;
+  [search-results]{z-index:99;@include transform(translateZ(0) translateY(0));
+    .svg-logo .logo-stroke path {@include animation(logo-always-stroke 3s linear infinite forwards);}
+  }
+  #c-level-1 main {@include transform(translateZ(0) translateX($nav-sidebar-width) translateY(100%));}
+}

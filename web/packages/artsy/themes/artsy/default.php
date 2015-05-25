@@ -22,15 +22,6 @@
             ?>
         </div>
 
-        <div class="area-main-2">
-            <?php
-                /** @var $a \Concrete\Core\Area\Area */
-//                $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN_2);
-//                $a->enableGridContainer();
-//                $a->display($c);
-            ?>
-        </div>
-
         <?php $this->inc('elements/footer.php'); ?>
     </main>
 </div>

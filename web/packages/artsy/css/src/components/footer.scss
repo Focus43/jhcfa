@@ -1,6 +1,6 @@
-footer {color:#000;position:relative;margin-top:1rem;padding:1rem 0 10% 0;background:transparent;
+footer {color:#000;position:relative;margin-top:1rem;padding:1rem 0 0;background:transparent;
   a:hover {text-decoration:none;}
-  &::after {display:block;content:'';position:absolute;bottom:0;right:0;bottom:0;left:0;width:100%;height:12%;background:transparent url('#{$image-path}/mtn_footer4.png') no-repeat 50% 0;background-size:cover;}
+  //&::after {display:block;content:'';position:absolute;bottom:0;right:0;bottom:0;left:0;width:100%;height:12%;background:transparent url('#{$image-path}/mtn_footer4.png') no-repeat 50% 0;background-size:cover;}
   .inner {position:relative;z-index:2;}
   .inner-content {border-top:3px solid $theme-primary-color;margin-bottom:1rem;}
   h3 {font-size:140%;margin-top:0;padding:1rem;background:$theme-dark-color;color:#fff;}
@@ -20,17 +20,17 @@ footer {color:#000;position:relative;margin-top:1rem;padding:1rem 0 10% 0;backgr
 }
 
 @media screen and (min-width:$screen-sm){
-  footer {margin-top:2rem;padding:2rem 2rem 10% 2rem;
-    &::after {height:22%;}
+  footer {margin-top:2rem;padding:2rem;
+    //&::after {height:22%;}
     .inner-content {margin-bottom:0;padding-top:1rem;}
     h3 {background:none;padding:0;color:#000;}
   }
 }
 
-@media screen and (min-width:$screen-md){
-  footer::after {height:55%;}
-}
+//@media screen and (min-width:$screen-md){
+//  footer::after {height:55%;}
+//}
 
-@media screen and (min-width:$screen-lg){
-  footer {padding-bottom:8%;}
-}
+//@media screen and (min-width:$screen-lg){
+//  footer {padding-bottom:8%;}
+//}

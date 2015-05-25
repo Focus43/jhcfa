@@ -1,10 +1,11 @@
+/* global Power1 */
 angular.module('artsy.common').
 
-    directive('nav', ['Tween', function(Tween){
+    directive('nav', ['Tween', function( Tween ){
 
         function _link( scope, $elem, attrs ){
 
-            var $inner    = angular.element($elem[0].querySelector('.inner')),
+            var $html     = angular.element(document.documentElement),
                 $majority = angular.element($elem[0].querySelector('.majority')),
                 $currentLiSub;
 
@@ -30,6 +31,19 @@ angular.module('artsy.common').
             angular.element($elem[0].querySelectorAll('.unsub')).on('click', function(){
                 $currentLiSub.toggleClass('sub-active');
                 $majority.toggleClass('show-subs');
+            });
+
+            var lastScroll = 0,
+                threshold  = 50,
+                isDocked   = false;
+            Tween.ticker.addEventListener('tick', function(){
+                if( lastScroll !== window.pageYOffset ){
+                    lastScroll = window.pageYOffset;
+                    if( (lastScroll > threshold) !== isDocked ){
+                        isDocked = !isDocked;
+                        $html.toggleClass('dock-nav-icon', isDocked);
+                    }
+                }
             });
         }
 

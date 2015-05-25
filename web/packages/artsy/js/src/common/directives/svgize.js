@@ -72,14 +72,14 @@ angular.module('artsy.common').
             //});
 
             // scroll navs
-            var scrollNavGroup = draw.group().attr('class', 'scroll-navs');
-            scrollNavGroup.circle(20).attr('class', 'active').fill('rgba(255,255,255,0.25)');
-            scrollNavGroup.circle(20).attr({cy:50}).fill('rgba(255,255,255,0.25)');
-            scrollNavGroup.circle(20).attr({cy:90}).fill('rgba(255,255,255,0.25)');
-            scrollNavGroup.transform({
-                x: canvasWidth - 40,
-                y: centerY - (scrollNavGroup.bbox().height / 2)
-            });
+            //var scrollNavGroup = draw.group().attr('class', 'scroll-navs');
+            //scrollNavGroup.circle(20).attr('class', 'active').fill('rgba(255,255,255,0.25)');
+            //scrollNavGroup.circle(20).attr({cy:50}).fill('rgba(255,255,255,0.25)');
+            //scrollNavGroup.circle(20).attr({cy:90}).fill('rgba(255,255,255,0.25)');
+            //scrollNavGroup.transform({
+            //    x: canvasWidth - 40,
+            //    y: centerY - (scrollNavGroup.bbox().height / 2)
+            //});
         }
 
         return {

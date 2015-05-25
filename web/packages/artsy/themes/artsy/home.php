@@ -18,20 +18,28 @@
     <main revealing>
         <?php $this->inc('elements/header.php'); ?>
 
-        <section class="sxn-1">
-            <div class="tabular">
-                <div class="cellular">
-                    <svg svgize></svg>
-                </div>
-            </div>
+<!--        <div scroll-navs>-->
+<!--            <span><i class="icon-circle"></i></span>-->
+<!--            <span><i class="icon-circle"></i></span>-->
+<!--            <span><i class="icon-circle"></i></span>-->
+<!--        </div>-->
+
+        <section class="intro">
+            <svg svgize></svg>
         </section>
 
-        <section class="sxn-3">
-            <div class="tabular">
-                <div class="cellular">
-                    <div class="featured-events" ng-controller="CtrlFeaturedEvents">
+        <section class="featured-events" ng-controller="CtrlFeaturedEvents">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8">
                         <h2 style="margin-bottom:2rem;">Upcoming Events</h2>
-
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <a href="/calendar" class="btn btn-primary view-all">View All Events <i class="icon-angle-right-circle"></i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <div class="clearfix" event-list="eventData" ng-cloak>
                             <a class="event" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
                                 <div class="inner">
@@ -44,28 +52,20 @@
                                 </div>
                             </a>
                         </div>
-
-                        <div style="text-align:right;">
-                            <a href="/calendar" class="btn btn-primary view-all">View All Events <i class="icon-angle-right-circle"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="sxn-2">
-            <div class="tabular">
-                <div class="cellular">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <?php
-                                    /** @var $a \Concrete\Core\Area\Area */
-                                    $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN_2);
-                                    $a->display($c);
-                                ?>
-                            </div>
-                        </div>
+        <section class="homepage-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <?php
+                        /** @var $a \Concrete\Core\Area\Area */
+                        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN_2);
+                        $a->display($c);
+                        ?>
                     </div>
                 </div>
             </div>

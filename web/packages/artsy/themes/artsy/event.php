@@ -76,14 +76,6 @@
             <div class="area-main">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-7 col-md-8">
-                            <?php
-                            echo $eventObj->getDescription();
-                            /** @var $a \Concrete\Core\Area\Area */
-                            //                        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
-                            //                        $a->display($c);
-                            ?>
-                        </div>
                         <div class="col-sm-5 col-md-4">
                             <div class="sidebar-box">
                                 <label>Price</label>

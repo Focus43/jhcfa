@@ -24,18 +24,10 @@
 </script>
 
 <nav primary revealing>
-    <a trigger ng-click="toggle()" class="icon-bars" ng-class="{'icon-tasks':status.open,'icon-bars':!status.open}"></a>
-
+    <a trigger ng-click="toggle()">
+        <i class="icon-bars" ng-class="{'icon-tasks':status.open,'icon-bars':!status.open}"></i>
+    </a>
     <div class="inner-1">
-
-        <div searchable="<?php echo Router::route(array('site_search', 'artsy')); ?>">
-            <form name="searchForm">
-                <i class="icon-search"></i>
-                <input name="search" type="text" placeholder="Search" ng-model="status.value" ng-minlength="5" ng-model-options="{debounce:600}" ng-keyup="funcKeyup($event)" />
-            </form>
-        </div>
-
-
         <?php
         $blockTypeNav                                       = BlockType::getByHandle('autonav');
         $blockTypeNav->controller->orderBy                  = 'display_asc';
@@ -47,17 +39,16 @@
         ?>
 
         <div class="bottom" slideable>
-            <div class="socials">
-                <a class="icon-circle-facebook socialize" target="_blank" href="http://facebook.com/jhcenterforthearts"></a>
-                <a class="icon-circle-twitter socialize" target="_blank" href="http://twitter.com/jhcenterforarts"></a>
-                <a class="icon-circle-instagram socialize" target="_blank" href="http://instagram.com/thecenterjh"></a>
-                <a class="icon-circle-pinterest socialize" target="_blank" href="http://pinterest.com/thecenterjh"></a>
-                <a class="icon-circle-google-plus socialize" target="_blank" href="https://plus.google.com/113085364394299174338"></a>
-            </div>
             <a class="btn btn-block btn-lg btn-primary">Donate</a>
             <div class="btn-group btn-group-justified">
                 <a class="btn btn-dark" href="/box_office">Box Office</a>
                 <a class="btn btn-dark" href="/contact">Contact</a>
+            </div>
+            <div searchable="<?php echo Router::route(array('site_search', 'artsy')); ?>">
+                <form name="searchForm">
+                    <i class="icon-search"></i>
+                    <input name="search" type="text" placeholder="Search" ng-model="status.value" ng-minlength="5" ng-model-options="{debounce:600}" ng-keyup="funcKeyup($event)" />
+                </form>
             </div>
         </div>
     </div>
