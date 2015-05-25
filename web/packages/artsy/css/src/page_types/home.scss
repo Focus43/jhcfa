@@ -2,6 +2,11 @@
 body.pg-home {/*background:url('#{$image-path}/video_screenshot.jpg') no-repeat 50% 50%;background-size:cover;*/}
 $dark-sexy: #231920;
 
+// added as custom class via styling in c5
+.video-fs-container {
+  &::after {background:rgba($dark-sexy, 0.3);content:'';display:block;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;}
+}
+
 .pg-home #c-level-1 {//min-height:100%;
   main {position:absolute;top:0;left:0;width:100%;height:100%;
     //&::after {display:block;content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:rgba($dark-sexy, 0.4);z-index:-11;}
@@ -36,21 +41,28 @@ $dark-sexy: #231920;
   span {display:block;padding:0.25rem 0.5rem;}
 }
 
-@media screen and (min-width:600px){
+@media screen and (min-width:$screen-xs){
   .pg-home #c-level-1 .featured-events {
     .event {width:46%;margin:2%;padding-bottom:32%;}
     .view-all {display:inline-block;margin-right:2%;}
   }
 }
 
-@media screen and (min-width:$screen-md){
+@media screen and (min-width:$screen-sm){
   .pg-home #c-level-1 .featured-events {
     .event {width:31%;margin:1%;padding-bottom:25%;}
     .view-all {margin-right:1%;}
   }
 }
 
-@media screen and (min-width:$screen-lg + 200px){
+@media screen and (min-width:$screen-md){
+  .pg-home #c-level-1 .featured-events {
+    .container-fluid {max-width:1400px;}
+    .event {width:23%;padding-bottom:16%;}
+  }
+}
+
+@media screen and (min-width:$screen-lg){
   .pg-home #c-level-1 .featured-events {
     .event {width:18%;padding-bottom:12%;}
   }
