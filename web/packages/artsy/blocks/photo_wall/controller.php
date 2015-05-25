@@ -131,10 +131,27 @@
          */
         protected function persistFiles( array $fileIDs = array() ){
             $db = Loader::db();
+            $fileIDs = array_unique($fileIDs);
             $db->Execute("DELETE FROM {$this->btTableSecondary} WHERE bID = ?", array($this->bID));
             foreach( $fileIDs AS $orderIndex => $fileID ){
                 $db->Execute("INSERT INTO {$this->btTableSecondary} (bID, fileID, displayOrder) VALUES(?,?,?)", array(
                     $this->bID, $fileID, ($orderIndex + 1)
+                ));
+            }
+        }
+
+
+        /**
+         * Ensure when block version gets copied we dont lost data!
+         * @param $newBID
+         * @return void
+         */
+        public function duplicate( $newBID ){
+            $db = Loader::db();
+            $r  = $db->query("SELECT * FROM btPhotoWallFiles WHERE bID = ?", array($this->bID));
+            foreach($r AS $row){
+                $db->Execute("INSERT INTO btPhotoWallFiles (bID, fileID, displayOrder) VALUES (?,?,?)", array(
+                    $newBID, $row['fileID'], $row['displayOrder']
                 ));
             }
         }

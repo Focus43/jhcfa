@@ -1472,6 +1472,8 @@ body.pg-home {
 .pg-home #c-level-1 .homepage-content {
   text-align: center;
   color: #fff; }
+  .pg-home #c-level-1 .homepage-content h2 a, .pg-home #c-level-1 .homepage-content h3 a, .pg-home #c-level-1 .homepage-content h4 a {
+    display: inline !important; }
 .pg-home #c-level-1 header {
   display: none; }
 
@@ -1511,9 +1513,13 @@ body.pg-home {
   .pg-home #c-level-1 .featured-events .event {
     width: 18%;
     padding-bottom: 12%; } }
-.grid4max .item {
-  width: 18% !important;
-  margin: 1% 3%; }
+.aligned-grid {
+  padding: 4rem 0 1rem; }
+  .aligned-grid .item {
+    max-width: 150px;
+    width: 18% !important;
+    margin: 1% 3% !important;
+    padding: 0 0 8% !important; }
 
 svg[svgize] {
   position: absolute;

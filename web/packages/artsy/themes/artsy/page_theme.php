@@ -46,7 +46,10 @@
 
         public function getThemeBlockClasses(){
             return array(
-                'content'   => self::$contentBlockClasses
+                'content'   => self::$contentBlockClasses,
+                'photo_wall' => array(
+                    'scale-images', 'grayscale-images'
+                )
             );
         }
 

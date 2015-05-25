@@ -24,26 +24,28 @@ function _photoWallHandler( opts ){
      * @private
      */
     function _onCustomFileChosen( data ){
-        ConcreteFileManager.getFileDetails(data.fID, function( resp ){
-            var fileObj     = resp.files[0],
-                $inMemImg   = $(fileObj.resultsThumbnailImg),
-                thumbPath   = $inMemImg.attr('src');
+        for( var i = 0, len = data.fID.length; i < len; i++ ){
+            ConcreteFileManager.getFileDetails(data.fID[i], function( resp ){
+                var fileObj     = resp.files[0],
+                    $inMemImg   = $(fileObj.resultsThumbnailImg),
+                    thumbPath   = $inMemImg.attr('src');
 
-            console.log(thumbPath);
-
-            $chosenFilesPaneCustom.append($('<div />', {
-                'class' : 'node',
-                'style' : 'background-image:url('+thumbPath+')',
-                'html'  : '<a class="remover">&#x2715;</a><input name="fileID[]" type="hidden" value="'+fileObj.fID+'" />'
-            })).sortable('refresh');
-        });
+                $chosenFilesPaneCustom.append($('<div />', {
+                    'class' : 'node',
+                    'style' : 'background-image:url('+thumbPath+')',
+                    'html'  : '<a class="remover">&#x2715;</a><input name="fileID[]" type="hidden" value="'+fileObj.fID+'" />'
+                })).sortable('refresh');
+            });
+        }
     }
 
     /**
      * Trigger add file dialog
      */
     $container.on('click', '[add-file]', function(){
-        ConcreteFileManager.launchDialog( _onCustomFileChosen );
+        ConcreteFileManager.launchDialog( _onCustomFileChosen, {
+            multipleSelection:true
+        });
     });
 
     /**

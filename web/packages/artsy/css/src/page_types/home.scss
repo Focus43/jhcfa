@@ -23,7 +23,11 @@ $dark-sexy: #231920;
     }
   }
 
-  .homepage-content {text-align:center;color:#fff;}
+  .homepage-content {text-align:center;color:#fff;
+    h2,h3,h4 {
+      a {display:inline !important;}
+    }
+  }
 
   header {display:none;}
 }
@@ -52,7 +56,9 @@ $dark-sexy: #231920;
   }
 }
 
-.grid4max .item {width:18% !important;margin:1% 3%;}
+.aligned-grid {padding:4rem 0 1rem;
+  .item {max-width:150px;width:18% !important;margin:1% 3% !important;padding:0 0 8% !important;}
+}
 
 svg[svgize]{position:absolute;top:0;right:0;height:100%;width:100%;font-family:$theme-font-family;
   // g.tag-line contains text elements

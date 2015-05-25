@@ -38,7 +38,6 @@
                             </span>
                             <h2 style="margin-bottom:2rem;position:absolute;z-index:1;top:13px;left:50%;transform:translateX(-50%);">Upcoming Events</h2>
                         </div>
-                        <a href="/calendar" class="btn btn-primary view-all" style="position:absolute;right:30px;">View All Events <i class="icon-angle-right-circle"></i></a>
                     </div>
                 </div>
                 <div class="row">
@@ -55,6 +54,11 @@
                                 </div>
                             </a>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="/calendar" class="btn btn-primary view-all pull-right">View All Events <i class="icon-angle-right-circle"></i></a>
                     </div>
                 </div>
             </div>
