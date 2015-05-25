@@ -16,8 +16,13 @@
                 </div>
                 <div class="col-sm-6 col-md-3">
                     <div class="inner-content">
-                        <h3>Recent News</h3>
-                        <p>Lorem ipsum dolor sit amet, sed id agam ponderum. Molestie aliquando sed an. Eos legere maiestatis cu, diam tempor ei sit, no solet elaboraret cum.</p>
+                        <h3>Quick Links</h3>
+                        <ul class="list-unstyled">
+                            <li><a>Calendar</a></li>
+                            <li><a>About</a></li>
+                            <li><a>Residents</a></li>
+                            <li><a>Support</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
@@ -35,9 +40,8 @@
                         <h3>Get In Touch</h3>
                         <p><b>Main:</b> 307.734.8956<br/>
                         <b>Box Office:</b> 307.733.4900<br/>
-                        <b>Admin:</b> 307.734.8956
+                        <b>Em:</b> <a>info@jhcenterforthearts.org</a>
                         </p>
-                        <p><a>info@jhcenterforthearts.org</a></p>
                     </div>
                 </div>
             </div>

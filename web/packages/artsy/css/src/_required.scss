@@ -81,3 +81,7 @@ $container-sm:                  100%;
 @mixin scrollOverflow {
   overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
 }
+
+@mixin truncateText {
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;
+}

@@ -18,14 +18,15 @@
     <main revealing>
         <?php $this->inc('elements/header.php'); ?>
 
-<!--        <div scroll-navs>-->
-<!--            <span><i class="icon-circle"></i></span>-->
-<!--            <span><i class="icon-circle"></i></span>-->
-<!--            <span><i class="icon-circle"></i></span>-->
-<!--        </div>-->
+        <div scroll-navs>
+            <span><i class="icon-circle"></i></span>
+            <span><i class="icon-circle"></i></span>
+            <span><i class="icon-circle"></i></span>
+        </div>
 
         <section class="intro">
             <svg svgize></svg>
+            <?php //$this->inc('../../images/intro-svg.svg'); ?>
         </section>
 
         <section class="featured-events" ng-controller="CtrlFeaturedEvents">
