@@ -31,11 +31,14 @@
         <section class="featured-events" ng-controller="CtrlFeaturedEvents">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-8">
-                        <h2 style="margin-bottom:2rem;">Upcoming Events</h2>
-                    </div>
-                    <div class="col-sm-4 text-right">
-                        <a href="/calendar" class="btn btn-primary view-all">View All Events <i class="icon-angle-right-circle"></i></a>
+                    <div class="col-sm-12 text-center">
+                        <div style="display:inline-block;">
+                            <span class="hubber" style="display:inline-block;position:relative;top:-10px;left:8px;">
+                                <i class="icon-circle" style="color:#000;font-size:130px;"></i>
+                            </span>
+                            <h2 style="margin-bottom:2rem;position:absolute;z-index:1;top:13px;left:50%;transform:translateX(-50%);">Upcoming Events</h2>
+                        </div>
+                        <a href="/calendar" class="btn btn-primary view-all" style="position:absolute;right:30px;">View All Events <i class="icon-angle-right-circle"></i></a>
                     </div>
                 </div>
                 <div class="row">
