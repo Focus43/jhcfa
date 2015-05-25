@@ -40,7 +40,7 @@
                         <h3>Get In Touch</h3>
                         <p><b>Main:</b> 307.734.8956<br/>
                         <b>Box Office:</b> 307.733.4900<br/>
-                        <b>Em:</b> <a>info@jhcenterforthearts.org</a>
+                        <b>E:</b> <a>info@jhcenterforthearts.org</a>
                         </p>
                     </div>
                 </div>
