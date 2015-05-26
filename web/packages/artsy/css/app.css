@@ -1758,7 +1758,9 @@ a.logo {
   padding-top: 4%;
   font-size: 0;
   line-height: 0;
-  text-align: center; }
+  text-align: center;
+  margin: 0 auto;
+  max-width: 1350px; }
   .pg-calendar #c-level-1 main [event-list] .event-result {
     width: 96%;
     margin: 4% 2%;

@@ -39,18 +39,18 @@
             <!--<span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>-->
             <span class="date">{{ eventObj.date_display }}</span>
             <div class="event-content" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
-            <span class="layer-1">
-                <span class="title">{{ eventObj.title }}</span>
-            </span>
-            <span class="layer-2">
-                <span class="tabular">
-                    <span class="cellular">
-                        <small>Presented By</small>
-                        <h5>{{ eventObj.presenting_organization }}</h5>
-                        <span class="btn btn-primary btn-">Event Details</span>
+                <span class="layer-1">
+                    <span class="title">{{ eventObj.title }}</span>
+                </span>
+                <span class="layer-2">
+                    <span class="tabular">
+                        <span class="cellular">
+                            <small>Presented By</small>
+                            <h5>{{ eventObj.presenting_organization }}</h5>
+                            <span class="btn btn-primary btn-">Event Details</span>
+                        </span>
                     </span>
                 </span>
-            </span>
             </div>
         </a>
     </div>
