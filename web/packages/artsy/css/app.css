@@ -1411,7 +1411,8 @@ a.logo {
   .pg-event #c-level-1 header .event-img {
     padding-bottom: 50%;
     max-height: 280px;
-    background-size: cover;
+    background-size: contain;
+    background-color: #fff;
     background-position: 50% 15%;
     border: 5px solid #fff;
     -moz-box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65);
