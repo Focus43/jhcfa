@@ -90,13 +90,19 @@
                                 <?php $ticketPrice = (int)$eventObj->getAttribute('ticket_price');
                                 if( $ticketPrice > 0 ){ ?>
                                     <p class="price">$<?php echo $ticketPrice; ?></p>
-                                    <small><?php echo $eventObj->getAttribute('processing_fee_details'); ?></small>
+                                    <?php $pfdeets = $eventObj->getAttribute('processing_fee_details');
+                                    if( !empty($pfdeets) ){ ?>
+                                        <small><?php echo $pfdeets; ?></small>
+                                    <?php } ?>
                                 <?php }else{ ?>
                                     <p class="price">Free</p>
-                                <?php }?>
-                                <br/>
-                                <hr/>
-                                <p><?php echo $eventObj->getAttribute('location'); ?></p>
+                                <?php } ?>
+
+                                <?php $location = $eventObj->getAttribute('location');
+                                if( method_exists($location, '__toString') && !empty($location->__toString()) ){ ?>
+                                    <hr/>
+                                    <p><?php echo $location; ?></p>
+                                <?php } ?>
                             </div>
                             <div class="sidebar-box">
                                 <label>Event Time(s)</label>
