@@ -1510,7 +1510,8 @@ body.pg-home {
       top: 3px; }
 .pg-home #c-level-1 .homepage-content {
   text-align: center;
-  color: #fff; }
+  color: #fff;
+  max-width: 90%; }
   .pg-home #c-level-1 .homepage-content h2 a, .pg-home #c-level-1 .homepage-content h3 a, .pg-home #c-level-1 .homepage-content h4 a {
     display: inline !important; }
 
