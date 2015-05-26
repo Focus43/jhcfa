@@ -35,7 +35,7 @@
         <?php else: ?>
 
             <header class="clearfix">
-                <a class="logo">
+                <a class="logo" href="/">
                     <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
                 </a>
                 <?php
