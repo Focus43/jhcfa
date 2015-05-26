@@ -15,25 +15,25 @@
 
     <?php $this->inc('elements/nav.php'); ?>
 
-    <div scroll-navs>
-        <span class="hub-node marker-1">
-            <svg spoke-to=".marker-2" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
-                <circle fill="#000" cx="10" cy="10" r="10" />
-            </svg>
-        </span>
-        <span class="hub-node marker-2">
-            <svg spoke-to=".marker-3" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
-                <circle fill="#000" cx="10" cy="10" r="10" />
-            </svg>
-        </span>
-        <span class="hub-node marker-3">
-            <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
-                <circle fill="#000" cx="10" cy="10" r="10" />
-            </svg>
-        </span>
-<!--        <span><i class="icon-circle"></i></span>-->
-<!--        <span><i class="icon-circle"></i></span>-->
-<!--        <span><i class="icon-circle"></i></span>-->
+    <div class="scroll-navs">
+<!--        <span class="hub-node marker-1">-->
+<!--            <svg spoke-to=".marker-2" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">-->
+<!--                <circle fill="#000" cx="10" cy="10" r="10" />-->
+<!--            </svg>-->
+<!--        </span>-->
+<!--        <span class="hub-node marker-2">-->
+<!--            <svg spoke-to=".marker-3" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">-->
+<!--                <circle fill="#000" cx="10" cy="10" r="10" />-->
+<!--            </svg>-->
+<!--        </span>-->
+<!--        <span class="hub-node marker-3">-->
+<!--            <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">-->
+<!--                <circle fill="#000" cx="10" cy="10" r="10" />-->
+<!--            </svg>-->
+<!--        </span>-->
+        <span class="active" scroll-to=".intro"><i class="icon-circle"></i></span>
+        <span scroll-to=".featured-events"><i class="icon-circle"></i></span>
+        <span scroll-to=".homepage-content"><i class="icon-circle"></i></span>
     </div>
 
     <main revealing>
