@@ -6,7 +6,7 @@
                 <input type="text" class="form-control" placeholder="Search" ng-model="filters.keywords" />
                 <div class="select-wrap">
                     <select class="calendar-list form-control" ng-model="filters.calendars">
-                        <option value="<?php echo join(',', array_keys($calendarList)); ?>">All Calendars</option>
+                        <option value="">All Calendars</option>
                         <?php foreach($calendarList AS $id => $label){ ?>
                             <option value="<?php echo $id; ?>"><?php echo $label; ?></option>
                         <?php } ?>
@@ -21,9 +21,9 @@
                     </select>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default active" ng-click="setCategory(null)" ng-class="{active:!filters.categories}">All</button>
+                    <button type="button" class="btn btn-default" ng-click="setCategory(null)" ng-class="{active:!filters.categories}">All</button>
                     <?php foreach($categoryList AS $id => $label){ ?>
-                        <button type="button" class="btn btn-default" ng-click="setCategory(<?php echo $id; ?>)" ng-class="{active:filters.categories == <?php echo $id; ?>}">
+                        <button type="button" class="btn btn-default" ng-click="setCategory(<?php echo $id; ?>)" ng-class="{active:filters.categories == <?php echo $id; ?>}" data-handle="<?php echo $label; ?>">
                             <?php echo $label; ?>
                         </button>
                     <?php } ?>

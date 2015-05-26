@@ -487,64 +487,6 @@ angular.module('artsy.common').
             scope: false
         };
     }]);
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            // Initialize with values...
-            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
-            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
-
-            $scope.eventData = [];
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  null,
-                tags:       null,
-                categories: null,
-                filepath:   true,
-                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
-            };
-
-            $scope.fetch = function(){
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            Schedulizer.fetch({
-                filepath:true,
-                limit:10,
-                end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                attributes: 'date_display'
-            }).success(function( resp ){
-                $scope.eventData = resp;
-            });
-
-
-        }
-    ]);
 /* global Modernizr */
 /* global FastClick */
 angular.module('artsy.common').
@@ -688,3 +630,62 @@ angular.module('artsy.common').
         };
 
     }]);
+angular.module('artsy.common').
+
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  "",
+                tags:       "",
+                categories: 1,
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display'
+            };
+
+            // Initialize with values...
+            //scope.filters.calendars = document.querySelector('.calendar-list').children[0].value;
+            //scope.filters.tags = document.querySelector('.tag-list').children[0].value;
+            //angular.element(document.querySelector('[data-handle="Events"]')).trigger('click');
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            Schedulizer.fetch({
+                filepath:true,
+                limit:10,
+                end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                attributes: 'date_display'
+            }).success(function( resp ){
+                $scope.eventData = resp;
+            });
+
+
+        }
+    ]);
