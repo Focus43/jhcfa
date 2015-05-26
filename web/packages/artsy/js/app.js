@@ -50,69 +50,6 @@
 angular.module('artsy.common', []);
 angular.module('artsy.common').
 
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  "",
-                tags:       "",
-                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
-                filepath:   true,
-                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
-            };
-
-            $scope.fetch = function(){
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            /**
-             * Need to use a watch to make sure ng-init completes and
-             * only send request once we have a valid value for featuredTagID
-             */
-            $scope.$watch('featuredTagID', function( featuredTagID ){
-                if( featuredTagID ){
-                    Schedulizer.fetch({
-                        fields: ['tags'],
-                        filepath:true,
-                        limit:10,
-                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                        attributes: 'date_display',
-                        tags: featuredTagID // passed via ng-init
-                    }).success(function( resp ){
-                        $scope.eventData = resp;
-                    });
-                }
-            });
-
-        }
-    ]);
-angular.module('artsy.common').
-
     directive('accordion', [
         function(){
 
@@ -429,7 +366,10 @@ angular.module('artsy.common').
             linkedNodes             = [],
             defaultSpokeOffset      = 5,
             defaultSpokeWidth       = 2,
-            defaultSpokeDistance    = 10;
+            defaultSpokeDistance    = 10,
+            defaultSpokeAnimTime    = 700,
+            defaultSpokeAnimDelay   = 0,
+            defaultSpokeAnimEase    = '>'; // http://documentup.com/wout/svg.js#animating-elements/easing
 
         // Create the SVG canvas ONCe
         svgCanvas.size(docWidth,docHeight).attr('class', 'spoke-canvas');
@@ -477,13 +417,18 @@ angular.module('artsy.common').
             });
 
             nodeData.spoke.
-                animate(400).
+                animate(
+                    // animation time
+                    +(nodeData.attrs.spokeAnimationTime) || defaultSpokeAnimTime,
+                    // easing function (string, so don't cast)
+                    nodeData.attrs.spokeAnimationEase || defaultSpokeAnimEase,
+                    // delay
+                    +(nodeData.attrs.spokeAnimationDelay) || defaultSpokeAnimDelay
+                ).
                 during(function( t, morph ){
                     this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
-                }).
-                after(function(){
-                    redraw = true;
                 });
+                //.after(function(){ redraw = true; });
         }
 
         /**
@@ -495,7 +440,7 @@ angular.module('artsy.common').
                 for(var i = 0, len = linkedNodes.length; i < len; i++){
                     render.call(this, linkedNodes[i]);
                 }
-                console.log('redrawn');
+                console.log('_drawing_spokes_:)');
                 redraw = false;
             }
         });
@@ -549,6 +494,111 @@ angular.module('artsy.common').
             link: _link,
             scope: false
         };
+    }]);
+angular.module('artsy.common').
+
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  "",
+                tags:       "",
+                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display'
+            };
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            /**
+             * Need to use a watch to make sure ng-init completes and
+             * only send request once we have a valid value for featuredTagID
+             */
+            $scope.$watch('featuredTagID', function( featuredTagID ){
+                if( featuredTagID ){
+                    Schedulizer.fetch({
+                        fields: ['tags'],
+                        filepath:true,
+                        limit:10,
+                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                        attributes: 'date_display',
+                        tags: featuredTagID // passed via ng-init
+                    }).success(function( resp ){
+                        $scope.eventData = resp;
+                    });
+                }
+            });
+
+        }
+    ]);
+angular.module('artsy.common').
+
+    service('Schedulizer', ['$http', function( $http ){
+
+        var eventRoute      = '/_schedulizer/event_list',
+            defaultParams   = {
+                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
+                pagepath:   true,
+                grouping:   true
+            };
+
+        /**
+         * Joins the alwaysFields with custom fields and ensures no duplication.
+         * @param _fields
+         * @returns {*}
+         * @private
+         */
+        function mergeFields( a, b ){
+            var joined = a.concat(b);
+            return joined.filter(function( item, pos ){
+                return joined.indexOf(item) === pos;
+            });
+        }
+
+        /**
+         * @param fields array
+         * @param filters object
+         * @param cache bool
+         */
+        this.fetch = function( _filters, _cache ){
+            // Have to extend an empty object so we don't rewrite the original
+            // _filters.fields property to a string!
+            var filtersCopy = angular.extend({}, _filters, {
+                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+            });
+            return $http.get(eventRoute, {
+                cache:  (_cache === false) ? false : true,
+                params: angular.extend({}, defaultParams, filtersCopy)
+            });
+        };
+
     }]);
 /* global Modernizr */
 /* global FastClick */
@@ -651,45 +701,3 @@ angular.module('artsy.common').
             }
         ];
     });
-angular.module('artsy.common').
-
-    service('Schedulizer', ['$http', function( $http ){
-
-        var eventRoute      = '/_schedulizer/event_list',
-            defaultParams   = {
-                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
-                pagepath:   true,
-                grouping:   true
-            };
-
-        /**
-         * Joins the alwaysFields with custom fields and ensures no duplication.
-         * @param _fields
-         * @returns {*}
-         * @private
-         */
-        function mergeFields( a, b ){
-            var joined = a.concat(b);
-            return joined.filter(function( item, pos ){
-                return joined.indexOf(item) === pos;
-            });
-        }
-
-        /**
-         * @param fields array
-         * @param filters object
-         * @param cache bool
-         */
-        this.fetch = function( _filters, _cache ){
-            // Have to extend an empty object so we don't rewrite the original
-            // _filters.fields property to a string!
-            var filtersCopy = angular.extend({}, _filters, {
-                fields: mergeFields(_filters.fields || [], defaultParams.fields)
-            });
-            return $http.get(eventRoute, {
-                cache:  (_cache === false) ? false : true,
-                params: angular.extend({}, defaultParams, filtersCopy)
-            });
-        };
-
-    }]);

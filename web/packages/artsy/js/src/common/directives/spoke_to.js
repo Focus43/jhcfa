@@ -12,7 +12,10 @@ angular.module('artsy.common').
             linkedNodes             = [],
             defaultSpokeOffset      = 5,
             defaultSpokeWidth       = 2,
-            defaultSpokeDistance    = 10;
+            defaultSpokeDistance    = 10,
+            defaultSpokeAnimTime    = 700,
+            defaultSpokeAnimDelay   = 0,
+            defaultSpokeAnimEase    = '>'; // http://documentup.com/wout/svg.js#animating-elements/easing
 
         // Create the SVG canvas ONCe
         svgCanvas.size(docWidth,docHeight).attr('class', 'spoke-canvas');
@@ -60,13 +63,18 @@ angular.module('artsy.common').
             });
 
             nodeData.spoke.
-                animate(400).
+                animate(
+                    // animation time
+                    +(nodeData.attrs.spokeAnimationTime) || defaultSpokeAnimTime,
+                    // easing function (string, so don't cast)
+                    nodeData.attrs.spokeAnimationEase || defaultSpokeAnimEase,
+                    // delay
+                    +(nodeData.attrs.spokeAnimationDelay) || defaultSpokeAnimDelay
+                ).
                 during(function( t, morph ){
                     this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
-                }).
-                after(function(){
-                    redraw = true;
                 });
+                //.after(function(){ redraw = true; });
         }
 
         /**
@@ -78,7 +86,7 @@ angular.module('artsy.common').
                 for(var i = 0, len = linkedNodes.length; i < len; i++){
                     render.call(this, linkedNodes[i]);
                 }
-                console.log('redrawn');
+                console.log('_drawing_spokes_:)');
                 redraw = false;
             }
         });

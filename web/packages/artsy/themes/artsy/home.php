@@ -113,7 +113,7 @@ h-3.194V35.587z"/>
                                     <span>Hub</span>
                                     <span>For the Artistic, Cultural And</span>
                                     <span>Creative Activity In Jackson Hole</span>
-                                    <svg class="svg-tagline-hub" spoke-to=".upcoming" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                                    <svg class="svg-tagline-hub" spoke-to=".upcoming" spoke-animation-delay="700" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
                                         <circle fill="#000" cx="10" cy="10" r="10" />
                                     </svg>
                                 </div>

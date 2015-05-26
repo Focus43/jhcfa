@@ -21,9 +21,12 @@
                 $this->set('calendarObj', $eventObj->getCalendarObj());
                 $this->set('eventTimes', (array) $this->eventList($eventObj)->get());
                 // Event File
-                $eventFileObj = File::getByID($eventObj->getFileID());
-                if( is_object($eventFileObj) ){
-                    $this->set('eventThumbnailPath', $eventFileObj->getThumbnailURL('event_thumb'));
+                $fileID = $eventObj->getFileID();
+                if( (int)$fileID >= 1 ){
+                    $eventFileObj = File::getByID($fileID);
+                    if( is_object($eventFileObj) ){
+                        $this->set('eventThumbnailPath', $eventFileObj->getThumbnailURL('event_thumb'));
+                    }
                 }
             }
         }
