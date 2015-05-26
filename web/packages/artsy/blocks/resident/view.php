@@ -17,7 +17,7 @@
             <?php endif; ?>
         </address>
         <?php if( !empty($url) ): ?>
-            <a href="<?php echo $url ?>">
+            <a href="<?php echo $url ?>" target="_blank">
                 <abbr title="Web">W:</abbr> <?php echo str_replace("http://", "", $url); ?>
             </a>
         <?php endif; ?>
