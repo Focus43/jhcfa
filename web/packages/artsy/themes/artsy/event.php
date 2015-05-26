@@ -9,7 +9,7 @@
     <main revealing>
         <?php if(!is_object($eventObj)): ?>
 
-            <header style="background:#d1d1d1;">
+            <header class="clearfix">
                 <a class="logo">
                     <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
                 </a>
@@ -34,7 +34,7 @@
 
         <?php else: ?>
 
-            <header>
+            <header class="clearfix">
                 <a class="logo">
                     <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
                 </a>
@@ -46,26 +46,26 @@
                     $blockTypeNav->controller->displaySubPageLevels = 'all';
                     $blockTypeNav->render('templates/breadcrumbs');
                 ?>
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <?php if( !empty($eventThumbnailPath) ){ ?>
-                                <div class="event-img" style="background-image:url('<?php echo $eventThumbnailPath; ?>');"></div>
-                            <?php }else{ ?>
-                                <div class="event-img unavailable">
-                                    <div class="tabular">
-                                        <div class="cellular">Image Unavailable :(</div>
-                                    </div>
-                                </div>
-                            <?php } ?>
+                <div class="image-and-title">
+                    <?php if( !empty($eventThumbnailPath) ){ ?>
+                        <div class="event-img" style="background-image:url('<?php echo $eventThumbnailPath; ?>');"></div>
+                    <?php }else{ ?>
+                        <div class="event-img unavailable">
+                            <div class="tabular">
+                                <div class="cellular">Image Unavailable :(</div>
+                            </div>
+                        </div>
+                    <?php } ?>
 
-                            <div class="headline">
-                                <div class="headline-inner">
-                                    <h1><?php echo $eventObj; ?></h1>
-                                    <div class="presenter">
-                                        <i class="icon-circle"></i>
-                                        <span>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></span>
-                                    </div>
+                    <div class="headline">
+                        <div class="headline-inner">
+                            <h1><?php echo $eventObj; ?></h1>
+                            <div class="presenter">
+                                <div class="hub-node hub-green">
+                                    <h4>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></h4>
+                                    <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                                        <circle fill="#000" cx="10" cy="10" r="10" />
+                                    </svg>
                                 </div>
                             </div>
                         </div>

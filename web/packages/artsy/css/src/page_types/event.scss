@@ -1,21 +1,21 @@
 .pg-event #c-level-1 {
-  header {padding:6rem 0 0;@include clearfix;
-    .container-fluid {color:$theme-dark-color;@include container-fixed();max-width:1100px;}
-    .container-fluid, .container-fluid .row {overflow:initial;}
+  header {padding:6rem 0 0;background:darken($theme-extra-light-color,5%);overflow:visible;
+    .image-and-title {position:relative;width:85%;max-width:1100px;margin:0 auto;}
     .event-img {padding-bottom:50%;max-height:280px;background-size:cover;background-position:50% 50%;border:5px solid #fff;@include box-shadow(0 -10px 32px -10px rgba(0,0,0,0.65));
       &.unavailable {@include gradient-vertical(#4f4f4f,#1f1f1f);color:#fff;}
     }
     .headline {
       .headline-inner {position:relative;padding-bottom:1.8rem;}
       h1 {font-size:175%;margin-bottom:0;}
-      .presenter {font-size:1rem;position:absolute;margin-top:1rem;top:100%;left:0;right:0;display:inline-block;
-        i {display:none;}
-        span {}
+      .presenter {font-size:1rem;position:absolute;top:100%;left:0;right:0;display:inline-block;text-align:center;
+        .hub-node {color:$theme-dark-color;font-family:$theme-font-family;font-size:145%;
+          h4 {padding:0.5rem 0 0.4rem 0.5rem;}
+        }
       }
     }
   }
 
-  .area-main {padding:4rem 0 0;
+  .area-main {padding:6rem 0 0;
     .sidebar-box {margin-bottom:1rem;line-height:1;padding:2rem 2rem 1.9rem;position:relative;background:rgba(0,0,0,0.1);
       label {margin:0;padding:3px 4px;font-size:75%;text-transform:uppercase;position:absolute;top:0;right:0;background:$theme-light-color;color:$theme-extra-light-color;}
       .price {font-size:220%;font-weight:bold;margin-bottom:0;}
@@ -45,8 +45,8 @@
   .pg-event #c-level-1 {
     header {
       .headline {
-        .presenter {margin-top:1.5rem;font-size:100%;
-          i {display:inline-block;position:absolute;left:-13px;top:-19px;z-index:-1;font-size:250%;color:lighten($theme-dark-color, 70%);}
+        .presenter {font-size:100%;
+          .hub-node {margin:1rem 0.5rem 0 0.5rem;}
         }
       }
     }
