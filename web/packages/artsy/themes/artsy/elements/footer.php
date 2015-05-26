@@ -12,10 +12,10 @@
                     <div class="inner-content">
                         <h3>Quick Links</h3>
                         <ul class="list-unstyled">
-                            <li><a>Calendar</a></li>
-                            <li><a>About</a></li>
-                            <li><a>Residents</a></li>
-                            <li><a>Support</a></li>
+                            <li><a href="/calendar">Calendar</a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/residents">Residents</a></li>
+                            <li><a href="/support">Support</a></li>
                         </ul>
                     </div>
                 </div>
