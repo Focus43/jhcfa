@@ -1412,7 +1412,7 @@ a.logo {
     padding-bottom: 50%;
     max-height: 280px;
     background-size: cover;
-    background-position: 50% 50%;
+    background-position: 50% 15%;
     border: 5px solid #fff;
     -moz-box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65);
     -webkit-box-shadow: 0 -10px 32px -10px rgba(0, 0, 0, 0.65);
