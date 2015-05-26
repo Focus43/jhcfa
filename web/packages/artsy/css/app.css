@@ -1080,16 +1080,12 @@ footer {
     footer .socialize:hover {
       color: #579336; }
   footer .legalese {
+    display: block;
     text-align: center;
     font-size: 12px;
     color: #838383;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     width: 100%;
-    padding: 0.5rem;
-    z-index: 1; }
+    padding: 0.75rem; }
 
 #c-level-1 footer [class*="col-"] {
   padding-left: 15px;

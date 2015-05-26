@@ -9,28 +9,18 @@ footer {color:#000;position:relative;margin-top:1rem;padding:1rem 0 0;background
   .socialize {font-size:240%;color:$theme-primary-color;@include transition(color 0.35s ease);
     &:hover {color:darken($theme-primary-color, 10%);}
   }
-  .legalese {text-align:center;font-size:12px;color:$theme-light-color;position:absolute;bottom:0;left:0;right:0;width:100%;padding:0.5rem;z-index:1;}
+  .legalese {display:block;text-align:center;font-size:12px;color:$theme-light-color;width:100%;padding:0.75rem;}
 }
 
 #c-level-1 footer [class*="col-"] {padding-left:($grid-gutter-width/4);padding-right:($grid-gutter-width/4);}
 
 .pg-home footer {background:rgba(35,25,32,0.5);margin-top:0;color:#fff;
-  //.socialize {color:#fff;}
   h3 {color:#fff;}
 }
 
 @media screen and (min-width:$screen-sm){
   footer {margin-top:2rem;padding:2rem;
-    //&::after {height:22%;}
     .inner-content {margin-bottom:0;padding-top:1rem;}
     h3 {background:none;padding:0;color:#000;}
   }
 }
-
-//@media screen and (min-width:$screen-md){
-//  footer::after {height:55%;}
-//}
-
-//@media screen and (min-width:$screen-lg){
-//  footer {padding-bottom:8%;}
-//}
