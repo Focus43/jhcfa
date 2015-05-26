@@ -9,7 +9,9 @@
       h1 {font-size:175%;margin-bottom:0;}
       .presenter {font-size:1rem;position:absolute;top:100%;left:0;right:0;display:inline-block;text-align:center;
         .hub-node {color:$theme-dark-color;font-family:$theme-font-family;font-size:145%;
-          h4 {padding:0.5rem 0 0.4rem 0.5rem;}
+          h4 {padding:0.5rem 0 0.4rem 0.5rem;text-align:left;
+            a {color:$theme-light-color;}
+          }
         }
       }
     }
