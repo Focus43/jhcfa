@@ -1401,8 +1401,8 @@ a.logo {
     box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3); } }
 .pg-event #c-level-1 header {
   padding: 6rem 0 0;
-  background: #dadada;
-  overflow: visible; }
+  overflow: visible;
+  background-color: #dadada; }
   .pg-event #c-level-1 header .image-and-title {
     position: relative;
     width: 85%;
@@ -1481,7 +1481,7 @@ a.logo {
   .pg-event #c-level-1 .area-main {
     padding: 6rem 0 0; }
   .pg-event #c-level-1 header {
-    padding: 11rem 0 0; }
+    padding: 13rem 0 0; }
     .pg-event #c-level-1 header .event-img {
       padding-bottom: 0;
       position: absolute;
