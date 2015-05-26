@@ -1,5 +1,5 @@
 #c-level-1 .svg-logo{//max-width:240px;
-  circle,ellipse {opacity:0;@include animation(bounce-in-down 1s ease forwards 0.25s);}
+  //circle,ellipse {opacity:0;@include animation(bounce-in-down 1s ease forwards 0.25s);}
   g {
     &.logo-stroke path {stroke-dasharray:250;stroke-dashoffset:250;@include animation(logo-stroke 3s linear forwards 0.45s);}
     &.logo-fill {opacity:0;@include animation(logo-filler 0.5s ease forwards 2s);}

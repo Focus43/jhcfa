@@ -35,6 +35,106 @@
 angular.module('artsy.common', []);
 angular.module('artsy.common').
 
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            // Initialize with values...
+            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
+            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  null,
+                tags:       null,
+                categories: null,
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display'
+            };
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            Schedulizer.fetch({
+                filepath:true,
+                limit:10,
+                end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                attributes: 'date_display'
+            }).success(function( resp ){
+                $scope.eventData = resp;
+            });
+
+
+        }
+    ]);
+angular.module('artsy.common').
+
+    service('Schedulizer', ['$http', function( $http ){
+
+        var eventRoute      = '/_schedulizer/event_list',
+            defaultParams   = {
+                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
+                pagepath:   true,
+                grouping:   true
+            };
+
+        /**
+         * Joins the alwaysFields with custom fields and ensures no duplication.
+         * @param _fields
+         * @returns {*}
+         * @private
+         */
+        function mergeFields( a, b ){
+            var joined = a.concat(b);
+            return joined.filter(function( item, pos ){
+                return joined.indexOf(item) === pos;
+            });
+        }
+
+        /**
+         * @param fields array
+         * @param filters object
+         * @param cache bool
+         */
+        this.fetch = function( _filters, _cache ){
+            // Have to extend an empty object so we don't rewrite the original
+            // _filters.fields property to a string!
+            var filtersCopy = angular.extend({}, _filters, {
+                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+            });
+            return $http.get(eventRoute, {
+                cache:  (_cache === false) ? false : true,
+                params: angular.extend({}, defaultParams, filtersCopy)
+            });
+        };
+
+    }]);
+angular.module('artsy.common').
+
     directive('accordion', [
         function(){
 
@@ -284,7 +384,127 @@ angular.module('artsy.common').
     ]);
 angular.module('artsy.common').
 
-    directive('svgize', ['SVG', function( SVG ){
+    directive('spokeTo', ['$window', 'SVG', 'Tween', function( $window, SVG, Tween ){
+
+        var body                    = document.body,
+            html                    = document.documentElement,
+            docWidth                = document.body.getBoundingClientRect().width,
+            docHeight               = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight),
+            svgCanvas               = SVG(document.body),
+            redraw                  = false,
+            linkedNodes             = [],
+            defaultSpokeOffset      = 5,
+            defaultSpokeWidth       = 5,
+            defaultSpokeDistance    = 10;
+
+        // Create the SVG canvas ONCe
+        svgCanvas.size(docWidth,docHeight).attr('class', 'spoke-canvas');
+
+        /**
+         * Whenever an update occurs, adjust the line settings...
+         * @param nodePair
+         */
+        function render( nodeData ){
+            // Calculate the midpoints and angles b/w nodes as radians
+            var rectA           = nodeData.nodes[0].getBoundingClientRect(),
+                rectB           = nodeData.nodes[1].getBoundingClientRect(),
+                radiusA         = rectA.width / 2,
+                radiusB         = rectB.width / 2,
+                xMidA           = rectA.left + radiusA,
+                yMidA           = rectA.top + radiusA,
+                xMidB           = rectB.left + radiusB,
+                yMidB           = rectB.top + radiusB,
+                thetaA          = Math.atan2((yMidB - yMidA),(xMidB - xMidA)),
+                thetaB          = Math.atan2((yMidA - yMidB),(xMidA - xMidB)),
+                spokeOffset    = +(nodeData.attrs.spokeOffset) || defaultSpokeOffset,
+                calcdRadiusA    = radiusA + spokeOffset,
+                calcdRadiusB    = radiusB + spokeOffset,
+                existingLine    = nodeData.spoke;
+
+            // Calculate the points moved to the outside of the circle
+            var ax = xMidA + calcdRadiusA * Math.cos(thetaA),
+                ay = yMidA + calcdRadiusA * Math.sin(thetaA),
+                bx = xMidB + calcdRadiusB * Math.cos(thetaB),
+                by = yMidB + calcdRadiusB * Math.sin(thetaB);
+
+            // If line has already been rendered, just needs updating
+            if( existingLine ){
+                existingLine.plot(ax,ay,bx,by);
+                return;
+            }
+
+            // If we get here, its rendering for the first time, so all we do is
+            // generate the line and store the reference to it with the nodeData
+            nodeData.spoke = svgCanvas.line(ax,ay,ax,ay).stroke({
+                width: +(nodeData.attrs.spokeWidth) || defaultSpokeWidth,
+                linecap: 'round',
+                dasharray: '0.1,' + (nodeData.attrs.spokeDistance || defaultSpokeDistance),
+                color:'#ffffff'
+            });
+
+            nodeData.spoke.animate(1000).during(function( t, morph ){
+                this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
+            });
+        }
+
+        /**
+         * Animation frame binding, but only gets run whenever an onscroll
+         * or window resize event happens.
+         */
+        Tween.ticker.addEventListener('tick', function(){
+            if( redraw ){
+                for(var i = 0, len = linkedNodes.length; i < len; i++){
+                    render.call(this, linkedNodes[i]);
+                }
+                redraw = false;
+            }
+        });
+
+        /**
+         * Scroll event.
+         */
+        angular.element($window).bind('scroll', function(){
+            redraw = true;
+        });
+
+        /**
+         * Window was resized.
+         */
+        angular.element($window).bind('resize', function(){
+            docWidth    = document.body.getBoundingClientRect().width;
+            docHeight   = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+            svgCanvas.size(docWidth,docHeight);
+            redraw = true;
+        });
+
+        /**
+         * Link function just takes care of adding to the nodePairs we're tracking.
+         * @example: <svg spoke-to=".another-svg" spoke-offset="20" spoke-width="10" spoke-distance="20"><circle></circle></svg>
+         * @param scope
+         * @param $elem
+         * @param attrs
+         * @private
+         */
+        function _link( scope, $elem, attrs ){
+            linkedNodes.push({
+                nodes: [
+                    $elem[0].querySelector('circle'),
+                    document.querySelector(attrs.spokeTo).querySelector('circle')
+                ],
+                attrs: attrs
+            });
+
+            redraw = true;
+        }
+
+        return {
+            link: _link,
+            scope: false
+        };
+    }]);
+angular.module('artsy.common').
+
+    directive('svgize', ['SVG', 'Tween', function( SVG, Tween ){
 
         function _link( scope, $elem, attrs ){
 
@@ -364,6 +584,7 @@ angular.module('artsy.common').
             //    x: canvasWidth - 40,
             //    y: centerY - (scrollNavGroup.bbox().height / 2)
             //});
+
         }
 
         return {
@@ -471,103 +692,3 @@ angular.module('artsy.common').
             }
         ];
     });
-angular.module('artsy.common').
-
-    service('Schedulizer', ['$http', function( $http ){
-
-        var eventRoute      = '/_schedulizer/event_list',
-            defaultParams   = {
-                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
-                pagepath:   true,
-                grouping:   true
-            };
-
-        /**
-         * Joins the alwaysFields with custom fields and ensures no duplication.
-         * @param _fields
-         * @returns {*}
-         * @private
-         */
-        function mergeFields( a, b ){
-            var joined = a.concat(b);
-            return joined.filter(function( item, pos ){
-                return joined.indexOf(item) === pos;
-            });
-        }
-
-        /**
-         * @param fields array
-         * @param filters object
-         * @param cache bool
-         */
-        this.fetch = function( _filters, _cache ){
-            // Have to extend an empty object so we don't rewrite the original
-            // _filters.fields property to a string!
-            var filtersCopy = angular.extend({}, _filters, {
-                fields: mergeFields(_filters.fields || [], defaultParams.fields)
-            });
-            return $http.get(eventRoute, {
-                cache:  (_cache === false) ? false : true,
-                params: angular.extend({}, defaultParams, filtersCopy)
-            });
-        };
-
-    }]);
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            // Initialize with values...
-            //scope.filters.calendars = $elem[0].querySelector('.calendar-list').children[0].value;
-            //scope.filters.tags = $elem[0].querySelector('.tag-list').children[0].value;
-
-            $scope.eventData = [];
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  null,
-                tags:       null,
-                categories: null,
-                filepath:   true,
-                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
-            };
-
-            $scope.fetch = function(){
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            Schedulizer.fetch({
-                filepath:true,
-                limit:10,
-                end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                attributes: 'date_display'
-            }).success(function( resp ){
-                $scope.eventData = resp;
-            });
-
-
-        }
-    ]);

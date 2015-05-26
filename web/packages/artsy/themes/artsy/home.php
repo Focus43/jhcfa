@@ -16,7 +16,9 @@
     <?php $this->inc('elements/nav.php'); ?>
 
     <main revealing>
-        <?php $this->inc('elements/header.php'); ?>
+        <a class="logo" href="/">
+            <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
+        </a>
 
         <div scroll-navs>
             <span><i class="icon-circle"></i></span>
@@ -25,8 +27,37 @@
         </div>
 
         <section class="intro">
-            <svg svgize></svg>
-            <?php //$this->inc('../../images/intro-svg.svg'); ?>
+            <div class="tabular">
+                <div class="cellular">
+<!--                    <svg spoke-to=".svg-circle" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:20%;left:20%;">-->
+<!--                        <circle fill="#000" cx="10" cy="10" r="10" />-->
+<!--                    </svg>-->
+<!---->
+<!--                    <svg spoke-to=".svg-circle" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:20%;left:50%;">-->
+<!--                        <circle fill="#000" cx="10" cy="10" r="10" />-->
+<!--                    </svg>-->
+<!---->
+<!--                    <svg spoke-to=".svg-circle" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:90%;left:90%;">-->
+<!--                        <circle fill="#000" cx="10" cy="10" r="10" />-->
+<!--                    </svg>-->
+
+                    <div class="tagline">
+                        <div class="tabular">
+                            <div class="cellular">
+                                <div class="text">
+                                    <span>We Are A</span>
+                                    <span>Hub</span>
+                                    <span>For the Artistic, Cultural And</span>
+                                    <span>Creative Activity In Jackson Hole</span>
+                                    <svg class="svg-circle" spoke-to=".svg-logo" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                                        <circle fill="#000" cx="10" cy="10" r="10" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="featured-events" ng-controller="CtrlFeaturedEvents">
