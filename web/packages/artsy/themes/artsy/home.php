@@ -124,7 +124,7 @@ h-3.194V35.587z"/>
             </div>
         </section>
 
-        <section class="featured-events" ng-controller="CtrlFeaturedEvents">
+        <section class="featured-events" ng-controller="CtrlFeaturedEvents" ng-init="featuredTagID = '<?php echo (int)$featuredTagID; ?>'">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
