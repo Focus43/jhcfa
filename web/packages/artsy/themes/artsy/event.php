@@ -86,14 +86,17 @@
                         </div>
                         <div class="col-sm-5 col-md-4">
                             <div class="sidebar-box">
-                                <label>Price</label>
+                                <label>Price &amp; Location</label>
                                 <?php $ticketPrice = (int)$eventObj->getAttribute('ticket_price');
                                 if( $ticketPrice > 0 ){ ?>
                                     <p class="price">$<?php echo $ticketPrice; ?></p>
-                                    <small>(includes processing fee)</small>
+                                    <small><?php echo $eventObj->getAttribute('processing_fee_details'); ?></small>
                                 <?php }else{ ?>
                                     <p class="price">Free</p>
                                 <?php }?>
+                                <br/>
+                                <hr/>
+                                <p><?php echo $eventObj->getAttribute('location'); ?></p>
                             </div>
                             <div class="sidebar-box">
                                 <label>Event Time(s)</label>
@@ -102,12 +105,16 @@
                                         <li>
                                             <?php
                                             $dtObj = new \DateTime($row['computedStartLocal']);
-                                            echo sprintf("%s - <strong>%s</strong>", $dtObj->format('D M j, Y'), $dtObj->format('g:i A'));
+                                            echo sprintf("<strong>%s</strong> - %s", $dtObj->format('g:i A'), $dtObj->format('D M j, Y'));
                                             ?>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
-                                <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">Get Tickets</a>
+                                <?php if( ! (bool)$eventObj->getAttribute('event_not_ticketed') ): ?>
+                                    <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">
+                                        Get Tickets
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
