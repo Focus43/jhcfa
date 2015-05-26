@@ -1367,7 +1367,8 @@ a.logo {
   .tagline {
     font-size: 110%; } }
 .pg-resident #c-level-1 .resident-details {
-  background: #dfdfdf; }
+  background: #dfdfdf;
+  margin-bottom: 1rem; }
   .pg-resident #c-level-1 .resident-details .resident-logo {
     text-align: center;
     padding: 1.5rem;
