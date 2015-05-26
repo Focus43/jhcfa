@@ -84,6 +84,10 @@ a.logo {position:absolute;top:5px;right:15px;line-height:0;width:100%;max-width:
   }
 }
 
+.mission {
+  svg circle {fill:$theme-primary-color;}
+}
+
 @media screen and (min-width:$screen-sm){
   .tagline {font-size:90%;}
 }

@@ -165,6 +165,16 @@ h-3.194V35.587z"/>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
+                        <div class="hub-node mission">
+                            <h2>Our Mission</h2>
+                            <svg spoke-to=".upcoming" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                                <circle fill="#000" cx="10" cy="10" r="10" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <?php
                         /** @var $a \Concrete\Core\Area\Area */
                         $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN_2);

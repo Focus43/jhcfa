@@ -1,8 +1,8 @@
 .spoke-canvas {z-index:-1;position:fixed;top:0;left:0;}
 
-.hub-node {position:relative;line-height:1;margin:2rem 0 2rem 1.5rem;color:#fff;
-  h1,h2,h3,h4 {padding:1rem 0;}
+.hub-node {position:relative;display:inline-block;line-height:1;margin:2rem 0 2rem 1.5rem;color:#fff;font-family:$theme-font-family-bold;
+  h1,h2,h3,h4 {padding:1.1rem 0 1rem;margin:0;}
   svg {display:inline-block;position:absolute;z-index:-1;top:0;bottom:0;left:0;height:100%;@include transform(scale(1.5,1.5) translate(-22%,0));@include transform-origin(0, 50%);
-    circle {fill:rgba(0,0,0,0.75);}
+    circle {fill:#000000;}
   }
 }
