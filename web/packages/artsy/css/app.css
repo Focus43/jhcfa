@@ -490,7 +490,7 @@ nav[primary] {
     padding: 0;
     text-transform: uppercase; }
     nav[primary] ul.majority {
-      padding-top: 0.5rem; }
+      padding-top: 2rem; }
       nav[primary] ul.majority.show-subs, nav[primary] ul.majority.show-subs + .bottom {
         -moz-transform: translate3d(-100%, 0, 0);
         -ms-transform: translate3d(-100%, 0, 0);
@@ -525,8 +525,7 @@ nav[primary] {
         top: 0;
         right: 0;
         bottom: 0;
-        font-size: 3rem;
-        background: #333333; }
+        font-size: 3rem; }
     nav[primary] ul li.sub-active .sub {
       visibility: visible;
       opacity: 1; }

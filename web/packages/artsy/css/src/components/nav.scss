@@ -14,7 +14,7 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
   [slideable]{@include transform(translate3d(0,0,0));@include transition(transform $revealers-animate-time $revealers-animate-function);}
   // All menus
   ul {font-size:115%;list-style:none;padding:0;text-transform:uppercase;
-    &.majority {padding-top:0.5rem;
+    &.majority {padding-top:2rem;
       &.show-subs, &.show-subs + .bottom {@include transform(translate3d(-100%,0,0));}
     }
     &.sub {visibility:hidden;opacity:0;position:absolute;top:0;left:100%;width:100%;@include transition(all $revealers-animate-time $revealers-animate-function)}
@@ -23,7 +23,7 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
         &:hover {color:$theme-primary-color;}
       }
       .has-subnavs {position:relative;
-        .sub-trigger {z-index:2;color:#fff;display:inline-block;position:absolute;top:0;right:0;bottom:0;font-size:3rem;background:lighten($sidebar-bg-color, 10%);}
+        .sub-trigger {z-index:2;color:#fff;display:inline-block;position:absolute;top:0;right:0;bottom:0;font-size:3rem;}//background:lighten($sidebar-bg-color, 10%);}
       }
       &.sub-active {
         .sub {visibility:visible;opacity:1;}
