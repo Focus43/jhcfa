@@ -83,7 +83,7 @@ svg.spoke-canvas {z-index:-1;position:fixed;top:0;left:0;}
       &:nth-child(1){font-size:260%;letter-spacing:-2px;}
       &:nth-child(2){line-height:0;padding:14% 0 12%;letter-spacing:-8px;font-size:850%;font-family:$theme-font-family-bold;margin-left:-2%;}
     }
-    .svg-circle {display:inline-block;position:absolute;z-index:-1;top:0;bottom:0;left:0;height:100%;@include transform(scale(1.5,1.5) translate(-22%,0));@include transform-origin(0, 50%);
+    .svg-tagline-hub {display:inline-block;position:absolute;z-index:-1;top:0;bottom:0;left:0;height:100%;@include transform(scale(1.5,1.5) translate(-22%,0));@include transform-origin(0, 50%);
       circle {fill:rgba(208,7,121,0.7);}
     }
   }
@@ -96,3 +96,11 @@ svg.spoke-canvas {z-index:-1;position:fixed;top:0;left:0;}
 @media screen and (min-width:$screen-md){
   .tagline {font-size:110%;}
 }
+
+.hub-node {position:relative;line-height:1;margin:2rem 0 2rem 1.5rem;
+  h2 {padding:1rem 0;}
+  svg {display:inline-block;position:absolute;z-index:-1;top:0;bottom:0;left:0;height:100%;@include transform(scale(1.5,1.5) translate(-22%,0));@include transform-origin(0, 50%);
+    circle {fill:rgba(0,0,0,0.75);}
+  }
+}
+

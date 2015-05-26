@@ -58,9 +58,14 @@ angular.module('artsy.common').
                 color:'#ffffff'
             });
 
-            nodeData.spoke.animate(1000).during(function( t, morph ){
-                this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
-            });
+            nodeData.spoke.
+                animate(1000).
+                during(function( t, morph ){
+                    this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
+                }).
+                after(function(){
+                    redraw = true;
+                });
         }
 
         /**
