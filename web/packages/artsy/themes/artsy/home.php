@@ -139,18 +139,18 @@ h-3.194V35.587z"/>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-<!--                        <div class="clearfix" event-list="eventData" ng-cloak>-->
-<!--                            <a class="event" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">-->
-<!--                                <div class="inner">-->
-<!--                                    <div class="tabular">-->
-<!--                                        <div class="cellular">-->
-<!--                                            <span class="title">{{ eventObj.title }}</span>-->
-<!--                                            <span class="date">{{ eventObj.date_display }}</span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </a>-->
-<!--                        </div>-->
+                        <div class="clearfix" event-list="eventData" ng-cloak>
+                            <a class="event" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
+                                <div class="inner">
+                                    <div class="tabular">
+                                        <div class="cellular">
+                                            <span class="title">{{ eventObj.title }}</span>
+                                            <span class="date">{{ eventObj.date_display }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
