@@ -77,7 +77,7 @@ a.logo {position:absolute;top:5px;right:15px;line-height:0;width:100%;max-width:
   svg {max-width:100%;}
 }
 
-.tagline {font-size:75%;line-height:0;position:absolute;bottom:32%;left:0;@include transform(scale(0,0));
+.tagline {font-size:75%;line-height:0;position:absolute;bottom:32%;left:0;//@include transform(scale(0,0));
   .text {line-height:1;text-transform:uppercase;position:relative;
     span {display:block;font-size:180%;letter-spacing:-1px;white-space:nowrap;font-family:$theme-font-family;
       &:nth-child(1){font-size:260%;letter-spacing:-2px;}
