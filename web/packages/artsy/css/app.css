@@ -1402,7 +1402,9 @@ a.logo {
 .pg-event #c-level-1 header {
   padding: 6rem 0 0;
   overflow: visible;
-  background-color: #dadada; }
+  /*background-color:darken($theme-extra-light-color, 5%);*/
+  background: url("/packages/artsy/images/abstract-gray.jpg") no-repeat 50% 50%;
+  background-size: cover; }
   .pg-event #c-level-1 header .image-and-title {
     position: relative;
     width: 85%;
