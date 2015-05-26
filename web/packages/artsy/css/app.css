@@ -87,8 +87,10 @@ video.fullscreen {
     font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
     text-transform: uppercase;
     letter-spacing: -1px; }
-  #c-level-1 .theme-text-huge {
-    font-size: 3.9rem; }
+  #c-level-1 .theme-text-large {
+    font-size: 200%; }
+  #c-level-1 .theme-text-xlarge {
+    font-size: 220%; }
   #c-level-1 .theme-highlight-color {
     color: #6DB844; }
   #c-level-1 .theme-light-color {
@@ -1403,7 +1405,9 @@ a.logo {
     -webkit-box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
     box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3); } }
 .pg-event #c-level-1 header {
-  padding: 6rem 0 0; }
+  padding: 6rem 0 0;
+  overflow: hidden;
+  *zoom: 1; }
   .pg-event #c-level-1 header .container-fluid {
     color: #000000;
     margin-right: auto;
@@ -1413,6 +1417,8 @@ a.logo {
     overflow: hidden;
     *zoom: 1;
     max-width: 1100px; }
+  .pg-event #c-level-1 header .container-fluid, .pg-event #c-level-1 header .container-fluid .row {
+    overflow: initial; }
   .pg-event #c-level-1 header .event-img {
     padding-bottom: 50%;
     max-height: 280px;

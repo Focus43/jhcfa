@@ -20,7 +20,9 @@
                 array('title' => t('Theme Highlight Color'), 'menuClass' => 'theme-highlight-color', 'spanClass' => 'theme-highlight-color'),
                 array('title' => t('Theme Light Color'), 'menuClass' => '', 'spanClass' => 'theme-light-color'),
                 array('title' => t('Theme Dark Color'), 'menuClass' => '', 'spanClass' => 'theme-dark-color'),
-                array('title' => t('Theme Text Huge'), 'menuClass' => '', 'spanClass' => 'theme-text-huge')
+                array('title' => t('Font:Large'), 'menuClass' => '', 'spanClass' => 'theme-text-large'),
+                array('title' => t('Font:XLarge'), 'menuClass' => '', 'spanClass' => 'theme-text-xlarge'),
+                array('title' => t('Font:Lead'), 'menuClass' => '', 'spanClass' => 'lead')
             );
         }
 

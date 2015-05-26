@@ -19,7 +19,8 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   h1,h2,h3,h4,h5 {font-family:$theme-font-family-bold;text-transform:uppercase;letter-spacing:-1px;}
   //@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/tables';
 
-  .theme-text-huge {font-size:3.9rem;}
+  .theme-text-large {font-size:200%;}
+  .theme-text-xlarge {font-size:220%;}
   .theme-highlight-color {color:$theme-primary-color;}
   .theme-light-color {color:$theme-light-color;}
   .theme-dark-color {color:$theme-dark-color;}
