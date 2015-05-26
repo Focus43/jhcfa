@@ -50,6 +50,161 @@
 angular.module('artsy.common', []);
 angular.module('artsy.common').
 
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  "",
+                tags:       "",
+                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display'
+            };
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            Schedulizer.fetch({
+                filepath:true,
+                limit:10,
+                end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                attributes: 'date_display'
+            }).success(function( resp ){
+                $scope.eventData = resp;
+            });
+
+
+        }
+    ]);
+/* global Modernizr */
+/* global FastClick */
+angular.module('artsy.common').
+
+    /**
+     * @description Modernizr provider
+     * @param $window
+     * @param $log
+     * @returns Modernizr | false
+     */
+    provider('Modernizr', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description TweenLite OR TweenMax provider
+     * @param $window
+     * @param $log
+     * @returns TweenMax | TweenLite | false
+     */
+    provider('Tween', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description MomentJS
+     * @param $window
+     * @param $log
+     * @returns moment | TweenLite | false
+     */
+    provider('moment', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description Masonry provider
+     * @param $window
+     * @param $log
+     * @returns Masonry | false
+     */
+    provider('Masonry', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description imagesLoaded provider
+     * @param $window
+     * @param $log
+     * @returns imagesLoaded | false
+     */
+    provider('imagesLoaded', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description FastClick provider
+     * @param $window
+     * @param $log
+     * @returns FastClick | false
+     */
+    provider('FastClick', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description svg.js provider
+     * @param $window
+     * @param $log
+     * @returns SVG | false
+     */
+    provider('SVG', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
+            }
+        ];
+    });
+angular.module('artsy.common').
+
     directive('accordion', [
         function(){
 
@@ -365,7 +520,7 @@ angular.module('artsy.common').
             overrideRedraw          = false,
             linkedNodes             = [],
             defaultSpokeOffset      = 5,
-            defaultSpokeWidth       = 4,
+            defaultSpokeWidth       = 2,
             defaultSpokeDistance    = 10;
 
         // Create the SVG canvas ONCe
@@ -487,107 +642,6 @@ angular.module('artsy.common').
             scope: false
         };
     }]);
-/* global Modernizr */
-/* global FastClick */
-angular.module('artsy.common').
-
-    /**
-     * @description Modernizr provider
-     * @param $window
-     * @param $log
-     * @returns Modernizr | false
-     */
-    provider('Modernizr', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description TweenLite OR TweenMax provider
-     * @param $window
-     * @param $log
-     * @returns TweenMax | TweenLite | false
-     */
-    provider('Tween', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description MomentJS
-     * @param $window
-     * @param $log
-     * @returns moment | TweenLite | false
-     */
-    provider('moment', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description Masonry provider
-     * @param $window
-     * @param $log
-     * @returns Masonry | false
-     */
-    provider('Masonry', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description imagesLoaded provider
-     * @param $window
-     * @param $log
-     * @returns imagesLoaded | false
-     */
-    provider('imagesLoaded', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description FastClick provider
-     * @param $window
-     * @param $log
-     * @returns FastClick | false
-     */
-    provider('FastClick', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description svg.js provider
-     * @param $window
-     * @param $log
-     * @returns SVG | false
-     */
-    provider('SVG', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
-            }
-        ];
-    });
 angular.module('artsy.common').
 
     service('Schedulizer', ['$http', function( $http ){
@@ -630,57 +684,3 @@ angular.module('artsy.common').
         };
 
     }]);
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  "",
-                tags:       "",
-                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
-                filepath:   true,
-                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
-            };
-
-            $scope.fetch = function(){
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            Schedulizer.fetch({
-                filepath:true,
-                limit:10,
-                end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                attributes: 'date_display'
-            }).success(function( resp ){
-                $scope.eventData = resp;
-            });
-
-
-        }
-    ]);

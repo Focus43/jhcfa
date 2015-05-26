@@ -11,7 +11,7 @@ angular.module('artsy.common').
             overrideRedraw          = false,
             linkedNodes             = [],
             defaultSpokeOffset      = 5,
-            defaultSpokeWidth       = 4,
+            defaultSpokeWidth       = 2,
             defaultSpokeDistance    = 10;
 
         // Create the SVG canvas ONCe
