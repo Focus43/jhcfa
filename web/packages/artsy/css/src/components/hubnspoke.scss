@@ -5,4 +5,5 @@
   svg {display:inline-block;position:absolute;z-index:-1;top:0;bottom:0;left:0;height:100%;@include transform(scale(1.5,1.5) translate(-22%,0));@include transform-origin(0, 50%);
     circle {fill:#000000;}
   }
+  &.hub-green svg circle {fill:$theme-primary-color;}
 }

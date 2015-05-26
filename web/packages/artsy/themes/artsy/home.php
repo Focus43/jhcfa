@@ -94,17 +94,16 @@ h-3.194V35.587z"/>
         <section class="intro" intro-anim>
             <div class="tabular">
                 <div class="cellular">
-<!--                    <svg spoke-to=".svg-circle" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:20%;left:20%;">-->
-<!--                        <circle fill="#000" cx="10" cy="10" r="10" />-->
-<!--                    </svg>-->
-<!---->
-<!--                    <svg spoke-to=".svg-circle" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:20%;left:50%;">-->
-<!--                        <circle fill="#000" cx="10" cy="10" r="10" />-->
-<!--                    </svg>-->
-<!---->
-<!--                    <svg spoke-to=".svg-circle" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:90%;left:90%;">-->
-<!--                        <circle fill="#000" cx="10" cy="10" r="10" />-->
-<!--                    </svg>-->
+
+                    <!--<svg spoke-to=".svg-tagline-hub" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:20%;left:20%;">
+                        <circle fill="#000" cx="10" cy="10" r="10" />
+                    </svg>
+                    <svg spoke-to=".svg-tagline-hub" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:20%;left:50%;">
+                        <circle fill="#000" cx="10" cy="10" r="10" />
+                    </svg>
+                    <svg spoke-to=".svg-tagline-hub" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:90%;left:90%;">
+                        <circle fill="#000" cx="10" cy="10" r="10" />
+                    </svg>-->
 
                     <div class="tagline hub-node">
                         <div class="tabular">
@@ -164,7 +163,7 @@ h-3.194V35.587z"/>
         <section class="homepage-content container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="hub-node mission">
+                    <div class="hub-node hub-green">
                         <h2>Our Mission</h2>
                         <svg spoke-to=".upcoming" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
                             <circle fill="#000" cx="10" cy="10" r="10" />

@@ -76,16 +76,12 @@ a.logo {position:absolute;top:5px;right:15px;line-height:0;width:100%;max-width:
 
 .tagline {font-size:75%;line-height:0;position:absolute;bottom:32%;left:20%;@include transform(scale(0,0));
   .text {line-height:1;text-transform:uppercase;position:relative;
-    span {display:block;font-size:180%;letter-spacing:-1px;white-space:nowrap;
+    span {display:block;font-size:180%;letter-spacing:-1px;white-space:nowrap;font-family:$theme-font-family;
       &:nth-child(1){font-size:260%;letter-spacing:-2px;}
       &:nth-child(2){line-height:0;padding:14% 0 12%;letter-spacing:-8px;font-size:850%;font-family:$theme-font-family-bold;margin-left:-2%;}
     }
     svg circle {fill:rgba(208,7,121,0.7);}
   }
-}
-
-.mission {
-  svg circle {fill:$theme-primary-color;}
 }
 
 @media screen and (min-width:$screen-sm){
