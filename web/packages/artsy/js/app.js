@@ -642,16 +642,11 @@ angular.module('artsy.common').
                 keywords:   null,
                 calendars:  "",
                 tags:       "",
-                categories: 1,
+                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
                 filepath:   true,
                 end:        moment().add(6, 'months').format('YYYY-MM-DD'),
                 attributes: 'presenting_organization,date_display'
             };
-
-            // Initialize with values...
-            //scope.filters.calendars = document.querySelector('.calendar-list').children[0].value;
-            //scope.filters.tags = document.querySelector('.tag-list').children[0].value;
-            //angular.element(document.querySelector('[data-handle="Events"]')).trigger('click');
 
             $scope.fetch = function(){
                 Schedulizer.fetch($scope.filters).success(function( resp ){

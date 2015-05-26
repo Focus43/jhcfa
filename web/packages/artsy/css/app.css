@@ -1695,11 +1695,14 @@ a.logo {
     -webkit-border-radius: 0;
     border-radius: 0; }
     .pg-calendar #c-level-1 main .event-search .form-control[type="text"] {
-      padding: 5px 10px 7px; }
+      font-size: 100%;
+      padding: 5px 10px 7px;
+      display: block;
+      width: 100%; }
   .pg-calendar #c-level-1 main .event-search .select-wrap {
     max-width: 180px;
     background: #fff;
-    display: inline-block;
+    display: none;
     position: relative;
     z-index: 2; }
     .pg-calendar #c-level-1 main .event-search .select-wrap::after {
@@ -1732,6 +1735,8 @@ a.logo {
   .pg-calendar #c-level-1 main .event-search .btn-group .btn {
     border: 0; }
   .pg-calendar #c-level-1 main .event-search .btn-search {
+    display: block;
+    width: 100%;
     font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
     color: #eff7ea;
     background-color: #5b9a39;
@@ -1842,7 +1847,26 @@ a.logo {
       opacity: 1;
       visibility: visible; }
 
+@media screen and (max-width: 599px) {
+  .pg-calendar #c-level-1 main .event-search .btn-group {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate; }
+    .pg-calendar #c-level-1 main .event-search .btn-group > .btn,
+    .pg-calendar #c-level-1 main .event-search .btn-group > .btn-group {
+      float: none;
+      display: table-cell;
+      width: 1%; }
+    .pg-calendar #c-level-1 main .event-search .btn-group > .btn-group .btn {
+      width: 100%; } }
 @media screen and (min-width: 600px) {
+  .pg-calendar #c-level-1 main .event-search .form-control[type="text"] {
+    display: inline-block;
+    width: auto; }
+  .pg-calendar #c-level-1 main .event-search .btn-search {
+    display: inline-block;
+    width: auto; }
   .pg-calendar #c-level-1 main [event-list] {
     padding-top: 3%; }
     .pg-calendar #c-level-1 main [event-list] .event-result {
@@ -1850,6 +1874,8 @@ a.logo {
       margin: 3% 2%;
       padding-bottom: 25%; } }
 @media screen and (min-width: 992px) {
+  .pg-calendar #c-level-1 main .event-search .select-wrap {
+    display: inline-block; }
   .pg-calendar #c-level-1 main [event-list] {
     padding-top: 2%; }
     .pg-calendar #c-level-1 main [event-list] .event-result {

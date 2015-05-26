@@ -21,11 +21,11 @@
                     </select>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" ng-click="setCategory(null)" ng-class="{active:!filters.categories}">All</button>
+                    <a class="btn btn-default" ng-click="setCategory(null)" ng-class="{active:!filters.categories}">All</a>
                     <?php foreach($categoryList AS $id => $label){ ?>
-                        <button type="button" class="btn btn-default" ng-click="setCategory(<?php echo $id; ?>)" ng-class="{active:filters.categories == <?php echo $id; ?>}" data-handle="<?php echo $label; ?>">
+                        <a class="btn btn-default" ng-click="setCategory(<?php echo $id; ?>)" ng-class="{active:filters.categories == <?php echo $id; ?>}" data-handle="<?php echo $label; ?>">
                             <?php echo $label; ?>
-                        </button>
+                        </a>
                     <?php } ?>
                 </div>
                 <button type="submit" class="btn btn-search">Search</button>

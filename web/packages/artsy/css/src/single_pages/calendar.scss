@@ -3,15 +3,17 @@
 
   .event-search{background:$theme-primary-color;padding:1rem;text-align:center;
     .form-control {display:inline-block;height:auto;width:auto;border:0;@include border-radius(0);
-      &[type="text"]{padding:5px 10px 7px;}
+      &[type="text"]{font-size:100%;padding:5px 10px 7px;display:block;width:100%;}
     }
-    .select-wrap{max-width:180px;background:#fff;display:inline-block;position:relative;z-index:2;
+    .select-wrap{max-width:180px;background:#fff;display:none;position:relative;z-index:2;
       &::after {content: "\e636";font-family:'icomoon';position:absolute;top:50%;right:5px;font-size:24px;z-index:-1;@include transform(translateY(-50%));}
       &.block {display:block;}
       select {height:auto;line-height:1;max-width:100%;padding:8px 40px 10px 8px;text-transform:capitalize;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;@include border-radius(0);}
     }
-    .btn-group .btn {border:0;}
-    .btn-search {font-family:$theme-font-family-bold;@include button-variant(lighten($theme-primary-color,45%), darken($theme-primary-color, 8%), $theme-primary-color);border:0;}
+    .btn-group {//width:100%;
+      .btn {border:0;}
+    }
+    .btn-search {display:block;width:100%;font-family:$theme-font-family-bold;@include button-variant(lighten($theme-primary-color,45%), darken($theme-primary-color, 8%), $theme-primary-color);border:0;}
   }
 
   [event-list] {padding-top:4%;font-size:0;line-height:0;text-align:center;
@@ -33,8 +35,35 @@
   }
 }
 
+@media screen and (max-width:599px){
+  .pg-calendar #c-level-1 main {
+    .event-search {
+      .btn-group { // this is yanked directly from bootstrap
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        border-collapse: separate;
+        > .btn,
+        > .btn-group {
+          float: none;
+          display: table-cell;
+          width: 1%;
+        }
+        > .btn-group .btn {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+
 @media screen and (min-width:600px){
   .pg-calendar #c-level-1 main {
+    .event-search {
+      .form-control[type="text"]{display:inline-block;width:auto;}
+      .btn-search {display:inline-block;width:auto;}
+    }
     [event-list] {padding-top:3%;
       .event-result {width:46%;margin:3% 2%;padding-bottom:25%;}
     }
@@ -43,9 +72,11 @@
 
 @media screen and (min-width:$screen-md){
   .pg-calendar #c-level-1 main {
+    .event-search {
+      .select-wrap {display:inline-block;}
+    }
     [event-list] {padding-top:2%;
       .event-result {width:31%;margin:3% 1%;padding-bottom:20%;}
-      //.event-result {width:23%;margin:3% 1%;padding-bottom:20%;}
     }
   }
 }
