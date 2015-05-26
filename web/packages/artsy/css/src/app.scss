@@ -25,8 +25,9 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   .theme-dark-color {color:$theme-dark-color;}
 
   main {max-width:100%;position:relative;
-    .area-main {padding:3rem 0;
-
+    .area-main {padding:3rem 0;@include clearfix;
+      .container {@include container-fixed();max-width:100%;}
+      .container.overflowable-x, .container.overflowable-x .row {overflow:initial;}
     }
     // Page sections
     [class*="wrap-theme-"]{position:relative;padding:5rem 0;margin:2rem 0;
@@ -51,7 +52,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
       a {color:$theme-light-color;}
     }
 
-    table {@extend .table;@extend .table-condensed;@extend .table-responsive;@extend .table-striped;}
+    //table {@extend .table;@extend .table-condensed;@extend .table-responsive;@extend .table-striped;}
   }
 
   .btn-transparent {@include button-variant(#fff, rgba(255,255,255,0.1), #fff);}
@@ -62,7 +63,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   #c-level-1 {
     main {
       .area-main {
-        .container {@include container-fixed();max-width:1100px;}
+        //.container {@include container-fixed();max-width:1100px;}
       }
     }
   }
@@ -87,7 +88,8 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 
 // CMS Admin Mode
 .cms-admin {
-  .pg-home header {top:48px;}
+  //.pg-home header {top:48px;}
+  [revealing] {@include transform(none);}
   #c-level-1 {
     nav {top:48px;height:calc(100% - 48px);}
     main {overflow:initial !important;}
@@ -96,4 +98,9 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 
 .cms-edit-mode {
   &.ccm-panel-open {height:auto;}
+  [data-area-handle*="Main"]:not([data-area-handle*=":"]) {margin:-($grid-gutter-width/3) 0;padding:($grid-gutter-width/3) 0;}
+  .ccm-block-edit-layout {padding:($grid-gutter-width/4);
+    [class*="col-"]{padding-left:$grid-gutter-width/2 !important;padding-right:$grid-gutter-width/2 !important;}
+  }
+  footer {margin-top:4rem;}
 }

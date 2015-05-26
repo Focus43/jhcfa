@@ -92,54 +92,39 @@ video.fullscreen {
     background-color: transparent; }
   #c-level-1 th {
     text-align: left; }
-  #c-level-1 .table, #c-level-1 main table {
+  #c-level-1 .table {
     width: 100%;
     margin-bottom: 22px; }
-    #c-level-1 .table > thead > tr > th, #c-level-1 main table > thead > tr > th,
+    #c-level-1 .table > thead > tr > th,
     #c-level-1 .table > thead > tr > td,
-    #c-level-1 main table > thead > tr > td,
     #c-level-1 .table > tbody > tr > th,
-    #c-level-1 main table > tbody > tr > th,
     #c-level-1 .table > tbody > tr > td,
-    #c-level-1 main table > tbody > tr > td,
     #c-level-1 .table > tfoot > tr > th,
-    #c-level-1 main table > tfoot > tr > th,
-    #c-level-1 .table > tfoot > tr > td,
-    #c-level-1 main table > tfoot > tr > td {
+    #c-level-1 .table > tfoot > tr > td {
       padding: 8px;
       line-height: 1.42857;
       vertical-align: top;
       border-top: 1px solid #ddd; }
-    #c-level-1 .table > thead > tr > th, #c-level-1 main table > thead > tr > th {
+    #c-level-1 .table > thead > tr > th {
       vertical-align: bottom;
       border-bottom: 2px solid #ddd; }
-    #c-level-1 .table > caption + thead > tr:first-child > th, #c-level-1 main table > caption + thead > tr:first-child > th,
+    #c-level-1 .table > caption + thead > tr:first-child > th,
     #c-level-1 .table > caption + thead > tr:first-child > td,
-    #c-level-1 main table > caption + thead > tr:first-child > td,
     #c-level-1 .table > colgroup + thead > tr:first-child > th,
-    #c-level-1 main table > colgroup + thead > tr:first-child > th,
     #c-level-1 .table > colgroup + thead > tr:first-child > td,
-    #c-level-1 main table > colgroup + thead > tr:first-child > td,
     #c-level-1 .table > thead:first-child > tr:first-child > th,
-    #c-level-1 main table > thead:first-child > tr:first-child > th,
-    #c-level-1 .table > thead:first-child > tr:first-child > td,
-    #c-level-1 main table > thead:first-child > tr:first-child > td {
+    #c-level-1 .table > thead:first-child > tr:first-child > td {
       border-top: 0; }
-    #c-level-1 .table > tbody + tbody, #c-level-1 main table > tbody + tbody {
+    #c-level-1 .table > tbody + tbody {
       border-top: 2px solid #ddd; }
-    #c-level-1 .table .table, #c-level-1 main table .table, #c-level-1 .table main table, #c-level-1 main .table table, #c-level-1 main table table {
+    #c-level-1 .table .table {
       background-color: #f1f1f1; }
-  #c-level-1 .table-condensed > thead > tr > th, #c-level-1 main table > thead > tr > th,
+  #c-level-1 .table-condensed > thead > tr > th,
   #c-level-1 .table-condensed > thead > tr > td,
-  #c-level-1 main table > thead > tr > td,
   #c-level-1 .table-condensed > tbody > tr > th,
-  #c-level-1 main table > tbody > tr > th,
   #c-level-1 .table-condensed > tbody > tr > td,
-  #c-level-1 main table > tbody > tr > td,
   #c-level-1 .table-condensed > tfoot > tr > th,
-  #c-level-1 main table > tfoot > tr > th,
-  #c-level-1 .table-condensed > tfoot > tr > td,
-  #c-level-1 main table > tfoot > tr > td {
+  #c-level-1 .table-condensed > tfoot > tr > td {
     padding: 5px; }
   #c-level-1 .table-bordered {
     border: 1px solid #ddd; }
@@ -153,9 +138,8 @@ video.fullscreen {
     #c-level-1 .table-bordered > thead > tr > th,
     #c-level-1 .table-bordered > thead > tr > td {
       border-bottom-width: 2px; }
-  #c-level-1 .table-striped > tbody > tr:nth-child(odd) > td, #c-level-1 main table > tbody > tr:nth-child(odd) > td,
-  #c-level-1 .table-striped > tbody > tr:nth-child(odd) > th,
-  #c-level-1 main table > tbody > tr:nth-child(odd) > th {
+  #c-level-1 .table-striped > tbody > tr:nth-child(odd) > td,
+  #c-level-1 .table-striped > tbody > tr:nth-child(odd) > th {
     background-color: #f9f9f9; }
   #c-level-1 .table-hover > tbody > tr:hover > td,
   #c-level-1 .table-hover > tbody > tr:hover > th {
@@ -169,123 +153,78 @@ video.fullscreen {
     position: static;
     float: none;
     display: table-cell; }
-  #c-level-1 .table > thead > tr > td.active, #c-level-1 main table > thead > tr > td.active,
-  #c-level-1 .table > thead > tr > th.active,
-  #c-level-1 main table > thead > tr > th.active, #c-level-1 .table > thead > tr.active > td, #c-level-1 main table > thead > tr.active > td, #c-level-1 .table > thead > tr.active > th, #c-level-1 main table > thead > tr.active > th,
+  #c-level-1 .table > thead > tr > td.active,
+  #c-level-1 .table > thead > tr > th.active, #c-level-1 .table > thead > tr.active > td, #c-level-1 .table > thead > tr.active > th,
   #c-level-1 .table > tbody > tr > td.active,
-  #c-level-1 main table > tbody > tr > td.active,
   #c-level-1 .table > tbody > tr > th.active,
-  #c-level-1 main table > tbody > tr > th.active,
   #c-level-1 .table > tbody > tr.active > td,
-  #c-level-1 main table > tbody > tr.active > td,
   #c-level-1 .table > tbody > tr.active > th,
-  #c-level-1 main table > tbody > tr.active > th,
   #c-level-1 .table > tfoot > tr > td.active,
-  #c-level-1 main table > tfoot > tr > td.active,
   #c-level-1 .table > tfoot > tr > th.active,
-  #c-level-1 main table > tfoot > tr > th.active,
   #c-level-1 .table > tfoot > tr.active > td,
-  #c-level-1 main table > tfoot > tr.active > td,
-  #c-level-1 .table > tfoot > tr.active > th,
-  #c-level-1 main table > tfoot > tr.active > th {
+  #c-level-1 .table > tfoot > tr.active > th {
     background-color: #f5f5f5; }
   #c-level-1 .table-hover > tbody > tr > td.active:hover,
   #c-level-1 .table-hover > tbody > tr > th.active:hover, #c-level-1 .table-hover > tbody > tr.active:hover > td, #c-level-1 .table-hover > tbody > tr:hover > .active, #c-level-1 .table-hover > tbody > tr.active:hover > th {
     background-color: #e8e8e8; }
-  #c-level-1 .table > thead > tr > td.success, #c-level-1 main table > thead > tr > td.success,
-  #c-level-1 .table > thead > tr > th.success,
-  #c-level-1 main table > thead > tr > th.success, #c-level-1 .table > thead > tr.success > td, #c-level-1 main table > thead > tr.success > td, #c-level-1 .table > thead > tr.success > th, #c-level-1 main table > thead > tr.success > th,
+  #c-level-1 .table > thead > tr > td.success,
+  #c-level-1 .table > thead > tr > th.success, #c-level-1 .table > thead > tr.success > td, #c-level-1 .table > thead > tr.success > th,
   #c-level-1 .table > tbody > tr > td.success,
-  #c-level-1 main table > tbody > tr > td.success,
   #c-level-1 .table > tbody > tr > th.success,
-  #c-level-1 main table > tbody > tr > th.success,
   #c-level-1 .table > tbody > tr.success > td,
-  #c-level-1 main table > tbody > tr.success > td,
   #c-level-1 .table > tbody > tr.success > th,
-  #c-level-1 main table > tbody > tr.success > th,
   #c-level-1 .table > tfoot > tr > td.success,
-  #c-level-1 main table > tfoot > tr > td.success,
   #c-level-1 .table > tfoot > tr > th.success,
-  #c-level-1 main table > tfoot > tr > th.success,
   #c-level-1 .table > tfoot > tr.success > td,
-  #c-level-1 main table > tfoot > tr.success > td,
-  #c-level-1 .table > tfoot > tr.success > th,
-  #c-level-1 main table > tfoot > tr.success > th {
+  #c-level-1 .table > tfoot > tr.success > th {
     background-color: #dff0d8; }
   #c-level-1 .table-hover > tbody > tr > td.success:hover,
   #c-level-1 .table-hover > tbody > tr > th.success:hover, #c-level-1 .table-hover > tbody > tr.success:hover > td, #c-level-1 .table-hover > tbody > tr:hover > .success, #c-level-1 .table-hover > tbody > tr.success:hover > th {
     background-color: #d0e9c6; }
-  #c-level-1 .table > thead > tr > td.info, #c-level-1 main table > thead > tr > td.info,
-  #c-level-1 .table > thead > tr > th.info,
-  #c-level-1 main table > thead > tr > th.info, #c-level-1 .table > thead > tr.info > td, #c-level-1 main table > thead > tr.info > td, #c-level-1 .table > thead > tr.info > th, #c-level-1 main table > thead > tr.info > th,
+  #c-level-1 .table > thead > tr > td.info,
+  #c-level-1 .table > thead > tr > th.info, #c-level-1 .table > thead > tr.info > td, #c-level-1 .table > thead > tr.info > th,
   #c-level-1 .table > tbody > tr > td.info,
-  #c-level-1 main table > tbody > tr > td.info,
   #c-level-1 .table > tbody > tr > th.info,
-  #c-level-1 main table > tbody > tr > th.info,
   #c-level-1 .table > tbody > tr.info > td,
-  #c-level-1 main table > tbody > tr.info > td,
   #c-level-1 .table > tbody > tr.info > th,
-  #c-level-1 main table > tbody > tr.info > th,
   #c-level-1 .table > tfoot > tr > td.info,
-  #c-level-1 main table > tfoot > tr > td.info,
   #c-level-1 .table > tfoot > tr > th.info,
-  #c-level-1 main table > tfoot > tr > th.info,
   #c-level-1 .table > tfoot > tr.info > td,
-  #c-level-1 main table > tfoot > tr.info > td,
-  #c-level-1 .table > tfoot > tr.info > th,
-  #c-level-1 main table > tfoot > tr.info > th {
+  #c-level-1 .table > tfoot > tr.info > th {
     background-color: #d9edf7; }
   #c-level-1 .table-hover > tbody > tr > td.info:hover,
   #c-level-1 .table-hover > tbody > tr > th.info:hover, #c-level-1 .table-hover > tbody > tr.info:hover > td, #c-level-1 .table-hover > tbody > tr:hover > .info, #c-level-1 .table-hover > tbody > tr.info:hover > th {
     background-color: #c4e3f3; }
-  #c-level-1 .table > thead > tr > td.warning, #c-level-1 main table > thead > tr > td.warning,
-  #c-level-1 .table > thead > tr > th.warning,
-  #c-level-1 main table > thead > tr > th.warning, #c-level-1 .table > thead > tr.warning > td, #c-level-1 main table > thead > tr.warning > td, #c-level-1 .table > thead > tr.warning > th, #c-level-1 main table > thead > tr.warning > th,
+  #c-level-1 .table > thead > tr > td.warning,
+  #c-level-1 .table > thead > tr > th.warning, #c-level-1 .table > thead > tr.warning > td, #c-level-1 .table > thead > tr.warning > th,
   #c-level-1 .table > tbody > tr > td.warning,
-  #c-level-1 main table > tbody > tr > td.warning,
   #c-level-1 .table > tbody > tr > th.warning,
-  #c-level-1 main table > tbody > tr > th.warning,
   #c-level-1 .table > tbody > tr.warning > td,
-  #c-level-1 main table > tbody > tr.warning > td,
   #c-level-1 .table > tbody > tr.warning > th,
-  #c-level-1 main table > tbody > tr.warning > th,
   #c-level-1 .table > tfoot > tr > td.warning,
-  #c-level-1 main table > tfoot > tr > td.warning,
   #c-level-1 .table > tfoot > tr > th.warning,
-  #c-level-1 main table > tfoot > tr > th.warning,
   #c-level-1 .table > tfoot > tr.warning > td,
-  #c-level-1 main table > tfoot > tr.warning > td,
-  #c-level-1 .table > tfoot > tr.warning > th,
-  #c-level-1 main table > tfoot > tr.warning > th {
+  #c-level-1 .table > tfoot > tr.warning > th {
     background-color: #fcf8e3; }
   #c-level-1 .table-hover > tbody > tr > td.warning:hover,
   #c-level-1 .table-hover > tbody > tr > th.warning:hover, #c-level-1 .table-hover > tbody > tr.warning:hover > td, #c-level-1 .table-hover > tbody > tr:hover > .warning, #c-level-1 .table-hover > tbody > tr.warning:hover > th {
     background-color: #faf2cc; }
-  #c-level-1 .table > thead > tr > td.danger, #c-level-1 main table > thead > tr > td.danger,
-  #c-level-1 .table > thead > tr > th.danger,
-  #c-level-1 main table > thead > tr > th.danger, #c-level-1 .table > thead > tr.danger > td, #c-level-1 main table > thead > tr.danger > td, #c-level-1 .table > thead > tr.danger > th, #c-level-1 main table > thead > tr.danger > th,
+  #c-level-1 .table > thead > tr > td.danger,
+  #c-level-1 .table > thead > tr > th.danger, #c-level-1 .table > thead > tr.danger > td, #c-level-1 .table > thead > tr.danger > th,
   #c-level-1 .table > tbody > tr > td.danger,
-  #c-level-1 main table > tbody > tr > td.danger,
   #c-level-1 .table > tbody > tr > th.danger,
-  #c-level-1 main table > tbody > tr > th.danger,
   #c-level-1 .table > tbody > tr.danger > td,
-  #c-level-1 main table > tbody > tr.danger > td,
   #c-level-1 .table > tbody > tr.danger > th,
-  #c-level-1 main table > tbody > tr.danger > th,
   #c-level-1 .table > tfoot > tr > td.danger,
-  #c-level-1 main table > tfoot > tr > td.danger,
   #c-level-1 .table > tfoot > tr > th.danger,
-  #c-level-1 main table > tfoot > tr > th.danger,
   #c-level-1 .table > tfoot > tr.danger > td,
-  #c-level-1 main table > tfoot > tr.danger > td,
-  #c-level-1 .table > tfoot > tr.danger > th,
-  #c-level-1 main table > tfoot > tr.danger > th {
+  #c-level-1 .table > tfoot > tr.danger > th {
     background-color: #f2dede; }
   #c-level-1 .table-hover > tbody > tr > td.danger:hover,
   #c-level-1 .table-hover > tbody > tr > th.danger:hover, #c-level-1 .table-hover > tbody > tr.danger:hover > td, #c-level-1 .table-hover > tbody > tr:hover > .danger, #c-level-1 .table-hover > tbody > tr.danger:hover > th {
     background-color: #ebcccc; }
   @media screen and (max-width: 767px) {
-    #c-level-1 .table-responsive, #c-level-1 main table {
+    #c-level-1 .table-responsive {
       width: 100%;
       margin-bottom: 16.5px;
       overflow-y: hidden;
@@ -293,63 +232,35 @@ video.fullscreen {
       -ms-overflow-style: -ms-autohiding-scrollbar;
       border: 1px solid #ddd;
       -webkit-overflow-scrolling: touch; }
-      #c-level-1 .table-responsive > .table, #c-level-1 main table > .table, #c-level-1 main .table-responsive > table, #c-level-1 main table > table {
+      #c-level-1 .table-responsive > .table {
         margin-bottom: 0; }
-        #c-level-1 .table-responsive > .table > thead > tr > th, #c-level-1 main table > .table > thead > tr > th, #c-level-1 main .table-responsive > table > thead > tr > th, #c-level-1 main table > table > thead > tr > th,
+        #c-level-1 .table-responsive > .table > thead > tr > th,
         #c-level-1 .table-responsive > .table > thead > tr > td,
-        #c-level-1 main table > .table > thead > tr > td,
-        #c-level-1 main .table-responsive > table > thead > tr > td,
-        #c-level-1 main table > table > thead > tr > td,
         #c-level-1 .table-responsive > .table > tbody > tr > th,
-        #c-level-1 main table > .table > tbody > tr > th,
-        #c-level-1 main .table-responsive > table > tbody > tr > th,
-        #c-level-1 main table > table > tbody > tr > th,
         #c-level-1 .table-responsive > .table > tbody > tr > td,
-        #c-level-1 main table > .table > tbody > tr > td,
-        #c-level-1 main .table-responsive > table > tbody > tr > td,
-        #c-level-1 main table > table > tbody > tr > td,
         #c-level-1 .table-responsive > .table > tfoot > tr > th,
-        #c-level-1 main table > .table > tfoot > tr > th,
-        #c-level-1 main .table-responsive > table > tfoot > tr > th,
-        #c-level-1 main table > table > tfoot > tr > th,
-        #c-level-1 .table-responsive > .table > tfoot > tr > td,
-        #c-level-1 main table > .table > tfoot > tr > td,
-        #c-level-1 main .table-responsive > table > tfoot > tr > td,
-        #c-level-1 main table > table > tfoot > tr > td {
+        #c-level-1 .table-responsive > .table > tfoot > tr > td {
           white-space: nowrap; }
-      #c-level-1 .table-responsive > .table-bordered, #c-level-1 main table > .table-bordered {
+      #c-level-1 .table-responsive > .table-bordered {
         border: 0; }
-        #c-level-1 .table-responsive > .table-bordered > thead > tr > th:first-child, #c-level-1 main table > .table-bordered > thead > tr > th:first-child,
+        #c-level-1 .table-responsive > .table-bordered > thead > tr > th:first-child,
         #c-level-1 .table-responsive > .table-bordered > thead > tr > td:first-child,
-        #c-level-1 main table > .table-bordered > thead > tr > td:first-child,
         #c-level-1 .table-responsive > .table-bordered > tbody > tr > th:first-child,
-        #c-level-1 main table > .table-bordered > tbody > tr > th:first-child,
         #c-level-1 .table-responsive > .table-bordered > tbody > tr > td:first-child,
-        #c-level-1 main table > .table-bordered > tbody > tr > td:first-child,
         #c-level-1 .table-responsive > .table-bordered > tfoot > tr > th:first-child,
-        #c-level-1 main table > .table-bordered > tfoot > tr > th:first-child,
-        #c-level-1 .table-responsive > .table-bordered > tfoot > tr > td:first-child,
-        #c-level-1 main table > .table-bordered > tfoot > tr > td:first-child {
+        #c-level-1 .table-responsive > .table-bordered > tfoot > tr > td:first-child {
           border-left: 0; }
-        #c-level-1 .table-responsive > .table-bordered > thead > tr > th:last-child, #c-level-1 main table > .table-bordered > thead > tr > th:last-child,
+        #c-level-1 .table-responsive > .table-bordered > thead > tr > th:last-child,
         #c-level-1 .table-responsive > .table-bordered > thead > tr > td:last-child,
-        #c-level-1 main table > .table-bordered > thead > tr > td:last-child,
         #c-level-1 .table-responsive > .table-bordered > tbody > tr > th:last-child,
-        #c-level-1 main table > .table-bordered > tbody > tr > th:last-child,
         #c-level-1 .table-responsive > .table-bordered > tbody > tr > td:last-child,
-        #c-level-1 main table > .table-bordered > tbody > tr > td:last-child,
         #c-level-1 .table-responsive > .table-bordered > tfoot > tr > th:last-child,
-        #c-level-1 main table > .table-bordered > tfoot > tr > th:last-child,
-        #c-level-1 .table-responsive > .table-bordered > tfoot > tr > td:last-child,
-        #c-level-1 main table > .table-bordered > tfoot > tr > td:last-child {
+        #c-level-1 .table-responsive > .table-bordered > tfoot > tr > td:last-child {
           border-right: 0; }
-        #c-level-1 .table-responsive > .table-bordered > tbody > tr:last-child > th, #c-level-1 main table > .table-bordered > tbody > tr:last-child > th,
+        #c-level-1 .table-responsive > .table-bordered > tbody > tr:last-child > th,
         #c-level-1 .table-responsive > .table-bordered > tbody > tr:last-child > td,
-        #c-level-1 main table > .table-bordered > tbody > tr:last-child > td,
         #c-level-1 .table-responsive > .table-bordered > tfoot > tr:last-child > th,
-        #c-level-1 main table > .table-bordered > tfoot > tr:last-child > th,
-        #c-level-1 .table-responsive > .table-bordered > tfoot > tr:last-child > td,
-        #c-level-1 main table > .table-bordered > tfoot > tr:last-child > td {
+        #c-level-1 .table-responsive > .table-bordered > tfoot > tr:last-child > td {
           border-bottom: 0; } }
   #c-level-1 .theme-text-huge {
     font-size: 3.9rem; }
@@ -363,7 +274,19 @@ video.fullscreen {
     max-width: 100%;
     position: relative; }
     #c-level-1 main .area-main {
-      padding: 3rem 0; }
+      padding: 3rem 0;
+      overflow: hidden;
+      *zoom: 1; }
+      #c-level-1 main .area-main .container {
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 30px;
+        padding-right: 30px;
+        overflow: hidden;
+        *zoom: 1;
+        max-width: 100%; }
+      #c-level-1 main .area-main .container.overflowable-x, #c-level-1 main .area-main .container.overflowable-x .row {
+        overflow: initial; }
     #c-level-1 main [class*="wrap-theme-"] {
       position: relative;
       padding: 5rem 0;
@@ -442,15 +365,6 @@ video.fullscreen {
       color: #1a1a1a;
       background-color: #666666; }
 
-@media screen and (min-width: 1300px) {
-  #c-level-1 main .area-main .container {
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 30px;
-    padding-right: 30px;
-    overflow: hidden;
-    *zoom: 1;
-    max-width: 1100px; } }
 .resident-logo-list {
   font-size: 0;
   line-height: 0; }
@@ -1101,7 +1015,7 @@ footer {
 @media screen and (min-width: 768px) {
   footer {
     margin-top: 2rem;
-    padding: 2rem; }
+    padding: 2rem 2rem 0; }
     footer .inner-content {
       margin-bottom: 0;
       padding-top: 1rem; }
@@ -2003,8 +1917,11 @@ a.logo {
 .cms-edit-mode .pg-box_office #c-level-1 .quad a {
   position: relative; }
 
-.cms-admin .pg-home header {
-  top: 48px; }
+.cms-admin [revealing] {
+  -moz-transform: none;
+  -ms-transform: none;
+  -webkit-transform: none;
+  transform: none; }
 .cms-admin #c-level-1 nav {
   top: 48px;
   height: calc(100% - 48px); }
@@ -2013,5 +1930,15 @@ a.logo {
 
 .cms-edit-mode.ccm-panel-open {
   height: auto; }
+.cms-edit-mode [data-area-handle*="Main"]:not([data-area-handle*=":"]) {
+  margin: -20px 0;
+  padding: 20px 0; }
+.cms-edit-mode .ccm-block-edit-layout {
+  padding: 15px; }
+  .cms-edit-mode .ccm-block-edit-layout [class*="col-"] {
+    padding-left: 30px !important;
+    padding-right: 30px !important; }
+.cms-edit-mode footer {
+  margin-top: 4rem; }
 
 /*# sourceMappingURL=app.css.map */

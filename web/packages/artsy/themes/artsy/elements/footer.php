@@ -5,12 +5,6 @@
                 <div class="col-sm-6 col-md-3">
                     <div class="inner-content">
                         <h3>The Center</h3>
-<!--                        --><?php //if($logowhite): ?>
-<!--                            <img class="footer-logo" src="/packages/artsy/images/logo-white.svg" />-->
-<!--                        --><?php //else: ?>
-<!--                            <img class="footer-logo" src="/packages/artsy/images/logo-black.svg" />-->
-<!--                        --><?php //endif; ?>
-                        <!--<p>The <strong>Hub</strong> for Artistic, Cultural, and Creative Activity In Jackson Hole</p>-->
                         <address>240 S. Glenwood St.<br/>PO Box 860<br/>Jackson, WY 83001</address>
                     </div>
                 </div>

@@ -18,6 +18,7 @@
                 /** @var $a \Concrete\Core\Area\Area */
                 $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
                 $a->enableGridContainer();
+                //$a->setAreaGridMaximumColumns(12);
                 $a->display($c);
             ?>
         </div>
