@@ -1,6 +1,6 @@
 angular.module('artsy.common').
 
-    directive('spokeTo', ['$window', 'SVG', 'Tween', function( $window, SVG, Tween ){
+    directive('spokeTo', ['$window', '$rootScope', 'SVG', 'Tween', function( $window, $rootScope, SVG, Tween ){
 
         var body                    = document.body,
             html                    = document.documentElement,
@@ -8,9 +8,10 @@ angular.module('artsy.common').
             docHeight               = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight),
             svgCanvas               = SVG(document.body),
             redraw                  = false,
+            overrideRedraw          = false,
             linkedNodes             = [],
             defaultSpokeOffset      = 5,
-            defaultSpokeWidth       = 5,
+            defaultSpokeWidth       = 4,
             defaultSpokeDistance    = 10;
 
         // Create the SVG canvas ONCe
@@ -59,7 +60,7 @@ angular.module('artsy.common').
             });
 
             nodeData.spoke.
-                animate(1000).
+                animate(400).
                 during(function( t, morph ){
                     this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
                 }).
@@ -73,10 +74,11 @@ angular.module('artsy.common').
          * or window resize event happens.
          */
         Tween.ticker.addEventListener('tick', function(){
-            if( redraw ){
+            if( redraw || overrideRedraw ){
                 for(var i = 0, len = linkedNodes.length; i < len; i++){
                     render.call(this, linkedNodes[i]);
                 }
+                console.log('redrawn');
                 redraw = false;
             }
         });
@@ -96,6 +98,14 @@ angular.module('artsy.common').
             docHeight   = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
             svgCanvas.size(docWidth,docHeight);
             redraw = true;
+        });
+
+        /**
+         * Listen for overrides broadcast by other elements that might use animation
+         * that would require updating the spokes.
+         */
+        $rootScope.$on('watchSpokes', function( event, override ){
+            overrideRedraw = override;
         });
 
         /**

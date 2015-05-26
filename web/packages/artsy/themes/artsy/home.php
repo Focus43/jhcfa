@@ -15,6 +15,27 @@
 
     <?php $this->inc('elements/nav.php'); ?>
 
+    <div scroll-navs>
+        <span class="hub-node marker-1">
+            <svg spoke-to=".marker-2" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                <circle fill="#000" cx="10" cy="10" r="10" />
+            </svg>
+        </span>
+        <span class="hub-node marker-2">
+            <svg spoke-to=".marker-3" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                <circle fill="#000" cx="10" cy="10" r="10" />
+            </svg>
+        </span>
+        <span class="hub-node marker-3">
+            <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                <circle fill="#000" cx="10" cy="10" r="10" />
+            </svg>
+        </span>
+<!--        <span><i class="icon-circle"></i></span>-->
+<!--        <span><i class="icon-circle"></i></span>-->
+<!--        <span><i class="icon-circle"></i></span>-->
+    </div>
+
     <main revealing>
         <a class="logo" href="/">
             <svg spoke-to=".svg-tagline-hub" class="svg-logo" x="0px" y="0px" width="305.032px" height="75.403px" viewBox="0 0 305.032 75.403" style="enable-background:new 0 0 305.032 75.403;" xml:space="preserve">
@@ -70,13 +91,7 @@ h-3.194V35.587z"/>
             </svg>
         </a>
 
-        <div scroll-navs>
-            <span><i class="icon-circle"></i></span>
-            <span><i class="icon-circle"></i></span>
-            <span><i class="icon-circle"></i></span>
-        </div>
-
-        <section class="intro">
+        <section class="intro" intro-anim>
             <div class="tabular">
                 <div class="cellular">
 <!--                    <svg spoke-to=".svg-circle" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20" style="position:absolute;top:20%;left:20%;">-->
@@ -91,7 +106,7 @@ h-3.194V35.587z"/>
 <!--                        <circle fill="#000" cx="10" cy="10" r="10" />-->
 <!--                    </svg>-->
 
-                    <div class="tagline">
+                    <div class="tagline hub-node">
                         <div class="tabular">
                             <div class="cellular">
                                 <div class="text">
@@ -99,7 +114,7 @@ h-3.194V35.587z"/>
                                     <span>Hub</span>
                                     <span>For the Artistic, Cultural And</span>
                                     <span>Creative Activity In Jackson Hole</span>
-                                    <svg class="svg-tagline-hub" spoke-to=".hub-node" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                                    <svg class="svg-tagline-hub" spoke-to=".upcoming" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
                                         <circle fill="#000" cx="10" cy="10" r="10" />
                                     </svg>
                                 </div>
@@ -114,7 +129,7 @@ h-3.194V35.587z"/>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="hub-node">
+                        <div class="hub-node upcoming">
                             <h2>Upcoming Events</h2>
                             <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
                                 <circle fill="#000" cx="10" cy="10" r="10" />
@@ -124,18 +139,18 @@ h-3.194V35.587z"/>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="clearfix" event-list="eventData" ng-cloak>
-                            <a class="event" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
-                                <div class="inner">
-                                    <div class="tabular">
-                                        <div class="cellular">
-                                            <span class="title">{{ eventObj.title }}</span>
-                                            <span class="date">{{ eventObj.date_display }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+<!--                        <div class="clearfix" event-list="eventData" ng-cloak>-->
+<!--                            <a class="event" href="{{eventObj.pagePath}}" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">-->
+<!--                                <div class="inner">-->
+<!--                                    <div class="tabular">-->
+<!--                                        <div class="cellular">-->
+<!--                                            <span class="title">{{ eventObj.title }}</span>-->
+<!--                                            <span class="date">{{ eventObj.date_display }}</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
                     </div>
                 </div>
                 <div class="row">
