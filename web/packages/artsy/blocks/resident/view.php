@@ -1,5 +1,7 @@
 <div class="resident-details">
-    <div class="resident-logo"><?php $f = File::getByID((int)$logoFileID); if ($f) { echo $f->getListingThumbnailImage(); }?></div>
+    <div class="resident-logo">
+        <img src="<?php $f = File::getByID((int)$logoFileID); if ($f) { echo $f->getThumbnailURL('file_manager_detail'); }?>" />
+    </div>
     <div class="resident-info">
         <address>
             <?php echo !empty($mailingAddress) ? $mailingAddress : ''; ?>
@@ -10,13 +12,13 @@
             <?php endif; ?>
             <?php if( !empty($email) ): ?>
                 <a href="mailto:<?php echo $email ?>">
-                    <abbr title="Email">Em:</abbr> <?php echo $email ?>
+                    <abbr title="Email">E:</abbr> <?php echo $email ?>
                 </a>
             <?php endif; ?>
         </address>
         <?php if( !empty($url) ): ?>
             <a href="<?php echo $url ?>">
-                <?php echo str_replace("http://", "", $url); ?>
+                <abbr title="Web">W:</abbr> <?php echo str_replace("http://", "", $url); ?>
             </a>
         <?php endif; ?>
     </div>

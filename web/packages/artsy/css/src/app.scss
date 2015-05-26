@@ -17,7 +17,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 #c-level-1 {overflow-x:hidden;
   input, textarea, button, a {&:focus, &:active {outline:0 !important;@include box-shadow(none !important);}}
   h1,h2,h3,h4,h5 {font-family:$theme-font-family-bold;text-transform:uppercase;letter-spacing:-1px;}
-  @import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/tables';
+  //@import '../../bower_components/bootstrap-sass/vendor/assets/stylesheets/bootstrap/tables';
 
   .theme-text-huge {font-size:3.9rem;}
   .theme-highlight-color {color:$theme-primary-color;}
