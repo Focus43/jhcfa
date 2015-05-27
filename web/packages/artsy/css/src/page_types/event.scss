@@ -15,7 +15,7 @@
     .presenter {font-size:1rem;display:inline-block;text-align:center;
       .hub-node {height:2.5rem;margin-left:0.5rem;margin-top:1.5rem;color:$theme-dark-color;font-family:$theme-font-family;font-size:145%;
         h4 {padding:0.5rem 0 0.4rem 0.5rem;text-align:left;text-indent:-2.9rem;margin-left:3.1rem;line-height:1;
-          a {color:$theme-light-color;}
+          span {color:$theme-light-color;}
         }
         svg {top:-3px;left:3px;}
       }

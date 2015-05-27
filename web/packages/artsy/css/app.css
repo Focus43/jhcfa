@@ -997,7 +997,7 @@ html.search-results-open {
   #c-level-1 header .logo {
     position: absolute;
     top: -0.25rem;
-    right: 0;
+    right: 1rem;
     display: block;
     max-width: 155px;
     height: auto;
@@ -1033,8 +1033,7 @@ html.search-results-open {
 @media screen and (min-width: 768px) {
   #c-level-1 header .logo {
     max-width: 185px;
-    top: 0;
-    right: 1rem; }
+    top: 0; }
     #c-level-1 header .logo svg {
       max-height: 80px; }
   #c-level-1 header .breadcrumbs {
@@ -1786,7 +1785,7 @@ a.logo {
         text-indent: -2.9rem;
         margin-left: 3.1rem;
         line-height: 1; }
-        .pg-event #c-level-1 .pseudo-container .presenter .hub-node h4 a {
+        .pg-event #c-level-1 .pseudo-container .presenter .hub-node h4 span {
           color: #838383; }
       .pg-event #c-level-1 .pseudo-container .presenter .hub-node svg {
         top: -3px;
