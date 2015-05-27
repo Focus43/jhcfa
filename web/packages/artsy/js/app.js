@@ -23,18 +23,21 @@
         function( FastClick ){
             FastClick.attach(document.body);
 
-            var themeWraps = document.querySelectorAll('[class*="wrap-theme-"]');
-            if( themeWraps.length ){
-                for(var i = 0, len = themeWraps.length; i < len; i++){
-                    var $element = angular.element(themeWraps[i]);
-                    while( ! $element.hasClass('container') ){
-                        $element = angular.element($element.parent());
-                    }
-                    if( $element.length ){
-                        $element.addClass('overflowable-x');
-                    }
-                }
-            }
+            //var themeWraps = document.querySelectorAll('[class*="wrap-theme-"]');
+            //if( themeWraps.length ){
+            //    for(var i = 0, len = themeWraps.length; i < len; i++){
+            //        var $element = angular.element(themeWraps[i]);
+            //        if( $element.length ){
+            //
+            //        }
+            //        while( ! $element.hasClass('container') ){
+            //            $element = angular.element($element.parent());
+            //        }
+            //        if( $element.length ){
+            //            $element.addClass('overflowable-x');
+            //        }
+            //    }
+            //}
 
             //if( themeWraps.length ){
             //    for(var i = 0, len = themeWraps.length; i < len; i++){
@@ -65,6 +68,69 @@
 
 })(window, window.angular);
 angular.module('artsy.common', []);
+angular.module('artsy.common').
+
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  "",
+                tags:       "",
+                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display'
+            };
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            /**
+             * Need to use a watch to make sure ng-init completes and
+             * only send request once we have a valid value for featuredTagID
+             */
+            $scope.$watch('featuredTagID', function( featuredTagID ){
+                if( featuredTagID ){
+                    Schedulizer.fetch({
+                        fields: ['tags'],
+                        filepath:true,
+                        limit:10,
+                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                        attributes: 'date_display',
+                        tags: featuredTagID // passed via ng-init
+                    }).success(function( resp ){
+                        $scope.eventData = resp;
+                    });
+                }
+            });
+
+        }
+    ]);
 angular.module('artsy.common').
 
     directive('accordion', [
@@ -530,69 +596,6 @@ angular.module('artsy.common').
             scope: false
         };
     }]);
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  "",
-                tags:       "",
-                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
-                filepath:   true,
-                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
-            };
-
-            $scope.fetch = function(){
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            /**
-             * Need to use a watch to make sure ng-init completes and
-             * only send request once we have a valid value for featuredTagID
-             */
-            $scope.$watch('featuredTagID', function( featuredTagID ){
-                if( featuredTagID ){
-                    Schedulizer.fetch({
-                        fields: ['tags'],
-                        filepath:true,
-                        limit:10,
-                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                        attributes: 'date_display',
-                        tags: featuredTagID // passed via ng-init
-                    }).success(function( resp ){
-                        $scope.eventData = resp;
-                    });
-                }
-            });
-
-        }
-    ]);
 /* global Modernizr */
 /* global FastClick */
 angular.module('artsy.common').
