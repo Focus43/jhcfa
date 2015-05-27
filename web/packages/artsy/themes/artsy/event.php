@@ -60,18 +60,21 @@
                     <div class="headline">
                         <div class="headline-inner">
                             <h1><?php echo $eventObj; ?></h1>
-                            <div class="presenter">
-                                <div class="hub-node hub-green">
-                                    <h4>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></h4>
-                                    <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
-                                        <circle fill="#000" cx="10" cy="10" r="10" />
-                                    </svg>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </header>
+
+            <div class="pseudo-container">
+                <div class="presenter">
+                    <div class="hub-node hub-green">
+                        <h4>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></h4>
+                        <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
+                            <circle fill="#000" cx="10" cy="10" r="10" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
 
             <div class="area-main">
                 <div class="container">
@@ -120,8 +123,8 @@
                                         <?php foreach($moreEventTimes AS $row): ?>
                                             <li class="more-hidden">
                                                 <?php
-                                                $dtObj = new \DateTime($row['computedStartLocal']);
-                                                echo sprintf("<strong>%s</strong> - %s", $dtObj->format('g:i A'), $dtObj->format('D M j, Y'));
+                                                    $dtObj = new \DateTime($row['computedStartLocal']);
+                                                    echo sprintf("<strong>%s</strong> - %s", $dtObj->format('g:i A'), $dtObj->format('D M j, Y'));
                                                 ?>
                                             </li>
                                         <?php endforeach; ?>

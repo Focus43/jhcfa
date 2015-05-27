@@ -1434,34 +1434,34 @@ a.logo {
   .pg-event #c-level-1 header .headline h1 {
     font-size: 175%;
     margin-bottom: 0; }
-  .pg-event #c-level-1 header .headline .presenter {
+.pg-event #c-level-1 .pseudo-container {
+  width: 85%;
+  max-width: 1100px;
+  margin: 0 auto; }
+  .pg-event #c-level-1 .pseudo-container .presenter {
     font-size: 1rem;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
     display: inline-block;
     text-align: center; }
-    .pg-event #c-level-1 header .headline .presenter .hub-node {
+    .pg-event #c-level-1 .pseudo-container .presenter .hub-node {
       height: 2.5rem;
       margin-left: 0.5rem;
       margin-top: 1.5rem;
       color: #000000;
       font-family: "TradeGothicLT-Light", "Oswald", sans-serif;
       font-size: 145%; }
-      .pg-event #c-level-1 header .headline .presenter .hub-node h4 {
+      .pg-event #c-level-1 .pseudo-container .presenter .hub-node h4 {
         padding: 0.5rem 0 0.4rem 0.5rem;
         text-align: left;
         text-indent: -2.9rem;
         margin-left: 3.1rem;
         line-height: 1; }
-        .pg-event #c-level-1 header .headline .presenter .hub-node h4 a {
+        .pg-event #c-level-1 .pseudo-container .presenter .hub-node h4 a {
           color: #838383; }
-      .pg-event #c-level-1 header .headline .presenter .hub-node svg {
+      .pg-event #c-level-1 .pseudo-container .presenter .hub-node svg {
         top: -3px;
         left: 3px; }
 .pg-event #c-level-1 .area-main {
-  padding: 6rem 0 0; }
+  padding: 1rem 0 0; }
   .pg-event #c-level-1 .area-main .sidebar-box {
     margin-bottom: 1rem;
     line-height: 1;
@@ -1495,7 +1495,7 @@ a.logo {
 
 @media screen and (min-width: 868px) {
   .pg-event #c-level-1 .area-main {
-    padding: 6rem 0 0; }
+    padding: 1rem 0 0; }
   .pg-event #c-level-1 header {
     padding: 13rem 0 0; }
     .pg-event #c-level-1 header .event-img {
@@ -1509,7 +1509,9 @@ a.logo {
       padding-left: 46%;
       text-align: left; }
       .pg-event #c-level-1 header .headline .presenter {
-        right: auto; } }
+        right: auto; }
+  .pg-event #c-level-1 .pseudo-container .presenter {
+    padding-left: 46%; } }
 @media screen and (min-width: 992px) {
   .pg-event #c-level-1 header .headline .presenter {
     font-size: 100%; }
