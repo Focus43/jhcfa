@@ -1693,6 +1693,8 @@ a.logo {
   overflow: visible;
   background: url("/packages/artsy/images/abstract-gray.jpg") no-repeat 50% 50%;
   background-size: cover; }
+  .pg-event #c-level-1 header::before {
+    display: none; }
   .pg-event #c-level-1 header .image-and-title {
     position: relative;
     margin: 0 auto;

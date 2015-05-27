@@ -1,5 +1,6 @@
 .pg-event #c-level-1 {
   header {padding:6rem 0 0;overflow:visible;background:url('#{$image-path}/abstract-gray.jpg') no-repeat 50% 50%;background-size:cover;
+    &::before {display:none;}
     .image-and-title {position:relative;margin:0 auto;padding:0 $grid-gutter-width/2;}
     .event-img {text-align:center;padding-bottom:50%;max-height:280px;background-size:cover;background-color:#fff;background-position:50% 50%;background-repeat:no-repeat;border:5px solid #fff;@include box-shadow(0 -10px 32px -10px rgba(0,0,0,0.65));
       &.unavailable {@include gradient-vertical(#4f4f4f,#1f1f1f);color:#fff;}
