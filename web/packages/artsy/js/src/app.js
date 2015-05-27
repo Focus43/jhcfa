@@ -30,7 +30,7 @@
                     if( containerEl ){
                         var cl = containerEl.classList;
                         if( cl ){
-                            while( ! containerEl.classList.contains('container') ){
+                            while( ! cl.contains('container') ){
                                 containerEl = containerEl.parentNode;
                             }
                             if( containerEl ){
