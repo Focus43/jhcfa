@@ -23,38 +23,19 @@
         function( FastClick ){
             FastClick.attach(document.body);
 
-            //var themeWraps = document.querySelectorAll('[class*="wrap-theme-"]');
-            //if( themeWraps.length ){
-            //    for(var i = 0, len = themeWraps.length; i < len; i++){
-            //        var $element = angular.element(themeWraps[i]);
-            //        if( $element.length ){
-            //
-            //        }
-            //        while( ! $element.hasClass('container') ){
-            //            $element = angular.element($element.parent());
-            //        }
-            //        if( $element.length ){
-            //            $element.addClass('overflowable-x');
-            //        }
-            //    }
-            //}
-
-            //if( themeWraps.length ){
-            //    for(var i = 0, len = themeWraps.length; i < len; i++){
-            //        var containerEl = themeWraps[i];
-            //        if( containerEl ){
-            //            var cl = containerEl.classList;
-            //            if( cl ){
-            //                while( ! cl.contains('container') ){
-            //                    containerEl = containerEl.parentNode;
-            //                }
-            //                if( containerEl ){
-            //                    containerEl.classList.add('overflowable-x');
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+            var themeWraps = document.querySelectorAll('[class*="wrap-theme-"]');
+            if( themeWraps.length ){
+                for(var i = 0, len = themeWraps.length; i < len; i++){
+                    var $element = angular.element(themeWraps[i]);
+                    while( ! $element.hasClass('container') && $element.length ){
+                        console.log('calling');
+                        $element = angular.element($element.parent());
+                    }
+                    if( $element.length ){
+                        $element.addClass('overflowable-x');
+                    }
+                }
+            }
         }
     ]);
 
