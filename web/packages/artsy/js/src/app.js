@@ -28,11 +28,14 @@
                 for(var i = 0, len = themeWraps.length; i < len; i++){
                     var containerEl = themeWraps[i];
                     if( containerEl ){
-                        while( ! containerEl.classList.contains('container') ){
-                            containerEl = containerEl.parentNode;
-                        }
-                        if( containerEl ){
-                            containerEl.classList.add('overflowable-x');
+                        var cl = containerEl.classList;
+                        if( cl ){
+                            while( ! containerEl.classList.contains('container') ){
+                                containerEl = containerEl.parentNode;
+                            }
+                            if( containerEl ){
+                                containerEl.classList.add('overflowable-x');
+                            }
                         }
                     }
                 }
