@@ -25,7 +25,10 @@
 
 <nav primary revealing>
     <a trigger ng-click="toggle()">
-        <i class="icon-bars" ng-class="{'icon-tasks':status.open,'icon-bars':!status.open}"></i>
+        <span class="inner">
+            <i class="icon-bars" ng-class="{'icon-tasks':status.open,'icon-bars':!status.open}"></i>
+            <b>Explore</b>
+        </span>
     </a>
     <div class="inner-1">
         <?php
@@ -39,7 +42,7 @@
         ?>
 
         <div class="bottom" slideable>
-            <a class="btn btn-block btn-lg btn-primary">Donate</a>
+            <a class="btn btn-block btn-lg btn-primary" href="https://www.vendini.com/donation-software.html?d=7d53ce493d7bf407e2c7f731efff130f&t=donation" target="_blank">Donate</a>
             <div class="btn-group btn-group-justified">
                 <a class="btn btn-dark" href="/box_office">Box Office</a>
                 <a class="btn btn-dark" href="/contact">Contact</a>

@@ -87,6 +87,8 @@ video.fullscreen {
     font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
     text-transform: uppercase;
     letter-spacing: -1px; }
+  #c-level-1 .theme-font-bold {
+    font-family: "TradeGothicLT-Bold", "Oswald", sans-serif; }
   #c-level-1 .theme-text-large {
     font-size: 200%; }
   #c-level-1 .theme-text-xlarge {
@@ -159,6 +161,269 @@ video.fullscreen {
         background: #000000; }
       #c-level-1 main .wrap-theme-dark a {
         color: #838383; }
+    #c-level-1 main table {
+      max-width: 100%;
+      background-color: transparent; }
+    #c-level-1 main th {
+      text-align: left; }
+    #c-level-1 main .table, #c-level-1 main table {
+      width: 100%;
+      margin-bottom: 22px; }
+      #c-level-1 main .table > thead > tr > th, #c-level-1 main table > thead > tr > th,
+      #c-level-1 main .table > thead > tr > td,
+      #c-level-1 main table > thead > tr > td,
+      #c-level-1 main .table > tbody > tr > th,
+      #c-level-1 main table > tbody > tr > th,
+      #c-level-1 main .table > tbody > tr > td,
+      #c-level-1 main table > tbody > tr > td,
+      #c-level-1 main .table > tfoot > tr > th,
+      #c-level-1 main table > tfoot > tr > th,
+      #c-level-1 main .table > tfoot > tr > td,
+      #c-level-1 main table > tfoot > tr > td {
+        padding: 8px;
+        line-height: 1.42857;
+        vertical-align: top;
+        border-top: 1px solid #ddd; }
+      #c-level-1 main .table > thead > tr > th, #c-level-1 main table > thead > tr > th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #ddd; }
+      #c-level-1 main .table > caption + thead > tr:first-child > th, #c-level-1 main table > caption + thead > tr:first-child > th,
+      #c-level-1 main .table > caption + thead > tr:first-child > td,
+      #c-level-1 main table > caption + thead > tr:first-child > td,
+      #c-level-1 main .table > colgroup + thead > tr:first-child > th,
+      #c-level-1 main table > colgroup + thead > tr:first-child > th,
+      #c-level-1 main .table > colgroup + thead > tr:first-child > td,
+      #c-level-1 main table > colgroup + thead > tr:first-child > td,
+      #c-level-1 main .table > thead:first-child > tr:first-child > th,
+      #c-level-1 main table > thead:first-child > tr:first-child > th,
+      #c-level-1 main .table > thead:first-child > tr:first-child > td,
+      #c-level-1 main table > thead:first-child > tr:first-child > td {
+        border-top: 0; }
+      #c-level-1 main .table > tbody + tbody, #c-level-1 main table > tbody + tbody {
+        border-top: 2px solid #ddd; }
+      #c-level-1 main .table .table, #c-level-1 main table .table, #c-level-1 main .table table, #c-level-1 main table table {
+        background-color: #f1f1f1; }
+    #c-level-1 main .table-condensed > thead > tr > th, #c-level-1 main table > thead > tr > th,
+    #c-level-1 main .table-condensed > thead > tr > td,
+    #c-level-1 main table > thead > tr > td,
+    #c-level-1 main .table-condensed > tbody > tr > th,
+    #c-level-1 main table > tbody > tr > th,
+    #c-level-1 main .table-condensed > tbody > tr > td,
+    #c-level-1 main table > tbody > tr > td,
+    #c-level-1 main .table-condensed > tfoot > tr > th,
+    #c-level-1 main table > tfoot > tr > th,
+    #c-level-1 main .table-condensed > tfoot > tr > td,
+    #c-level-1 main table > tfoot > tr > td {
+      padding: 5px; }
+    #c-level-1 main .table-bordered {
+      border: 1px solid #ddd; }
+      #c-level-1 main .table-bordered > thead > tr > th,
+      #c-level-1 main .table-bordered > thead > tr > td,
+      #c-level-1 main .table-bordered > tbody > tr > th,
+      #c-level-1 main .table-bordered > tbody > tr > td,
+      #c-level-1 main .table-bordered > tfoot > tr > th,
+      #c-level-1 main .table-bordered > tfoot > tr > td {
+        border: 1px solid #ddd; }
+      #c-level-1 main .table-bordered > thead > tr > th,
+      #c-level-1 main .table-bordered > thead > tr > td {
+        border-bottom-width: 2px; }
+    #c-level-1 main .table-striped > tbody > tr:nth-child(odd) > td,
+    #c-level-1 main .table-striped > tbody > tr:nth-child(odd) > th {
+      background-color: #f9f9f9; }
+    #c-level-1 main .table-hover > tbody > tr:hover > td,
+    #c-level-1 main .table-hover > tbody > tr:hover > th {
+      background-color: #f5f5f5; }
+    #c-level-1 main table col[class*="col-"] {
+      position: static;
+      float: none;
+      display: table-column; }
+    #c-level-1 main table td[class*="col-"],
+    #c-level-1 main table th[class*="col-"] {
+      position: static;
+      float: none;
+      display: table-cell; }
+    #c-level-1 main .table > thead > tr > td.active, #c-level-1 main table > thead > tr > td.active,
+    #c-level-1 main .table > thead > tr > th.active,
+    #c-level-1 main table > thead > tr > th.active, #c-level-1 main .table > thead > tr.active > td, #c-level-1 main table > thead > tr.active > td, #c-level-1 main .table > thead > tr.active > th, #c-level-1 main table > thead > tr.active > th,
+    #c-level-1 main .table > tbody > tr > td.active,
+    #c-level-1 main table > tbody > tr > td.active,
+    #c-level-1 main .table > tbody > tr > th.active,
+    #c-level-1 main table > tbody > tr > th.active,
+    #c-level-1 main .table > tbody > tr.active > td,
+    #c-level-1 main table > tbody > tr.active > td,
+    #c-level-1 main .table > tbody > tr.active > th,
+    #c-level-1 main table > tbody > tr.active > th,
+    #c-level-1 main .table > tfoot > tr > td.active,
+    #c-level-1 main table > tfoot > tr > td.active,
+    #c-level-1 main .table > tfoot > tr > th.active,
+    #c-level-1 main table > tfoot > tr > th.active,
+    #c-level-1 main .table > tfoot > tr.active > td,
+    #c-level-1 main table > tfoot > tr.active > td,
+    #c-level-1 main .table > tfoot > tr.active > th,
+    #c-level-1 main table > tfoot > tr.active > th {
+      background-color: #f5f5f5; }
+    #c-level-1 main .table-hover > tbody > tr > td.active:hover,
+    #c-level-1 main .table-hover > tbody > tr > th.active:hover, #c-level-1 main .table-hover > tbody > tr.active:hover > td, #c-level-1 main .table-hover > tbody > tr:hover > .active, #c-level-1 main .table-hover > tbody > tr.active:hover > th {
+      background-color: #e8e8e8; }
+    #c-level-1 main .table > thead > tr > td.success, #c-level-1 main table > thead > tr > td.success,
+    #c-level-1 main .table > thead > tr > th.success,
+    #c-level-1 main table > thead > tr > th.success, #c-level-1 main .table > thead > tr.success > td, #c-level-1 main table > thead > tr.success > td, #c-level-1 main .table > thead > tr.success > th, #c-level-1 main table > thead > tr.success > th,
+    #c-level-1 main .table > tbody > tr > td.success,
+    #c-level-1 main table > tbody > tr > td.success,
+    #c-level-1 main .table > tbody > tr > th.success,
+    #c-level-1 main table > tbody > tr > th.success,
+    #c-level-1 main .table > tbody > tr.success > td,
+    #c-level-1 main table > tbody > tr.success > td,
+    #c-level-1 main .table > tbody > tr.success > th,
+    #c-level-1 main table > tbody > tr.success > th,
+    #c-level-1 main .table > tfoot > tr > td.success,
+    #c-level-1 main table > tfoot > tr > td.success,
+    #c-level-1 main .table > tfoot > tr > th.success,
+    #c-level-1 main table > tfoot > tr > th.success,
+    #c-level-1 main .table > tfoot > tr.success > td,
+    #c-level-1 main table > tfoot > tr.success > td,
+    #c-level-1 main .table > tfoot > tr.success > th,
+    #c-level-1 main table > tfoot > tr.success > th {
+      background-color: #dff0d8; }
+    #c-level-1 main .table-hover > tbody > tr > td.success:hover,
+    #c-level-1 main .table-hover > tbody > tr > th.success:hover, #c-level-1 main .table-hover > tbody > tr.success:hover > td, #c-level-1 main .table-hover > tbody > tr:hover > .success, #c-level-1 main .table-hover > tbody > tr.success:hover > th {
+      background-color: #d0e9c6; }
+    #c-level-1 main .table > thead > tr > td.info, #c-level-1 main table > thead > tr > td.info,
+    #c-level-1 main .table > thead > tr > th.info,
+    #c-level-1 main table > thead > tr > th.info, #c-level-1 main .table > thead > tr.info > td, #c-level-1 main table > thead > tr.info > td, #c-level-1 main .table > thead > tr.info > th, #c-level-1 main table > thead > tr.info > th,
+    #c-level-1 main .table > tbody > tr > td.info,
+    #c-level-1 main table > tbody > tr > td.info,
+    #c-level-1 main .table > tbody > tr > th.info,
+    #c-level-1 main table > tbody > tr > th.info,
+    #c-level-1 main .table > tbody > tr.info > td,
+    #c-level-1 main table > tbody > tr.info > td,
+    #c-level-1 main .table > tbody > tr.info > th,
+    #c-level-1 main table > tbody > tr.info > th,
+    #c-level-1 main .table > tfoot > tr > td.info,
+    #c-level-1 main table > tfoot > tr > td.info,
+    #c-level-1 main .table > tfoot > tr > th.info,
+    #c-level-1 main table > tfoot > tr > th.info,
+    #c-level-1 main .table > tfoot > tr.info > td,
+    #c-level-1 main table > tfoot > tr.info > td,
+    #c-level-1 main .table > tfoot > tr.info > th,
+    #c-level-1 main table > tfoot > tr.info > th {
+      background-color: #d9edf7; }
+    #c-level-1 main .table-hover > tbody > tr > td.info:hover,
+    #c-level-1 main .table-hover > tbody > tr > th.info:hover, #c-level-1 main .table-hover > tbody > tr.info:hover > td, #c-level-1 main .table-hover > tbody > tr:hover > .info, #c-level-1 main .table-hover > tbody > tr.info:hover > th {
+      background-color: #c4e3f3; }
+    #c-level-1 main .table > thead > tr > td.warning, #c-level-1 main table > thead > tr > td.warning,
+    #c-level-1 main .table > thead > tr > th.warning,
+    #c-level-1 main table > thead > tr > th.warning, #c-level-1 main .table > thead > tr.warning > td, #c-level-1 main table > thead > tr.warning > td, #c-level-1 main .table > thead > tr.warning > th, #c-level-1 main table > thead > tr.warning > th,
+    #c-level-1 main .table > tbody > tr > td.warning,
+    #c-level-1 main table > tbody > tr > td.warning,
+    #c-level-1 main .table > tbody > tr > th.warning,
+    #c-level-1 main table > tbody > tr > th.warning,
+    #c-level-1 main .table > tbody > tr.warning > td,
+    #c-level-1 main table > tbody > tr.warning > td,
+    #c-level-1 main .table > tbody > tr.warning > th,
+    #c-level-1 main table > tbody > tr.warning > th,
+    #c-level-1 main .table > tfoot > tr > td.warning,
+    #c-level-1 main table > tfoot > tr > td.warning,
+    #c-level-1 main .table > tfoot > tr > th.warning,
+    #c-level-1 main table > tfoot > tr > th.warning,
+    #c-level-1 main .table > tfoot > tr.warning > td,
+    #c-level-1 main table > tfoot > tr.warning > td,
+    #c-level-1 main .table > tfoot > tr.warning > th,
+    #c-level-1 main table > tfoot > tr.warning > th {
+      background-color: #fcf8e3; }
+    #c-level-1 main .table-hover > tbody > tr > td.warning:hover,
+    #c-level-1 main .table-hover > tbody > tr > th.warning:hover, #c-level-1 main .table-hover > tbody > tr.warning:hover > td, #c-level-1 main .table-hover > tbody > tr:hover > .warning, #c-level-1 main .table-hover > tbody > tr.warning:hover > th {
+      background-color: #faf2cc; }
+    #c-level-1 main .table > thead > tr > td.danger, #c-level-1 main table > thead > tr > td.danger,
+    #c-level-1 main .table > thead > tr > th.danger,
+    #c-level-1 main table > thead > tr > th.danger, #c-level-1 main .table > thead > tr.danger > td, #c-level-1 main table > thead > tr.danger > td, #c-level-1 main .table > thead > tr.danger > th, #c-level-1 main table > thead > tr.danger > th,
+    #c-level-1 main .table > tbody > tr > td.danger,
+    #c-level-1 main table > tbody > tr > td.danger,
+    #c-level-1 main .table > tbody > tr > th.danger,
+    #c-level-1 main table > tbody > tr > th.danger,
+    #c-level-1 main .table > tbody > tr.danger > td,
+    #c-level-1 main table > tbody > tr.danger > td,
+    #c-level-1 main .table > tbody > tr.danger > th,
+    #c-level-1 main table > tbody > tr.danger > th,
+    #c-level-1 main .table > tfoot > tr > td.danger,
+    #c-level-1 main table > tfoot > tr > td.danger,
+    #c-level-1 main .table > tfoot > tr > th.danger,
+    #c-level-1 main table > tfoot > tr > th.danger,
+    #c-level-1 main .table > tfoot > tr.danger > td,
+    #c-level-1 main table > tfoot > tr.danger > td,
+    #c-level-1 main .table > tfoot > tr.danger > th,
+    #c-level-1 main table > tfoot > tr.danger > th {
+      background-color: #f2dede; }
+    #c-level-1 main .table-hover > tbody > tr > td.danger:hover,
+    #c-level-1 main .table-hover > tbody > tr > th.danger:hover, #c-level-1 main .table-hover > tbody > tr.danger:hover > td, #c-level-1 main .table-hover > tbody > tr:hover > .danger, #c-level-1 main .table-hover > tbody > tr.danger:hover > th {
+      background-color: #ebcccc; }
+    @media screen and (max-width: 767px) {
+      #c-level-1 main .table-responsive, #c-level-1 main table {
+        width: 100%;
+        margin-bottom: 16.5px;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+        border: 1px solid #ddd;
+        -webkit-overflow-scrolling: touch; }
+        #c-level-1 main .table-responsive > .table, #c-level-1 main table > .table, #c-level-1 main .table-responsive > table, #c-level-1 main table > table {
+          margin-bottom: 0; }
+          #c-level-1 main .table-responsive > .table > thead > tr > th, #c-level-1 main table > .table > thead > tr > th, #c-level-1 main .table-responsive > table > thead > tr > th, #c-level-1 main table > table > thead > tr > th,
+          #c-level-1 main .table-responsive > .table > thead > tr > td,
+          #c-level-1 main table > .table > thead > tr > td,
+          #c-level-1 main .table-responsive > table > thead > tr > td,
+          #c-level-1 main table > table > thead > tr > td,
+          #c-level-1 main .table-responsive > .table > tbody > tr > th,
+          #c-level-1 main table > .table > tbody > tr > th,
+          #c-level-1 main .table-responsive > table > tbody > tr > th,
+          #c-level-1 main table > table > tbody > tr > th,
+          #c-level-1 main .table-responsive > .table > tbody > tr > td,
+          #c-level-1 main table > .table > tbody > tr > td,
+          #c-level-1 main .table-responsive > table > tbody > tr > td,
+          #c-level-1 main table > table > tbody > tr > td,
+          #c-level-1 main .table-responsive > .table > tfoot > tr > th,
+          #c-level-1 main table > .table > tfoot > tr > th,
+          #c-level-1 main .table-responsive > table > tfoot > tr > th,
+          #c-level-1 main table > table > tfoot > tr > th,
+          #c-level-1 main .table-responsive > .table > tfoot > tr > td,
+          #c-level-1 main table > .table > tfoot > tr > td,
+          #c-level-1 main .table-responsive > table > tfoot > tr > td,
+          #c-level-1 main table > table > tfoot > tr > td {
+            white-space: nowrap; }
+        #c-level-1 main .table-responsive > .table-bordered, #c-level-1 main table > .table-bordered {
+          border: 0; }
+          #c-level-1 main .table-responsive > .table-bordered > thead > tr > th:first-child, #c-level-1 main table > .table-bordered > thead > tr > th:first-child,
+          #c-level-1 main .table-responsive > .table-bordered > thead > tr > td:first-child,
+          #c-level-1 main table > .table-bordered > thead > tr > td:first-child,
+          #c-level-1 main .table-responsive > .table-bordered > tbody > tr > th:first-child,
+          #c-level-1 main table > .table-bordered > tbody > tr > th:first-child,
+          #c-level-1 main .table-responsive > .table-bordered > tbody > tr > td:first-child,
+          #c-level-1 main table > .table-bordered > tbody > tr > td:first-child,
+          #c-level-1 main .table-responsive > .table-bordered > tfoot > tr > th:first-child,
+          #c-level-1 main table > .table-bordered > tfoot > tr > th:first-child,
+          #c-level-1 main .table-responsive > .table-bordered > tfoot > tr > td:first-child,
+          #c-level-1 main table > .table-bordered > tfoot > tr > td:first-child {
+            border-left: 0; }
+          #c-level-1 main .table-responsive > .table-bordered > thead > tr > th:last-child, #c-level-1 main table > .table-bordered > thead > tr > th:last-child,
+          #c-level-1 main .table-responsive > .table-bordered > thead > tr > td:last-child,
+          #c-level-1 main table > .table-bordered > thead > tr > td:last-child,
+          #c-level-1 main .table-responsive > .table-bordered > tbody > tr > th:last-child,
+          #c-level-1 main table > .table-bordered > tbody > tr > th:last-child,
+          #c-level-1 main .table-responsive > .table-bordered > tbody > tr > td:last-child,
+          #c-level-1 main table > .table-bordered > tbody > tr > td:last-child,
+          #c-level-1 main .table-responsive > .table-bordered > tfoot > tr > th:last-child,
+          #c-level-1 main table > .table-bordered > tfoot > tr > th:last-child,
+          #c-level-1 main .table-responsive > .table-bordered > tfoot > tr > td:last-child,
+          #c-level-1 main table > .table-bordered > tfoot > tr > td:last-child {
+            border-right: 0; }
+          #c-level-1 main .table-responsive > .table-bordered > tbody > tr:last-child > th, #c-level-1 main table > .table-bordered > tbody > tr:last-child > th,
+          #c-level-1 main .table-responsive > .table-bordered > tbody > tr:last-child > td,
+          #c-level-1 main table > .table-bordered > tbody > tr:last-child > td,
+          #c-level-1 main .table-responsive > .table-bordered > tfoot > tr:last-child > th,
+          #c-level-1 main table > .table-bordered > tfoot > tr:last-child > th,
+          #c-level-1 main .table-responsive > .table-bordered > tfoot > tr:last-child > td,
+          #c-level-1 main table > .table-bordered > tfoot > tr:last-child > td {
+            border-bottom: 0; } }
   #c-level-1 .btn-transparent {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.1);
@@ -449,6 +714,17 @@ nav[primary] {
     -o-transition: all 0.25s ease;
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease; }
+    nav[primary] [trigger] span {
+      position: relative;
+      display: inline-block;
+      text-transform: uppercase;
+      font-family: "TradeGothicLT-Bold", "Oswald", sans-serif; }
+    nav[primary] [trigger] b {
+      font-size: 80%;
+      position: absolute;
+      top: 0.9rem;
+      left: 2rem;
+      font-weight: normal; }
   nav[primary] .inner-1 {
     width: 100%;
     height: 100%;
@@ -550,6 +826,8 @@ nav[primary] {
 .dock-nav-icon nav [trigger] {
   top: 0 !important;
   background: rgba(0, 0, 0, 0.8); }
+  .dock-nav-icon nav [trigger] b {
+    display: none; }
 
 [revealing] {
   -moz-transform: translate3d(0, 0, 0);
@@ -1406,14 +1684,13 @@ a.logo {
   background-size: cover; }
   .pg-event #c-level-1 header .image-and-title {
     position: relative;
-    width: 85%;
-    max-width: 1100px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    padding: 0 30px; }
   .pg-event #c-level-1 header .event-img {
     text-align: center;
     padding-bottom: 50%;
     max-height: 280px;
-    background-size: contain;
+    background-size: cover;
     background-color: #fff;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -1493,7 +1770,7 @@ a.logo {
       font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
       text-transform: uppercase; }
 
-@media screen and (min-width: 868px) {
+@media screen and (min-width: 768px) {
   .pg-event #c-level-1 .area-main {
     padding: 1rem 0 0; }
   .pg-event #c-level-1 header {
@@ -1513,11 +1790,15 @@ a.logo {
   .pg-event #c-level-1 .pseudo-container .presenter {
     padding-left: 46%; } }
 @media screen and (min-width: 992px) {
+  .pg-event #c-level-1 header .image-and-title {
+    max-width: 1000px; }
   .pg-event #c-level-1 header .headline .presenter {
     font-size: 100%; }
     .pg-event #c-level-1 header .headline .presenter .hub-node {
       margin: 1rem 0.5rem 0 0.5rem; } }
 @media screen and (min-width: 1200px) {
+  .pg-event #c-level-1 header .image-and-title {
+    max-width: 1200px; }
   .pg-event #c-level-1 header .event-img {
     width: 40%;
     height: 17rem;

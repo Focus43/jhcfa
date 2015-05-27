@@ -22,7 +22,8 @@
                 array('title' => t('Theme Dark Color'), 'menuClass' => '', 'spanClass' => 'theme-dark-color'),
                 array('title' => t('Font:Large'), 'menuClass' => '', 'spanClass' => 'theme-text-large'),
                 array('title' => t('Font:XLarge'), 'menuClass' => '', 'spanClass' => 'theme-text-xlarge'),
-                array('title' => t('Font:Lead'), 'menuClass' => '', 'spanClass' => 'lead')
+                array('title' => t('Font:Lead'), 'menuClass' => '', 'spanClass' => 'lead'),
+                array('title' => t('Font:Bold'), 'menuClass' => '', 'spanClass' => 'theme-font-bold')
             );
         }
 

@@ -68,7 +68,7 @@
             <div class="pseudo-container">
                 <div class="presenter">
                     <div class="hub-node hub-green">
-                        <h4>Presented by <a><?php echo $eventObj->getAttribute('presenting_organization'); ?></a></h4>
+                        <h4>Presented by <?php echo $eventObj->getAttribute('presenting_organization'); ?></h4>
                         <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
                             <circle fill="#000" cx="10" cy="10" r="10" />
                         </svg>

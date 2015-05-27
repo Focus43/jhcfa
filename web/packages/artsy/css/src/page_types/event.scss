@@ -1,7 +1,7 @@
 .pg-event #c-level-1 {
   header {padding:6rem 0 0;overflow:visible;background:url('#{$image-path}/abstract-gray.jpg') no-repeat 50% 50%;background-size:cover;
-    .image-and-title {position:relative;width:85%;max-width:1100px;margin:0 auto;}
-    .event-img {text-align:center;padding-bottom:50%;max-height:280px;background-size:contain;background-color:#fff;background-position:50% 50%;background-repeat:no-repeat;border:5px solid #fff;@include box-shadow(0 -10px 32px -10px rgba(0,0,0,0.65));
+    .image-and-title {position:relative;margin:0 auto;padding:0 $grid-gutter-width/2;}
+    .event-img {text-align:center;padding-bottom:50%;max-height:280px;background-size:cover;background-color:#fff;background-position:50% 50%;background-repeat:no-repeat;border:5px solid #fff;@include box-shadow(0 -10px 32px -10px rgba(0,0,0,0.65));
       &.unavailable {@include gradient-vertical(#4f4f4f,#1f1f1f);color:#fff;}
     }
     .headline {
@@ -37,7 +37,7 @@
   }
 }
 
-@media screen and (min-width:$screen-sm + 100px){
+@media screen and (min-width:$screen-sm){
   .pg-event #c-level-1 {
     .area-main {padding:1rem 0 0;}
     header {padding:13rem 0 0;
@@ -53,6 +53,7 @@
 @media screen and (min-width:$screen-md){
   .pg-event #c-level-1 {
     header {
+      .image-and-title {max-width:1000px;}
       .headline {
         .presenter {font-size:100%;
           .hub-node {margin:1rem 0.5rem 0 0.5rem;}
@@ -65,6 +66,7 @@
 @media screen and (min-width:$screen-lg){
   .pg-event #c-level-1 {
     header {
+      .image-and-title {max-width:1200px;}
       .event-img {width:40%;height:17rem;bottom:-3rem;}
       .headline {
         .headline-inner {padding-bottom:2.5rem;}
