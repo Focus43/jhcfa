@@ -28,7 +28,7 @@
                 for(var i = 0, len = themeWraps.length; i < len; i++){
                     var $element = angular.element(themeWraps[i]);
                     while( ! $element.hasClass('container') && $element.length ){
-                        console.log('calling');
+                        console.log('locating_parent_container');
                         $element = angular.element($element.parent());
                     }
                     if( $element.length ){

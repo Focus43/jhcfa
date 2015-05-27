@@ -1081,24 +1081,27 @@ footer {
   color: #000;
   position: relative;
   margin-top: 1rem;
-  padding: 1rem 0 0;
-  background: transparent; }
+  background: none;
+  overflow: hidden; }
   footer a:hover {
     text-decoration: none; }
   footer .inner {
-    position: relative;
-    z-index: 2; }
+    margin: 0 auto;
+    padding: 0 15px; }
   footer .inner-content {
-    border-top: 3px solid #6DB844;
-    margin-bottom: 1rem; }
-  footer h3 {
-    font-size: 140%;
-    margin-top: 0;
+    text-align: center;
     padding: 1rem;
-    background: #000000;
-    color: #fff; }
+    border-top: 3px solid #6DB844; }
+  footer h3 {
+    background: #dadada;
+    color: #838383;
+    font-size: 100%;
+    margin: -1rem -1rem 1rem;
+    padding: 0.5rem 1rem; }
   footer .footer-logo {
     max-height: 105px; }
+  footer address {
+    margin-bottom: 0; }
   footer .socialize {
     font-size: 240%;
     color: #6DB844;
@@ -1114,30 +1117,68 @@ footer {
     font-size: 12px;
     color: #838383;
     width: 100%;
-    padding: 0.75rem; }
+    padding: 0 1rem 0.75rem; }
+  footer .quick-links {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+    footer .quick-links li {
+      display: inline-block; }
+    footer .quick-links i {
+      font-size: 6px;
+      position: relative;
+      top: -3px;
+      padding: 0 5px;
+      color: #838383; }
+  footer p {
+    margin-bottom: 0; }
 
 #c-level-1 footer [class*="col-"] {
   padding-left: 15px;
   padding-right: 15px; }
 
-.pg-home footer {
-  background: rgba(35, 25, 32, 0.5);
-  margin-top: 0;
+.pg-home footer .inner-content {
   color: #fff; }
-  .pg-home footer h3 {
-    color: #fff; }
 
 @media screen and (min-width: 768px) {
+  .pg-home footer {
+    background: rgba(35, 25, 32, 0.5);
+    margin-top: 0;
+    color: #fff; }
+    .pg-home footer h3 {
+      color: #fff; }
+
   footer {
     margin-top: 2rem;
-    padding: 2rem 2rem 0; }
+    padding: 2rem 0 0; }
+    footer .inner {
+      padding: 0 30px; }
     footer .inner-content {
+      text-align: left;
       margin-bottom: 0;
-      padding-top: 1rem; }
+      padding: 1rem 0 0; }
     footer h3 {
+      font-size: 140%;
+      display: block;
+      float: none;
+      margin: 0;
       background: none;
-      padding: 0;
-      color: #000; } }
+      padding: 0 0 0.5rem;
+      color: #000; }
+    footer .legalese {
+      padding-top: 0.75rem; }
+    footer .quick-links {
+      list-style: none;
+      padding-bottom: 1rem; }
+      footer .quick-links li {
+        display: block; }
+      footer .quick-links i {
+        display: none; } }
+@media screen and (min-width: 992px) {
+  footer {
+    padding: 2rem 2rem 0; }
+    footer .legalese {
+      padding-top: 0; } }
 #c-level-1 [calendar] [calendar-body] {
   white-space: nowrap;
   font-size: 0;
