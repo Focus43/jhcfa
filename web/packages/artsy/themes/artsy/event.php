@@ -107,7 +107,7 @@
                             <div class="sidebar-box">
                                 <label>Event Time(s)</label>
                                 <ul class="event-times list-unstyled">
-                                    <?php foreach($eventTimes AS $row): ?>
+                                    <?php foreach($first10EventTimes AS $row): ?>
                                         <li>
                                             <?php
                                             $dtObj = new \DateTime($row['computedStartLocal']);
@@ -115,6 +115,17 @@
                                             ?>
                                         </li>
                                     <?php endforeach; ?>
+                                    <?php if( !empty($moreEventTimes) ): ?>
+                                        <li more-event-times><a>View <?php echo count($moreEventTimes); ?> More <i class="icon-plus"></i></a></li>
+                                        <?php foreach($moreEventTimes AS $row): ?>
+                                            <li class="more-hidden">
+                                                <?php
+                                                $dtObj = new \DateTime($row['computedStartLocal']);
+                                                echo sprintf("<strong>%s</strong> - %s", $dtObj->format('g:i A'), $dtObj->format('D M j, Y'));
+                                                ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </ul>
                                 <?php if( ! (bool)$eventObj->getAttribute('event_not_ticketed') ): ?>
                                     <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">

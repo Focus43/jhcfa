@@ -19,7 +19,14 @@
             if( is_object($eventObj) ){
                 $this->set('eventObj', $eventObj);
                 $this->set('calendarObj', $eventObj->getCalendarObj());
-                $this->set('eventTimes', (array) $this->eventList($eventObj)->get());
+
+                // Get event times and split into first 10 and then the rest
+                $allEventTimes      = (array) $this->eventList($eventObj)->get();
+                $first10EventTimes  = array_slice($allEventTimes, 0, 10);
+                $moreEventTimes     = array_slice($allEventTimes, 10);
+                $this->set('first10EventTimes', (array) $first10EventTimes);
+                $this->set('moreEventTimes', (array) $moreEventTimes);
+
                 // Event File
                 $fileID = $eventObj->getFileID();
                 if( (int)$fileID >= 1 ){
@@ -34,7 +41,7 @@
         protected function eventList( $eventObj ){
             $eventListObj = new SchedulizerEventList(array($eventObj->getCalendarID()));
             $eventListObj->setEventIDs(array($eventObj->getID()));
-            $eventListObj->setDaysIntoFuture(31);
+            $eventListObj->setDaysIntoFuture(365);
             $eventListObj->includeColumns(array(
                 'computedStartLocal'
             ));
