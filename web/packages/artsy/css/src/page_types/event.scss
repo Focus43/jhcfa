@@ -24,8 +24,8 @@
       label {margin:0;padding:3px 4px;font-size:75%;text-transform:uppercase;position:absolute;top:0;right:0;background:$theme-light-color;color:$theme-extra-light-color;}
       .price {font-size:140%;font-family:$theme-font-family-bold;margin-bottom:0;}
       small {padding-top:0.5rem;display:block;
-        &::before {content:'(';}
-        &::after {content:')';}
+//        &::before {content:'(';}
+//        &::after {content:')';}
         &:empty {display:none;}
       }
       .event-times {

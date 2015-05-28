@@ -1814,10 +1814,6 @@ a.logo {
     .pg-event #c-level-1 .area-main .sidebar-box small {
       padding-top: 0.5rem;
       display: block; }
-      .pg-event #c-level-1 .area-main .sidebar-box small::before {
-        content: '('; }
-      .pg-event #c-level-1 .area-main .sidebar-box small::after {
-        content: ')'; }
       .pg-event #c-level-1 .area-main .sidebar-box small:empty {
         display: none; }
     .pg-event #c-level-1 .area-main .sidebar-box .event-times li {
