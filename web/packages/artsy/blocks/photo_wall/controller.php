@@ -25,6 +25,9 @@
         protected $btCacheBlockOutputForRegisteredUsers 	= false;
         protected $btCacheBlockOutputLifetime 				= 0;
 
+        public $fileSource;
+        public $fileSetID;
+
         public function getBlockTypeDescription(){
             return t("Add a photo wall");
         }
@@ -115,12 +118,12 @@
          * @param array $args
          */
         public function save( $args ){
-            $this->persistFiles( (array) $args['fileID'] );
-
             parent::save(array(
                 'fileSource' => (int) $args['fileSource'],
                 'fileSetID'  => (int) $args['fileSetID']
             ));
+
+            $this->persistFiles( (array) $args['fileID'] );
         }
 
 
@@ -142,12 +145,19 @@
 
 
         /**
-         * Ensure when block version gets copied we dont lost data!
+         * Ensure when block version gets copied we dont lose data!
          * @param $newBID
          * @return void
          */
         public function duplicate( $newBID ){
             $db = Loader::db();
+
+            // Copy the current block record
+            $db->Execute("INSERT INTO btPhotoWall (bID, fileSource, fileSetID) VALUES(?,?,?)", array(
+                $newBID, $this->fileSource, $this->fileSetID
+            ));
+
+            // Copy records from files table
             $r  = $db->query("SELECT * FROM btPhotoWallFiles WHERE bID = ?", array($this->bID));
             foreach($r AS $row){
                 $db->Execute("INSERT INTO btPhotoWallFiles (bID, fileID, displayOrder) VALUES (?,?,?)", array(

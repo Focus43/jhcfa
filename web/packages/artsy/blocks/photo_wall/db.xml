@@ -10,10 +10,12 @@
             <default value="0" />
         </field>
         <field name="fileSetID" type="I">
-            <KEY/>
             <UNSIGNED />
-            <NOTNULL />
         </field>
+
+        <index name="fileSetID">
+            <col>fileSetID</col>
+        </index>
     </table>
 
     <table name="btPhotoWallFiles">
