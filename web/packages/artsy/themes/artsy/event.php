@@ -46,7 +46,7 @@
                     $blockTypeNav->controller->displaySubPageLevels = 'all';
                     $blockTypeNav->render('templates/breadcrumbs');
                 ?>
-                <div class="image-and-title">
+                <div class="pseudo-container">
                     <?php if( !empty($eventThumbnailPath) ){ ?>
                         <div class="event-img" style="background-image:url('<?php echo $eventThumbnailPath; ?>');"></div>
                     <?php }else{ ?>
@@ -58,9 +58,7 @@
                     <?php } ?>
 
                     <div class="headline">
-                        <div class="headline-inner">
-                            <h1><?php echo $eventObj; ?></h1>
-                        </div>
+                        <h1><?php echo $eventObj; ?></h1>
                     </div>
                 </div>
             </header>
