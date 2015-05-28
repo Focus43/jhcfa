@@ -7,3 +7,7 @@
   }
   &.hub-green svg circle {fill:$theme-primary-color;}
 }
+
+html[data-ua="Explorer"]{
+  .hub-node svg {@include transform(scale(1.5,1.5) translate(-10%,0));}
+}

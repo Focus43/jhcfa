@@ -11,18 +11,21 @@
     config(['$provide', '$locationProvider',
         function( $provide, $locationProvider ){
 
-            // @todo: fix interfering links
-
         }
     ]).
 
     /**
     * On run...
     */
-    run(['FastClick',
-        function( FastClick ){
+    run(['FastClick', 'BrowserDetect',
+        function( FastClick, BrowserDetect ){
+            // Bind fastclick
             FastClick.attach(document.body);
 
+            // Set the browser as an attribute on the html tag
+            document.documentElement.setAttribute('data-ua', BrowserDetect.browser);
+
+            // This sucks... but we cant do it any other way for now
             var themeWraps = document.querySelectorAll('[class*="wrap-theme-"]');
             if( themeWraps.length ){
                 for(var i = 0, len = themeWraps.length; i < len; i++){
