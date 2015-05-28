@@ -10,7 +10,7 @@ module.exports = function( gulp ){
 
     /** Prepends a task name with the parent directory for uniqueness. */
     function _taskName( taskName ){
-        return directoryName + ':' + taskName;
+        return 'photowall' + directoryName + ':' + taskName;
     }
 
     var utils = require('gulp-util'),
@@ -23,7 +23,7 @@ module.exports = function( gulp ){
      */
     function runSass( files, _style ){
         return gulp.src(files)
-            .pipe(sass({compass:true, style:(_style || 'nested')}))
+            .pipe(sass({compass:true, style:('compressed')}))
             .on('error', function( err ){
                 utils.log(utils.colors.red(err.toString()));
                 this.emit('end');
@@ -31,10 +31,10 @@ module.exports = function( gulp ){
             .pipe(gulp.dest(_pathTo('')));
     }
 
-    gulp.task(_taskName('sass'), function(){ return runSass(_pathTo('view.scss')); });
+    gulp.task(_taskName('sass'), function(){ return runSass(_pathTo('**/*.scss')); });
 
     gulp.task(_taskName('watches'), function(){
-        gulp.watch(_pathTo('view.scss'), {interval:1000}, [_taskName('sass')]);
+        gulp.watch(_pathTo('**/*.scss'), {interval:1000}, [_taskName('sass')]);
     });
 
 };

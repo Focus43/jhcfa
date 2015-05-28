@@ -88,7 +88,14 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
 @import 'single_pages/calendar';
 @import 'single_pages/box_office';
 
-// CMS Admin Mode
+//////////////////////////////////////////////////////////////////////
+// Single page, system pages (view.php outputs data-handle on the body)
+//////////////////////////////////////////////////////////////////////
+body[data-handle="page_not_found"]{
+  #c-level-1 main .area-main {padding:3rem;max-width:1100px;margin:0 auto;}
+}
+
+// When logged in
 .cms-admin {
   //.pg-home header {top:48px;}
   [revealing] {@include transform(none);}
@@ -98,6 +105,7 @@ video.fullscreen {position:fixed;top:0;left:0;min-width:100%;min-height:100%;wid
   }
 }
 
+// When in edit mode specifically
 .cms-edit-mode {
   &.ccm-panel-open {height:auto;}
   [data-area-handle*="Main"]:not([data-area-handle*=":"]) {margin:-($grid-gutter-width/3) 0;padding:($grid-gutter-width/3) 0;}

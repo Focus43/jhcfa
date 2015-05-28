@@ -5,5 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 <meta name="apple-mobile-web-app-capable" content="no" />
 <?php Loader::element('header_required'); // REQUIRED BY C5 // ?>
-<?php //echo $html->css($view->getStylesheet('theme.less')); ?>
+<?php
+    if( ! $this->controller instanceof \Concrete\Package\Artsy\Controller\ArtsyPageController ){
+        \Concrete\Package\Artsy\Controller\ArtsyPageController::attachThemeAssets($this->controller);
+    }
+//echo $html->css($view->getStylesheet('theme.less'));
+?>
 </head>
