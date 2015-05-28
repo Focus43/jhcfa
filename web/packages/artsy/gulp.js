@@ -24,10 +24,7 @@ module.exports = function( gulp ){
         sources = {
             scss: {
                 core: _pathTo('css/src/core.scss'),
-                app: _pathTo('css/src/app.scss'),
-                blocks: {
-                    resident: _pathTo('blocks/resident/src/view.scss')
-                }
+                app: _pathTo('css/src/app.scss')
             },
             js: {
                 core: [
@@ -94,7 +91,6 @@ module.exports = function( gulp ){
     gulp.task(_taskName('sass:core:prod'), function(){ return runSass(sources.scss.core, 'compressed'); });
     gulp.task(_taskName('sass:app:dev'), function(){ return runSass(sources.scss.app); });
     gulp.task(_taskName('sass:app:prod'), function(){ return runSass(sources.scss.app, 'compressed'); });
-//    gulp.task(_taskName('sass:app:block'), function(){ return runSass(sources.scss.blocks.resident); }); // TODO: fix to be generic
     gulp.task(_taskName('js:core:dev'), function(){ return runJs(sources.js.core, 'core.js', false) });
     gulp.task(_taskName('js:core:prod'), function(){ return runJs(sources.js.core, 'core.js', true) });
     gulp.task(_taskName('js:app:dev'), [_taskName('jshint')], function(){ return runJs(sources.js.app, 'app.js', false) });
@@ -121,7 +117,6 @@ module.exports = function( gulp ){
         gulp.watch(_pathTo('css/src/_required.scss'), {interval:1000}, [_taskName('sass:core:dev')]);
         gulp.watch(_pathTo('css/src/**/*.scss'), {interval:1000}, [_taskName('sass:app:dev')]);
         gulp.watch(_pathTo('js/src/**/*.js'), {interval:1000}, [_taskName('js:app:dev')]);
-        gulp.watch(_pathTo('blocks/resident/src/view.scss'), {interval:1000}, [_taskName('sass:app:block')]);
     });
 
 };

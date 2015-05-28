@@ -51,7 +51,12 @@
             return array(
                 'content'   => self::$contentBlockClasses,
                 'photo_wall' => array(
-                    'scale-images', 'grayscale-images'
+                    'grid-scale-images',
+                    'grid-grayscale',
+                    'grid-white-blocks',
+                    'grid-animate-on-hover',
+                    'grid-4-max',
+                    'grid-3-max'
                 )
             );
         }

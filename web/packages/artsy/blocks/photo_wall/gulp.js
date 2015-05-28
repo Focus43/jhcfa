@@ -10,7 +10,7 @@ module.exports = function( gulp ){
 
     /** Prepends a task name with the parent directory for uniqueness. */
     function _taskName( taskName ){
-        return 'photowall' + directoryName + ':' + taskName;
+        return directoryName + ':' + taskName;
     }
 
     var utils = require('gulp-util'),
