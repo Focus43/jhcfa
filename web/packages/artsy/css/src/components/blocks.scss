@@ -14,18 +14,6 @@
   &:hover {text-decoration:none;border-color:$theme-primary-color;@include transform(translateY(-10px));}
 }
 
-.staff-list {font-size:0;line-height:0;
-  a {text-decoration:none !important;}
-  .staff-member {position:relative;width:23%;margin:1%;font-size:1rem;padding-bottom:20%;display:inline-block;background-size:cover;background-position:50% 50%;overflow:hidden;
-    .details {line-height:1;text-align:center;display:block;position:absolute;bottom:0;left:0;right:0;width:100%;padding:0.5rem 0.75rem 0.4rem;color:#fff;background:rgba(0,0,0,0.65);}
-    .name {display:block;font-family:TradeGothicLT-Bold, Oswald, sans-serif;text-transform:uppercase;}
-    .descr {font-size:75%;}
-    .mail {position:absolute;right:10px;top:10px;display:inline-block;color:#fff;font-size:2rem;padding:0.5rem;background:rgba($theme-primary-color,0.85);@include border-radius(50%);@include transform(translateX(150%));@include transition(all 0.25s ease);}
-    &:hover {
-      .mail {@include transform(translateX(0));}
-    }
-  }
-}
 
 [accordion]{
   .group {
