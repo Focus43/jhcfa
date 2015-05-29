@@ -17,8 +17,8 @@
     /**
     * On run...
     */
-    run(['FastClick', 'BrowserDetect',
-        function( FastClick, BrowserDetect ){
+    run(['$rootScope', '$window', '$timeout', '$q', 'FastClick', 'BrowserDetect', '$compile',
+        function( $rootScope, $window, $timeout, $q, FastClick, BrowserDetect, $compile ){
             // Bind fastclick
             FastClick.attach(document.body);
 
@@ -39,6 +39,34 @@
                     }
                 }
             }
+
+            // C5 edit mode ONLY
+            if( angular.element(document.documentElement).hasClass('cms-edit-mode') ){
+                // Wait for ConcreteEvent to be available in the window...
+                $q(function(resolve, reject){
+                    (function _wait(){
+                        $timeout(function(){
+                            if( $window['ConcreteEvent'] ){
+                                resolve($window['ConcreteEvent']);
+                                return;
+                            }
+                            _wait();
+                        }, 200);
+                    })();
+                }).then(function( ConcreteEvent ){
+                    /**
+                     * @todo: Find a better way to evaluate lazy-loaded directives after a
+                     * block gets updated vs recompiling the entire document... That seems
+                     * dangerous...
+                     */
+                    ConcreteEvent.subscribe('EditModeAddBlockComplete EditModeUpdateBlockComplete EditModeExitInlineSaved EditModeExitInline', function(){
+                        $timeout(function(){
+                            console.log("Recompiling DOM");
+                            $compile(document.body)($rootScope);
+                        }, 2000);
+                    });
+                });
+            }
         }
     ]);
 
@@ -51,6 +79,7 @@
     });
 
 })(window, window.angular);
+
 angular.module('artsy.common', []);
 angular.module('artsy.common').
 
@@ -94,221 +123,6 @@ angular.module('artsy.common').
         };
 
     }]);
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  "",
-                tags:       "",
-                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
-                filepath:   true,
-                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
-            };
-
-            $scope.fetch = function(){
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            /**
-             * Need to use a watch to make sure ng-init completes and
-             * only send request once we have a valid value for featuredTagID
-             */
-            $scope.$watch('featuredTagID', function( featuredTagID ){
-                if( featuredTagID ){
-                    Schedulizer.fetch({
-                        fields: ['tags'],
-                        filepath:true,
-                        limit:10,
-                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                        attributes: 'date_display',
-                        tags: featuredTagID // passed via ng-init
-                    }).success(function( resp ){
-                        $scope.eventData = resp;
-                    });
-                }
-            });
-
-        }
-    ]);
-/* global Modernizr */
-/* global FastClick */
-angular.module('artsy.common').
-
-    /**
-     * @description Modernizr provider
-     * @param $window
-     * @param $log
-     * @returns Modernizr | false
-     */
-    provider('Modernizr', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description TweenLite OR TweenMax provider
-     * @param $window
-     * @param $log
-     * @returns TweenMax | TweenLite | false
-     */
-    provider('Tween', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description MomentJS
-     * @param $window
-     * @param $log
-     * @returns moment | TweenLite | false
-     */
-    provider('moment', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description Masonry provider
-     * @param $window
-     * @param $log
-     * @returns Masonry | false
-     */
-    provider('Masonry', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description imagesLoaded provider
-     * @param $window
-     * @param $log
-     * @returns imagesLoaded | false
-     */
-    provider('imagesLoaded', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description FastClick provider
-     * @param $window
-     * @param $log
-     * @returns FastClick | false
-     */
-    provider('FastClick', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description svg.js provider
-     * @param $window
-     * @param $log
-     * @returns SVG | false
-     */
-    provider('SVG', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * http://stackoverflow.com/questions/13478303/correct-way-to-use-modernizr-to-detect-ie
-     */
-    provider('BrowserDetect', function(){
-        this.$get = [function(){
-
-            var BrowserDetect = {
-                init: function () {
-                    this.browser = this.searchString(this.dataBrowser) || "Other";
-                    this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || "Unknown";
-                },
-                searchString: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var dataString = data[i].string;
-                        this.versionSearchString = data[i].subString;
-
-                        if (dataString.indexOf(data[i].subString) !== -1) {
-                            return data[i].identity;
-                        }
-                    }
-                },
-                searchVersion: function (dataString) {
-                    var index = dataString.indexOf(this.versionSearchString);
-                    if (index === -1) {
-                        return;
-                    }
-
-                    var rv = dataString.indexOf("rv:");
-                    if (this.versionSearchString === "Trident" && rv !== -1) {
-                        return parseFloat(dataString.substring(rv + 3));
-                    } else {
-                        return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
-                    }
-                },
-
-                dataBrowser: [
-                    {string: navigator.userAgent, subString: "Chrome", identity: "Chrome"},
-                    {string: navigator.userAgent, subString: "MSIE", identity: "Explorer"},
-                    {string: navigator.userAgent, subString: "Trident", identity: "Explorer"},
-                    {string: navigator.userAgent, subString: "Firefox", identity: "Firefox"},
-                    {string: navigator.userAgent, subString: "Safari", identity: "Safari"},
-                    {string: navigator.userAgent, subString: "Opera", identity: "Opera"}
-                ]
-
-            };
-
-            BrowserDetect.init();
-            return BrowserDetect;
-        }];
-    });
 angular.module('artsy.common').
 
     directive('accordion', [
@@ -378,6 +192,68 @@ angular.module('artsy.common').
         };
     }]);
 
+angular.module("artsy.common").
+
+    directive('imageSlider', ['Tween', 'imagesLoaded',
+        function( Tween, imagesLoaded ){
+
+            function _link(scope, $elem, attrs){
+                var element     = $elem[0],
+                    containerW  = element.clientWidth,
+                    elPrev      = element.querySelector('[prev]'),
+                    elNext      = element.querySelector('[next]'),
+                    track       = element.querySelector('.track'),
+                    itemList    = track.querySelectorAll('.item'),
+                    itemsLength = itemList.length,
+                    active      = element.querySelector('.item.active'),
+                    idxActive   = Array.prototype.indexOf.call(itemList, active);
+
+                function next( _callback ){
+                    var idxNext     = itemList[idxActive + 1] ? idxActive + 1 : 0,
+                        elCurrent   = itemList[idxActive],
+                        elNext      = itemList[idxNext],
+                        xPosition   = elNext.offsetLeft - ((containerW - elNext.getBoundingClientRect().width)/2);
+
+                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
+                        elNext.classList.add('active');
+                        elCurrent.classList.remove('active');
+                        idxActive = idxNext;
+                        if( angular.isFunction(_callback) ){ _callback(); }
+                    }});
+                }
+
+                function prev( _callback ){
+                    var idxPrev = itemList[idxActive - 1] ? idxActive - 1 : itemsLength - 1,
+                        elCurrent   = itemList[idxActive],
+                        elPrev      = itemList[idxPrev],
+                        xPosition   = elPrev.offsetLeft - ((containerW - elPrev.getBoundingClientRect().width)/2);
+
+                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
+                        elPrev.classList.add('active');
+                        elCurrent.classList.remove('active');
+                        idxActive = idxPrev;
+                        if( angular.isFunction(_callback) ){ _callback(); }
+                    }});
+                }
+
+                angular.element(elPrev).on('click', prev);
+
+                angular.element(elNext).on('click', next);
+
+                (function _loop(){
+                    setTimeout(function(){
+                        next(_loop);
+                    }, 4000);
+                })();
+            }
+
+            return {
+                restrict:   'A',
+                scope:      true,
+                link:       _link
+            };
+        }
+    ]);
 /* global Elastic */
 angular.module('artsy.common').
 
@@ -414,40 +290,6 @@ angular.module("artsy.common").
                     itemSelector: '[node]',
                     percentPosition: true
                 });
-
-                //var element     = $elem[0],
-                //    //filters     = element.querySelectorAll('[isotope-filters] a[data-filter]'),
-                //    container   = element.querySelector('[isotope-grid]'),
-                //    gridNodes   = element.querySelectorAll('.isotope-node');
-                //
-                //
-                //// Initialize Isotope instance
-                //imagesLoaded(container, function(){
-                //    scope.isotopeInstance = new Isotope(container, {
-                //        itemSelector: '.isotope-node',
-                //        layoutMode: attrs.isotope || 'masonry',
-                //        cellsByColumn: {
-                //            columnWidth: '.grid-sizer',
-                //            columnHeight: '.grid-sizer'
-                //        }
-                //    });
-                //});
-                //
-                //// Filters
-                ////angular.element(filters).on('click', function(){
-                ////    angular.element(filters).removeClass('active');
-                ////    angular.element(this).addClass('active');
-                ////    var _filter = this.getAttribute('data-filter');
-                ////    scope.isotopeInstance.arrange({
-                ////        filter: _filter
-                ////    });
-                ////});
-                //
-                //// Click to activate
-                //angular.element(gridNodes).on('click', function(){
-                //    angular.element(gridNodes).removeClass('active');
-                //    angular.element(this).addClass('active');
-                //});
             }
 
             return {
@@ -774,3 +616,218 @@ angular.module('artsy.common').
             scope: false
         };
     }]);
+angular.module('artsy.common').
+
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  "",
+                tags:       "",
+                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
+                filepath:   true,
+                end:        moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display'
+            };
+
+            $scope.fetch = function(){
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            /**
+             * Need to use a watch to make sure ng-init completes and
+             * only send request once we have a valid value for featuredTagID
+             */
+            $scope.$watch('featuredTagID', function( featuredTagID ){
+                if( featuredTagID ){
+                    Schedulizer.fetch({
+                        fields: ['tags'],
+                        filepath:true,
+                        limit:10,
+                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                        attributes: 'date_display',
+                        tags: featuredTagID // passed via ng-init
+                    }).success(function( resp ){
+                        $scope.eventData = resp;
+                    });
+                }
+            });
+
+        }
+    ]);
+/* global Modernizr */
+/* global FastClick */
+angular.module('artsy.common').
+
+    /**
+     * @description Modernizr provider
+     * @param $window
+     * @param $log
+     * @returns Modernizr | false
+     */
+    provider('Modernizr', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description TweenLite OR TweenMax provider
+     * @param $window
+     * @param $log
+     * @returns TweenMax | TweenLite | false
+     */
+    provider('Tween', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description MomentJS
+     * @param $window
+     * @param $log
+     * @returns moment | TweenLite | false
+     */
+    provider('moment', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description Masonry provider
+     * @param $window
+     * @param $log
+     * @returns Masonry | false
+     */
+    provider('Masonry', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description imagesLoaded provider
+     * @param $window
+     * @param $log
+     * @returns imagesLoaded | false
+     */
+    provider('imagesLoaded', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description FastClick provider
+     * @param $window
+     * @param $log
+     * @returns FastClick | false
+     */
+    provider('FastClick', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description svg.js provider
+     * @param $window
+     * @param $log
+     * @returns SVG | false
+     */
+    provider('SVG', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * http://stackoverflow.com/questions/13478303/correct-way-to-use-modernizr-to-detect-ie
+     */
+    provider('BrowserDetect', function(){
+        this.$get = [function(){
+
+            var BrowserDetect = {
+                init: function () {
+                    this.browser = this.searchString(this.dataBrowser) || "Other";
+                    this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || "Unknown";
+                },
+                searchString: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var dataString = data[i].string;
+                        this.versionSearchString = data[i].subString;
+
+                        if (dataString.indexOf(data[i].subString) !== -1) {
+                            return data[i].identity;
+                        }
+                    }
+                },
+                searchVersion: function (dataString) {
+                    var index = dataString.indexOf(this.versionSearchString);
+                    if (index === -1) {
+                        return;
+                    }
+
+                    var rv = dataString.indexOf("rv:");
+                    if (this.versionSearchString === "Trident" && rv !== -1) {
+                        return parseFloat(dataString.substring(rv + 3));
+                    } else {
+                        return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+                    }
+                },
+
+                dataBrowser: [
+                    {string: navigator.userAgent, subString: "Chrome", identity: "Chrome"},
+                    {string: navigator.userAgent, subString: "MSIE", identity: "Explorer"},
+                    {string: navigator.userAgent, subString: "Trident", identity: "Explorer"},
+                    {string: navigator.userAgent, subString: "Firefox", identity: "Firefox"},
+                    {string: navigator.userAgent, subString: "Safari", identity: "Safari"},
+                    {string: navigator.userAgent, subString: "Opera", identity: "Opera"}
+                ]
+
+            };
+
+            BrowserDetect.init();
+            return BrowserDetect;
+        }];
+    });
