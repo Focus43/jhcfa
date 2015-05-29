@@ -1,0 +1,34 @@
+.pg-blog_post {
+  header {
+    .date-and-tags {position:absolute;bottom:0;left:0;right:0;width:100%;color:#fff;text-align:center;
+      .inner {line-height:1;display:inline-block;padding:0.75rem 1rem;white-space:nowrap;background:rgba(35, 25, 32, 0.55);}
+      .tag {color:$theme-extra-light-color;display:inline-block;font-size:80%;padding:1% 2%;background:rgba(255,255,255,0.15);@include border-radius(30px);
+        &:hover {text-decoration:none;background:rgba(255,255,255,0.9);color:$theme-dark-color;}
+      }
+    }
+  }
+  .avatar {display:inline-block;padding:25px;background-size:cover;@include border-radius(100%);}
+  .auth {display:inline-block;position:relative;top:-20px;padding-left:0.35rem;
+    span {font-weight:bold;}
+  }
+  .share-icons {padding-top:0.5rem;
+    span {display:inline-block;position:relative;top:-9px;}
+    .share {font-size:2rem;color:$theme-light-color;
+      &:hover {text-decoration:none;}
+    }
+  }
+}
+
+.tag-list {padding:1rem 1.5rem;background:darken($theme-extra-light-color,1%);
+  h4 {margin:-1rem -1.5rem 0.75rem;padding:1rem 1.5rem;background:rgba(0,0,0,0.05);}
+  .list-unstyled {margin:0;}
+}
+
+.post-results {
+  .blog-post {position:relative;color:#000;display:block;padding:2rem 2rem 1.25rem;margin-bottom:1rem;background:rgba(0,0,0,0.05);
+    h4 {margin:0 0 8px;}
+    [date] {padding:3px 6px;position:absolute;top:0;right:0;font-size:13px;background:rgba(0,0,0,0.25);color:#fff;}
+    [date],.descr {color:$theme-light-color;}
+    &:hover {text-decoration:none;background:rgba(0,0,0,0.1);}
+  }
+}

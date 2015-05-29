@@ -10,6 +10,7 @@
     <main revealing>
         <?php $this->inc('elements/header.php', array(
             'expanded'          => true,
+            'titleOverride'     => $titleOverride ? !empty($titleOverride) : false,
             // @todo: good default image, and auto-include theme assets not via contoller methods
             'mastheadImageSrc'  => is_object($mastheadHelper) ? $mastheadHelper->getSingleImageSrc() : ''
         )); ?>

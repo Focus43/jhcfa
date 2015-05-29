@@ -2,6 +2,7 @@
     defined('C5_EXECUTE') or die(_("Access Denied."));
 
     /** @link https://github.com/concrete5/concrete5-5.7.0/blob/develop/web/concrete/config/app.php#L10-L90 Aliases */
+    use Concrete\Core\User\User;
     use Loader; /** @see \Concrete\Core\Legacy\Loader */
     use Router; /** @see \Concrete\Core\Routing\Router */
     use Route; /** @see \Concrete\Core\Support\Facade\Route */
@@ -36,7 +37,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.24';
+        protected $pkgVersion 			        = '0.28';
 
 
         /**
@@ -122,6 +123,7 @@
                 ->setupAttributeTypeAssociations()
                 ->setupCollectionAttributes()
                 ->setupFileAttributes()
+                ->setupUserAttributes()
                 ->setupFileSets()
                 ->setupStacks()
                 ->setupTheme()
@@ -202,6 +204,21 @@
 
 
         /**
+         * @return $this
+         */
+        private function setupUserAttributes(){
+            if( !is_object(UserAttributeKey::getByHandle('display_name')) ){
+                UserAttributeKey::add($this->attributeType('text'), array(
+                    'akHandle' => 'display_name',
+                    'akName'   => 'Display Name'
+                ));
+            }
+
+            return $this;
+        }
+
+
+        /**
          * @return Controller
          */
         private function setupFileSets(){
@@ -259,6 +276,10 @@
 
             if( ! PageTemplate::getByHandle('event') ){
                 PageTemplate::add('event', t('Event'), 'full.png', $this->packageObject());
+            }
+
+            if( ! PageTemplate::getByHandle('blog_post') ){
+                PageTemplate::add('blog_post', t('Blog Post'), 'full.png', $this->packageObject());
             }
 
             return $this;
@@ -329,6 +350,27 @@
                 )
             ));
 
+            // "Event" Page Type
+            $this->createPageType(array(
+                'configs' => array(
+                    'handle'            => 'blog_post',
+                    'name'              => t('Blog Post'),
+                    'defaultTemplate'   => PageTemplate::getByHandle('blog_post'),
+                    'allowedTemplates'  => 'C',
+                    'templates'         => array(
+                        PageTemplate::getByHandle('blog_post')
+                    )
+                ),
+                'controls' => array(
+                    'core_page_property' => array(
+                        'name'           => true,
+                        'publish_target' => true,
+                        'page_template'  => true,
+                        'description'    => false
+                    )
+                )
+            ));
+
             return $this;
         }
 
@@ -358,6 +400,7 @@
         private function setupSinglePages(){
             SinglePage::add('/calendar', $this->packageObject());
             SinglePage::add('/box_office', $this->packageObject());
+            SinglePage::add('/blog', $this->packageObject());
 
             return $this;
         }

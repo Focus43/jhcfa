@@ -16,7 +16,15 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <h1><?php echo Page::getCurrentPage()->getCollectionName(); ?></h1>
+                    <h1>
+                        <?php
+                            if( is_string($titleOverride) ):
+                                echo $titleOverride;
+                            else:
+                                echo Page::getCurrentPage()->getCollectionName();
+                            endif;
+                        ?>
+                    </h1>
                     <p><?php echo Page::getCurrentPage()->getCollectionDescription(); ?></p>
                 </div>
             </div>

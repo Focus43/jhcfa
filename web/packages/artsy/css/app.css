@@ -1716,6 +1716,92 @@ a.logo {
       padding-bottom: 2.5rem; }
     .pg-event #c-level-1 header .headline h1 {
       font-size: 200%; } }
+.pg-blog_post header .date-and-tags {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  color: #fff;
+  text-align: center; }
+  .pg-blog_post header .date-and-tags .inner {
+    line-height: 1;
+    display: inline-block;
+    padding: 0.75rem 1rem;
+    white-space: nowrap;
+    background: rgba(35, 25, 32, 0.55); }
+  .pg-blog_post header .date-and-tags .tag {
+    color: #e7e7e7;
+    display: inline-block;
+    font-size: 80%;
+    padding: 1% 2%;
+    background: rgba(255, 255, 255, 0.15);
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px; }
+    .pg-blog_post header .date-and-tags .tag:hover {
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      color: #000000; }
+.pg-blog_post .avatar {
+  display: inline-block;
+  padding: 25px;
+  background-size: cover;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%; }
+.pg-blog_post .auth {
+  display: inline-block;
+  position: relative;
+  top: -20px;
+  padding-left: 0.35rem; }
+  .pg-blog_post .auth span {
+    font-weight: bold; }
+.pg-blog_post .share-icons {
+  padding-top: 0.5rem; }
+  .pg-blog_post .share-icons span {
+    display: inline-block;
+    position: relative;
+    top: -9px; }
+  .pg-blog_post .share-icons .share {
+    font-size: 2rem;
+    color: #838383; }
+    .pg-blog_post .share-icons .share:hover {
+      text-decoration: none; }
+
+.tag-list {
+  padding: 1rem 1.5rem;
+  background: #e4e4e4; }
+  .tag-list h4 {
+    margin: -1rem -1.5rem 0.75rem;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.05); }
+  .tag-list .list-unstyled {
+    margin: 0; }
+
+.post-results .blog-post {
+  position: relative;
+  color: #000;
+  display: block;
+  padding: 2rem 2rem 1.25rem;
+  margin-bottom: 1rem;
+  background: rgba(0, 0, 0, 0.05); }
+  .post-results .blog-post h4 {
+    margin: 0 0 8px; }
+  .post-results .blog-post [date] {
+    padding: 3px 6px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 13px;
+    background: rgba(0, 0, 0, 0.25);
+    color: #fff; }
+  .post-results .blog-post [date], .post-results .blog-post .descr {
+    color: #838383; }
+  .post-results .blog-post:hover {
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.1); }
+
 .pg-calendar #c-level-1 main .area-main {
   padding-top: 0; }
 .pg-calendar #c-level-1 main .event-search {
