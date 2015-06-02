@@ -33,25 +33,33 @@
         </div>
     </form>
 
+    <div class="month-display">
+
+    </div>
+
     <!-- Event results : items inside event-list are transcluded -->
     <div event-list="eventData" ng-cloak>
-        <a class="event-result" href="{{eventObj.pagePath}}">
-            <!--<span class="date">{{ moment.format('MMM D, YYYY') }} (&plus; {{ eventObj.occurrences }} more)</span>-->
-            <span class="date">{{ eventObj.date_display }}</span>
-            <div class="event-content" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}">
+        <div class="event-result">
+            <a class="event-content" ng-style="{backgroundImage:'url({{eventObj.filePath}})'}" href="{{eventObj.pagePath}}">
                 <span class="layer-1">
-                    <span class="title">{{ eventObj.title }}</span>
+                    <div class="bottomize">
+                        <span class="title">{{ eventObj.title }}</span>
+                        <span class="date">{{ eventObj.date_display }}</span>
+                    </div>
                 </span>
                 <span class="layer-2">
                     <span class="tabular">
                         <span class="cellular">
                             <small>Presented By</small>
                             <h5>{{ eventObj.presenting_organization }}</h5>
-                            <span class="btn btn-primary btn-">Event Details</span>
                         </span>
                     </span>
                 </span>
+            </a>
+            <div class="tql">
+                <a ng-hide="eventObj.event_not_ticketed == 1 || eventObj.ticket_link == ''" href="{{eventObj.pagePath}}">Event Details</a>
+                <a class="direct-tickets" ng-hide="eventObj.event_not_ticketed != 1 && eventObj.ticket_link != ''" href="{{eventObj.ticket_link}}" target="_blank">Direct To Tickets</a>
             </div>
-        </a>
+        </div>
     </div>
 </div>

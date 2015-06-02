@@ -13,7 +13,7 @@ angular.module('artsy.common').
                 categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
                 filepath:   true,
                 end:        moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display'
+                attributes: 'presenting_organization,date_display,ticket_link,event_not_ticketed'
             };
 
             $scope.fetch = function(){
