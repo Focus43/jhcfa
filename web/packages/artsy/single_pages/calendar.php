@@ -58,7 +58,7 @@
             </a>
             <div class="tql">
                 <a ng-hide="eventObj.event_not_ticketed == 1 || eventObj.ticket_link == ''" href="{{eventObj.pagePath}}">Event Details</a>
-                <a class="direct-tickets" ng-hide="eventObj.event_not_ticketed != 1 && eventObj.ticket_link != ''" href="{{eventObj.ticket_link}}" target="_blank">Direct To Tickets</a>
+                <a class="direct-tickets" ng-hide="eventObj.event_not_ticketed != 1 && eventObj.ticket_link != ''" href="{{eventObj.ticket_link}}" target="_blank">Get Tickets</a>
             </div>
         </div>
     </div>
