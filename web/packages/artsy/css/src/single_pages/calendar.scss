@@ -35,9 +35,9 @@
       }
     }
     .tql {display:block;
-      a {display:block;font-family:$theme-font-family-bold;padding:1rem;background:darken($theme-extra-light-color, 6%);color:$theme-light-color;text-align:center;white-space:nowrap;
-        //&.direct-tickets {background:$theme-primary-color;color:#000;}
-        background:$theme-primary-color;color:#000;text-transform:uppercase;
+      a {display:block;font-family:$theme-font-family-bold;padding:1rem;background:darken($theme-extra-light-color, 9%);color:$theme-light-color;text-align:center;white-space:nowrap;
+        &.direct-tickets {background:$theme-primary-color;color:#000;}
+        //background:$theme-primary-color;color:#000;text-transform:uppercase;
       }
     }
   }

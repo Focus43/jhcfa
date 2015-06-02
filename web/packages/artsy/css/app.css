@@ -1972,13 +1972,13 @@ a.logo {
       display: block;
       font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
       padding: 1rem;
-      background: #d7d7d7;
+      background: #d0d0d0;
       color: #838383;
       text-align: center;
-      white-space: nowrap;
-      background: #6DB844;
-      color: #000;
-      text-transform: uppercase; }
+      white-space: nowrap; }
+      .pg-calendar #c-level-1 main [event-list] .tql a.direct-tickets {
+        background: #6DB844;
+        color: #000; }
 
 @media screen and (max-width: 768px) {
   .pg-calendar #c-level-1 main .event-search .btn-group {
