@@ -1975,7 +1975,10 @@ a.logo {
       background: #d7d7d7;
       color: #838383;
       text-align: center;
-      white-space: nowrap; }
+      white-space: nowrap;
+      background: #6DB844;
+      color: #000;
+      text-transform: uppercase; }
 
 @media screen and (max-width: 768px) {
   .pg-calendar #c-level-1 main .event-search .btn-group {
