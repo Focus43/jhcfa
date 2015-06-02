@@ -35,9 +35,14 @@
       }
     }
     .tql {display:block;
-      a {display:block;font-family:$theme-font-family-bold;padding:1rem;background:darken($theme-extra-light-color, 9%);color:$theme-light-color;text-align:center;white-space:nowrap;
-        &.direct-tickets {background:$theme-primary-color;color:#000;}
-        //background:$theme-primary-color;color:#000;text-transform:uppercase;
+      a {text-transform:uppercase;display:block;font-family:$theme-font-family-bold;padding:1rem;text-align:center;white-space:nowrap;@include transition(all 0.35s ease);
+        &:hover {text-decoration:none;}
+        &.to-event {background:darken($theme-extra-light-color, 9%);color:$theme-light-color;
+          &:hover {background:darken($theme-extra-light-color, 15%);color:$theme-dark-color;}
+        }
+        &.direct-tickets {background:$theme-primary-color;color:#000;
+          &:hover {background:lighten($theme-primary-color, 6%);color:$theme-extra-light-color;}
+        }
       }
     }
   }

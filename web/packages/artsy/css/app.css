@@ -1969,16 +1969,30 @@ a.logo {
   .pg-calendar #c-level-1 main [event-list] .tql {
     display: block; }
     .pg-calendar #c-level-1 main [event-list] .tql a {
+      text-transform: uppercase;
       display: block;
       font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
       padding: 1rem;
-      background: #d0d0d0;
-      color: #838383;
       text-align: center;
-      white-space: nowrap; }
+      white-space: nowrap;
+      -moz-transition: all 0.35s ease;
+      -o-transition: all 0.35s ease;
+      -webkit-transition: all 0.35s ease;
+      transition: all 0.35s ease; }
+      .pg-calendar #c-level-1 main [event-list] .tql a:hover {
+        text-decoration: none; }
+      .pg-calendar #c-level-1 main [event-list] .tql a.to-event {
+        background: #d0d0d0;
+        color: #838383; }
+        .pg-calendar #c-level-1 main [event-list] .tql a.to-event:hover {
+          background: #c1c1c1;
+          color: #000000; }
       .pg-calendar #c-level-1 main [event-list] .tql a.direct-tickets {
         background: #6DB844;
         color: #000; }
+        .pg-calendar #c-level-1 main [event-list] .tql a.direct-tickets:hover {
+          background: #7ec259;
+          color: #e7e7e7; }
 
 @media screen and (max-width: 768px) {
   .pg-calendar #c-level-1 main .event-search .btn-group {
