@@ -2,9 +2,6 @@
   header {
     .date-and-tags {position:absolute;bottom:0;left:0;right:0;width:100%;color:#fff;text-align:center;
       .inner {line-height:1;display:inline-block;padding:0.75rem 1rem;white-space:nowrap;background:rgba(35, 25, 32, 0.55);}
-      .tag {color:$theme-extra-light-color;display:inline-block;font-size:80%;padding:1% 2%;background:rgba(255,255,255,0.15);@include border-radius(30px);
-        &:hover {text-decoration:none;background:rgba(255,255,255,0.9);color:$theme-dark-color;}
-      }
     }
   }
   .avatar {display:inline-block;padding:25px;background-size:cover;@include border-radius(100%);}
@@ -21,7 +18,9 @@
 
 .tag-list {padding:1rem 1.5rem;background:darken($theme-extra-light-color,1%);
   h4 {margin:-1rem -1.5rem 0.75rem;padding:1rem 1.5rem;background:rgba(0,0,0,0.05);}
-  .list-unstyled {margin:0;}
+  .list-unstyled {margin:0;
+    li {display:inline-block;}
+  }
 }
 
 .post-results {

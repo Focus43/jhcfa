@@ -17,8 +17,8 @@
                 <h3 class="lead no-results">Shux, nothing matched your search :(</h3>
             </div>
         </div>
-        <div class="loading" ng-show="status.loading">
-            <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
+        <div class="logo-load-progress" ng-show="status.loading" ng-class="{working:status.loading}">
+            <?php $this->inc('../../images/logo-loader.svg'); ?>
         </div>
     </div>
 </script>

@@ -456,6 +456,26 @@ video.fullscreen {
     #c-level-1 .btn-dark .badge {
       color: #1a1a1a;
       background-color: #666666; }
+  #c-level-1 .tag-item {
+    color: #e7e7e7;
+    display: inline-block;
+    font-size: 80%;
+    padding: 5px 8px;
+    line-height: 1;
+    background: rgba(255, 255, 255, 0.15);
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px; }
+    #c-level-1 .tag-item:hover {
+      cursor: pointer;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      color: #000000; }
+    #c-level-1 .tag-item.dark {
+      background: rgba(0, 0, 0, 0.65); }
+      #c-level-1 .tag-item.dark:hover {
+        color: #fff;
+        background: rgba(0, 0, 0, 0.85); }
 
 [accordion] .group .accordion-header {
   font-size: 110%;
@@ -821,39 +841,7 @@ html.nav-open #c-level-1 main::before {
       background: #dadada; }
   [search-results] .results .no-results {
     text-align: center; }
-  [search-results] .loading {
-    text-align: center;
-    padding: 2rem 0; }
-    [search-results] .loading .svg-logo {
-      max-width: 200px; }
-      [search-results] .loading .svg-logo .logo-fill {
-        visibility: hidden; }
-      [search-results] .loading .svg-logo .logo-stroke path {
-        stroke-dasharray: 50;
-        stroke-width: 2px;
-        stroke: #838383 !important; }
 
-@-moz-keyframes logo-always-stroke {
-  0% {
-    stroke-dashoffset: 350; }
-  50% {
-    stroke-dashoffset: 50; }
-  100% {
-    stroke-dashoffset: 350; } }
-@-webkit-keyframes logo-always-stroke {
-  0% {
-    stroke-dashoffset: 350; }
-  50% {
-    stroke-dashoffset: 50; }
-  100% {
-    stroke-dashoffset: 350; } }
-@keyframes logo-always-stroke {
-  0% {
-    stroke-dashoffset: 350; }
-  50% {
-    stroke-dashoffset: 50; }
-  100% {
-    stroke-dashoffset: 350; } }
 html.search-results-open {
   overflow: hidden; }
   html.search-results-open [search-results] {
@@ -862,10 +850,6 @@ html.search-results-open {
     -ms-transform: translateZ(0) translateY(0);
     -webkit-transform: translateZ(0) translateY(0);
     transform: translateZ(0) translateY(0); }
-    html.search-results-open [search-results] .svg-logo .logo-stroke path {
-      -moz-animation: logo-always-stroke 3s linear infinite forwards;
-      -webkit-animation: logo-always-stroke 3s linear infinite forwards;
-      animation: logo-always-stroke 3s linear infinite forwards; }
   html.search-results-open #c-level-1 main {
     -moz-transform: translateZ(0) translateX(250px) translateY(100%);
     -ms-transform: translateZ(0) translateX(250px) translateY(100%);
@@ -1346,6 +1330,44 @@ html[data-ua="Explorer"] .hub-node svg {
   -webkit-transform: scale(1.5, 1.5) translate(-10%, 0);
   transform: scale(1.5, 1.5) translate(-10%, 0); }
 
+.logo-load-progress {
+  text-align: center;
+  padding: 2rem 0;
+  margin: 0 auto; }
+  .logo-load-progress .svg-logo-loader {
+    max-width: 200px; }
+    .logo-load-progress .svg-logo-loader .logo-fill {
+      visibility: hidden; }
+    .logo-load-progress .svg-logo-loader .logo-stroke path {
+      stroke-dasharray: 50;
+      stroke-width: 2px;
+      stroke: #838383 !important; }
+  .logo-load-progress.working .svg-logo-loader .logo-stroke path {
+    -moz-animation: logo-always-stroke 3s linear infinite forwards;
+    -webkit-animation: logo-always-stroke 3s linear infinite forwards;
+    animation: logo-always-stroke 3s linear infinite forwards; }
+
+@-moz-keyframes logo-always-stroke {
+  0% {
+    stroke-dashoffset: 350; }
+  50% {
+    stroke-dashoffset: 50; }
+  100% {
+    stroke-dashoffset: 350; } }
+@-webkit-keyframes logo-always-stroke {
+  0% {
+    stroke-dashoffset: 350; }
+  50% {
+    stroke-dashoffset: 50; }
+  100% {
+    stroke-dashoffset: 350; } }
+@keyframes logo-always-stroke {
+  0% {
+    stroke-dashoffset: 350; }
+  50% {
+    stroke-dashoffset: 50; }
+  100% {
+    stroke-dashoffset: 350; } }
 .video-fs-container::after {
   background: rgba(35, 25, 32, 0.3);
   content: '';
@@ -1730,19 +1752,6 @@ a.logo {
     padding: 0.75rem 1rem;
     white-space: nowrap;
     background: rgba(35, 25, 32, 0.55); }
-  .pg-blog_post header .date-and-tags .tag {
-    color: #e7e7e7;
-    display: inline-block;
-    font-size: 80%;
-    padding: 1% 2%;
-    background: rgba(255, 255, 255, 0.15);
-    -moz-border-radius: 30px;
-    -webkit-border-radius: 30px;
-    border-radius: 30px; }
-    .pg-blog_post header .date-and-tags .tag:hover {
-      text-decoration: none;
-      background: rgba(255, 255, 255, 0.9);
-      color: #000000; }
 .pg-blog_post .avatar {
   display: inline-block;
   padding: 25px;
@@ -1778,6 +1787,8 @@ a.logo {
     background: rgba(0, 0, 0, 0.05); }
   .tag-list .list-unstyled {
     margin: 0; }
+    .tag-list .list-unstyled li {
+      display: inline-block; }
 
 .post-results .blog-post {
   position: relative;
@@ -1816,11 +1827,22 @@ a.logo {
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     border-radius: 0; }
-    .pg-calendar #c-level-1 main .event-search .form-control[type="text"] {
+  .pg-calendar #c-level-1 main .event-search .text-input-wrap {
+    display: block;
+    position: relative; }
+    .pg-calendar #c-level-1 main .event-search .text-input-wrap input[type="text"], .pg-calendar #c-level-1 main .event-search .text-input-wrap .form-control {
       font-size: 100%;
       padding: 5px 10px 7px;
       display: block;
       width: 100%; }
+    .pg-calendar #c-level-1 main .event-search .text-input-wrap .clear-text {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 30px;
+      line-height: 1;
+      padding-top: 3px;
+      text-decoration: none !important; }
   .pg-calendar #c-level-1 main .event-search .select-wrap {
     max-width: 180px;
     background: #fff;
@@ -1856,26 +1878,38 @@ a.logo {
       border-radius: 0; }
   .pg-calendar #c-level-1 main .event-search .btn-group .btn {
     border: 0; }
-  .pg-calendar #c-level-1 main .event-search .btn-search {
-    display: block;
-    width: 100%;
+  .pg-calendar #c-level-1 main .event-search .filter-by-tags {
+    cursor: pointer;
+    display: inline-block;
+    font-size: 80%;
     font-family: "TradeGothicLT-Bold", "Oswald", sans-serif;
-    color: #eff7ea;
-    background-color: #5b9a39;
-    border-color: #6DB844;
-    border: 0; }
-    .pg-calendar #c-level-1 main .event-search .btn-search:hover, .pg-calendar #c-level-1 main .event-search .btn-search:focus, .pg-calendar #c-level-1 main .event-search .btn-search:active, .pg-calendar #c-level-1 main .event-search .btn-search.active, .open > .pg-calendar #c-level-1 main .event-search .btn-search.dropdown-toggle {
-      color: #eff7ea;
-      background-color: #45752b;
-      border-color: #538b33; }
-    .pg-calendar #c-level-1 main .event-search .btn-search:active, .pg-calendar #c-level-1 main .event-search .btn-search.active, .open > .pg-calendar #c-level-1 main .event-search .btn-search.dropdown-toggle {
-      background-image: none; }
-    .pg-calendar #c-level-1 main .event-search .btn-search.disabled, .pg-calendar #c-level-1 main .event-search .btn-search.disabled:hover, .pg-calendar #c-level-1 main .event-search .btn-search.disabled:focus, .pg-calendar #c-level-1 main .event-search .btn-search.disabled:active, .pg-calendar #c-level-1 main .event-search .btn-search.disabled.active, .pg-calendar #c-level-1 main .event-search .btn-search[disabled], .pg-calendar #c-level-1 main .event-search .btn-search[disabled]:hover, .pg-calendar #c-level-1 main .event-search .btn-search[disabled]:focus, .pg-calendar #c-level-1 main .event-search .btn-search[disabled]:active, .pg-calendar #c-level-1 main .event-search .btn-search[disabled].active, fieldset[disabled] .pg-calendar #c-level-1 main .event-search .btn-search, fieldset[disabled] .pg-calendar #c-level-1 main .event-search .btn-search:hover, fieldset[disabled] .pg-calendar #c-level-1 main .event-search .btn-search:focus, fieldset[disabled] .pg-calendar #c-level-1 main .event-search .btn-search:active, fieldset[disabled] .pg-calendar #c-level-1 main .event-search .btn-search.active {
-      background-color: #5b9a39;
-      border-color: #6DB844; }
-    .pg-calendar #c-level-1 main .event-search .btn-search .badge {
-      color: #5b9a39;
-      background-color: #eff7ea; }
+    text-transform: uppercase;
+    line-height: 1;
+    padding-left: 8px; }
+.pg-calendar #c-level-1 main .search-tag-list {
+  padding: 0.75rem 1% 0;
+  margin: 0 auto;
+  max-width: 1200px; }
+  .pg-calendar #c-level-1 main .search-tag-list .tag-item {
+    background: #508832; }
+    .pg-calendar #c-level-1 main .search-tag-list .tag-item:hover {
+      color: #fff; }
+    .pg-calendar #c-level-1 main .search-tag-list .tag-item.active {
+      background: #2b481b; }
+.pg-calendar #c-level-1 main .month-display {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 1%; }
+  .pg-calendar #c-level-1 main .month-display .btn {
+    border: 0;
+    border-left: 1px solid #000; }
+    .pg-calendar #c-level-1 main .month-display .btn:first-of-type {
+      border-left: 0; }
+    .pg-calendar #c-level-1 main .month-display .btn.active {
+      background: #838383;
+      color: #000000; }
+  .pg-calendar #c-level-1 main .month-display sup {
+    display: none; }
 .pg-calendar #c-level-1 main [event-list] {
   padding-top: 4%;
   font-size: 0;
@@ -1993,6 +2027,21 @@ a.logo {
         .pg-calendar #c-level-1 main [event-list] .tql a.direct-tickets:hover {
           background: #7ec259;
           color: #e7e7e7; }
+.pg-calendar #c-level-1 main .msg {
+  white-space: nowrap;
+  display: none;
+  padding: 8px 8px 0;
+  color: #0a1006;
+  font-size: 70%;
+  text-transform: uppercase; }
+  .pg-calendar #c-level-1 main .msg.viz {
+    display: block; }
+.pg-calendar #c-level-1 main .logo-load-progress {
+  display: none; }
+  .pg-calendar #c-level-1 main .logo-load-progress.working {
+    display: block; }
+.pg-calendar #c-level-1 main .no-results {
+  padding: 3rem 1rem; }
 
 @media screen and (max-width: 768px) {
   .pg-calendar #c-level-1 main .event-search .btn-group {
@@ -2020,9 +2069,12 @@ a.logo {
   .pg-calendar #c-level-1 main .event-search .form-control[type="text"] {
     display: inline-block;
     width: auto; }
-  .pg-calendar #c-level-1 main .event-search .btn-search {
-    display: inline-block;
-    width: auto; }
+  .pg-calendar #c-level-1 main .event-search .text-input-wrap {
+    display: inline-block; }
+  .pg-calendar #c-level-1 main .event-search .select-wrap {
+    display: inline-block; }
+  .pg-calendar #c-level-1 main .month-display sup {
+    display: initial; }
   .pg-calendar #c-level-1 main [event-list] {
     max-width: 1200px; }
     .pg-calendar #c-level-1 main [event-list] .event-result {

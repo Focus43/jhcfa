@@ -14,7 +14,7 @@
             $options    = $controller->getOptions();
             if( !empty($options) ){ foreach($options AS $optObj): ?>
                 <li class="<?php echo ($optObj->getSelectAttributeOptionID() === $currentValue) ? 'active' : ''; ?>">
-                    <a href="<?php echo View::url('blog', 'tag', $optObj->th->handle($optObj->value)); ?>"><?php echo $optObj; ?></a>
+                    <a class="tag-item dark" href="<?php echo View::url('blog', 'tag', $optObj->th->handle($optObj->value)); ?>"><?php echo $optObj; ?></a>
                 </li>
             <?php endforeach; }
         }
