@@ -55,13 +55,15 @@ angular.module('artsy.common').
                 $scope.monthsToView.push(next);
             }
 
+            $scope.selectedMonthIndex = 0;
             $scope.selectMonth = function( $index ){
                 for(var i = 0, l = $scope.monthsToView.length; i < l; i++){
                     $scope.monthsToView[i]._selected = false;
                 }
-                $scope.monthsToView[$index]._selected = true;
-                $scope.filters.start = $scope.monthsToView[$index].clone().startOf('month').format('YYYY-MM-DD');
-                $scope.filters.end   = $scope.monthsToView[$index].clone().endOf('month').format('YYYY-MM-DD');
+                $scope.monthsToView[$index]._selected   = true;
+                $scope.selectedMonthIndex               = $index;
+                $scope.filters.start                    = $scope.monthsToView[$index].clone().startOf('month').format('YYYY-MM-DD');
+                $scope.filters.end                      = $scope.monthsToView[$index].clone().endOf('month').format('YYYY-MM-DD');
                 $scope.fetch();
             };
 
@@ -86,6 +88,20 @@ angular.module('artsy.common').
                 // Doesn't exist, append it
                 $scope.selectedTags.push(tagID);
                 $scope.filters.tags = $scope.selectedTags.join(',');
+            };
+
+            $scope.nextMonth = function(){
+                var nextIndex = $scope.selectedMonthIndex + 1;
+                if( $scope.monthsToView[nextIndex] ){
+                    $scope.selectMonth(nextIndex);
+                }
+            };
+
+            $scope.prevMonth = function(){
+                var prevIndex = $scope.selectedMonthIndex - 1;
+                if( $scope.monthsToView[prevIndex] ){
+                    $scope.selectMonth(prevIndex);
+                }
             };
 
         }
