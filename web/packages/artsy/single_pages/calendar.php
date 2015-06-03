@@ -44,8 +44,7 @@
 
     <div class="month-display">
         <div class="btn-group btn-group-justified" ng-cloak>
-            <!--<a class="btn btn-default">Month:</a>-->
-            <a class="btn btn-lg btn-dark" ng-repeat="moment in monthsToView" ng-class="{'active':moment._selected}" ng-click="selectMonth($index)">{{ moment.format('MMM') }} <sup>&#39;{{ moment.format('YY') }}</sup></a>
+            <a class="btn btn-lg btn-dark" ng-repeat="moment in monthsToView" ng-class="{'active':moment._selected}" ng-click="selectMonth($index)">{{ moment.format('MMM') }}</a>
         </div>
     </div>
 

@@ -31,7 +31,6 @@
       &:first-of-type {border-left:0;}
       &.active {background:$theme-light-color;color:$theme-dark-color;}
     }
-    sup {display:none;}
   }
 
   [event-list] {padding-top:4%;font-size:0;line-height:0;text-align:center;margin:0 auto;max-width:1350px;
@@ -117,7 +116,6 @@
       .select-wrap {display:inline-block;}
       //.btn-search {display:inline-block;width:auto;}
     }
-    .month-display sup {display:initial;}
     [event-list] {max-width:1200px;
       .event-result {width:31%;margin:1%;
         .event-content {padding-bottom:68%;}
