@@ -22,8 +22,13 @@ angular.module('artsy.common').
                 angular.element(document.documentElement).toggleClass('nav-open', _status);
             });
 
+            //angular.element($elem[0].querySelectorAll('.sub-trigger')).on('click', function(){
+            //    $currentLiSub = angular.element(this.parentNode.parentNode);
+            //    $currentLiSub.toggleClass('sub-active');
+            //    $majority.toggleClass('show-subs');
+            //});
             angular.element($elem[0].querySelectorAll('.sub-trigger')).on('click', function(){
-                $currentLiSub = angular.element(this.parentNode.parentNode);
+                $currentLiSub = angular.element(this.parentNode);
                 $currentLiSub.toggleClass('sub-active');
                 $majority.toggleClass('show-subs');
             });

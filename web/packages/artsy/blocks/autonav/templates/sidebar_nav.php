@@ -117,10 +117,13 @@ foreach ($navItems as $ni) {
     echo '<li class="' . $ni->classes . '">'; //opens a nav item
 
     if( $ni->hasSubmenu ){
-        echo '<div class="has-subnavs">';
-        echo '<a href="' . $ni->url . '" target="' . $ni->target . '" class="' . $ni->classes . '">' . $ni->name . '</a>';
-        echo '<span class="sub-trigger"><i class="icon-angle-right"></i></span>';
+        echo '<div class="has-subnavs sub-trigger">';
+        echo '<a class="'.$ni->classes.'">'. $ni->name .'<i class="icon-plus"></i></a>';
         echo '</div>';
+//        echo '<div class="has-subnavs">';
+//        echo '<a href="' . $ni->url . '" target="' . $ni->target . '" class="' . $ni->classes . '">' . $ni->name . '</a>';
+//        echo '<span class="sub-trigger"><i class="icon-plus"></i></span>';
+//        echo '</div>';
     }else{
         echo '<a href="' . $ni->url . '" target="' . $ni->target . '" class="' . $ni->classes . '">' . $ni->name . '</a>';
     }

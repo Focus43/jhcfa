@@ -81,6 +81,504 @@
 })(window, window.angular);
 
 angular.module('artsy.common', []);
+angular.module('artsy.common').
+
+    directive('accordion', [
+        function(){
+
+            function _link( scope, $elem, attrs ){
+                var $groups = angular.element($elem[0].querySelectorAll('.group'));
+                $groups.on('click', function(){
+                    angular.element(this).toggleClass('active');
+                });
+            }
+
+            return {
+                restrict: 'A',
+                link:     _link
+            };
+        }
+    ]);
+angular.module('artsy.common').
+
+    /**
+     * Event rendering directive. This should be used inside a parent Controller or something
+     * that can control the scope and pass event list data.
+     * @usage: <div event-list="listData" />, whereas the parent controller can
+     * set the listData on the scope.
+     */
+    directive('eventList', ['moment', function( moment ){
+
+        function _link( scope, $elem, attrs, Controller, transcludeFn ){
+
+            var transcludedNodes    = [],
+                transcludedScopes   = [];
+
+            scope.$watch('_data', function( list ){
+                if( list ){
+                    // @todo: do a check in here to see if we're appending but keeping the existing
+                    // results, or replacing the existing ones, and cleanup old nodes/scopes if
+                    // need be (https://docs.angularjs.org/api/ng/service/$compile see section on cleanup)
+                    var _node; while(_node = transcludedNodes.pop()){
+                        _node.remove();
+                    }
+
+                    var _scope; while(_scope = transcludedScopes.pop()){
+                        _scope.$destroy();
+                    }
+
+                    list.forEach(function( eventObj ){
+                        var $newScope = scope.$new();
+                        $newScope.eventObj = eventObj;
+                        $newScope.moment   = moment(eventObj.computedStartLocal);
+                        transcludeFn($newScope, function( $cloned, $scope ){
+                            $elem.append($cloned);
+                            transcludedNodes.push($cloned);
+                            transcludedScopes.push($scope);
+                        });
+                    });
+                }
+            }, true);
+
+        }
+
+        return {
+            link:       _link,
+            transclude: true,
+            scope:      {_data: '=eventList'},
+            controller: [function(){}]
+        };
+    }]);
+
+angular.module("artsy.common").
+
+    directive('imageSlider', ['Tween', 'imagesLoaded',
+        function( Tween, imagesLoaded ){
+
+            function _link(scope, $elem, attrs){
+                var element     = $elem[0],
+                    containerW  = element.clientWidth,
+                    elPrev      = element.querySelector('[prev]'),
+                    elNext      = element.querySelector('[next]'),
+                    track       = element.querySelector('.track'),
+                    itemList    = track.querySelectorAll('.item'),
+                    itemsLength = itemList.length,
+                    active      = element.querySelector('.item.active'),
+                    idxActive   = Array.prototype.indexOf.call(itemList, active);
+
+                function next( _callback ){
+                    var idxNext     = itemList[idxActive + 1] ? idxActive + 1 : 0,
+                        elCurrent   = itemList[idxActive],
+                        elNext      = itemList[idxNext],
+                        xPosition   = elNext.offsetLeft - ((containerW - elNext.getBoundingClientRect().width)/2);
+
+                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
+                        elNext.classList.add('active');
+                        elCurrent.classList.remove('active');
+                        idxActive = idxNext;
+                        if( angular.isFunction(_callback) ){ _callback(); }
+                    }});
+                }
+
+                function prev( _callback ){
+                    var idxPrev = itemList[idxActive - 1] ? idxActive - 1 : itemsLength - 1,
+                        elCurrent   = itemList[idxActive],
+                        elPrev      = itemList[idxPrev],
+                        xPosition   = elPrev.offsetLeft - ((containerW - elPrev.getBoundingClientRect().width)/2);
+
+                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
+                        elPrev.classList.add('active');
+                        elCurrent.classList.remove('active');
+                        idxActive = idxPrev;
+                        if( angular.isFunction(_callback) ){ _callback(); }
+                    }});
+                }
+
+                angular.element(elPrev).on('click', prev);
+
+                angular.element(elNext).on('click', next);
+
+                (function _loop(){
+                    setTimeout(function(){
+                        next(_loop);
+                    }, 4000);
+                })();
+            }
+
+            return {
+                restrict:   'A',
+                scope:      true,
+                link:       _link
+            };
+        }
+    ]);
+/* global Elastic */
+angular.module('artsy.common').
+
+    directive('introAnim', ['$rootScope', 'Tween', function( $rootScope, Tween ){
+
+        function _link( scope, $elem, attrs ){
+
+            //$rootScope.$broadcast('watchSpokes', true);
+            //
+            //Tween.fromTo($elem[0].querySelector('.tagline'), 1.8,
+            //    {x:-800,scaleX:0,scaleY:0},
+            //    {x:0,scaleX:1,scaleY:1, ease:Elastic.easeInOut, onComplete:function(){
+            //        $rootScope.$broadcast('watchSpokes', false);
+            //    }, delay:0.5}
+            //);
+
+        }
+
+        return {
+            link: _link,
+            scope: false
+        };
+    }]);
+angular.module("artsy.common").
+
+    directive('masonry', ['Masonry', 'imagesLoaded',
+        function( Masonry, imagesLoaded ){
+
+            function _link(scope, $elem, attrs){
+                var element = $elem[0];
+
+                scope.masonry = new Masonry(element, {
+                    //columnWidth:  '.grid-sizer',
+                    itemSelector: '[node]',
+                    percentPosition: true
+                });
+            }
+
+            return {
+                restrict:   'A',
+                scope:      true,
+                link:       _link
+            };
+        }
+    ]);
+angular.module('artsy.common').
+
+    directive('moreEventTimes', [
+        function(){
+
+            function _link( scope, $elem, attrs ){
+                $elem.on('click', function(){
+                    angular.element($elem[0].parentNode.querySelectorAll('.more-hidden')).removeClass('more-hidden');
+                    $elem.remove();
+                });
+            }
+
+            return {
+                restrict: 'A',
+                link:     _link
+            };
+        }
+    ]);
+/* global Power1 */
+angular.module('artsy.common').
+
+    directive('nav', ['Tween', function( Tween ){
+
+        function _link( scope, $elem, attrs ){
+
+            var $html     = angular.element(document.documentElement),
+                $majority = angular.element($elem[0].querySelector('.majority')),
+                $currentLiSub;
+
+            scope.status = {
+                open: false
+            };
+
+            scope.toggle = function(){
+                scope.status.open = !scope.status.open;
+
+            };
+
+            scope.$watch('status.open', function( _status ){
+                angular.element(document.documentElement).toggleClass('nav-open', _status);
+            });
+
+            //angular.element($elem[0].querySelectorAll('.sub-trigger')).on('click', function(){
+            //    $currentLiSub = angular.element(this.parentNode.parentNode);
+            //    $currentLiSub.toggleClass('sub-active');
+            //    $majority.toggleClass('show-subs');
+            //});
+            angular.element($elem[0].querySelectorAll('.sub-trigger')).on('click', function(){
+                $currentLiSub = angular.element(this.parentNode);
+                $currentLiSub.toggleClass('sub-active');
+                $majority.toggleClass('show-subs');
+            });
+
+            angular.element($elem[0].querySelectorAll('.unsub')).on('click', function(){
+                $currentLiSub.toggleClass('sub-active');
+                $majority.toggleClass('show-subs');
+            });
+
+            var lastScroll = 0,
+                threshold  = 50,
+                isDocked   = false;
+            Tween.ticker.addEventListener('tick', function(){
+                if( lastScroll !== window.pageYOffset ){
+                    lastScroll = window.pageYOffset;
+                    if( (lastScroll > threshold) !== isDocked ){
+                        isDocked = !isDocked;
+                        $html.toggleClass('dock-nav-icon', isDocked);
+                    }
+                }
+            });
+        }
+
+        return {
+            restrict: 'E',
+            link:     _link
+        };
+    }]);
+/* global Power2 */
+angular.module('artsy.common').
+
+    directive('scrollTo', ['$window', '$rootScope', 'Tween',
+        function( $window, $rootScope, Tween ){
+
+            function _link( scope, $elem, attrs ){
+
+                //$rootScope.$broadcast('watchSpokes', true);
+
+                var target = document.querySelector(attrs.scrollTo);
+                if( target ){
+                    $elem.on('click', function( _ev ){
+                        _ev.preventDefault();
+                        Tween.to($window, 0.65, {
+                            scrollTo: {y:target.offsetTop},
+                            ease: Power2.easeOut
+                        });
+                        // If any siblings exist, remove active
+                        angular.element($elem[0].parentNode.children).removeClass('active');
+                        $elem.addClass('active');
+                    });
+                }
+
+            }
+
+            return {
+                link: _link,
+                scope: false
+            };
+        }
+    ]);
+angular.module('artsy.common').
+
+    directive('searchable', ['$http', '$compile', '$templateCache',
+        function( $http, $compile, $templateCache ){
+
+            function _link( $scope, $elem, attrs ){
+                var $html = angular.element(document.documentElement);
+
+                // Compile HTML within this directive
+                $compile($elem.contents())($scope);
+
+                // Compile the results template
+                var $tpl  = angular.element($templateCache.get('/search-form-tpl')),
+                    $cpld = $compile($tpl),
+                    $lnkd = $cpld($scope);
+                angular.element(document.body).append($lnkd);
+
+                // If status is open, set on the HTML/document element
+                $scope.$watch('status.open', function( isOpen, lastIsOpen ){
+                    if( isOpen !== lastIsOpen ){
+                        $html.toggleClass('search-results-open', isOpen);
+                    }
+                });
+            }
+
+            return {
+                scope: {
+                    searchPath: '@searchable'
+                },
+                restrict: 'A',
+                link: _link,
+                controller: ['$scope', function( $scope ){
+                    $scope.pageHits = [];
+
+                    $scope.status = {
+                        open:  false,
+                        value: '',
+                        displayValue: '',
+                        loading: true
+                    };
+
+                    $scope.$watch('status.displayValue', function( searchValue ){
+                        $scope.status.open = (searchValue && searchValue.length >= 1);
+                    });
+
+                    $scope.clear = function(){
+                        $scope.status.value = '';
+                        $scope.status.displayValue = '';
+                    };
+
+                    $scope.funcKeyup = function($event){
+                        $scope.status.displayValue = $event.target.value;
+                        $scope.status.loading = true;
+                    };
+
+                    $scope.$watch('status.value', function( searchValue ){
+                        if( searchValue && $scope.searchForm.$valid ){
+                            $http.get($scope.searchPath, {
+                                cache: false,
+                                params: {_s: $scope.status.value}
+                            }).success(function( resp ){
+                                $scope.pageHits = resp.pages;
+                                $scope.status.loading = false;
+                            });
+                        }
+                    });
+                }]
+            };
+        }
+    ]);
+angular.module('artsy.common').
+
+    directive('spokeTo', ['$window', '$rootScope', 'SVG', 'Tween', function( $window, $rootScope, SVG, Tween ){
+
+        var body                    = document.body,
+            html                    = document.documentElement,
+            docWidth                = document.body.getBoundingClientRect().width,
+            docHeight               = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight),
+            svgCanvas               = SVG(document.body),
+            redraw                  = false,
+            overrideRedraw          = false,
+            linkedNodes             = [],
+            defaultSpokeOffset      = 5,
+            defaultSpokeWidth       = 2,
+            defaultSpokeDistance    = 10,
+            defaultSpokeAnimTime    = 700,
+            defaultSpokeAnimDelay   = 0,
+            defaultSpokeAnimEase    = '>'; // http://documentup.com/wout/svg.js#animating-elements/easing
+
+        // Create the SVG canvas ONCe
+        svgCanvas.size(docWidth,docHeight).attr('class', 'spoke-canvas');
+
+        /**
+         * Whenever an update occurs, adjust the line settings...
+         * @param nodePair
+         */
+        function render( nodeData ){
+            // Calculate the midpoints and angles b/w nodes as radians
+            var rectA           = nodeData.nodes[0].getBoundingClientRect(),
+                rectB           = nodeData.nodes[1].getBoundingClientRect(),
+                radiusA         = rectA.width / 2,
+                radiusB         = rectB.width / 2,
+                xMidA           = rectA.left + radiusA,
+                yMidA           = rectA.top + radiusA,
+                xMidB           = rectB.left + radiusB,
+                yMidB           = rectB.top + radiusB,
+                thetaA          = Math.atan2((yMidB - yMidA),(xMidB - xMidA)),
+                thetaB          = Math.atan2((yMidA - yMidB),(xMidA - xMidB)),
+                spokeOffset    = +(nodeData.attrs.spokeOffset) || defaultSpokeOffset,
+                calcdRadiusA    = radiusA + spokeOffset,
+                calcdRadiusB    = radiusB + spokeOffset,
+                existingLine    = nodeData.spoke;
+
+            // Calculate the points moved to the outside of the circle
+            var ax = xMidA + calcdRadiusA * Math.cos(thetaA),
+                ay = yMidA + calcdRadiusA * Math.sin(thetaA),
+                bx = xMidB + calcdRadiusB * Math.cos(thetaB),
+                by = yMidB + calcdRadiusB * Math.sin(thetaB);
+
+            // If line has already been rendered, just needs updating
+            if( existingLine ){
+                existingLine.plot(ax,ay,bx,by);
+                return;
+            }
+
+            // If we get here, its rendering for the first time, so all we do is
+            // generate the line and store the reference to it with the nodeData
+            nodeData.spoke = svgCanvas.line(ax,ay,ax,ay).stroke({
+                width: +(nodeData.attrs.spokeWidth) || defaultSpokeWidth,
+                linecap: 'round',
+                dasharray: '0.1,' + (nodeData.attrs.spokeDistance || defaultSpokeDistance),
+                color:'#ffffff'
+            });
+
+            nodeData.spoke.
+                animate(
+                    // animation time
+                    +(nodeData.attrs.spokeAnimationTime) || defaultSpokeAnimTime,
+                    // easing function (string, so don't cast)
+                    nodeData.attrs.spokeAnimationEase || defaultSpokeAnimEase,
+                    // delay
+                    +(nodeData.attrs.spokeAnimationDelay) || defaultSpokeAnimDelay
+                ).
+                during(function( t, morph ){
+                    this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
+                });
+                //.after(function(){ redraw = true; });
+        }
+
+        /**
+         * Animation frame binding, but only gets run whenever an onscroll
+         * or window resize event happens.
+         */
+        Tween.ticker.addEventListener('tick', function(){
+            if( redraw || overrideRedraw ){
+                for(var i = 0, len = linkedNodes.length; i < len; i++){
+                    render.call(this, linkedNodes[i]);
+                }
+                console.log('_drawing_spokes_:)');
+                redraw = false;
+            }
+        });
+
+        /**
+         * Scroll event.
+         */
+        angular.element($window).bind('scroll', function(){
+            redraw = true;
+        });
+
+        /**
+         * Window was resized.
+         */
+        angular.element($window).bind('resize', function(){
+            docWidth    = document.body.getBoundingClientRect().width;
+            docHeight   = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+            svgCanvas.size(docWidth,docHeight);
+            redraw = true;
+        });
+
+        /**
+         * Listen for overrides broadcast by other elements that might use animation
+         * that would require updating the spokes.
+         */
+        $rootScope.$on('watchSpokes', function( event, override ){
+            overrideRedraw = override;
+        });
+
+        /**
+         * Link function just takes care of adding to the nodePairs we're tracking.
+         * @example: <svg spoke-to=".another-svg" spoke-offset="20" spoke-width="10" spoke-distance="20"><circle></circle></svg>
+         * @param scope
+         * @param $elem
+         * @param attrs
+         * @private
+         */
+        function _link( scope, $elem, attrs ){
+            linkedNodes.push({
+                nodes: [
+                    $elem[0].querySelector('circle'),
+                    document.querySelector(attrs.spokeTo).querySelector('circle')
+                ],
+                attrs: attrs
+            });
+
+            redraw = true;
+        }
+
+        return {
+            link: _link,
+            scope: false
+        };
+    }]);
 /* global Modernizr */
 /* global FastClick */
 angular.module('artsy.common').
@@ -411,497 +909,4 @@ angular.module('artsy.common').
             });
         };
 
-    }]);
-angular.module('artsy.common').
-
-    directive('accordion', [
-        function(){
-
-            function _link( scope, $elem, attrs ){
-                var $groups = angular.element($elem[0].querySelectorAll('.group'));
-                $groups.on('click', function(){
-                    angular.element(this).toggleClass('active');
-                });
-            }
-
-            return {
-                restrict: 'A',
-                link:     _link
-            };
-        }
-    ]);
-angular.module('artsy.common').
-
-    /**
-     * Event rendering directive. This should be used inside a parent Controller or something
-     * that can control the scope and pass event list data.
-     * @usage: <div event-list="listData" />, whereas the parent controller can
-     * set the listData on the scope.
-     */
-    directive('eventList', ['moment', function( moment ){
-
-        function _link( scope, $elem, attrs, Controller, transcludeFn ){
-
-            var transcludedNodes    = [],
-                transcludedScopes   = [];
-
-            scope.$watch('_data', function( list ){
-                if( list ){
-                    // @todo: do a check in here to see if we're appending but keeping the existing
-                    // results, or replacing the existing ones, and cleanup old nodes/scopes if
-                    // need be (https://docs.angularjs.org/api/ng/service/$compile see section on cleanup)
-                    var _node; while(_node = transcludedNodes.pop()){
-                        _node.remove();
-                    }
-
-                    var _scope; while(_scope = transcludedScopes.pop()){
-                        _scope.$destroy();
-                    }
-
-                    list.forEach(function( eventObj ){
-                        var $newScope = scope.$new();
-                        $newScope.eventObj = eventObj;
-                        $newScope.moment   = moment(eventObj.computedStartLocal);
-                        transcludeFn($newScope, function( $cloned, $scope ){
-                            $elem.append($cloned);
-                            transcludedNodes.push($cloned);
-                            transcludedScopes.push($scope);
-                        });
-                    });
-                }
-            }, true);
-
-        }
-
-        return {
-            link:       _link,
-            transclude: true,
-            scope:      {_data: '=eventList'},
-            controller: [function(){}]
-        };
-    }]);
-
-angular.module("artsy.common").
-
-    directive('imageSlider', ['Tween', 'imagesLoaded',
-        function( Tween, imagesLoaded ){
-
-            function _link(scope, $elem, attrs){
-                var element     = $elem[0],
-                    containerW  = element.clientWidth,
-                    elPrev      = element.querySelector('[prev]'),
-                    elNext      = element.querySelector('[next]'),
-                    track       = element.querySelector('.track'),
-                    itemList    = track.querySelectorAll('.item'),
-                    itemsLength = itemList.length,
-                    active      = element.querySelector('.item.active'),
-                    idxActive   = Array.prototype.indexOf.call(itemList, active);
-
-                function next( _callback ){
-                    var idxNext     = itemList[idxActive + 1] ? idxActive + 1 : 0,
-                        elCurrent   = itemList[idxActive],
-                        elNext      = itemList[idxNext],
-                        xPosition   = elNext.offsetLeft - ((containerW - elNext.getBoundingClientRect().width)/2);
-
-                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
-                        elNext.classList.add('active');
-                        elCurrent.classList.remove('active');
-                        idxActive = idxNext;
-                        if( angular.isFunction(_callback) ){ _callback(); }
-                    }});
-                }
-
-                function prev( _callback ){
-                    var idxPrev = itemList[idxActive - 1] ? idxActive - 1 : itemsLength - 1,
-                        elCurrent   = itemList[idxActive],
-                        elPrev      = itemList[idxPrev],
-                        xPosition   = elPrev.offsetLeft - ((containerW - elPrev.getBoundingClientRect().width)/2);
-
-                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
-                        elPrev.classList.add('active');
-                        elCurrent.classList.remove('active');
-                        idxActive = idxPrev;
-                        if( angular.isFunction(_callback) ){ _callback(); }
-                    }});
-                }
-
-                angular.element(elPrev).on('click', prev);
-
-                angular.element(elNext).on('click', next);
-
-                (function _loop(){
-                    setTimeout(function(){
-                        next(_loop);
-                    }, 4000);
-                })();
-            }
-
-            return {
-                restrict:   'A',
-                scope:      true,
-                link:       _link
-            };
-        }
-    ]);
-/* global Elastic */
-angular.module('artsy.common').
-
-    directive('introAnim', ['$rootScope', 'Tween', function( $rootScope, Tween ){
-
-        function _link( scope, $elem, attrs ){
-
-            //$rootScope.$broadcast('watchSpokes', true);
-            //
-            //Tween.fromTo($elem[0].querySelector('.tagline'), 1.8,
-            //    {x:-800,scaleX:0,scaleY:0},
-            //    {x:0,scaleX:1,scaleY:1, ease:Elastic.easeInOut, onComplete:function(){
-            //        $rootScope.$broadcast('watchSpokes', false);
-            //    }, delay:0.5}
-            //);
-
-        }
-
-        return {
-            link: _link,
-            scope: false
-        };
-    }]);
-angular.module("artsy.common").
-
-    directive('masonry', ['Masonry', 'imagesLoaded',
-        function( Masonry, imagesLoaded ){
-
-            function _link(scope, $elem, attrs){
-                var element = $elem[0];
-
-                scope.masonry = new Masonry(element, {
-                    //columnWidth:  '.grid-sizer',
-                    itemSelector: '[node]',
-                    percentPosition: true
-                });
-            }
-
-            return {
-                restrict:   'A',
-                scope:      true,
-                link:       _link
-            };
-        }
-    ]);
-angular.module('artsy.common').
-
-    directive('moreEventTimes', [
-        function(){
-
-            function _link( scope, $elem, attrs ){
-                $elem.on('click', function(){
-                    angular.element($elem[0].parentNode.querySelectorAll('.more-hidden')).removeClass('more-hidden');
-                    $elem.remove();
-                });
-            }
-
-            return {
-                restrict: 'A',
-                link:     _link
-            };
-        }
-    ]);
-/* global Power1 */
-angular.module('artsy.common').
-
-    directive('nav', ['Tween', function( Tween ){
-
-        function _link( scope, $elem, attrs ){
-
-            var $html     = angular.element(document.documentElement),
-                $majority = angular.element($elem[0].querySelector('.majority')),
-                $currentLiSub;
-
-            scope.status = {
-                open: false
-            };
-
-            scope.toggle = function(){
-                scope.status.open = !scope.status.open;
-
-            };
-
-            scope.$watch('status.open', function( _status ){
-                angular.element(document.documentElement).toggleClass('nav-open', _status);
-            });
-
-            angular.element($elem[0].querySelectorAll('.sub-trigger')).on('click', function(){
-                $currentLiSub = angular.element(this.parentNode.parentNode);
-                $currentLiSub.toggleClass('sub-active');
-                $majority.toggleClass('show-subs');
-            });
-
-            angular.element($elem[0].querySelectorAll('.unsub')).on('click', function(){
-                $currentLiSub.toggleClass('sub-active');
-                $majority.toggleClass('show-subs');
-            });
-
-            var lastScroll = 0,
-                threshold  = 50,
-                isDocked   = false;
-            Tween.ticker.addEventListener('tick', function(){
-                if( lastScroll !== window.pageYOffset ){
-                    lastScroll = window.pageYOffset;
-                    if( (lastScroll > threshold) !== isDocked ){
-                        isDocked = !isDocked;
-                        $html.toggleClass('dock-nav-icon', isDocked);
-                    }
-                }
-            });
-        }
-
-        return {
-            restrict: 'E',
-            link:     _link
-        };
-    }]);
-/* global Power2 */
-angular.module('artsy.common').
-
-    directive('scrollTo', ['$window', '$rootScope', 'Tween',
-        function( $window, $rootScope, Tween ){
-
-            function _link( scope, $elem, attrs ){
-
-                //$rootScope.$broadcast('watchSpokes', true);
-
-                var target = document.querySelector(attrs.scrollTo);
-                if( target ){
-                    $elem.on('click', function( _ev ){
-                        _ev.preventDefault();
-                        Tween.to($window, 0.65, {
-                            scrollTo: {y:target.offsetTop},
-                            ease: Power2.easeOut
-                        });
-                        // If any siblings exist, remove active
-                        angular.element($elem[0].parentNode.children).removeClass('active');
-                        $elem.addClass('active');
-                    });
-                }
-
-            }
-
-            return {
-                link: _link,
-                scope: false
-            };
-        }
-    ]);
-angular.module('artsy.common').
-
-    directive('searchable', ['$http', '$compile', '$templateCache',
-        function( $http, $compile, $templateCache ){
-
-            function _link( $scope, $elem, attrs ){
-                var $html = angular.element(document.documentElement);
-
-                // Compile HTML within this directive
-                $compile($elem.contents())($scope);
-
-                // Compile the results template
-                var $tpl  = angular.element($templateCache.get('/search-form-tpl')),
-                    $cpld = $compile($tpl),
-                    $lnkd = $cpld($scope);
-                angular.element(document.body).append($lnkd);
-
-                // If status is open, set on the HTML/document element
-                $scope.$watch('status.open', function( isOpen, lastIsOpen ){
-                    if( isOpen !== lastIsOpen ){
-                        $html.toggleClass('search-results-open', isOpen);
-                    }
-                });
-            }
-
-            return {
-                scope: {
-                    searchPath: '@searchable'
-                },
-                restrict: 'A',
-                link: _link,
-                controller: ['$scope', function( $scope ){
-                    $scope.pageHits = [];
-
-                    $scope.status = {
-                        open:  false,
-                        value: '',
-                        displayValue: '',
-                        loading: true
-                    };
-
-                    $scope.$watch('status.displayValue', function( searchValue ){
-                        $scope.status.open = (searchValue && searchValue.length >= 1);
-                    });
-
-                    $scope.clear = function(){
-                        $scope.status.value = '';
-                        $scope.status.displayValue = '';
-                    };
-
-                    $scope.funcKeyup = function($event){
-                        $scope.status.displayValue = $event.target.value;
-                        $scope.status.loading = true;
-                    };
-
-                    $scope.$watch('status.value', function( searchValue ){
-                        if( searchValue && $scope.searchForm.$valid ){
-                            $http.get($scope.searchPath, {
-                                cache: false,
-                                params: {_s: $scope.status.value}
-                            }).success(function( resp ){
-                                $scope.pageHits = resp.pages;
-                                $scope.status.loading = false;
-                            });
-                        }
-                    });
-                }]
-            };
-        }
-    ]);
-angular.module('artsy.common').
-
-    directive('spokeTo', ['$window', '$rootScope', 'SVG', 'Tween', function( $window, $rootScope, SVG, Tween ){
-
-        var body                    = document.body,
-            html                    = document.documentElement,
-            docWidth                = document.body.getBoundingClientRect().width,
-            docHeight               = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight),
-            svgCanvas               = SVG(document.body),
-            redraw                  = false,
-            overrideRedraw          = false,
-            linkedNodes             = [],
-            defaultSpokeOffset      = 5,
-            defaultSpokeWidth       = 2,
-            defaultSpokeDistance    = 10,
-            defaultSpokeAnimTime    = 700,
-            defaultSpokeAnimDelay   = 0,
-            defaultSpokeAnimEase    = '>'; // http://documentup.com/wout/svg.js#animating-elements/easing
-
-        // Create the SVG canvas ONCe
-        svgCanvas.size(docWidth,docHeight).attr('class', 'spoke-canvas');
-
-        /**
-         * Whenever an update occurs, adjust the line settings...
-         * @param nodePair
-         */
-        function render( nodeData ){
-            // Calculate the midpoints and angles b/w nodes as radians
-            var rectA           = nodeData.nodes[0].getBoundingClientRect(),
-                rectB           = nodeData.nodes[1].getBoundingClientRect(),
-                radiusA         = rectA.width / 2,
-                radiusB         = rectB.width / 2,
-                xMidA           = rectA.left + radiusA,
-                yMidA           = rectA.top + radiusA,
-                xMidB           = rectB.left + radiusB,
-                yMidB           = rectB.top + radiusB,
-                thetaA          = Math.atan2((yMidB - yMidA),(xMidB - xMidA)),
-                thetaB          = Math.atan2((yMidA - yMidB),(xMidA - xMidB)),
-                spokeOffset    = +(nodeData.attrs.spokeOffset) || defaultSpokeOffset,
-                calcdRadiusA    = radiusA + spokeOffset,
-                calcdRadiusB    = radiusB + spokeOffset,
-                existingLine    = nodeData.spoke;
-
-            // Calculate the points moved to the outside of the circle
-            var ax = xMidA + calcdRadiusA * Math.cos(thetaA),
-                ay = yMidA + calcdRadiusA * Math.sin(thetaA),
-                bx = xMidB + calcdRadiusB * Math.cos(thetaB),
-                by = yMidB + calcdRadiusB * Math.sin(thetaB);
-
-            // If line has already been rendered, just needs updating
-            if( existingLine ){
-                existingLine.plot(ax,ay,bx,by);
-                return;
-            }
-
-            // If we get here, its rendering for the first time, so all we do is
-            // generate the line and store the reference to it with the nodeData
-            nodeData.spoke = svgCanvas.line(ax,ay,ax,ay).stroke({
-                width: +(nodeData.attrs.spokeWidth) || defaultSpokeWidth,
-                linecap: 'round',
-                dasharray: '0.1,' + (nodeData.attrs.spokeDistance || defaultSpokeDistance),
-                color:'#ffffff'
-            });
-
-            nodeData.spoke.
-                animate(
-                    // animation time
-                    +(nodeData.attrs.spokeAnimationTime) || defaultSpokeAnimTime,
-                    // easing function (string, so don't cast)
-                    nodeData.attrs.spokeAnimationEase || defaultSpokeAnimEase,
-                    // delay
-                    +(nodeData.attrs.spokeAnimationDelay) || defaultSpokeAnimDelay
-                ).
-                during(function( t, morph ){
-                    this.attr({y2: morph(ay,by), x2: morph(ax,bx)});
-                });
-                //.after(function(){ redraw = true; });
-        }
-
-        /**
-         * Animation frame binding, but only gets run whenever an onscroll
-         * or window resize event happens.
-         */
-        Tween.ticker.addEventListener('tick', function(){
-            if( redraw || overrideRedraw ){
-                for(var i = 0, len = linkedNodes.length; i < len; i++){
-                    render.call(this, linkedNodes[i]);
-                }
-                console.log('_drawing_spokes_:)');
-                redraw = false;
-            }
-        });
-
-        /**
-         * Scroll event.
-         */
-        angular.element($window).bind('scroll', function(){
-            redraw = true;
-        });
-
-        /**
-         * Window was resized.
-         */
-        angular.element($window).bind('resize', function(){
-            docWidth    = document.body.getBoundingClientRect().width;
-            docHeight   = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
-            svgCanvas.size(docWidth,docHeight);
-            redraw = true;
-        });
-
-        /**
-         * Listen for overrides broadcast by other elements that might use animation
-         * that would require updating the spokes.
-         */
-        $rootScope.$on('watchSpokes', function( event, override ){
-            overrideRedraw = override;
-        });
-
-        /**
-         * Link function just takes care of adding to the nodePairs we're tracking.
-         * @example: <svg spoke-to=".another-svg" spoke-offset="20" spoke-width="10" spoke-distance="20"><circle></circle></svg>
-         * @param scope
-         * @param $elem
-         * @param attrs
-         * @private
-         */
-        function _link( scope, $elem, attrs ){
-            linkedNodes.push({
-                nodes: [
-                    $elem[0].querySelector('circle'),
-                    document.querySelector(attrs.spokeTo).querySelector('circle')
-                ],
-                attrs: attrs
-            });
-
-            redraw = true;
-        }
-
-        return {
-            link: _link,
-            scope: false
-        };
     }]);

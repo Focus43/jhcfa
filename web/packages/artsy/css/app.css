@@ -705,15 +705,11 @@ nav[primary] {
         color: #6DB844; }
     nav[primary] ul li .has-subnavs {
       position: relative; }
-      nav[primary] ul li .has-subnavs .sub-trigger {
-        z-index: 2;
-        color: #fff;
-        display: inline-block;
+      nav[primary] ul li .has-subnavs i {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        font-size: 3rem; }
+        top: 11px;
+        right: 15px;
+        font-size: 1.5rem; }
     nav[primary] ul li.sub-active .sub {
       visibility: visible;
       opacity: 1; }

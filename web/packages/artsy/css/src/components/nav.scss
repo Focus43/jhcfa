@@ -26,7 +26,8 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
         &:hover {color:$theme-primary-color;}
       }
       .has-subnavs {position:relative;
-        .sub-trigger {z-index:2;color:#fff;display:inline-block;position:absolute;top:0;right:0;bottom:0;font-size:3rem;}//background:lighten($sidebar-bg-color, 10%);}
+        i {position:absolute;top:11px;right:15px;font-size:1.5rem;}
+        //.sub-trigger {z-index:2;color:#fff;display:inline-block;position:absolute;top:0;right:0;bottom:0;font-size:1.5rem;}//background:lighten($sidebar-bg-color, 10%);}
       }
       &.sub-active {
         .sub {visibility:visible;opacity:1;}
