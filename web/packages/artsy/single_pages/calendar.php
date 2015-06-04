@@ -76,9 +76,9 @@
                 </div>
             </div>
 
-            <div class="clearfix">
-                <a class="btn btn-lg btn-primary pull-left" ng-click="prevMonth()" ng-hide="selectedMonthIndex == 0">Prev Month</a>
-                <a class="btn btn-lg btn-primary pull-right" ng-click="nextMonth()" ng-hide="selectedMonthIndex == (monthsToView.length - 1)">Next Month</a>
+            <div class="prev-next clearfix">
+                <a class="btn-prev btn btn-lg btn-primary pull-left" ng-click="prevMonth()" ng-hide="selectedMonthIndex == 0"><i class="icon-angle-left"></i>Prev Month</a>
+                <a class="btn-next btn btn-lg btn-primary pull-right" ng-click="nextMonth()" ng-hide="selectedMonthIndex == (monthsToView.length - 1)">Next Month <i class="icon-angle-right"></i></a>
             </div>
         </div>
 

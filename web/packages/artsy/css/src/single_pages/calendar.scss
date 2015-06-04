@@ -75,6 +75,17 @@
   }
 
   .no-results {padding:3rem 1rem;}
+
+  .prev-next {
+    .btn {position:relative;}
+    i {position:absolute;font-size:160%;line-height:0;top:22px;}
+    .btn-prev {padding-left:1.8rem;
+      i {left:0;}
+    }
+    .btn-next {padding-right:1.8rem;
+      i {right:0;}
+    }
+  }
 }
 
 @media screen and (max-width:$screen-sm){

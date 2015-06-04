@@ -2049,6 +2049,21 @@ a.logo {
     display: block; }
 .pg-calendar #c-level-1 main .no-results {
   padding: 3rem 1rem; }
+.pg-calendar #c-level-1 main .prev-next .btn {
+  position: relative; }
+.pg-calendar #c-level-1 main .prev-next i {
+  position: absolute;
+  font-size: 160%;
+  line-height: 0;
+  top: 22px; }
+.pg-calendar #c-level-1 main .prev-next .btn-prev {
+  padding-left: 1.8rem; }
+  .pg-calendar #c-level-1 main .prev-next .btn-prev i {
+    left: 0; }
+.pg-calendar #c-level-1 main .prev-next .btn-next {
+  padding-right: 1.8rem; }
+  .pg-calendar #c-level-1 main .prev-next .btn-next i {
+    right: 0; }
 
 @media screen and (max-width: 768px) {
   .pg-calendar #c-level-1 main .event-search .btn-group {
