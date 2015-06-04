@@ -59,8 +59,8 @@
         &.to-event {background:darken($theme-extra-light-color, 9%);color:$theme-light-color;
           &:hover {background:darken($theme-extra-light-color, 15%);color:darken($theme-light-color,15%);}
         }
-        &.direct-tickets {background:$theme-primary-color;color:$theme-dark-color;
-          &:hover {background:darken($theme-primary-color, 8%);color:lighten($theme-dark-color,18%);}
+        &.direct-tickets {background:$theme-primary-color;color:$theme-extra-light-color;
+          &:hover {background:darken($theme-primary-color, 8%);}
         }
       }
     }

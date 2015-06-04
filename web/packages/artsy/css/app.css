@@ -2031,10 +2031,9 @@ a.logo {
           color: #5d5d5d; }
       .pg-calendar #c-level-1 main [event-list] .tql a.direct-tickets {
         background: #6DB844;
-        color: #000000; }
+        color: #e7e7e7; }
         .pg-calendar #c-level-1 main [event-list] .tql a.direct-tickets:hover {
-          background: #5b9a39;
-          color: #2e2e2e; }
+          background: #5b9a39; }
 .pg-calendar #c-level-1 main .msg {
   white-space: nowrap;
   display: none;
