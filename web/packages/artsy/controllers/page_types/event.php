@@ -5,6 +5,7 @@
     use \Concrete\Package\Schedulizer\Src\Event AS SchedulizerEvent;
     use \Concrete\Package\Schedulizer\Src\Calendar AS SchedulizerCalendar;
     use \Concrete\Package\Schedulizer\Src\EventList AS SchedulizerEventList;
+    use Concrete\Package\Artsy\Controller\ArtsyPageController;
 
     class Event extends ArtsyPageController {
 
