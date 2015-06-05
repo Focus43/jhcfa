@@ -2,6 +2,7 @@
 
     use UserInfo;
     use FileSet;
+    use File;
     use \Concrete\Package\Schedulizer\Src\EventTag;
     use Concrete\Package\Artsy\Controller AS PackageController;
     use Concrete\Package\Artsy\Controller\ArtsyPageController;
