@@ -9,8 +9,8 @@
 
     class Event extends ArtsyPageController {
 
-        protected $_includeThemeAssets      = true;
-        protected $_includeOpenGraphTags    = false;
+        protected $_includeThemeAssets          = true;
+        protected $_includeOpenGraphImageTag    = false;
 
         public function view(){
             parent::view();
@@ -42,7 +42,7 @@
                 }
             }
 
-            $this->addHeaderItem(sprintf('<meta property="og:title" content="%s" />', $this->getPageObject()->getCollectionName()));
+            // Set open graph article type
             $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
         }
 

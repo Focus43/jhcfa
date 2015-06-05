@@ -9,8 +9,8 @@
 
     class BlogPost extends ArtsyPageController {
 
-        protected $_includeThemeAssets      = true;
-        protected $_includeOpenGraphTags    = false;
+        protected $_includeThemeAssets          = true;
+        protected $_includeOpenGraphImageTag    = false;
 
         public function on_start(){
             parent::on_start();
@@ -21,13 +21,12 @@
             $this->set('pageOwnerUser', UserInfo::getByID($this->getPageObject()->getCollectionUserID()));
 
             // Opengraph tags
+            $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
+            // If an image is SET, specify open graph image tag
             $fileObj = $this->getPageObject()->getAttribute(PackageController::ATTR_COLLECTION_PAGE_IMAGE);
             if( $fileObj instanceof File && $fileObj->getFileID() >= 1 ){
                 $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', $fileObj->getThumbnailURL('event_thumb')));
             }
-
-            $this->addHeaderItem(sprintf('<meta property="og:title" content="%s" />', $this->getPageObject()->getCollectionName()));
-            $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
         }
 
     }
