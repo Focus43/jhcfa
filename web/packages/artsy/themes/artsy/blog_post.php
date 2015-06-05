@@ -26,7 +26,6 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-<!--                        <h1>The Center Blog</h1>-->
                         <h1><?php echo Page::getCurrentPage()->getCollectionName(); ?></h1>
                         <p><?php echo Page::getCurrentPage()->getCollectionDescription(); ?></p>
                     </div>
@@ -34,7 +33,7 @@
             </div>
             <div class="date-and-tags">
                 <div class="inner">
-                    <span class="date"><strong><?php echo \Core::make('helper/date')->formatDate(Page::getCurrentPage()->getCollectionDatePublic(), true); ?></strong> in </span>
+                    <span class="date">Tags</span>
                     <?php
                         $bt = BlockType::getByHandle('tags');
                         $bt->controller->displayMode = 'page';
@@ -50,14 +49,14 @@
                 <div class="row">
                     <div class="col-sm-8">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <span class="avatar" style="background-image:url('<?php echo Loader::helper('concrete/avatar')->getImagePath($pageOwnerUser);?>');"></span>
-                                <div class="auth">by <span><?php echo $pageOwnerUser->getAttribute('display_name'); ?></span></div>
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                <div class="share-icons">
+                            <div class="col-sm-12 clearfix">
+                                <div class="pull-left">
+                                    <span class="avatar" style="background-image:url('<?php echo Loader::helper('concrete/avatar')->getImagePath($pageOwnerUser);?>');"></span>
+                                    <div class="date-and-auth"><strong><?php echo \Core::make('helper/date')->formatDate(Page::getCurrentPage()->getCollectionDatePublic(), true); ?></strong> by <span><?php echo $pageOwnerUser->getAttribute('display_name'); ?></span></div>
+                                </div>
+                                <div class="share-icons pull-right">
                                     <span>Share on</span>
-                                    <a class="icon-circle-facebook share" target="_blank" href="http://facebook.com/jhcenterforthearts"></a>
+                                    <a class="icon-circle-facebook share" target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php echo BASE_URL . Page::getCurrentPage()->getCollectionPath(); ?>&title=<?php echo Page::getCurrentPage()->getCollectionName(); ?>"></a>
                                     <a class="icon-circle-twitter share" target="_blank" href="http://twitter.com/jhcenterforarts"></a>
                                     <a class="icon-circle-google-plus share" target="_blank" href="https://plus.google.com/113085364394299174338"></a>
                                 </div>

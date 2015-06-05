@@ -9,7 +9,8 @@
      */
     class ArtsyPageController extends PageController {
 
-        protected $_includeThemeAssets = false;
+        protected $_includeThemeAssets      = false;
+        protected $_includeOpenGraphTags    = true;
 
         /**
          * Base controller's view method.
@@ -18,6 +19,12 @@
         public function view(){
             if( $this->_includeThemeAssets === true ){
                 $this->attachThemeAssets( $this );
+            }
+
+            // Facebook opengraph meta tags
+            if( $this->_includeOpenGraphTags === true ){
+                $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', ARTSY_IMAGE_PATH . 'logo-black.svg'));
+                $this->addHeaderItem(sprintf('<meta property="og:site_name" content="%s" />', 'Center for the Arts'));
             }
 
             // Always prepare and pass to the views

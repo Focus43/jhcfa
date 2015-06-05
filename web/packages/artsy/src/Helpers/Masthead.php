@@ -26,7 +26,7 @@
 
 
         /**
-         * First, try and get a specific image assigned to the page attribute header_background,
+         * First, try and get a specific image assigned to the page attribute,
          * and return the path to its' resized source.
          * Second, pull a random image from the Header Backgrounds file set and return the path
          * to its' resized source.
@@ -34,10 +34,9 @@
          * @return string
          */
         public function getSingleImageSrc(){
-            $fileObj = $this->pageObj->getAttribute(PackageController::ATTR_COLLECTION_BACKGROUND_IMG);
+            $fileObj = $this->pageObj->getAttribute(PackageController::ATTR_COLLECTION_PAGE_IMAGE);
             if( $fileObj instanceof File && $fileObj->getFileID() >= 1 ){
                 return $fileObj->getApprovedVersion()->getRelativePath();
-                //return \Core::make('helper/image')->setJpegCompression(self::IMG_COMPRESSION)->getThumbnail($fileObj, self::IMAGE_WIDTH, self::IMAGE_HEIGHT)->src;
             }
 
             /** @var $fileList \Concrete\Core\File\FileList */

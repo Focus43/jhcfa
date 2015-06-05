@@ -2,14 +2,14 @@
 
     use Page;
     use File;
-    use Concrete\Package\Artsy\Controller\ArtsyPageController;
     use \Concrete\Package\Schedulizer\Src\Event AS SchedulizerEvent;
     use \Concrete\Package\Schedulizer\Src\Calendar AS SchedulizerCalendar;
     use \Concrete\Package\Schedulizer\Src\EventList AS SchedulizerEventList;
 
     class Event extends ArtsyPageController {
 
-        protected $_includeThemeAssets = true;
+        protected $_includeThemeAssets      = true;
+        protected $_includeOpenGraphTags    = false;
 
         public function view(){
             parent::view();
@@ -32,10 +32,17 @@
                 if( (int)$fileID >= 1 ){
                     $eventFileObj = File::getByID($fileID);
                     if( is_object($eventFileObj) ){
-                        $this->set('eventThumbnailPath', $eventFileObj->getThumbnailURL('event_thumb'));
+                        $thumbnailPath = $eventFileObj->getThumbnailURL('event_thumb');
+                        // Pass to the view
+                        $this->set('eventThumbnailPath', $thumbnailPath);
+                        // Set opengraph tag as well!
+                        $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', $thumbnailPath));
                     }
                 }
             }
+
+            $this->addHeaderItem(sprintf('<meta property="og:title" content="%s" />', $this->getPageObject()->getCollectionName()));
+            $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
         }
 
         protected function eventList( $eventObj ){

@@ -26,7 +26,7 @@
     class Controller extends Package {
 
         const PACKAGE_HANDLE                    = 'artsy';
-        const ATTR_COLLECTION_BACKGROUND_IMG    = 'header_background';
+        const ATTR_COLLECTION_PAGE_IMAGE        = 'page_image';
         const ATTR_FILE_LINK                    = 'link';
         const ATTR_FILE_PHOTO_CREDIT            = 'photo_credit';
         const ATTR_FILE_EMAIL                   = 'email_address';
@@ -163,10 +163,10 @@
          * @return Controller
          */
         private function setupCollectionAttributes(){
-            if( !is_object(CollectionAttributeKey::getByHandle(self::ATTR_COLLECTION_BACKGROUND_IMG)) ){
+            if( !is_object(CollectionAttributeKey::getByHandle(self::ATTR_COLLECTION_PAGE_IMAGE)) ){
                 CollectionAttributeKey::add($this->attributeType('image_file'), array(
-                    'akHandle'  => self::ATTR_COLLECTION_BACKGROUND_IMG,
-                    'akName'    => 'Background Image'
+                    'akHandle'  => self::ATTR_COLLECTION_PAGE_IMAGE,
+                    'akName'    => 'Page Image'
                 ), $this->packageObject());
             }
 
