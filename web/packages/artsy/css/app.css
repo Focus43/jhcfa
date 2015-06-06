@@ -1818,27 +1818,51 @@ a.logo {
     margin-bottom: 3px; }
 
 .post-results .blog-post {
-  position: relative;
-  color: #000;
-  display: block;
-  padding: 2rem 2rem 1.25rem;
-  margin-bottom: 1rem;
-  background: rgba(0, 0, 0, 0.05); }
-  .post-results .blog-post h4 {
-    margin: 0 0 8px; }
+  border-bottom: 1px solid #dadada; }
+  .post-results .blog-post:last-of-type {
+    border-bottom: 0; }
+  .post-results .blog-post a {
+    padding: 1rem;
+    color: #838383;
+    position: relative;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    *zoom: 1; }
+    .post-results .blog-post a:hover {
+      background: #e2e2e2; }
+  .post-results .blog-post .page-img {
+    float: left;
+    padding: 12% 17%;
+    background-size: cover;
+    background-position: 50% 50%; }
+  .post-results .blog-post .content {
+    padding: 0 12% 0 1rem;
+    float: left;
+    max-width: 66%; }
+  .post-results .blog-post h3 {
+    margin: 0; }
+  .post-results .blog-post p {
+    font-size: 130%;
+    padding: 0.5rem 0;
+    margin-bottom: 0;
+    font-style: italic;
+    font-family: 'Arapey', serif; }
   .post-results .blog-post [date] {
-    padding: 3px 6px;
+    font-size: 90%;
     position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 13px;
-    background: rgba(0, 0, 0, 0.25);
-    color: #fff; }
-  .post-results .blog-post [date], .post-results .blog-post .descr {
-    color: #838383; }
-  .post-results .blog-post:hover {
-    text-decoration: none;
-    background: rgba(0, 0, 0, 0.1); }
+    right: 1rem;
+    top: 1rem;
+    line-height: 1;
+    text-align: center; }
+    .post-results .blog-post [date] span {
+      display: block; }
+    .post-results .blog-post [date] [year] {
+      font-size: 200%; }
+  .post-results .blog-post label {
+    margin: 0;
+    font-size: 80%;
+    text-transform: uppercase; }
 
 .pg-calendar #c-level-1 main .area-main {
   padding-top: 0; }

@@ -17,6 +17,7 @@
         public function on_start(){
             parent::on_start();
             $this->set('titleOverride', 'The Center Blog');
+            $this->addHeaderItem('<link href="http://fonts.googleapis.com/css?family=Arapey:400italic,400" rel="stylesheet" type="text/css">');
         }
 
         public function view(){

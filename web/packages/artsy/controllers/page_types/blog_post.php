@@ -14,6 +14,7 @@
 
         public function on_start(){
             parent::on_start();
+
             $featured = EventTag::getByHandle('featured');
             if( is_object($featured) ){
                 $this->set('featuredTagID', $featured->getID());
