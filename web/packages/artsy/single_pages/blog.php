@@ -11,7 +11,7 @@
                     $tags       = $page->getAttribute('tags');
                     $pageImage  = $page->getAttribute('page_image');
                     if( $pageImage instanceof \Concrete\Core\File\File ){
-                        $pageImageSRC = $pageImage->getThumbnailURL('event_image');
+                        $pageImageSRC = $pageImage->getThumbnailURL('event_thumb');
                     }
                     ?>
                     <article class="blog-post">

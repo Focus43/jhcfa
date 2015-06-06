@@ -10,7 +10,7 @@ $nextLinkText = is_object($nextCollection) ? $nextCollection->getCollectionName(
 if( is_object($previousCollection) ){
     $prevCollectionPageImg = $previousCollection->getAttribute('page_image');
     if( $prevCollectionPageImg instanceof \Concrete\Core\File\File ){
-        $prevCollectionImg = $prevCollectionPageImg->getThumbnailURL('event_image');
+        $prevCollectionImg = $prevCollectionPageImg->getThumbnailURL('event_thumb');
     }
 }
 
@@ -18,7 +18,7 @@ if( is_object($previousCollection) ){
 if( is_object($nextCollection) ){
     $nextCollectionPageImg = $nextCollection->getAttribute('page_image');
     if( $nextCollectionPageImg instanceof \Concrete\Core\File\File ){
-        $nextCollectionImg = $nextCollectionPageImg->getThumbnailURL('event_image');
+        $nextCollectionImg = $nextCollectionPageImg->getThumbnailURL('event_thumb');
     }
 }
 ?>
