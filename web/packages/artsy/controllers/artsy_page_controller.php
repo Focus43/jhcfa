@@ -1,5 +1,6 @@
 <?php namespace Concrete\Package\Artsy\Controller {
 
+    use Config;
     use PageController;
     use Concrete\Package\Artsy\Controller AS PackageController;
 
@@ -10,7 +11,7 @@
     class ArtsyPageController extends PageController {
 
         protected $_includeThemeAssets          = false;
-        protected $_includeOpenGraphTags        = true;
+        protected $_includeSocialTags           = true;
         protected $_includeOpenGraphImageTag    = true;
 
         /**
@@ -23,16 +24,12 @@
             }
 
             // Facebook opengraph meta tags
-            if( $this->_includeOpenGraphTags === true ){
-                $this->addHeaderItem(sprintf('<meta property="og:title" content="%s" />', $this->getPageObject()->getCollectionName()));
-                $this->addHeaderItem(sprintf('<meta property="og:site_name" content="%s" />', 'Center for the Arts'));
-                $this->addHeaderItem(sprintf('<meta property="og:url" content="%s" />', BASE_URL . $this->getPageObject()->getCollectionPath()));
-                $this->addHeaderItem(sprintf('<meta property="og:description" content="%s" />', $this->getPageObject()->getAttribute('meta_description')));
-                $this->addHeaderItem(sprintf('<meta property="fb:app_id" content="%s" />', '537248026420287'));
+            if( $this->_includeSocialTags   === true ){
+                $this->socialMetaTags( $this );
             }
 
             if( $this->_includeOpenGraphImageTag === true ){
-                $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', ARTSY_IMAGE_PATH . 'logo-black.svg'));
+                $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', BASE_URL . ARTSY_IMAGE_PATH . 'logo-black.svg'));
             }
 
             // Always prepare and pass to the views
@@ -68,6 +65,29 @@
             // JS
             $pageController->addFooterItem( $htmlHelper->javascript('core.js', PackageController::PACKAGE_HANDLE) );
             $pageController->addFooterItem( $htmlHelper->javascript('app.js', PackageController::PACKAGE_HANDLE) );
+        }
+
+        public function socialMetaTags( PageController $pageController ){
+            $siteName   = Config::get('concrete.site');
+            $pageName   = $pageController->getPageObject()->getCollectionName();
+            $pageURL    = BASE_URL . $pageController->getPageObject()->getCollectionPath();
+            $metaDescr  = $pageController->getPageObject()->getAttribute('meta_description');
+            $fbAppID    = PackageController::FACEBOOK_APP_ID;
+
+            // Facebook
+            $pageController->addHeaderItem(sprintf('<meta property="og:title" content="%s" />', $pageName));
+            $pageController->addHeaderItem(sprintf('<meta property="og:site_name" content="%s" />', $siteName));
+            $pageController->addHeaderItem(sprintf('<meta property="og:url" content="%s" />', $pageURL));
+            if( !empty($metaDescr) ){
+                $pageController->addHeaderItem(sprintf('<meta property="og:description" content="%s" />', $metaDescr));
+            }
+            if( !empty($fbAppID) ){
+                $pageController->addHeaderItem(sprintf('<meta property="fb:app_id" content="%s" />', $fbAppID));
+            }
+
+            // Twitter
+            $pageController->addHeaderItem('<meta name="twitter:card" content="summary" />');
+            $pageController->addHeaderItem(sprintf('<meta name="twitter:site" content="@thecenterjh" />'));
         }
 
         /**

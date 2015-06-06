@@ -1,5 +1,5 @@
 <div class="tag-list">
-    <h4>Tags</h4>
+    <h4>Explore Other Topics</h4>
     <ul class="list-unstyled">
         <?php
         // $selectedOptObj is the current tag the page where this tag_list is embedded;

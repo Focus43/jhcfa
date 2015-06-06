@@ -36,7 +36,7 @@
                         $thumbnailPath = $eventFileObj->getThumbnailURL('event_thumb');
                         // Pass to the view
                         $this->set('eventThumbnailPath', $thumbnailPath);
-                        // Set opengraph tag as well!
+                        // Set opengraph tag
                         $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', $thumbnailPath));
                     }
                 }

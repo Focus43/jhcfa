@@ -35,6 +35,8 @@
         const AREA_MAIN                         = 'Main';
         const AREA_MAIN_2                       = 'Main 2';
 
+        const FACEBOOK_APP_ID                   = '';
+
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
         protected $pkgVersion 			        = '0.28';

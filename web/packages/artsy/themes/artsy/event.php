@@ -86,21 +86,11 @@
                             ?>
                         </div>
                         <div class="col-sm-5 col-md-4">
+                            <?php Loader::packageElement('custom_share_icons', 'artsy'); ?>
                             <div class="sidebar-box">
                                 <label>Price &amp; Location</label>
                                 <p class="price"><?php echo $eventObj->getAttribute('display_price');?></p>
                                 <small><?php echo $eventObj->getAttribute('processing_fee_details'); ?></small>
-<!--                                --><?php //$ticketPrice = (int)$eventObj->getAttribute('ticket_price');
-//                                if( $ticketPrice > 0 ){ ?>
-<!--                                    <p class="price">$--><?php //echo $ticketPrice; ?><!--</p>-->
-<!--                                    --><?php //$pfdeets = $eventObj->getAttribute('processing_fee_details');
-//                                    if( !empty($pfdeets) ){ ?>
-<!--                                        <small>--><?php //echo $pfdeets; ?><!--</small>-->
-<!--                                    --><?php //} ?>
-<!--                                --><?php //}else{ ?>
-<!--                                    <p class="price">Free</p>-->
-<!--                                --><?php //} ?>
-
                                 <?php $location = $eventObj->getAttribute('location');
                                 if( method_exists($location, '__toString') && !empty($location->__toString()) ){ ?>
                                     <hr/>
