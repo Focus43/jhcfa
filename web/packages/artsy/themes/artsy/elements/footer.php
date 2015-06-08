@@ -22,7 +22,7 @@
                 <div class="inner-content">
                     <h3>Socialize</h3>
                     <a class="icon-circle-facebook socialize" target="_blank" href="http://facebook.com/jhcenterforthearts"></a>
-                    <a class="icon-circle-twitter socialize" target="_blank" href="http://twitter.com/jhcenterforarts"></a>
+                    <a class="icon-circle-twitter socialize" target="_blank" href="http://twitter.com/thecenterjh"></a>
                     <a class="icon-circle-instagram socialize" target="_blank" href="http://instagram.com/thecenterjh"></a>
                     <a class="icon-circle-pinterest socialize" target="_blank" href="http://pinterest.com/thecenterjh"></a>
                     <a class="icon-circle-google-plus socialize" target="_blank" href="https://plus.google.com/113085364394299174338"></a>

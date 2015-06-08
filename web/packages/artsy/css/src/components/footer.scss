@@ -1,11 +1,10 @@
 footer {color:#000;position:relative;margin-top:1rem;background:none;overflow:hidden;
-  a:hover {text-decoration:none;}
   .inner {margin:0 auto;padding:0 ($grid-gutter-width/4);}
   .inner-content {text-align:center;padding:1rem;border-top:3px solid $theme-primary-color;}
   h3 {background:darken($theme-extra-light-color, 5%);color:$theme-light-color;font-size:100%;margin:-1rem -1rem 1rem;padding:0.5rem 1rem;}
   .footer-logo {max-height:105px;}
   address {margin-bottom:0;}
-  .socialize {font-size:240%;color:$theme-primary-color;@include transition(color 0.35s ease);
+  .socialize {font-size:240%;color:$theme-primary-color;@include transition(color 0.35s ease);text-decoration:none !important;
     &:hover {color:darken($theme-primary-color, 10%);}
   }
   .legalese {display:block;text-align:center;font-size:12px;color:$theme-light-color;width:100%;padding:0 1rem 0.75rem;}
@@ -18,7 +17,9 @@ footer {color:#000;position:relative;margin-top:1rem;background:none;overflow:hi
 
 #c-level-1 footer [class*="col-"] {padding-left:($grid-gutter-width/4);padding-right:($grid-gutter-width/4);}
 
-.pg-home footer .inner-content {color:#fff;}
+.pg-home footer {
+  .inner-content, .quick-links a {color:#fff;}
+}
 
 @media screen and (min-width:$screen-sm){
   .pg-home footer {background:rgba(35,25,32,0.5);margin-top:0;color:#fff;
