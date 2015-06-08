@@ -165,6 +165,15 @@
          * @return Controller
          */
         private function setupCollectionAttributes(){
+            /** @var $attrHBG \Concrete\Core\Attribute\Key\CollectionKey For renaming from 'header_background' to 'page_image' */
+            $attrHBG = CollectionAttributeKey::getByHandle('header_background');
+            if( is_object($attrHBG) ){
+                $attrHBG->update(array(
+                    'akHandle'  => self::ATTR_COLLECTION_PAGE_IMAGE,
+                    'akName'    => 'Page Image'
+                ));
+            }
+
             if( !is_object(CollectionAttributeKey::getByHandle(self::ATTR_COLLECTION_PAGE_IMAGE)) ){
                 CollectionAttributeKey::add($this->attributeType('image_file'), array(
                     'akHandle'  => self::ATTR_COLLECTION_PAGE_IMAGE,
