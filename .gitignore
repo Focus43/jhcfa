@@ -14,6 +14,7 @@ composer.phar
 /web/application/config/*
 
 # ignore everything but the index.html
+/web/application/files
 /web/application/files/*
 !/web/application/files/index.html
 
