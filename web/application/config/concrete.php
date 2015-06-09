@@ -18,7 +18,7 @@ $redisStashCacheDriver = array(
 );
 
 return array(
-    'maintenance_mode' => true,
+    'maintenance_mode' => false,
     'site' => 'Center for the Arts',
     'seo' => array(
         'url_rewriting' => true,
@@ -45,7 +45,7 @@ return array(
         'seen_introduction' => true
     ),
     'debug' => array(
-        'detail' => 'debug'
+        'detail' => 'message' // debug|message
     ),
     'cache' => array(
         'pages' => true,
