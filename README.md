@@ -36,3 +36,4 @@ This is a developer preview branch. This is intended for Add-On developers and c
 
         cd build
         grunt release
+
