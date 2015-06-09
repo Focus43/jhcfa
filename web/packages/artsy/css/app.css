@@ -1729,20 +1729,6 @@ a.logo {
       padding-bottom: 2.5rem; }
     .pg-event #c-level-1 header .headline h1 {
       font-size: 200%; } }
-.pg-blog_post header .date-and-tags {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  color: #fff;
-  text-align: center; }
-  .pg-blog_post header .date-and-tags .inner {
-    line-height: 1;
-    display: inline-block;
-    padding: 0.75rem 1rem;
-    white-space: nowrap;
-    background: rgba(35, 25, 32, 0.55); }
 .pg-blog_post .avatar {
   display: inline-block;
   padding: 25px;
@@ -1763,9 +1749,9 @@ a.logo {
 .pg-blog_post hr.topless {
   margin-top: 0; }
 .pg-blog_post .blog-next-previous {
+  margin-bottom: 1rem;
   overflow: hidden;
-  *zoom: 1;
-  overflow: visible; }
+  *zoom: 1; }
   .pg-blog_post .blog-next-previous .article {
     margin-top: 1.8rem;
     line-height: 1;
@@ -1806,6 +1792,8 @@ a.logo {
       transition: all 0.25s ease; }
     .pg-blog_post .blog-next-previous .article:hover span {
       padding-bottom: 2rem; }
+.pg-blog_post .fb-comments, .pg-blog_post .fb-comments * {
+  width: 100% !important; }
 
 .tag-list h4 {
   margin: 0;

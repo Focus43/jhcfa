@@ -23,6 +23,13 @@
   #RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
   ###########################################################################
 
+  # /about -> /about/about-the-center
+  RewriteCond %{REQUEST_URI} ^/about$ [NC]
+  RewriteRule ^ %{REQUEST_URI}/about-the-center [L,R=301]
+  # /support -> /support/the-center-fund
+  RewriteCond %{REQUEST_URI} ^/support$ [NC]
+  RewriteRule ^ %{REQUEST_URI}/the-center-fund [L,R=301]
+
   RewriteBase /
   RewriteCond %{REQUEST_URI} !^/favicon.ico$
   RewriteCond %{REQUEST_FILENAME} !-f

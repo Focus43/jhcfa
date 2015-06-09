@@ -31,17 +31,6 @@
                     </div>
                 </div>
             </div>
-            <div class="date-and-tags">
-                <div class="inner">
-                    <span class="date">Tagged In</span>
-                    <?php
-                        $bt = BlockType::getByHandle('tags');
-                        $bt->controller->displayMode = 'page';
-                        $bt->controller->targetCID = Page::getByPath('/blog')->getCollectionID();
-                        $bt->render('templates/custom');
-                    ?>
-                </div>
-            </div>
         </header>
 
         <div class="area-main">
@@ -59,9 +48,9 @@
                         <hr class="topless" />
 
                         <?php
-                        /** @var $a \Concrete\Core\Area\Area */
-                        $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
-                        $a->display($c);
+                            /** @var $a \Concrete\Core\Area\Area */
+                            $a = new Area(Concrete\Package\Artsy\Controller::AREA_MAIN);
+                            $a->display($c);
                         ?>
 
                         <hr />
@@ -75,7 +64,11 @@
                             $blockNextPrev->controller->orderBy         = 'chrono_desc';
                             $blockNextPrev->render('templates/blog_page');
                         ?>
+
+                        <!-- FACEBOOK COMMENTS -->
+                        <div fb-sdk class="fb-comments" data-href="<?php echo BASE_URL . Page::getCurrentPage()->getCollectionPath(); ?>" data-numposts="5" data-colorscheme="light" data-width="100%" data-order-by="reverse_time"></div>
                     </div>
+
                     <div class="col-sm-4 col-md-3">
                         <?php Loader::packageElement('tag_list', 'artsy', array('selectedTag' => $selectedTag)); ?>
                     </div>

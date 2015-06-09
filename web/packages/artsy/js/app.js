@@ -1,4 +1,4 @@
-/* global FastClick */
+/* global FastClick, FB */
 ;(function( window, angular, undefined ){ 'use strict';
 
     angular.module('artsy', ['artsy.common', 'ngSanitize']).
@@ -8,8 +8,36 @@
     * @param $provide
     * @param $locationProvider
     */
-    config(['$provide', '$locationProvider',
-        function( $provide, $locationProvider ){
+    config(['$provide',
+        function( $provide ){
+
+            /**
+             * Normally we'd bind a directive to pickup the data attribute fb-sdk
+             * and load the Facebook SDK within, but Facebook's javascript removes
+             * /replaces the DOM node which makes angular's parsing of the directive
+             * go schizo; so (since we're always loading this at the end of a page),
+             * we just look for any DOM nodes with attr [fb-sdk], and then load it
+             * here.
+             */
+            if( document.querySelectorAll('[fb-sdk]').length ){
+                window.fbAsyncInit = function() {
+                    FB.init({
+                        appId      : '978758105490112',
+                        xfbml      : true,
+                        version    : 'v2.3'
+                    });
+                    console.log('✓ FacebookSDK');
+                };
+
+                (function(d, s, id){
+                    var fbDiv = d.createElement('div'); fbDiv.id = 'fb-root'; d.body.appendChild(fbDiv);
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {return;}
+                    js = d.createElement(s); js.id = id;
+                    js.src = "//connect.facebook.net/en_US/sdk.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            }
 
         }
     ]).
@@ -81,337 +109,6 @@
 })(window, window.angular);
 
 angular.module('artsy.common', []);
-/* global Modernizr */
-/* global FastClick */
-angular.module('artsy.common').
-
-    /**
-     * @description Modernizr provider
-     * @param $window
-     * @param $log
-     * @returns Modernizr | false
-     */
-    provider('Modernizr', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description TweenLite OR TweenMax provider
-     * @param $window
-     * @param $log
-     * @returns TweenMax | TweenLite | false
-     */
-    provider('Tween', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description MomentJS
-     * @param $window
-     * @param $log
-     * @returns moment | TweenLite | false
-     */
-    provider('moment', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description Masonry provider
-     * @param $window
-     * @param $log
-     * @returns Masonry | false
-     */
-    provider('Masonry', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description imagesLoaded provider
-     * @param $window
-     * @param $log
-     * @returns imagesLoaded | false
-     */
-    provider('imagesLoaded', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description FastClick provider
-     * @param $window
-     * @param $log
-     * @returns FastClick | false
-     */
-    provider('FastClick', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * @description svg.js provider
-     * @param $window
-     * @param $log
-     * @returns SVG | false
-     */
-    provider('SVG', function(){
-        this.$get = ['$window', '$log',
-            function( $window, $log ){
-                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
-            }
-        ];
-    }).
-
-    /**
-     * http://stackoverflow.com/questions/13478303/correct-way-to-use-modernizr-to-detect-ie
-     */
-    provider('BrowserDetect', function(){
-        this.$get = [function(){
-
-            var BrowserDetect = {
-                init: function () {
-                    this.browser = this.searchString(this.dataBrowser) || "Other";
-                    this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || "Unknown";
-                },
-                searchString: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var dataString = data[i].string;
-                        this.versionSearchString = data[i].subString;
-
-                        if (dataString.indexOf(data[i].subString) !== -1) {
-                            return data[i].identity;
-                        }
-                    }
-                },
-                searchVersion: function (dataString) {
-                    var index = dataString.indexOf(this.versionSearchString);
-                    if (index === -1) {
-                        return;
-                    }
-
-                    var rv = dataString.indexOf("rv:");
-                    if (this.versionSearchString === "Trident" && rv !== -1) {
-                        return parseFloat(dataString.substring(rv + 3));
-                    } else {
-                        return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
-                    }
-                },
-
-                dataBrowser: [
-                    {string: navigator.userAgent, subString: "Chrome", identity: "Chrome"},
-                    {string: navigator.userAgent, subString: "MSIE", identity: "Explorer"},
-                    {string: navigator.userAgent, subString: "Trident", identity: "Explorer"},
-                    {string: navigator.userAgent, subString: "Firefox", identity: "Firefox"},
-                    {string: navigator.userAgent, subString: "Safari", identity: "Safari"},
-                    {string: navigator.userAgent, subString: "Opera", identity: "Opera"}
-                ]
-
-            };
-
-            BrowserDetect.init();
-            return BrowserDetect;
-        }];
-    });
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            $scope.uiState = {
-                fetchInProgress: false,
-                showSearchExtras: false,
-                showTagList: false,
-                initialFetchComplete: false
-            };
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  "",
-                tags:       "",
-                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
-                filepath:   true,
-                start:      moment().startOf('month').format('YYYY-MM-DD'),
-                end:        moment().endOf('month').format('YYYY-MM-DD'),//moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display,ticket_link,event_not_ticketed'
-            };
-
-            $scope.fetch = function(){
-                $scope.uiState.fetchInProgress = true;
-                Schedulizer.fetch($scope.filters).success(function( resp ){
-                    $scope.eventData = resp;
-                    $scope.uiState.fetchInProgress = false;
-                    $scope.uiState.initialFetchComplete = true;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            $scope.fetch();
-
-            $scope.$watch('filters', function( val ){
-                $scope.fetch();
-            }, true);
-
-            // Generate next 6 months list
-            var currentMonth    = moment();
-            currentMonth._selected = true;
-            $scope.monthsToView = [currentMonth];
-            for(var i = 1; i <= 5; i++){
-                var next = currentMonth.clone().add(i, 'month');
-                next._selected = false;
-                $scope.monthsToView.push(next);
-            }
-
-            $scope.selectedMonthIndex = 0;
-            $scope.selectMonth = function( $index ){
-                for(var i = 0, l = $scope.monthsToView.length; i < l; i++){
-                    $scope.monthsToView[i]._selected = false;
-                }
-                $scope.monthsToView[$index]._selected   = true;
-                $scope.selectedMonthIndex               = $index;
-                $scope.filters.start                    = $scope.monthsToView[$index].clone().startOf('month').format('YYYY-MM-DD');
-                $scope.filters.end                      = $scope.monthsToView[$index].clone().endOf('month').format('YYYY-MM-DD');
-                $scope.fetch();
-            };
-
-            $scope.funcKeyup = function( $event ){
-                $scope.uiState.showSearchExtras = ($event.target.value.length !== 0);
-                $scope.uiState.fetchInProgress = true;
-            };
-
-            $scope.clearSearch = function(){
-                $scope.uiState.showSearchExtras = false;
-                $scope.filters.keywords = null;
-            };
-
-            $scope.selectedTags = [];
-            $scope.toggleTag = function( tagID ){
-                // Exists; so splice it off
-                if( $scope.selectedTags.indexOf(tagID) !== -1 ){
-                    $scope.selectedTags.splice($scope.selectedTags.indexOf(tagID), 1);
-                    $scope.filters.tags = $scope.selectedTags.join(',');
-                    return;
-                }
-                // Doesn't exist, append it
-                $scope.selectedTags.push(tagID);
-                $scope.filters.tags = $scope.selectedTags.join(',');
-            };
-
-            $scope.nextMonth = function(){
-                var nextIndex = $scope.selectedMonthIndex + 1;
-                if( $scope.monthsToView[nextIndex] ){
-                    $scope.selectMonth(nextIndex);
-                }
-            };
-
-            $scope.prevMonth = function(){
-                var prevIndex = $scope.selectedMonthIndex - 1;
-                if( $scope.monthsToView[prevIndex] ){
-                    $scope.selectMonth(prevIndex);
-                }
-            };
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            /**
-             * Need to use a watch to make sure ng-init completes and
-             * only send request once we have a valid value for featuredTagID
-             */
-            $scope.$watch('featuredTagID', function( featuredTagID ){
-                if( featuredTagID ){
-                    Schedulizer.fetch({
-                        fields: ['tags'],
-                        filepath:true,
-                        limit:10,
-                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                        attributes: 'date_display',
-                        tags: featuredTagID // passed via ng-init
-                    }).success(function( resp ){
-                        $scope.eventData = resp;
-                    });
-                }
-            });
-
-        }
-    ]);
-angular.module('artsy.common').
-
-    service('Schedulizer', ['$http', function( $http ){
-
-        var eventRoute      = '/_schedulizer/event_list',
-            defaultParams   = {
-                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
-                pagepath:   true,
-                grouping:   true
-            };
-
-        /**
-         * Joins the alwaysFields with custom fields and ensures no duplication.
-         * @param _fields
-         * @returns {*}
-         * @private
-         */
-        function mergeFields( a, b ){
-            var joined = a.concat(b);
-            return joined.filter(function( item, pos ){
-                return joined.indexOf(item) === pos;
-            });
-        }
-
-        /**
-         * @param fields array
-         * @param filters object
-         * @param cache bool
-         */
-        this.fetch = function( _filters, _cache ){
-            // Have to extend an empty object so we don't rewrite the original
-            // _filters.fields property to a string!
-            var filtersCopy = angular.extend({}, _filters, {
-                fields: mergeFields(_filters.fields || [], defaultParams.fields)
-            });
-            return $http.get(eventRoute, {
-                cache:  (_cache === false) ? false : true,
-                params: angular.extend({}, defaultParams, filtersCopy)
-            });
-        };
-
-    }]);
 angular.module('artsy.common').
 
     directive('accordion', [
@@ -938,3 +635,334 @@ angular.module('artsy.common').
             scope: false
         };
     }]);
+angular.module('artsy.common').
+
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            $scope.uiState = {
+                fetchInProgress: false,
+                showSearchExtras: false,
+                showTagList: false,
+                initialFetchComplete: false
+            };
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  "",
+                tags:       "",
+                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
+                filepath:   true,
+                start:      moment().startOf('month').format('YYYY-MM-DD'),
+                end:        moment().endOf('month').format('YYYY-MM-DD'),//moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display,ticket_link,event_not_ticketed'
+            };
+
+            $scope.fetch = function(){
+                $scope.uiState.fetchInProgress = true;
+                Schedulizer.fetch($scope.filters).success(function( resp ){
+                    $scope.eventData = resp;
+                    $scope.uiState.fetchInProgress = false;
+                    $scope.uiState.initialFetchComplete = true;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            $scope.fetch();
+
+            $scope.$watch('filters', function( val ){
+                $scope.fetch();
+            }, true);
+
+            // Generate next 6 months list
+            var currentMonth    = moment();
+            currentMonth._selected = true;
+            $scope.monthsToView = [currentMonth];
+            for(var i = 1; i <= 5; i++){
+                var next = currentMonth.clone().add(i, 'month');
+                next._selected = false;
+                $scope.monthsToView.push(next);
+            }
+
+            $scope.selectedMonthIndex = 0;
+            $scope.selectMonth = function( $index ){
+                for(var i = 0, l = $scope.monthsToView.length; i < l; i++){
+                    $scope.monthsToView[i]._selected = false;
+                }
+                $scope.monthsToView[$index]._selected   = true;
+                $scope.selectedMonthIndex               = $index;
+                $scope.filters.start                    = $scope.monthsToView[$index].clone().startOf('month').format('YYYY-MM-DD');
+                $scope.filters.end                      = $scope.monthsToView[$index].clone().endOf('month').format('YYYY-MM-DD');
+                $scope.fetch();
+            };
+
+            $scope.funcKeyup = function( $event ){
+                $scope.uiState.showSearchExtras = ($event.target.value.length !== 0);
+                $scope.uiState.fetchInProgress = true;
+            };
+
+            $scope.clearSearch = function(){
+                $scope.uiState.showSearchExtras = false;
+                $scope.filters.keywords = null;
+            };
+
+            $scope.selectedTags = [];
+            $scope.toggleTag = function( tagID ){
+                // Exists; so splice it off
+                if( $scope.selectedTags.indexOf(tagID) !== -1 ){
+                    $scope.selectedTags.splice($scope.selectedTags.indexOf(tagID), 1);
+                    $scope.filters.tags = $scope.selectedTags.join(',');
+                    return;
+                }
+                // Doesn't exist, append it
+                $scope.selectedTags.push(tagID);
+                $scope.filters.tags = $scope.selectedTags.join(',');
+            };
+
+            $scope.nextMonth = function(){
+                var nextIndex = $scope.selectedMonthIndex + 1;
+                if( $scope.monthsToView[nextIndex] ){
+                    $scope.selectMonth(nextIndex);
+                }
+            };
+
+            $scope.prevMonth = function(){
+                var prevIndex = $scope.selectedMonthIndex - 1;
+                if( $scope.monthsToView[prevIndex] ){
+                    $scope.selectMonth(prevIndex);
+                }
+            };
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            /**
+             * Need to use a watch to make sure ng-init completes and
+             * only send request once we have a valid value for featuredTagID
+             */
+            $scope.$watch('featuredTagID', function( featuredTagID ){
+                if( featuredTagID ){
+                    Schedulizer.fetch({
+                        fields: ['tags'],
+                        filepath:true,
+                        limit:10,
+                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                        attributes: 'date_display',
+                        tags: featuredTagID // passed via ng-init
+                    }).success(function( resp ){
+                        $scope.eventData = resp;
+                    });
+                }
+            });
+
+        }
+    ]);
+angular.module('artsy.common').
+
+    service('Schedulizer', ['$http', function( $http ){
+
+        var eventRoute      = '/_schedulizer/event_list',
+            defaultParams   = {
+                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
+                pagepath:   true,
+                grouping:   true
+            };
+
+        /**
+         * Joins the alwaysFields with custom fields and ensures no duplication.
+         * @param _fields
+         * @returns {*}
+         * @private
+         */
+        function mergeFields( a, b ){
+            var joined = a.concat(b);
+            return joined.filter(function( item, pos ){
+                return joined.indexOf(item) === pos;
+            });
+        }
+
+        /**
+         * @param fields array
+         * @param filters object
+         * @param cache bool
+         */
+        this.fetch = function( _filters, _cache ){
+            // Have to extend an empty object so we don't rewrite the original
+            // _filters.fields property to a string!
+            var filtersCopy = angular.extend({}, _filters, {
+                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+            });
+            return $http.get(eventRoute, {
+                cache:  (_cache === false) ? false : true,
+                params: angular.extend({}, defaultParams, filtersCopy)
+            });
+        };
+
+    }]);
+/* global Modernizr */
+/* global FastClick */
+angular.module('artsy.common').
+
+    /**
+     * @description Modernizr provider
+     * @param $window
+     * @param $log
+     * @returns Modernizr | false
+     */
+    provider('Modernizr', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Modernizr'] || ($log.warn('Modernizr unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description TweenLite OR TweenMax provider
+     * @param $window
+     * @param $log
+     * @returns TweenMax | TweenLite | false
+     */
+    provider('Tween', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['TweenMax'] || $window['TweenLite'] || ($log.warn('Greensock Tween library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description MomentJS
+     * @param $window
+     * @param $log
+     * @returns moment | TweenLite | false
+     */
+    provider('moment', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['moment'] || ($log.warn('MomentJS library unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description Masonry provider
+     * @param $window
+     * @param $log
+     * @returns Masonry | false
+     */
+    provider('Masonry', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['Masonry'] || ($log.warn('Masonry unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description imagesLoaded provider
+     * @param $window
+     * @param $log
+     * @returns imagesLoaded | false
+     */
+    provider('imagesLoaded', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['imagesLoaded'] || ($log.warn('imagesLoaded unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description FastClick provider
+     * @param $window
+     * @param $log
+     * @returns FastClick | false
+     */
+    provider('FastClick', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['FastClick'] || ($log.warn('FastClick unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * @description svg.js provider
+     * @param $window
+     * @param $log
+     * @returns SVG | false
+     */
+    provider('SVG', function(){
+        this.$get = ['$window', '$log',
+            function( $window, $log ){
+                return $window['SVG'] || ($log.warn('SVG.js unavailable!'), false);
+            }
+        ];
+    }).
+
+    /**
+     * http://stackoverflow.com/questions/13478303/correct-way-to-use-modernizr-to-detect-ie
+     */
+    provider('BrowserDetect', function(){
+        this.$get = [function(){
+
+            var BrowserDetect = {
+                init: function () {
+                    this.browser = this.searchString(this.dataBrowser) || "Other";
+                    this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion) || "Unknown";
+                },
+                searchString: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var dataString = data[i].string;
+                        this.versionSearchString = data[i].subString;
+
+                        if (dataString.indexOf(data[i].subString) !== -1) {
+                            return data[i].identity;
+                        }
+                    }
+                },
+                searchVersion: function (dataString) {
+                    var index = dataString.indexOf(this.versionSearchString);
+                    if (index === -1) {
+                        return;
+                    }
+
+                    var rv = dataString.indexOf("rv:");
+                    if (this.versionSearchString === "Trident" && rv !== -1) {
+                        return parseFloat(dataString.substring(rv + 3));
+                    } else {
+                        return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
+                    }
+                },
+
+                dataBrowser: [
+                    {string: navigator.userAgent, subString: "Chrome", identity: "Chrome"},
+                    {string: navigator.userAgent, subString: "MSIE", identity: "Explorer"},
+                    {string: navigator.userAgent, subString: "Trident", identity: "Explorer"},
+                    {string: navigator.userAgent, subString: "Firefox", identity: "Firefox"},
+                    {string: navigator.userAgent, subString: "Safari", identity: "Safari"},
+                    {string: navigator.userAgent, subString: "Opera", identity: "Opera"}
+                ]
+
+            };
+
+            BrowserDetect.init();
+            return BrowserDetect;
+        }];
+    });
