@@ -678,6 +678,11 @@ nav[primary] {
     -o-transition: -o-transform 0.25s ease;
     -webkit-transition: -webkit-transform 0.25s ease;
     transition: transform 0.25s ease; }
+    nav[primary] [slideable].show-subs, nav[primary] [slideable].show-subs + .bottom {
+      -moz-transform: translate3d(-100%, 0, 0);
+      -ms-transform: translate3d(-100%, 0, 0);
+      -webkit-transform: translate3d(-100%, 0, 0);
+      transform: translate3d(-100%, 0, 0); }
   nav[primary] ul {
     font-size: 115%;
     list-style: none;
@@ -685,11 +690,6 @@ nav[primary] {
     text-transform: uppercase; }
     nav[primary] ul.majority {
       padding-top: 2rem; }
-      nav[primary] ul.majority.show-subs, nav[primary] ul.majority.show-subs + .bottom {
-        -moz-transform: translate3d(-100%, 0, 0);
-        -ms-transform: translate3d(-100%, 0, 0);
-        -webkit-transform: translate3d(-100%, 0, 0);
-        transform: translate3d(-100%, 0, 0); }
     nav[primary] ul.sub {
       visibility: hidden;
       opacity: 0;
@@ -781,7 +781,30 @@ html.nav-open #c-level-1 main::before {
     bottom: 0;
     left: 0;
     right: 0;
-    width: 100%; } }
+    width: 100%; }
+
+  html.no-touch nav[primary] .inner-1 {
+    overflow: visible; }
+  html.no-touch nav[primary] [slideable].show-subs, html.no-touch nav[primary] [slideable].show-subs + .bottom {
+    -moz-transform: none;
+    -ms-transform: none;
+    -webkit-transform: none;
+    transform: none; }
+  html.no-touch nav[primary] ul.sub li.unsub {
+    display: none; }
+  html.no-touch nav[primary] ul.majority li {
+    position: relative; }
+    html.no-touch nav[primary] ul.majority li .sub {
+      padding: 0.5rem 0;
+      width: auto;
+      white-space: nowrap; }
+    html.no-touch nav[primary] ul.majority li.sub-active .sub {
+      visibility: hidden;
+      opacity: 0; }
+    html.no-touch nav[primary] ul.majority li.nav-has-sub:hover ul.sub {
+      visibility: visible;
+      opacity: 1;
+      background: rgba(26, 26, 26, 0.9); } }
 [search-results] {
   color: #838383;
   z-index: -99;

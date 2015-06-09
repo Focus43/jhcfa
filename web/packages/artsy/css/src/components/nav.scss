@@ -14,12 +14,12 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
     i {font-size:22px;position:absolute;top:13px;left:10px;color:lighten($sidebar-bg-color, 30%);}
     input {color:#fff;font-family:$theme-font-family;padding:1rem 1rem 0.9rem 2.25rem;display:block;width:100%;width:100%;background:lighten($sidebar-bg-color, 8%);border:0;outline:0;@include border-radius(0);}
   }
-  [slideable]{@include transform(translate3d(0,0,0));@include transition(transform $revealers-animate-time $revealers-animate-function);}
+  [slideable]{@include transform(translate3d(0,0,0));@include transition(transform $revealers-animate-time $revealers-animate-function);
+    &.show-subs, &.show-subs + .bottom {@include transform(translate3d(-100%,0,0));}
+  }
   // All menus
   ul {font-size:115%;list-style:none;padding:0;text-transform:uppercase;
-    &.majority {padding-top:2rem;
-      &.show-subs, &.show-subs + .bottom {@include transform(translate3d(-100%,0,0));}
-    }
+    &.majority {padding-top:2rem;}
     &.sub {visibility:hidden;opacity:0;position:absolute;top:0;left:100%;width:100%;@include transition(all $revealers-animate-time $revealers-animate-function)}
     li {
       a {padding:1rem 2rem;@include transition(color 0.35s ease);
@@ -64,5 +64,23 @@ html.nav-open {
   nav[primary]{
     [trigger]{top:1.5rem;margin:0.5rem;}
     .bottom {position:absolute;bottom:0;left:0;right:0;width:100%;}
+  }
+
+  // Flyout menus on NOT mobile and NOT touch device
+  html.no-touch nav[primary] {
+    .inner-1 {overflow:visible;}
+    [slideable]{
+      &.show-subs, &.show-subs + .bottom {@include transform(none);}
+    }
+    ul.sub li.unsub {display:none;}
+    ul.majority {
+      li {position:relative;
+        .sub {padding:0.5rem 0;width:auto;white-space:nowrap;}
+        &.sub-active .sub {visibility:hidden;opacity:0;}
+        &.nav-has-sub:hover {
+          ul.sub {visibility:visible;opacity:1;background:rgba($sidebar-bg-color,0.9);}
+        }
+      }
+    }
   }
 }
