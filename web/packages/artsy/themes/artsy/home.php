@@ -107,12 +107,12 @@ h-3.194V35.587z"/>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="hub-node upcoming hub-green">
+                        <a class="hub-node upcoming hub-green" href="/calendar">
                             <h2>Upcoming Events</h2>
                             <svg version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
                                 <circle fill="#000" cx="10" cy="10" r="10" />
                             </svg>
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="row">
@@ -142,12 +142,12 @@ h-3.194V35.587z"/>
         <section class="homepage-content container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="hub-node hub-green">
+                    <a class="hub-node hub-green" href="/about">
                         <h2>Our Mission</h2>
                         <svg spoke-to=".upcoming" version="1.1" viewBox="0 0 20 20" preserveAspectRatio="xMinYMid meet" height="20">
                             <circle fill="#000" cx="10" cy="10" r="10" />
                         </svg>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="row">

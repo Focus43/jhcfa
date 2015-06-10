@@ -1497,6 +1497,10 @@ html[data-ua="Explorer"] .hub-node svg {
   .pg-home #c-level-1 .homepage-content h2 a, .pg-home #c-level-1 .homepage-content h3 a, .pg-home #c-level-1 .homepage-content h4 a {
     display: inline !important; }
 
+a.hub-node:hover, a.hub-node:active, a.hub-node:focus, a.hub-node:visited {
+  text-decoration: none !important;
+  color: #e7e7e7 !important; }
+
 @media screen and (min-width: 480px) {
   .pg-home #c-level-1 .featured-events .event {
     width: 46%;
