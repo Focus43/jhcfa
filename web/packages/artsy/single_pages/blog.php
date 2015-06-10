@@ -19,7 +19,7 @@
                             <div class="page-img" style="background-image:url('<?php echo $pageImageSRC; ?>');"></div>
                             <div class="content">
                                 <div date>
-                                    <span ordinal><?php echo $dateObj->format('D, M d'); ?></span>
+                                    <span ordinal><?php echo $dateObj->format('M d'); ?></span>
                                     <span year><?php echo $dateObj->format('Y'); ?></span>
                                 </div>
                                 <h3><?php echo $title; ?></h3>

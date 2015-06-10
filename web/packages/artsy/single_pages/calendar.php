@@ -43,8 +43,13 @@
     </form>
 
     <div class="pseudo-container month-display">
-        <div class="btn-group btn-group-justified" ng-cloak>
+        <div class="btn-group btn-group-justified" ng-cloak ng-show="!isTextSearch">
             <a class="btn btn-lg" ng-repeat="moment in monthsToView" ng-class="{'active':moment._selected}" ng-click="selectMonth($index)">{{ moment.format('MMM') }}</a>
+        </div>
+        <div class="btn-group btn-group-justified" ng-show="isTextSearch">
+            <a class="btn btn-lg">
+                Text Search Looks Through {{ overrideDateRange.end.format('MMM YY') }}
+            </a>
         </div>
     </div>
 

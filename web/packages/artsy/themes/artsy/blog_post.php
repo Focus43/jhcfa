@@ -37,15 +37,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-md-9">
-                        <div class="clearfix">
-                            <div class="pull-left">
+                        <div class="post-header clearfix">
+                            <div class="auth">
                                 <span class="avatar" style="background-image:url('<?php echo Loader::helper('concrete/avatar')->getImagePath($pageOwnerUser);?>');"></span>
                                 <div class="date-and-auth"><strong><?php echo \Core::make('helper/date')->formatDate(Page::getCurrentPage()->getCollectionDatePublic(), true); ?></strong> by <span><?php echo $pageOwnerUser->getAttribute('display_name'); ?></span></div>
                             </div>
                             <?php Loader::packageElement('custom_share_icons', 'artsy'); ?>
                         </div>
-
-                        <hr class="topless" />
 
                         <?php
                             /** @var $a \Concrete\Core\Area\Area */

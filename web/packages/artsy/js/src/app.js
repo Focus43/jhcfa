@@ -22,7 +22,7 @@
             if( document.querySelectorAll('[fb-sdk]').length ){
                 window.fbAsyncInit = function() {
                     FB.init({
-                        appId      : '978758105490112',
+                        appId      : '884434574982022',
                         xfbml      : true,
                         version    : 'v2.3'
                     });

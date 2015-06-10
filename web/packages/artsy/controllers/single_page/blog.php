@@ -8,7 +8,7 @@
 
     class Blog extends ArtsyPageController {
 
-        const PAGINATION = 10;
+        const PAGINATION = 2;
 
         /** @var $_pageListObj \Concrete\Core\Page\PageList */
         protected $_pageListObj;

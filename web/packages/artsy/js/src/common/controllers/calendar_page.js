@@ -12,6 +12,13 @@ angular.module('artsy.common').
                 initialFetchComplete: false
             };
 
+            $scope.overrideDateRange = {
+                start: moment().startOf('month'),//.format('YYYY-MM-DD'),
+                end: moment().add(5, 'months').endOf('month')//.format('YYYY-MM-DD')
+            };
+
+            $scope.isTextSearch = false;
+
             $scope.filters = {
                 fields:     ['calendarID'],
                 keywords:   null,
@@ -26,7 +33,14 @@ angular.module('artsy.common').
 
             $scope.fetch = function(){
                 $scope.uiState.fetchInProgress = true;
-                Schedulizer.fetch($scope.filters).success(function( resp ){
+
+                var data = ($scope.isTextSearch === false) ? $scope.filters : angular.extend({}, $scope.filters, {
+                    start: $scope.overrideDateRange.start.format('YYYY-MM-DD'),
+                    end: $scope.overrideDateRange.end.format('YYYY-MM-DD')
+                });
+                console.log($scope.filters);
+
+                Schedulizer.fetch(data).success(function( resp ){
                     $scope.eventData = resp;
                     $scope.uiState.fetchInProgress = false;
                     $scope.uiState.initialFetchComplete = true;
@@ -39,10 +53,13 @@ angular.module('artsy.common').
                 $scope.filters.categories = int;
             };
 
-            $scope.fetch();
-
-            $scope.$watch('filters', function( val ){
-                $scope.fetch();
+            // On page load, since $watch automatically applies itself once filters object becomes available,
+            // this will initialize the first load
+            $scope.$watch('filters', function( filters ){
+                $scope.isTextSearch = angular.isString(filters.keywords) && filters.keywords.length;
+                if( filters ){
+                    $scope.fetch();
+                }
             }, true);
 
             // Generate next 6 months list
@@ -64,7 +81,6 @@ angular.module('artsy.common').
                 $scope.selectedMonthIndex               = $index;
                 $scope.filters.start                    = $scope.monthsToView[$index].clone().startOf('month').format('YYYY-MM-DD');
                 $scope.filters.end                      = $scope.monthsToView[$index].clone().endOf('month').format('YYYY-MM-DD');
-                $scope.fetch();
             };
 
             $scope.funcKeyup = function( $event ){
