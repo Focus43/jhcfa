@@ -8,38 +8,33 @@ angular.module("artsy.common").
                     containerW  = element.clientWidth,
                     elPrev      = element.querySelector('[prev]'),
                     elNext      = element.querySelector('[next]'),
-                    track       = element.querySelector('.track'),
-                    itemList    = track.querySelectorAll('.item'),
+                    itemList    = element.querySelectorAll('.item'),
                     itemsLength = itemList.length,
-                    active      = element.querySelector('.item.active'),
-                    idxActive   = Array.prototype.indexOf.call(itemList, active);
+                    idxActive   = 0,
+                    skipLoop    = false;
 
                 function next( _callback ){
                     var idxNext     = itemList[idxActive + 1] ? idxActive + 1 : 0,
                         elCurrent   = itemList[idxActive],
-                        elNext      = itemList[idxNext],
-                        xPosition   = elNext.offsetLeft - ((containerW - elNext.getBoundingClientRect().width)/2);
+                        elNext      = itemList[idxNext];
 
-                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
-                        elNext.classList.add('active');
-                        elCurrent.classList.remove('active');
-                        idxActive = idxNext;
-                        if( angular.isFunction(_callback) ){ _callback(); }
-                    }});
+                    skipLoop  = true;
+                    idxActive = idxNext;
+                    angular.element(elCurrent).removeClass('active');
+                    angular.element(elNext).addClass('active');
+                    if( angular.isFunction(_callback) ){ _callback(); }
                 }
 
                 function prev( _callback ){
-                    var idxPrev = itemList[idxActive - 1] ? idxActive - 1 : itemsLength - 1,
+                    var idxPrev     = itemList[idxActive - 1] ? idxActive - 1 : itemsLength - 1,
                         elCurrent   = itemList[idxActive],
-                        elPrev      = itemList[idxPrev],
-                        xPosition   = elPrev.offsetLeft - ((containerW - elPrev.getBoundingClientRect().width)/2);
+                        elPrev      = itemList[idxPrev];
 
-                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
-                        elPrev.classList.add('active');
-                        elCurrent.classList.remove('active');
-                        idxActive = idxPrev;
-                        if( angular.isFunction(_callback) ){ _callback(); }
-                    }});
+                    skipLoop  = true;
+                    idxActive = idxPrev;
+                    angular.element(elCurrent).removeClass('active');
+                    angular.element(elPrev).addClass('active');
+                    if( angular.isFunction(_callback) ){ _callback(); }
                 }
 
                 angular.element(elPrev).on('click', prev);
@@ -48,6 +43,7 @@ angular.module("artsy.common").
 
                 (function _loop(){
                     setTimeout(function(){
+                        if( skipLoop ){ skipLoop = false; _loop(); return; }
                         next(_loop);
                     }, 4000);
                 })();

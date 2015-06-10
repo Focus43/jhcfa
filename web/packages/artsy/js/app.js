@@ -111,6 +111,201 @@
 angular.module('artsy.common', []);
 angular.module('artsy.common').
 
+    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            $scope.uiState = {
+                fetchInProgress: false,
+                showSearchExtras: false,
+                showTagList: false,
+                initialFetchComplete: false
+            };
+
+            $scope.overrideDateRange = {
+                start: moment().startOf('month'),//.format('YYYY-MM-DD'),
+                end: moment().add(5, 'months').endOf('month')//.format('YYYY-MM-DD')
+            };
+
+            $scope.isTextSearch = false;
+
+            $scope.filters = {
+                fields:     ['calendarID'],
+                keywords:   null,
+                calendars:  "",
+                tags:       "",
+                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
+                filepath:   true,
+                start:      moment().startOf('month').format('YYYY-MM-DD'),
+                end:        moment().endOf('month').format('YYYY-MM-DD'),//moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes: 'presenting_organization,date_display,ticket_link,event_not_ticketed'
+            };
+
+            $scope.fetch = function(){
+                $scope.uiState.fetchInProgress = true;
+
+                var data = ($scope.isTextSearch === false) ? $scope.filters : angular.extend({}, $scope.filters, {
+                    start: $scope.overrideDateRange.start.format('YYYY-MM-DD'),
+                    end: $scope.overrideDateRange.end.format('YYYY-MM-DD')
+                });
+                console.log($scope.filters);
+
+                Schedulizer.fetch(data).success(function( resp ){
+                    $scope.eventData = resp;
+                    $scope.uiState.fetchInProgress = false;
+                    $scope.uiState.initialFetchComplete = true;
+                }).error(function(){
+                    console.log('err');
+                });
+            };
+
+            $scope.setCategory = function( int ){
+                $scope.filters.categories = int;
+            };
+
+            // On page load, since $watch automatically applies itself once filters object becomes available,
+            // this will initialize the first load
+            $scope.$watch('filters', function( filters ){
+                $scope.isTextSearch = angular.isString(filters.keywords) && filters.keywords.length;
+                if( filters ){
+                    $scope.fetch();
+                }
+            }, true);
+
+            // Generate next 6 months list
+            var currentMonth    = moment();
+            currentMonth._selected = true;
+            $scope.monthsToView = [currentMonth];
+            for(var i = 1; i <= 5; i++){
+                var next = currentMonth.clone().add(i, 'month');
+                next._selected = false;
+                $scope.monthsToView.push(next);
+            }
+
+            $scope.selectedMonthIndex = 0;
+            $scope.selectMonth = function( $index ){
+                for(var i = 0, l = $scope.monthsToView.length; i < l; i++){
+                    $scope.monthsToView[i]._selected = false;
+                }
+                $scope.monthsToView[$index]._selected   = true;
+                $scope.selectedMonthIndex               = $index;
+                $scope.filters.start                    = $scope.monthsToView[$index].clone().startOf('month').format('YYYY-MM-DD');
+                $scope.filters.end                      = $scope.monthsToView[$index].clone().endOf('month').format('YYYY-MM-DD');
+            };
+
+            $scope.funcKeyup = function( $event ){
+                $scope.uiState.showSearchExtras = ($event.target.value.length !== 0);
+                $scope.uiState.fetchInProgress = true;
+            };
+
+            $scope.clearSearch = function(){
+                $scope.uiState.showSearchExtras = false;
+                $scope.filters.keywords = null;
+            };
+
+            $scope.selectedTags = [];
+            $scope.toggleTag = function( tagID ){
+                // Exists; so splice it off
+                if( $scope.selectedTags.indexOf(tagID) !== -1 ){
+                    $scope.selectedTags.splice($scope.selectedTags.indexOf(tagID), 1);
+                    $scope.filters.tags = $scope.selectedTags.join(',');
+                    return;
+                }
+                // Doesn't exist, append it
+                $scope.selectedTags.push(tagID);
+                $scope.filters.tags = $scope.selectedTags.join(',');
+            };
+
+            $scope.nextMonth = function(){
+                var nextIndex = $scope.selectedMonthIndex + 1;
+                if( $scope.monthsToView[nextIndex] ){
+                    $scope.selectMonth(nextIndex);
+                }
+            };
+
+            $scope.prevMonth = function(){
+                var prevIndex = $scope.selectedMonthIndex - 1;
+                if( $scope.monthsToView[prevIndex] ){
+                    $scope.selectMonth(prevIndex);
+                }
+            };
+
+        }
+    ]);
+
+angular.module('artsy.common').
+
+    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
+        function( $scope, Schedulizer, moment ){
+
+            $scope.eventData = [];
+
+            /**
+             * Need to use a watch to make sure ng-init completes and
+             * only send request once we have a valid value for featuredTagID
+             */
+            $scope.$watch('featuredTagID', function( featuredTagID ){
+                if( featuredTagID ){
+                    Schedulizer.fetch({
+                        fields: ['tags'],
+                        filepath:true,
+                        limit:10,
+                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
+                        attributes: 'date_display',
+                        tags: featuredTagID // passed via ng-init
+                    }).success(function( resp ){
+                        $scope.eventData = resp;
+                    });
+                }
+            });
+
+        }
+    ]);
+angular.module('artsy.common').
+
+    service('Schedulizer', ['$http', function( $http ){
+
+        var eventRoute      = '/_schedulizer/event_list',
+            defaultParams   = {
+                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
+                pagepath:   true,
+                grouping:   true
+            };
+
+        /**
+         * Joins the alwaysFields with custom fields and ensures no duplication.
+         * @param _fields
+         * @returns {*}
+         * @private
+         */
+        function mergeFields( a, b ){
+            var joined = a.concat(b);
+            return joined.filter(function( item, pos ){
+                return joined.indexOf(item) === pos;
+            });
+        }
+
+        /**
+         * @param fields array
+         * @param filters object
+         * @param cache bool
+         */
+        this.fetch = function( _filters, _cache ){
+            // Have to extend an empty object so we don't rewrite the original
+            // _filters.fields property to a string!
+            var filtersCopy = angular.extend({}, _filters, {
+                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+            });
+            return $http.get(eventRoute, {
+                cache:  (_cache === false) ? false : true,
+                params: angular.extend({}, defaultParams, filtersCopy)
+            });
+        };
+
+    }]);
+angular.module('artsy.common').
+
     directive('accordion', [
         function(){
 
@@ -188,38 +383,33 @@ angular.module("artsy.common").
                     containerW  = element.clientWidth,
                     elPrev      = element.querySelector('[prev]'),
                     elNext      = element.querySelector('[next]'),
-                    track       = element.querySelector('.track'),
-                    itemList    = track.querySelectorAll('.item'),
+                    itemList    = element.querySelectorAll('.item'),
                     itemsLength = itemList.length,
-                    active      = element.querySelector('.item.active'),
-                    idxActive   = Array.prototype.indexOf.call(itemList, active);
+                    idxActive   = 0,
+                    skipLoop    = false;
 
                 function next( _callback ){
                     var idxNext     = itemList[idxActive + 1] ? idxActive + 1 : 0,
                         elCurrent   = itemList[idxActive],
-                        elNext      = itemList[idxNext],
-                        xPosition   = elNext.offsetLeft - ((containerW - elNext.getBoundingClientRect().width)/2);
+                        elNext      = itemList[idxNext];
 
-                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
-                        elNext.classList.add('active');
-                        elCurrent.classList.remove('active');
-                        idxActive = idxNext;
-                        if( angular.isFunction(_callback) ){ _callback(); }
-                    }});
+                    skipLoop  = true;
+                    idxActive = idxNext;
+                    angular.element(elCurrent).removeClass('active');
+                    angular.element(elNext).addClass('active');
+                    if( angular.isFunction(_callback) ){ _callback(); }
                 }
 
                 function prev( _callback ){
-                    var idxPrev = itemList[idxActive - 1] ? idxActive - 1 : itemsLength - 1,
+                    var idxPrev     = itemList[idxActive - 1] ? idxActive - 1 : itemsLength - 1,
                         elCurrent   = itemList[idxActive],
-                        elPrev      = itemList[idxPrev],
-                        xPosition   = elPrev.offsetLeft - ((containerW - elPrev.getBoundingClientRect().width)/2);
+                        elPrev      = itemList[idxPrev];
 
-                    Tween.to(track, 0.5, {x:-xPosition, onComplete:function(){
-                        elPrev.classList.add('active');
-                        elCurrent.classList.remove('active');
-                        idxActive = idxPrev;
-                        if( angular.isFunction(_callback) ){ _callback(); }
-                    }});
+                    skipLoop  = true;
+                    idxActive = idxPrev;
+                    angular.element(elCurrent).removeClass('active');
+                    angular.element(elPrev).addClass('active');
+                    if( angular.isFunction(_callback) ){ _callback(); }
                 }
 
                 angular.element(elPrev).on('click', prev);
@@ -228,6 +418,7 @@ angular.module("artsy.common").
 
                 (function _loop(){
                     setTimeout(function(){
+                        if( skipLoop ){ skipLoop = false; _loop(); return; }
                         next(_loop);
                     }, 4000);
                 })();
@@ -634,201 +825,6 @@ angular.module('artsy.common').
             link: _link,
             scope: false
         };
-    }]);
-angular.module('artsy.common').
-
-    controller('CtrlCalendarPage', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            $scope.uiState = {
-                fetchInProgress: false,
-                showSearchExtras: false,
-                showTagList: false,
-                initialFetchComplete: false
-            };
-
-            $scope.overrideDateRange = {
-                start: moment().startOf('month'),//.format('YYYY-MM-DD'),
-                end: moment().add(5, 'months').endOf('month')//.format('YYYY-MM-DD')
-            };
-
-            $scope.isTextSearch = false;
-
-            $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  "",
-                tags:       "",
-                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
-                filepath:   true,
-                start:      moment().startOf('month').format('YYYY-MM-DD'),
-                end:        moment().endOf('month').format('YYYY-MM-DD'),//moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display,ticket_link,event_not_ticketed'
-            };
-
-            $scope.fetch = function(){
-                $scope.uiState.fetchInProgress = true;
-
-                var data = ($scope.isTextSearch === false) ? $scope.filters : angular.extend({}, $scope.filters, {
-                    start: $scope.overrideDateRange.start.format('YYYY-MM-DD'),
-                    end: $scope.overrideDateRange.end.format('YYYY-MM-DD')
-                });
-                console.log($scope.filters);
-
-                Schedulizer.fetch(data).success(function( resp ){
-                    $scope.eventData = resp;
-                    $scope.uiState.fetchInProgress = false;
-                    $scope.uiState.initialFetchComplete = true;
-                }).error(function(){
-                    console.log('err');
-                });
-            };
-
-            $scope.setCategory = function( int ){
-                $scope.filters.categories = int;
-            };
-
-            // On page load, since $watch automatically applies itself once filters object becomes available,
-            // this will initialize the first load
-            $scope.$watch('filters', function( filters ){
-                $scope.isTextSearch = angular.isString(filters.keywords) && filters.keywords.length;
-                if( filters ){
-                    $scope.fetch();
-                }
-            }, true);
-
-            // Generate next 6 months list
-            var currentMonth    = moment();
-            currentMonth._selected = true;
-            $scope.monthsToView = [currentMonth];
-            for(var i = 1; i <= 5; i++){
-                var next = currentMonth.clone().add(i, 'month');
-                next._selected = false;
-                $scope.monthsToView.push(next);
-            }
-
-            $scope.selectedMonthIndex = 0;
-            $scope.selectMonth = function( $index ){
-                for(var i = 0, l = $scope.monthsToView.length; i < l; i++){
-                    $scope.monthsToView[i]._selected = false;
-                }
-                $scope.monthsToView[$index]._selected   = true;
-                $scope.selectedMonthIndex               = $index;
-                $scope.filters.start                    = $scope.monthsToView[$index].clone().startOf('month').format('YYYY-MM-DD');
-                $scope.filters.end                      = $scope.monthsToView[$index].clone().endOf('month').format('YYYY-MM-DD');
-            };
-
-            $scope.funcKeyup = function( $event ){
-                $scope.uiState.showSearchExtras = ($event.target.value.length !== 0);
-                $scope.uiState.fetchInProgress = true;
-            };
-
-            $scope.clearSearch = function(){
-                $scope.uiState.showSearchExtras = false;
-                $scope.filters.keywords = null;
-            };
-
-            $scope.selectedTags = [];
-            $scope.toggleTag = function( tagID ){
-                // Exists; so splice it off
-                if( $scope.selectedTags.indexOf(tagID) !== -1 ){
-                    $scope.selectedTags.splice($scope.selectedTags.indexOf(tagID), 1);
-                    $scope.filters.tags = $scope.selectedTags.join(',');
-                    return;
-                }
-                // Doesn't exist, append it
-                $scope.selectedTags.push(tagID);
-                $scope.filters.tags = $scope.selectedTags.join(',');
-            };
-
-            $scope.nextMonth = function(){
-                var nextIndex = $scope.selectedMonthIndex + 1;
-                if( $scope.monthsToView[nextIndex] ){
-                    $scope.selectMonth(nextIndex);
-                }
-            };
-
-            $scope.prevMonth = function(){
-                var prevIndex = $scope.selectedMonthIndex - 1;
-                if( $scope.monthsToView[prevIndex] ){
-                    $scope.selectMonth(prevIndex);
-                }
-            };
-
-        }
-    ]);
-
-angular.module('artsy.common').
-
-    controller('CtrlFeaturedEvents', ['$scope', 'Schedulizer', 'moment',
-        function( $scope, Schedulizer, moment ){
-
-            $scope.eventData = [];
-
-            /**
-             * Need to use a watch to make sure ng-init completes and
-             * only send request once we have a valid value for featuredTagID
-             */
-            $scope.$watch('featuredTagID', function( featuredTagID ){
-                if( featuredTagID ){
-                    Schedulizer.fetch({
-                        fields: ['tags'],
-                        filepath:true,
-                        limit:10,
-                        end:moment().add(6, 'months').format("YYYY-MM-DD"),
-                        attributes: 'date_display',
-                        tags: featuredTagID // passed via ng-init
-                    }).success(function( resp ){
-                        $scope.eventData = resp;
-                    });
-                }
-            });
-
-        }
-    ]);
-angular.module('artsy.common').
-
-    service('Schedulizer', ['$http', function( $http ){
-
-        var eventRoute      = '/_schedulizer/event_list',
-            defaultParams   = {
-                fields:     ['computedStartLocal', 'computedStartUTC', 'title'],
-                pagepath:   true,
-                grouping:   true
-            };
-
-        /**
-         * Joins the alwaysFields with custom fields and ensures no duplication.
-         * @param _fields
-         * @returns {*}
-         * @private
-         */
-        function mergeFields( a, b ){
-            var joined = a.concat(b);
-            return joined.filter(function( item, pos ){
-                return joined.indexOf(item) === pos;
-            });
-        }
-
-        /**
-         * @param fields array
-         * @param filters object
-         * @param cache bool
-         */
-        this.fetch = function( _filters, _cache ){
-            // Have to extend an empty object so we don't rewrite the original
-            // _filters.fields property to a string!
-            var filtersCopy = angular.extend({}, _filters, {
-                fields: mergeFields(_filters.fields || [], defaultParams.fields)
-            });
-            return $http.get(eventRoute, {
-                cache:  (_cache === false) ? false : true,
-                params: angular.extend({}, defaultParams, filtersCopy)
-            });
-        };
-
     }]);
 /* global Modernizr */
 /* global FastClick */
