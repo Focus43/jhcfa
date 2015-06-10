@@ -44,7 +44,7 @@
         <div class="bottom" slideable>
             <a class="btn btn-block btn-lg btn-primary" href="https://www.vendini.com/donation-software.html?d=7d53ce493d7bf407e2c7f731efff130f&t=donation" target="_blank">Donate</a>
             <div class="btn-group btn-group-justified">
-                <a class="btn btn-dark" href="/box_office">Box Office</a>
+                <a class="btn btn-dark" href="/box-office">Box Office</a>
                 <a class="btn btn-dark" href="/contact">Contact</a>
             </div>
             <div searchable="<?php echo Router::route(array('site_search', 'artsy')); ?>">
