@@ -10,7 +10,7 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
   }
   // Inner container
   .inner-1 {width:100%;height:100%;position:relative;@include scrollOverflow;}
-  [searchable]{position:relative;
+  [searchable]{display:none;position:relative;
     i {font-size:22px;position:absolute;top:13px;left:10px;color:lighten($sidebar-bg-color, 30%);}
     input {color:#fff;font-family:$theme-font-family;padding:1rem 1rem 0.9rem 2.25rem;display:block;width:100%;width:100%;background:lighten($sidebar-bg-color, 8%);border:0;outline:0;@include border-radius(0);}
   }
@@ -64,6 +64,7 @@ html.nav-open {
   nav[primary]{
     [trigger]{top:1.5rem;margin:0.5rem;}
     .bottom {position:absolute;bottom:0;left:0;right:0;width:100%;}
+    [searchable]{display:block;}
   }
 
   // Flyout menus on NOT mobile and NOT touch device
