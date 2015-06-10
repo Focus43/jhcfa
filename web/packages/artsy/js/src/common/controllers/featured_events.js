@@ -15,6 +15,7 @@ angular.module('artsy.common').
                         fields: ['tags'],
                         filepath:true,
                         limit:10,
+                        start:moment().format('YYYY-MM-DD'),
                         end:moment().add(6, 'months').format("YYYY-MM-DD"),
                         attributes: 'date_display',
                         tags: featuredTagID // passed via ng-init
