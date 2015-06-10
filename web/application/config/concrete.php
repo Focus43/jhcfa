@@ -29,7 +29,6 @@ $trackingCode = <<<EOT
 </script>
 EOT;
 
-
 return array(
     'maintenance_mode' => false,
     'site' => 'Center for the Arts',
@@ -62,9 +61,9 @@ return array(
     ),
     'debug' => array(
         'detail' => 'message' // debug|message
-    ),
-    'cache' => array(
-        'pages' => true,
+    )
+    ,'cache' => array(
+        'pages' => 'all',
         'levels' => array(
             'expensive' => array(
                 'drivers' => array(

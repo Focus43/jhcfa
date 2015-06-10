@@ -10,6 +10,7 @@
      */
     class ArtsyPageController extends PageController {
 
+        protected $supportsPageCache            = true;
         protected $_includeThemeAssets          = false;
         protected $_includeSocialTags           = true;
         protected $_includeOpenGraphImageTag    = true;
