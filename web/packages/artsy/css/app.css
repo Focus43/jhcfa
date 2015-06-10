@@ -691,6 +691,7 @@ nav[primary] {
     nav[primary] ul.majority {
       padding-top: 2rem; }
     nav[primary] ul.sub {
+      font-size: 100%;
       visibility: hidden;
       opacity: 0;
       position: absolute;

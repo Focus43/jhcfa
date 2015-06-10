@@ -20,7 +20,7 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
   // All menus
   ul {font-size:115%;list-style:none;padding:0;text-transform:uppercase;
     &.majority {padding-top:2rem;}
-    &.sub {visibility:hidden;opacity:0;position:absolute;top:0;left:100%;width:100%;@include transition(all $revealers-animate-time $revealers-animate-function)}
+    &.sub {font-size:100%;visibility:hidden;opacity:0;position:absolute;top:0;left:100%;width:100%;@include transition(all $revealers-animate-time $revealers-animate-function)}
     li {
       a {padding:1rem 2rem;@include transition(color 0.35s ease);
         &:hover {color:$theme-primary-color;}
