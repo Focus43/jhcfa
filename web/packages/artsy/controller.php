@@ -410,7 +410,6 @@
          */
         private function setupSinglePages(){
             SinglePage::add('/calendar', $this->packageObject());
-            SinglePage::add('/box_office', $this->packageObject());
             SinglePage::add('/blog', $this->packageObject());
 
             return $this;
