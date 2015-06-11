@@ -43,7 +43,7 @@
     </form>
 
     <div class="pseudo-container month-display" ng-cloak>
-        <div class="btn-group btn-group-justified" ng-show="!isTextSearch">
+        <div class="btn-group btn-group-justified" ng-show="!isTextSearch && !uiState.showSearchExtras">
             <a class="btn btn-lg" ng-repeat="moment in monthsToView" ng-class="{'active':moment._selected}" ng-click="selectMonth($index)">{{ moment.format('MMM') }}</a>
         </div>
         <div class="text-center lead range-msg" ng-show="isTextSearch || uiState.showSearchExtras">
