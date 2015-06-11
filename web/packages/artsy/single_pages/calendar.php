@@ -42,14 +42,12 @@
         </div>
     </form>
 
-    <div class="pseudo-container month-display">
-        <div class="btn-group btn-group-justified" ng-cloak ng-show="!isTextSearch">
+    <div class="pseudo-container month-display" ng-cloak>
+        <div class="btn-group btn-group-justified" ng-show="!isTextSearch">
             <a class="btn btn-lg" ng-repeat="moment in monthsToView" ng-class="{'active':moment._selected}" ng-click="selectMonth($index)">{{ moment.format('MMM') }}</a>
         </div>
-        <div class="btn-group btn-group-justified" ng-show="isTextSearch">
-            <a class="btn btn-lg">
-                Text Search Looks Through {{ overrideDateRange.end.format('MMM YY') }}
-            </a>
+        <div class="text-center lead range-msg" ng-show="isTextSearch || uiState.showSearchExtras">
+            Text Search Looks Through {{ overrideDateRange.end.format('MMM YY') }}
         </div>
     </div>
 
@@ -81,7 +79,7 @@
                 </div>
             </div>
 
-            <div class="prev-next clearfix">
+            <div class="prev-next clearfix" ng-show="!isTextSearch">
                 <a class="btn-prev btn btn-lg btn-primary pull-left" ng-click="prevMonth()" ng-hide="selectedMonthIndex == 0"><i class="icon-angle-left"></i>Prev Month</a>
                 <a class="btn-next btn btn-lg btn-primary pull-right" ng-click="nextMonth()" ng-hide="selectedMonthIndex == (monthsToView.length - 1)">Next Month <i class="icon-angle-right"></i></a>
             </div>
