@@ -36,7 +36,7 @@
         public function getSingleImageSrc(){
             $fileObj = $this->pageObj->getAttribute(PackageController::ATTR_COLLECTION_PAGE_IMAGE);
             if( $fileObj instanceof File && $fileObj->getFileID() >= 1 ){
-                return $fileObj->getApprovedVersion()->getRelativePath();
+                return $fileObj->getApprovedVersion()->getThumbnailURL('large');
             }
 
             /** @var $fileList \Concrete\Core\File\FileList */
@@ -44,7 +44,7 @@
             $fileList->filterBySet(FileSet::getByName(PackageController::FILESET_BACKGROUND_IMG));
             $results = $fileList->getQueryObject()->execute()->fetchAll();
             if( !empty($results) ){
-                return File::getByID($results[array_rand($results, 1)]['fID'])->getApprovedVersion()->getRelativePath();
+                return File::getByID($results[array_rand($results, 1)]['fID'])->getApprovedVersion()->getThumbnailURL('large');
             }
         }
 

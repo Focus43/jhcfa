@@ -39,7 +39,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.29';
+        protected $pkgVersion 			        = '0.31';
 
 
         /**
@@ -457,6 +457,15 @@
                 $type->setName('Event Thumb');
                 $type->setHandle('event_thumb');
                 $type->setWidth(740);
+                $type->save();
+            }
+
+            $largeThumbnail = \Concrete\Core\File\Image\Thumbnail\Type\Type::getByHandle('large');
+            if( ! is_object($largeThumbnail) ){
+                $type = new \Concrete\Core\File\Image\Thumbnail\Type\Type();
+                $type->setName('Large');
+                $type->setHandle('large');
+                $type->setWidth(1440);
                 $type->save();
             }
 
