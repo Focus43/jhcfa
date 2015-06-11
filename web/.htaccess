@@ -30,6 +30,9 @@
   RewriteCond %{REQUEST_URI} ^/support$ [NC]
   RewriteRule ^ %{REQUEST_URI}/the-center-fund [L,R=301]
 
+  # Sitemap.xml
+  RewriteRule ^sitemap\.xml?$ %{DOCUMENT_ROOT}/application/files/sitemap.xml [NC,L]
+
   RewriteBase /
   RewriteCond %{REQUEST_URI} !^/favicon.ico$
   RewriteCond %{REQUEST_FILENAME} !-f
