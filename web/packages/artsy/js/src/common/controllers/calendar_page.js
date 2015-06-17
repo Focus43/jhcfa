@@ -38,7 +38,6 @@ angular.module('artsy.common').
                     start: $scope.overrideDateRange.start.format('YYYY-MM-DD'),
                     end: $scope.overrideDateRange.end.format('YYYY-MM-DD')
                 });
-                console.log($scope.filters);
 
                 Schedulizer.fetch(data).success(function( resp ){
                     $scope.eventData = resp;
