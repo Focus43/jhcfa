@@ -15,7 +15,7 @@
       &:hover span {padding-bottom:2rem;}
     }
   }
-  .fb-comments, .fb-comments * {width:100% !important;}
+  .fb-comments, .fb-comments * {width:100% !important;display:block;}
 }
 
 @media screen and (min-width:$screen-sm){
