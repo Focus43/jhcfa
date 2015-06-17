@@ -2,35 +2,31 @@
 
     <form name="calendarForm" class="event-search" ng-submit="fetch()">
         <div class="pseudo-container">
-            <div class="text-input-wrap">
-                <input name="textSearch" type="text" class="form-control" placeholder="Search" ng-model="filters.keywords" ng-minlength="5" ng-model-options="{debounce:600}" ng-keyup="funcKeyup($event)" />
-                <a class="clear-text" ng-click="clearSearch()" ng-show="uiState.showSearchExtras"><i class="icon-close"></i></a>
+            <div class="tabular">
+                <div class="cellular">
+                    <div class="text-input-wrap">
+                        <input name="textSearch" type="text" class="form-control" placeholder="Search" ng-model="filters.keywords" ng-minlength="5" ng-model-options="{debounce:600}" ng-keyup="funcKeyup($event)" />
+                        <a class="clear-text" ng-click="clearSearch()" ng-show="uiState.showSearchExtras"><i class="icon-close"></i></a>
+                    </div>
+                    <div class="select-wrap">
+                        <select class="calendar-list form-control" ng-model="filters.calendars">
+                            <option value="">All Calendars</option>
+                            <?php foreach($calendarList AS $id => $label){ ?>
+                                <option value="<?php echo $id; ?>"><?php echo $label; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn btn-default" ng-click="setCategory(null)" ng-class="{active:!filters.categories}">All</a>
+                        <?php foreach($categoryList AS $id => $label){ ?>
+                            <a class="btn btn-default" ng-click="setCategory(<?php echo $id; ?>)" ng-class="{active:filters.categories == <?php echo $id; ?>}" data-handle="<?php echo $label; ?>">
+                                <?php echo $label; ?>
+                            </a>
+                        <?php } ?>
+                    </div>
+                    <span class="filter-by-tags" ng-click="uiState.showTagList = !uiState.showTagList">Filter By Tags</span>
+                </div>
             </div>
-            <div class="select-wrap">
-                <select class="calendar-list form-control" ng-model="filters.calendars">
-                    <option value="">All Calendars</option>
-                    <?php foreach($calendarList AS $id => $label){ ?>
-                        <option value="<?php echo $id; ?>"><?php echo $label; ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-<!--            <div class="select-wrap">-->
-<!--                <select class="tag-list form-control" ng-model="filters.tags">-->
-<!--                    <option value="">Tags</option>-->
-<!--                    --><?php //foreach($tagList AS $id => $label){ ?>
-<!--                        <option value="--><?php //echo $id; ?><!--">--><?php //echo $label; ?><!--</option>-->
-<!--                    --><?php //} ?>
-<!--                </select>-->
-<!--            </div>-->
-            <div class="btn-group">
-                <a class="btn btn-default" ng-click="setCategory(null)" ng-class="{active:!filters.categories}">All</a>
-                <?php foreach($categoryList AS $id => $label){ ?>
-                    <a class="btn btn-default" ng-click="setCategory(<?php echo $id; ?>)" ng-class="{active:filters.categories == <?php echo $id; ?>}" data-handle="<?php echo $label; ?>">
-                        <?php echo $label; ?>
-                    </a>
-                <?php } ?>
-            </div>
-            <span class="filter-by-tags" ng-click="uiState.showTagList = !uiState.showTagList">Filter By Tags</span>
         </div>
 
         <span class="msg" ng-class="{viz:uiState.showSearchExtras}">Make sure your search contains at least 5 characters</span>

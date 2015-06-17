@@ -9,10 +9,14 @@
       input[type="text"], .form-control {font-size:100%;padding:5px 10px 7px;display:block;width:100%;}
       .clear-text {position:absolute;top:0;right:0;font-size:30px;line-height:1;padding-top:3px;text-decoration:none !important;}
     }
-    .select-wrap{max-width:180px;background:#fff;display:none;position:relative;z-index:2;
+    .select-wrap{line-height:0;max-width:180px;background:#fff;display:none;position:relative;z-index:2;
       &::after {content: "\e636";font-family:'icomoon';position:absolute;top:50%;right:5px;font-size:24px;z-index:-1;@include transform(translateY(-50%));}
       &.block {display:block;}
-      select {height:auto;line-height:1;max-width:100%;padding:8px 40px 10px 8px;text-transform:capitalize;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;@include border-radius(0);}
+      select {height:auto;max-width:100%;padding:6px 40px 6px 8px;text-transform:capitalize;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;@include border-radius(0);
+        &::-ms-expand {display:none;}
+        &:-moz-focusring {color:transparent;text-shadow:0 0 0 #000;}
+        option {line-height:1rem;vertical-align:middle;}
+      }
     }
     .btn-group {
       .btn {border:0;}
@@ -125,9 +129,8 @@
 @media screen and (min-width:$screen-sm){
   .pg-calendar #c-level-1 main {
     .event-search {
-      .form-control[type="text"]{display:inline-block;width:auto;}
-      .text-input-wrap {display:inline-block;}
-      .select-wrap {display:inline-block;}
+      .form-control[type="text"]{display:inline-block;width:auto;vertical-align:middle;}
+      .text-input-wrap, .select-wrap {display:inline-block;vertical-align:middle;}
     }
     .month-display {padding:0 15px;}
     [event-list] {
@@ -137,6 +140,7 @@
     }
   }
 }
+
 
 //@media screen and (min-width:$screen-md){
 //  .pg-calendar #c-level-1 main {
