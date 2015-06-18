@@ -99,10 +99,10 @@
                             </div>
                             <div class="sidebar-box">
                                 <label>Event Time(s)</label>
-                                <ul class="event-times list-unstyled">
-                                    <?php if(empty($first10EventTimes)){ ?>
-                                        <li><strong>This event occurred in the past.</strong></li>
-                                    <?php }else{ ?>
+                                <?php if(empty($first10EventTimes)){ ?>
+                                    <p><strong>This event occurred in the past.</strong></p>
+                                <?php }else{ ?>
+                                    <ul class="event-times list-unstyled">
                                         <?php foreach($first10EventTimes AS $row): ?>
                                             <li>
                                                 <?php
@@ -122,13 +122,13 @@
                                                 </li>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
-                                    <?php } ?>
-                                </ul>
-                                <?php if( ! (bool)$eventObj->getAttribute('event_not_ticketed') ): ?>
-                                    <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">
-                                        Get Tickets
-                                    </a>
-                                <?php endif; ?>
+                                    </ul>
+                                    <?php if( ! (bool)$eventObj->getAttribute('event_not_ticketed') ): ?>
+                                        <a class="btn btn-lg btn-block btn-primary tickets-btn" target="_blank" href="<?php echo $eventObj->getAttribute('ticket_link'); ?>">
+                                            Get Tickets
+                                        </a>
+                                    <?php endif; ?>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
