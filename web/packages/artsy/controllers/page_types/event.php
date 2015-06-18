@@ -46,9 +46,12 @@
             $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
         }
 
-        protected function eventList( $eventObj ){
+        protected function eventList( \Concrete\Package\Schedulizer\Src\Event $eventObj ){
+            // Create event list object
             $eventListObj = new SchedulizerEventList(array($eventObj->getCalendarID()));
             $eventListObj->setEventIDs(array($eventObj->getID()));
+            // $eventObj->getEarliestStartTime() returns a filtered DateTime object representing earliest occurrence of the event
+            //$eventListObj->setStartDate($eventObj->getEarliestStartTime());
             $eventListObj->setDaysIntoFuture(365);
             $eventListObj->includeColumns(array(
                 'computedStartLocal'
