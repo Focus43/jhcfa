@@ -31,7 +31,7 @@ angular.module('artsy.common').
             // Have to extend an empty object so we don't rewrite the original
             // _filters.fields property to a string!
             var filtersCopy = angular.extend({}, _filters, {
-                fields: mergeFields(_filters.fields || [], defaultParams.fields)
+                fields: mergeFields(_filters.fields || [], defaultParams.fields).join(',')
             });
             return $http.get(eventRoute, {
                 cache:  (_cache === false) ? false : true,
