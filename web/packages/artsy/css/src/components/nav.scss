@@ -44,7 +44,6 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
 
 .pg-home {
   nav[primary] [trigger]{top:0;}
-  video.fullscreen {@include transition(transform 0.2s linear);}
 }
 
 .dock-nav-icon {
