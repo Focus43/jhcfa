@@ -17,13 +17,14 @@ footer {color:#000;position:relative;margin-top:1rem;background:none;overflow:hi
 
 #c-level-1 footer [class*="col-"] {padding-left:($grid-gutter-width/4);padding-right:($grid-gutter-width/4);}
 
-.pg-home footer {
+.pg-home footer {background:rgba(35,25,32,0.5);
   .inner-content, .quick-links a {color:#fff;}
+  h3 {background:rgba($theme-extra-light-color,0.15);color:$theme-extra-light-color;}
 }
 
 @media screen and (min-width:$screen-sm){
-  .pg-home footer {background:rgba(35,25,32,0.5);margin-top:0;color:#fff;
-    h3 {color:#fff;}
+  .pg-home footer {/*background:rgba(35,25,32,0.5);*/margin-top:0;color:#fff;
+    h3 {color:#fff;background:none;}
   }
 
   footer {margin-top:2rem;padding:2rem 0 0;

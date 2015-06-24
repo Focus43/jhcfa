@@ -56,7 +56,8 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
 html.nav-open {
   [revealing] {@include transform(translate3d($nav-sidebar-width,0,0));}
   nav [trigger] b {display:none;}
-  #c-level-1 main::before {content:'';display:block;position:fixed;top:0;left:0;width:150%;min-height:150%;bottom:0;background:rgba(0,0,0,0.5);z-index:99;}
+  //#c-level-1 main::before {content:'';display:block;position:fixed;top:0;left:0;width:150%;min-height:150%;bottom:0;background:rgba(0,0,0,0.5);z-index:99;overflow:hidden;}
+  nav::after {content:'';display:block;position:absolute;top:0;left:100%;width:500%;min-height:150%;background:rgba(0,0,0,0.5);z-index:98;}
 }
 
 @media screen and (min-width:$screen-sm){

@@ -58,6 +58,9 @@ if (is_object($c)) {
 }
 ?>
 <meta http-equiv="content-type" content="text/html; charset=<?php echo APP_CHARSET?>" />
+<link rel="shortcut icon" href="/packages/artsy/images/cfa-ico.png" type="image/x-icon"/>
+<link rel="icon" href="/packages/artsy/images/cfa-ico.png" type="image/x-icon"/>
+<link rel="apple-touch-icon" href="/packages/artsy/images/cfa-apple-ico.png"/>
 <?php
 $akd = $c->getCollectionAttributeValue('meta_description');
 $akk = $c->getCollectionAttributeValue('meta_keywords');
@@ -115,43 +118,45 @@ if (Config::get('concrete.user.profiles_enabled') && $u->isRegistered()) {
 	$v->addFooterItem('<script type="text/javascript">$(function() { ccm_enableUserProfileMenu(); });</script>');
 }
 
-$favIconFID=intval(Config::get('concrete.misc.favicon_fid'));
-$appleIconFID =intval(Config::get('concrete.misc.iphone_home_screen_thumbnail_fid'));
-$modernIconFID = intval(Config::get('concrete.misc.modern_tile_thumbnail_fid'));
-$modernIconBGColor = strval(Config::get('concrete.misc.modern_tile_thumbnail_bgcolor'));
+// @note: the favicons are hardcoded above...
 
-if($favIconFID) {
-    $f = File::getByID($favIconFID);
-    if (is_object($f)) {
-        ?>
-        <link rel="shortcut icon" href="<?php echo $f->getRelativePath() ?>" type="image/x-icon"/>
-        <link rel="icon" href="<?php echo $f->getRelativePath() ?>" type="image/x-icon"/>
-    <?php
-    }
-}
-
-if($appleIconFID) {
-    $f = File::getByID($appleIconFID);
-    if (is_object($f)) {
-        ?>
-        <link rel="apple-touch-icon" href="<?php echo $f->getRelativePath() ?>"/>
-    <?php
-    }
-}
-
-if($modernIconFID) {
-	$f = File::getByID($modernIconFID);
-    if(is_object($f)) {
-        ?>
-        <meta name="msapplication-TileImage" content="<?php echo $f->getRelativePath(); ?>" /><?php
-        echo "\n";
-        if (strlen($modernIconBGColor)) {
-            ?>
-            <meta name="msapplication-TileColor" content="<?php echo $modernIconBGColor; ?>" /><?php
-            echo "\n";
-        }
-    }
-}
+//$favIconFID=intval(Config::get('concrete.misc.favicon_fid'));
+//$appleIconFID =intval(Config::get('concrete.misc.iphone_home_screen_thumbnail_fid'));
+//$modernIconFID = intval(Config::get('concrete.misc.modern_tile_thumbnail_fid'));
+//$modernIconBGColor = strval(Config::get('concrete.misc.modern_tile_thumbnail_bgcolor'));
+//
+//if($favIconFID) {
+//    $f = File::getByID($favIconFID);
+//    if (is_object($f)) {
+//        ?>
+<!--        <link rel="shortcut icon" href="--><?php //echo $f->getRelativePath() ?><!--" type="image/x-icon"/>-->
+<!--        <link rel="icon" href="--><?php //echo $f->getRelativePath() ?><!--" type="image/x-icon"/>-->
+<!--    --><?php
+//    }
+//}
+//
+//if($appleIconFID) {
+//    $f = File::getByID($appleIconFID);
+//    if (is_object($f)) {
+//        ?>
+<!--        <link rel="apple-touch-icon" href="--><?php //echo $f->getRelativePath() ?><!--"/>-->
+<!--    --><?php
+//    }
+//}
+//
+//if($modernIconFID) {
+//	$f = File::getByID($modernIconFID);
+//    if(is_object($f)) {
+//        ?>
+<!--        <meta name="msapplication-TileImage" content="--><?php //echo $f->getRelativePath(); ?><!--" />--><?php
+//        echo "\n";
+//        if (strlen($modernIconBGColor)) {
+//            ?>
+<!--            <meta name="msapplication-TileColor" content="--><?php //echo $modernIconBGColor; ?><!--" />--><?php
+//            echo "\n";
+//        }
+//    }
+//}
 
 if (is_object($cp)) {
 
