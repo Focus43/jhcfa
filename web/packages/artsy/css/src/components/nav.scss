@@ -9,7 +9,7 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
     b {font-size:80%;position:absolute;top:0.9rem;left:2rem;font-weight:normal;}
   }
   // Inner container
-  .inner-1 {width:100%;height:100%;position:relative;@include scrollOverflow;}
+  .inner-1 {width:100%;height:100%;position:relative;z-index:99;@include scrollOverflow;}
   [searchable]{display:none;position:relative;
     i {font-size:22px;position:absolute;top:13px;left:10px;color:lighten($sidebar-bg-color, 30%);}
     input {color:#fff;font-family:$theme-font-family;padding:1rem 1rem 0.9rem 2.25rem;display:block;width:100%;width:100%;background:lighten($sidebar-bg-color, 8%);border:0;outline:0;@include border-radius(0);}
@@ -20,7 +20,7 @@ nav[primary] {font-family:$theme-font-family-bold;width:$nav-sidebar-width;heigh
   // All menus
   ul {font-size:115%;list-style:none;padding:0;text-transform:uppercase;
     &.majority {padding-top:2rem;}
-    &.sub {font-size:100%;visibility:hidden;opacity:0;position:absolute;top:0;left:100%;width:100%;@include transition(all $revealers-animate-time $revealers-animate-function)}
+    &.sub {font-size:100%;visibility:hidden;opacity:0;position:absolute;top:0;left:100%;width:100%;z-index:99;@include transition(all $revealers-animate-time $revealers-animate-function)}
     li {
       a {padding:1rem 2rem;@include transition(color 0.35s ease);
         &:hover {color:$theme-primary-color;}
@@ -57,7 +57,7 @@ html.nav-open {
   [revealing] {@include transform(translate3d($nav-sidebar-width,0,0));}
   nav [trigger] b {display:none;}
   //#c-level-1 main::before {content:'';display:block;position:fixed;top:0;left:0;width:150%;min-height:150%;bottom:0;background:rgba(0,0,0,0.5);z-index:99;overflow:hidden;}
-  nav::after {content:'';display:block;position:absolute;top:0;left:100%;width:500%;min-height:150%;background:rgba(0,0,0,0.5);z-index:98;}
+  nav::before {content:'';display:block;position:absolute;top:0;left:100%;width:500%;min-height:150%;background:rgba(0,0,0,0.5);z-index:98;}
 }
 
 @media screen and (min-width:$screen-sm){
