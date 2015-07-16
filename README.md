@@ -1,10 +1,8 @@
 # Center For The Arts
 
 To hack on this project, you'll need VirtualBox and Vagrant installed on your local machine. The `vagrant` directory
-is a submodule, thus you'll to initialize it.
-
-From the project root, use the command below to initialize the submodule (and any other ones relevant in the
-project):
+is a submodule, thus you'll to initialize it. From the project root, use the command below to initialize the vagrant
+submodule (and any other ones relevant in the project):
 
 ```
 $: git submodule update --init --recursive
