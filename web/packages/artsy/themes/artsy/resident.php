@@ -8,9 +8,12 @@
     <?php $this->inc('elements/nav.php'); ?>
 
     <main revealing>
-        <?php $this->inc('elements/header.php', array(
-            'expanded'          => true,
-            'mastheadImageSrc'  => $mastheadHelper->getSingleImageSrc()
+        <?php
+        $mastheadImg = $mastheadHelper->getSingleImageSrc();
+        $this->inc('elements/header.php', array(
+            'expanded'              => true,
+            'mastheadImageSrc'      => $mastheadImg->src,
+            'mastheadImageCredit'   => $mastheadImg->credit
         )); ?>
 
         <div class="area-main clearfix">

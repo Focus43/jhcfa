@@ -9,7 +9,8 @@ angular.module('artsy.common').
                 fetchInProgress: false,
                 showSearchExtras: false,
                 showTagList: false,
-                initialFetchComplete: false
+                initialFetchComplete: false,
+                clearAllViz: false
             };
 
             $scope.overrideDateRange = {
@@ -58,6 +59,10 @@ angular.module('artsy.common').
                 $scope.isTextSearch = angular.isString(filters.keywords) && filters.keywords.length;
                 if( filters ){
                     $scope.fetch();
+
+                    if( $scope.filters.keywords !== null || $scope.filters.calendars !== '' || $scope.filters.tags !== '' ){
+                        $scope.uiState.clearAllViz = true;
+                    }
                 }
             }, true);
 
@@ -90,6 +95,15 @@ angular.module('artsy.common').
             $scope.clearSearch = function(){
                 $scope.uiState.showSearchExtras = false;
                 $scope.filters.keywords = null;
+            };
+
+            $scope.clearAll = function(){
+                $scope.uiState.clearAllViz = false;
+                $scope.uiState.showSearchExtras = false;
+                $scope.filters.keywords = null;
+                $scope.filters.tags = "";
+                $scope.filters.calendars = "";
+                $scope.filters.categories = 1;
             };
 
             $scope.selectedTags = [];

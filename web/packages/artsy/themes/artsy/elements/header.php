@@ -30,4 +30,8 @@
             </div>
         </div>
     <?php endif; ?>
+
+    <?php if( !empty($mastheadImageCredit) ): ?>
+        <span class="photo-credit">Photo Credit: <?php echo $mastheadImageCredit; ?></span>
+    <?php endif; ?>
 </header>

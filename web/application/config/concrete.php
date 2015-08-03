@@ -30,6 +30,18 @@ $trackingCode = <<<EOT
 EOT;
 
 return array(
+    'mail' => array(
+        'method' => 'SMTP',
+        'methods' => array(
+            'smtp' => array(
+                'server'        => 'smtp.mandrillapp.com',
+                'port'          => 587,
+                'username'      => 'arik@focus-43.com',
+                'password'      => 'sdNMQBtbdJAJJOQ4sOnJ6Q',
+                'encryption'    => 'TLS'
+            )
+        )
+    ),
     'maintenance_mode' => false,
     'site' => 'Center for the Arts',
     'seo' => array(

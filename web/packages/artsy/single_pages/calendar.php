@@ -25,6 +25,7 @@
                         <?php } ?>
                     </div>
                     <span class="filter-by-tags" ng-click="uiState.showTagList = !uiState.showTagList">Filter By Tags</span>
+                    <span class="clear-all" ng-click="clearAll()" ng-class="{viz:uiState.clearAllViz}">Clear All</span>
                 </div>
             </div>
         </div>

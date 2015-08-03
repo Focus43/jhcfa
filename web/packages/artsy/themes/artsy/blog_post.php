@@ -8,7 +8,11 @@
     <?php $this->inc('elements/nav.php'); ?>
 
     <main revealing>
-        <?php $mastheadImageSrc = $mastheadHelper->getSingleImageSrc(); ?>
+        <?php
+            $mastheadImage          = $mastheadHelper->getSingleImageSrc();
+            $mastheadImageSrc       = $mastheadImage->src;
+            $mastheadImageCredit    = $mastheadImage->credit;
+        ?>
         <header<?php if(!empty($mastheadImageSrc)){echo ' style="background-image:url('.$mastheadImageSrc.');"';} ?>>
             <a class="logo" href="/">
                 <?php $this->inc('../../images/logo-breakup-small.svg'); ?>
@@ -31,6 +35,10 @@
                     </div>
                 </div>
             </div>
+
+            <?php if( !empty($mastheadImageCredit) ): ?>
+                <span class="photo-credit">Photo Credit: <?php echo $mastheadImageCredit; ?></span>
+            <?php endif; ?>
         </header>
 
         <div class="area-main">

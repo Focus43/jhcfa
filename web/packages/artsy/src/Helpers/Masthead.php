@@ -36,7 +36,12 @@
         public function getSingleImageSrc(){
             $fileObj = $this->pageObj->getAttribute(PackageController::ATTR_COLLECTION_PAGE_IMAGE);
             if( $fileObj instanceof File && $fileObj->getFileID() >= 1 ){
-                return $fileObj->getApprovedVersion()->getThumbnailURL('large');
+                $approvedFileObj = $fileObj->getApprovedVersion();
+                return (object) array(
+                    'src'    => $approvedFileObj->getThumbnailURL('large'),
+                    'credit' => $approvedFileObj->getAttribute('photo_credit')
+                );
+                //return $approvedFileObj->getThumbnailURL('large');
             }
 
             /** @var $fileList \Concrete\Core\File\FileList */
@@ -44,7 +49,12 @@
             $fileList->filterBySet(FileSet::getByName(PackageController::FILESET_BACKGROUND_IMG));
             $results = $fileList->getQueryObject()->execute()->fetchAll();
             if( !empty($results) ){
-                return File::getByID($results[array_rand($results, 1)]['fID'])->getApprovedVersion()->getThumbnailURL('large');
+                $approvedFileObj = File::getByID($results[array_rand($results, 1)]['fID'])->getApprovedVersion();
+                return (object) array(
+                    'src'    => $approvedFileObj->getThumbnailURL('large'),
+                    'credit' => $approvedFileObj->getAttribute('photo_credit')
+                );
+                //return $approvedFileObj->getThumbnailURL('large');
             }
         }
 

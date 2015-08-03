@@ -22,6 +22,9 @@
       .btn {border:0;}
     }
     .filter-by-tags {cursor:pointer;display:inline-block;font-size:80%;font-family:$theme-font-family-bold;text-transform:uppercase;line-height:1;padding-left:8px;}
+    .clear-all {cursor:pointer;display:none;font-size:80%;font-family:$theme-font-family-bold;text-transform:uppercase;line-height:1;padding-left:8px;
+      &.viz {display:inline-block;}
+    }
   }
 
   .search-tag-list {padding-top:0.75rem;
