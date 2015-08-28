@@ -450,15 +450,6 @@
          * @return Controller
          */
         private function setupThumbnailTypes(){
-            $eventThumbnail = \Concrete\Core\File\Image\Thumbnail\Type\Type::getByHandle('event_thumb');
-            if( ! is_object($eventThumbnail) ){
-                $type = new \Concrete\Core\File\Image\Thumbnail\Type\Type();
-                $type->setName('Event Thumb');
-                $type->setHandle('event_thumb');
-                $type->setWidth(740);
-                $type->save();
-            }
-
             $largeThumbnail = \Concrete\Core\File\Image\Thumbnail\Type\Type::getByHandle('large');
             if( ! is_object($largeThumbnail) ){
                 $type = new \Concrete\Core\File\Image\Thumbnail\Type\Type();
