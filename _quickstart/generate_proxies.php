@@ -48,21 +48,21 @@ if( $applicationDBM->hasEntities() ){
  * @see \Concrete\Core\Package\Package destroyproxyclasses() method
  */
 // Get all package directory names (acts as the $pkgHandle)
-$packageHandles = array_map(function( $absolutePath ){
-    return basename($absolutePath);
-}, array_filter(glob(DIR_BASE . '/packages/*'), 'is_dir'));
-
-// Load the classes, purge and recreate proxies
-foreach($packageHandles AS $pkgHandle){
-    $packageObj = Package::getClass($pkgHandle);
-    $packageDBM = $packageObj->getDatabaseStructureManager();
-    try {
-        $packageDBM->destroyProxyClasses('ConcretePackage' . camelcase($packageObj->getPackageHandle()) . 'Src');
-    }catch(\Exception $e){ /* move on */ }
-    if( $packageDBM->hasEntities() ){
-        $packageDBM->generateProxyClasses();
-    }
-}
+//$packageHandles = array_map(function( $absolutePath ){
+//    return basename($absolutePath);
+//}, array_filter(glob(DIR_BASE . '/packages/*'), 'is_dir'));
+//
+//// Load the classes, purge and recreate proxies
+//foreach($packageHandles AS $pkgHandle){
+//    $packageObj = Package::getClass($pkgHandle);
+//    $packageDBM = $packageObj->getDatabaseStructureManager();
+//    try {
+//        $packageDBM->destroyProxyClasses('ConcretePackage' . camelcase($packageObj->getPackageHandle()) . 'Src');
+//    }catch(\Exception $e){ /* move on */ }
+//    if( $packageDBM->hasEntities() ){
+//        $packageDBM->generateProxyClasses();
+//    }
+//}
 
 fwrite(STDOUT, "Doctrine Proxy Classes Created OK!\n");
 exit(0);

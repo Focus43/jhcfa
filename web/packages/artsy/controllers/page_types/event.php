@@ -1,7 +1,9 @@
 <?php namespace Concrete\Package\Artsy\Controller\PageType {
 
+    use Package;
     use Page;
     use File;
+    use \Concrete\Package\Schedulizer\Src\Collection AS SchedulizerCollection;
     use \Concrete\Package\Schedulizer\Src\Event AS SchedulizerEvent;
     use \Concrete\Package\Schedulizer\Src\Calendar AS SchedulizerCalendar;
     use \Concrete\Package\Schedulizer\Src\EventList AS SchedulizerEventList;
@@ -14,9 +16,24 @@
 
         public function view(){
             parent::view();
-            $pageID = $this->getPageObject()->getCollectionID();
-            /** @var $eventObj \Concrete\Package\Schedulizer\Src\Event */
-            $eventObj = SchedulizerEvent::getByPageID($pageID);
+            // Set open graph article type
+            $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
+
+            // Display stuff
+            $pageID     = $this->getPageObject()->getCollectionID();
+            $eventObj   = SchedulizerEvent::getByPageID($pageID);
+            $packageObj = Package::getByHandle('schedulizer');
+
+            // Checks for using Schedulizer's master collection
+            if( (bool) $packageObj->configGet($packageObj::CONFIG_ENABLE_MASTER_COLLECTION) ){
+                $masterCollID = (int) $packageObj->configGet($packageObj::CONFIG_MASTER_COLLECTION_ID);
+                /** @var $collectionObj \Concrete\Package\Schedulizer\Src\Collection */
+                $collectionObj = SchedulizerCollection::getByID($masterCollID);
+                if( is_object($collectionObj) && is_object($eventObj) ){
+                    $eventObj = $eventObj->getVersionApprovedByCollection($collectionObj->getID());
+                }
+            }
+
             if( is_object($eventObj) ){
                 $this->set('eventObj', $eventObj);
                 $this->set('calendarObj', $eventObj->getCalendarObj());
@@ -41,15 +58,19 @@
                     }
                 }
             }
-
-            // Set open graph article type
-            $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
         }
 
+
+        /**
+         * Use the schedulizer event list for query'ing times.
+         * @param SchedulizerEvent $eventObj
+         * @return SchedulizerEventList
+         */
         protected function eventList( \Concrete\Package\Schedulizer\Src\Event $eventObj ){
             // Create event list object
             $eventListObj = new SchedulizerEventList(array($eventObj->getCalendarID()));
             $eventListObj->setEventIDs(array($eventObj->getID()));
+            $eventListObj->setFilterByMasterCollection(true);
             // $eventObj->getEarliestStartTime() returns a filtered DateTime object representing earliest occurrence of the event
             //$eventListObj->setStartDate($eventObj->getEarliestStartTime());
             $eventListObj->setDaysIntoFuture(365);

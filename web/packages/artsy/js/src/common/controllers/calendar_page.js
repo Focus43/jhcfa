@@ -21,15 +21,17 @@ angular.module('artsy.common').
             $scope.isTextSearch = false;
 
             $scope.filters = {
-                fields:     ['calendarID'],
-                keywords:   null,
-                calendars:  "",
-                tags:       "",
-                categories: 1, //@todo:we just know this is going to be ID 1 right? easy to break...
-                filepath:   true,
-                start:      moment().startOf('month').format('YYYY-MM-DD'),
-                end:        moment().endOf('month').format('YYYY-MM-DD'),//moment().add(6, 'months').format('YYYY-MM-DD'),
-                attributes: 'presenting_organization,date_display,ticket_link,event_not_ticketed'
+                //collection_id:  1, //@todo: make dynamic!
+                master_collection: true,
+                fields:         ['calendarID'],
+                keywords:       null,
+                calendars:      "",
+                tags:           "",
+                categories:     1, //@todo: we just know this is going to be ID 1 (meaning, the categoryID) right? easy to break...
+                filepath:       true,
+                start:          moment().startOf('month').format('YYYY-MM-DD'),
+                end:            moment().endOf('month').format('YYYY-MM-DD'),//moment().add(6, 'months').format('YYYY-MM-DD'),
+                attributes:     'presenting_organization,date_display,ticket_link,event_not_ticketed'
             };
 
             $scope.fetch = function(){
