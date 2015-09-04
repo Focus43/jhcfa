@@ -12,6 +12,7 @@ angular.module('artsy.common').
             $scope.$watch('featuredTagID', function( featuredTagID ){
                 if( featuredTagID ){
                     Schedulizer.fetch({
+                        master_collection: true,
                         fields: ['tags'],
                         filepath:true,
                         limit:10,
