@@ -19,43 +19,48 @@
             // Set open graph article type
             $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
 
-            // Display stuff
-            $pageID     = $this->getPageObject()->getCollectionID();
-            $eventObj   = SchedulizerEvent::getByPageID($pageID);
-            $packageObj = Package::getByHandle('schedulizer');
+            /** @var int $pageID *THIS* page ID being viewed */
+            $pageID = (int) $this->getPageObject()->getCollectionID();
 
-            // Checks for using Schedulizer's master collection
-            if( (bool) $packageObj->configGet($packageObj::CONFIG_ENABLE_MASTER_COLLECTION) ){
-                $masterCollID = (int) $packageObj->configGet($packageObj::CONFIG_MASTER_COLLECTION_ID);
-                /** @var $collectionObj \Concrete\Package\Schedulizer\Src\Collection */
-                $collectionObj = SchedulizerCollection::getByID($masterCollID);
-                if( is_object($collectionObj) && is_object($eventObj) ){
-                    $eventObj = $eventObj->getVersionApprovedByCollection($collectionObj->getID());
-                }
+            /** @var $eventObj \Concrete\Package\Schedulizer\Src\Event */
+            $eventObj = SchedulizerEvent::getByPageID($pageID);
+
+            /** @var $schedulizerCollection \Concrete\Package\Schedulizer\Src\Collection */
+            $schedulizerCollection = $this->schedulizerMasterCollectionObj();
+
+            // Assuming $schedulizerCollection is an object (it should be cause it shouldn't be
+            // deleted, ever); then get the *approved* version object
+            if( is_object($schedulizerCollection) ){
+                $eventObj = $eventObj->getVersionApprovedByCollection($schedulizerCollection);
             }
 
+            // If we have a valid object, pass things to the view
             if( is_object($eventObj) ){
                 $this->set('eventObj', $eventObj);
                 $this->set('calendarObj', $eventObj->getCalendarObj());
+                $this->eventTimes($eventObj);
+                $this->thumbnailData($eventObj);
+            }
+        }
 
-                // Get event times and split into first 10 and then the rest
-                $allEventTimes      = (array) $this->eventList($eventObj)->get();
-                $first10EventTimes  = array_slice($allEventTimes, 0, 10);
-                $moreEventTimes     = array_slice($allEventTimes, 10);
-                $this->set('first10EventTimes', (array) $first10EventTimes);
-                $this->set('moreEventTimes', (array) $moreEventTimes);
 
-                // Event File
-                $fileID = $eventObj->getFileID();
-                if( (int)$fileID >= 1 ){
-                    $eventFileObj = File::getByID($fileID);
-                    if( is_object($eventFileObj) ){
-                        $thumbnailPath = $eventFileObj->getThumbnailURL('event_thumb');
-                        // Pass to the view
-                        $this->set('eventThumbnailPath', $thumbnailPath);
-                        // Set opengraph tag
-                        $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', $thumbnailPath));
-                    }
+        /**
+         * Get image for event (if exists), and pass its path to the view, as well as setting
+         * the og:image meta tag.
+         * @param SchedulizerEvent $eventObj
+         * @return void
+         */
+        protected function thumbnailData( \Concrete\Package\Schedulizer\Src\Event $eventObj ){
+            // Event File
+            $fileID = $eventObj->getFileID();
+            if( (int)$fileID >= 1 ){
+                $eventFileObj = File::getByID($fileID);
+                if( is_object($eventFileObj) ){
+                    $thumbnailPath = $eventFileObj->getThumbnailURL('event_thumb');
+                    // Pass to the view
+                    $this->set('eventThumbnailPath', $thumbnailPath);
+                    // Set opengraph tag
+                    $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', $thumbnailPath));
                 }
             }
         }
@@ -66,7 +71,7 @@
          * @param SchedulizerEvent $eventObj
          * @return SchedulizerEventList
          */
-        protected function eventList( \Concrete\Package\Schedulizer\Src\Event $eventObj ){
+        protected function eventTimes( \Concrete\Package\Schedulizer\Src\Event $eventObj ){
             // Create event list object
             $eventListObj = new SchedulizerEventList(array($eventObj->getCalendarID()));
             $eventListObj->setEventIDs(array($eventObj->getID()));
@@ -74,10 +79,25 @@
             // $eventObj->getEarliestStartTime() returns a filtered DateTime object representing earliest occurrence of the event
             //$eventListObj->setStartDate($eventObj->getEarliestStartTime());
             $eventListObj->setDaysIntoFuture(365);
-            $eventListObj->includeColumns(array(
-                'computedStartLocal'
-            ));
-            return $eventListObj;
+            $eventListObj->includeColumns(array('computedStartLocal'));
+
+            // Get event times and split into first 10 and then the rest
+            $allEventTimes      = (array) $eventListObj->get();
+            $first10EventTimes  = array_slice($allEventTimes, 0, 10);
+            $moreEventTimes     = array_slice($allEventTimes, 10);
+            $this->set('first10EventTimes', (array) $first10EventTimes);
+            $this->set('moreEventTimes', (array) $moreEventTimes);
+        }
+
+
+        /**
+         * @return \Concrete\Package\Schedulizer\Src\Collection | void
+         */
+        protected function schedulizerMasterCollectionObj(){
+            if( $this->_schedulizerMasterCollection === null ){
+                $this->_schedulizerMasterCollection = SchedulizerCollection::getMasterCollection();
+            }
+            return $this->_schedulizerMasterCollection;
         }
 
     }
