@@ -70,6 +70,12 @@
                 Router::route(array('site_search', 'artsy')),
                 '\Concrete\Package\Artsy\Controller\SiteSearch::search'
             );
+
+            // Email List Signup
+            Route::register(
+                Router::route(array('email_list_signup', 'artsy')),
+                '\Concrete\Package\Artsy\Controller\EmailListSignup::complete'
+            );
         }
 
 

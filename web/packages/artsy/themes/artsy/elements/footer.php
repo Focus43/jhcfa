@@ -27,6 +27,39 @@
                     <a class="icon-circle-instagram socialize" target="_blank" href="http://instagram.com/thecenterjh"></a>
                     <a class="icon-circle-pinterest socialize" target="_blank" href="http://pinterest.com/thecenterjh"></a>
                     <a class="icon-circle-google-plus socialize" target="_blank" href="https://plus.google.com/113085364394299174338"></a>
+
+                    <script type="text/ng-template" id="tpl/email-list-signup">
+                        <form name="_signupForm" id="emailListSignup" class="tabular" ng-submit="doSignup()">
+                            <div class="cellular text-center">
+                                <div class="block-width" ng-hide="(working || confirmed)">
+                                    <p>Sign up for the Center For The Arts Newsletter</p>
+                                    <div class="custom-row">
+                                        <label class="half"><input required ng-model="fields.first" name="first" type="text" class="form-control" placeholder="First Name"/></label>
+                                        <label class="half"><input required ng-model="fields.last" name="last" type="text" class="form-control" placeholder="Last Name"/></label>
+                                    </div>
+                                    <div class="custom-row">
+                                        <label><input required ng-model="fields.email" name="email" type="email" class="form-control" placeholder="Email"/></label>
+                                    </div>
+                                    <div class="custom-row">
+                                        <label><input type="submit" class="btn btn-block btn-success" value="Sign Me Up!"/></label>
+                                        <label class="text-center"><span ng-click="close()" class="nevermind">Changed My Mind</span></label>
+                                    </div>
+                                </div>
+                                <div class="block-width logo-load-progress" ng-show="working" ng-class="{working:working}">
+                                    <?php $this->inc('../../images/logo-loader.svg'); ?>
+                                </div>
+                                <div class="block-width confirmed" ng-show="confirmed">
+                                    <p>Thanks! A confirmation email is on its way and should arrive shortly.</p>
+                                    <p class="text-sm">Note: To ensure proper delivery of our emails, take a moment now and add us - info@jhcenterforthearts.org - to your address book, trusted sender list, or company white list.</p>
+                                    <div class="text-center">
+                                        <span ng-click="close()" class="btn btn-success">Close</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </script>
+
+                    <span email-list-signup="<?php echo Router::route(array('email_list_signup', 'artsy')); ?>">Sign Up For Our Newsletter</span>
                 </div>
             </div>
             <div class="col-sm-6 col-md-3">
