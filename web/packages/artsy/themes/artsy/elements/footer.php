@@ -32,7 +32,7 @@
                         <form name="_signupForm" id="emailListSignup" class="tabular" ng-submit="doSignup()">
                             <div class="cellular text-center">
                                 <div class="block-width" ng-hide="(working || confirmed)">
-                                    <p>Sign up for the Center For The Arts Newsletter</p>
+                                    <p>Sign up for the Center's Newsletter</p>
                                     <div class="custom-row">
                                         <label class="half"><input required ng-model="fields.first" name="first" type="text" class="form-control" placeholder="First Name"/></label>
                                         <label class="half"><input required ng-model="fields.last" name="last" type="text" class="form-control" placeholder="Last Name"/></label>
