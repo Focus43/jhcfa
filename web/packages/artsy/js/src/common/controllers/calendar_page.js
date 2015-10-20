@@ -69,14 +69,35 @@ angular.module('artsy.common').
             }, true);
 
             // Generate next 6 months list
-            var currentMonth    = moment();
-            currentMonth._selected = true;
-            $scope.monthsToView = [currentMonth];
-            for(var i = 1; i <= 5; i++){
-                var next = currentMonth.clone().add(i, 'month');
-                next._selected = false;
-                $scope.monthsToView.push(next);
+            var monthListStart = moment();
+
+            // User can view previous or future months other
+            // than the default 5; this takes care of generating
+            function generateMonthList(){
+                monthListStart._selected = true;
+                $scope.monthsToView = [monthListStart];
+                for(var i = 1; i < 4; i++){
+                    var next = monthListStart.clone().add(i, 'month');
+                    next._selected = false;
+                    $scope.monthsToView.push(next);
+                }
             }
+
+            // Populate month list right away
+            generateMonthList();
+
+            // Scroll month list back or forward
+            $scope.scrollMonth = function( _dir ){
+                if( _dir === 'prev' ){
+                    monthListStart.subtract(1, 'month');
+                }else{
+                    monthListStart.add(1, 'month');
+                }
+                $scope.$applyAsync(function(){
+                    generateMonthList();
+                    $scope.selectMonth($scope.selectedMonthIndex || 0);
+                });
+            };
 
             $scope.selectedMonthIndex = 0;
             $scope.selectMonth = function( $index ){

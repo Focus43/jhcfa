@@ -39,10 +39,19 @@
         </div>
     </form>
 
-    <div class="pseudo-container month-display" ng-cloak>
-        <div class="btn-group btn-group-justified" ng-show="!isTextSearch && !uiState.showSearchExtras">
-            <a class="btn btn-lg" ng-repeat="moment in monthsToView" ng-class="{'active':moment._selected}" ng-click="selectMonth($index)">{{ moment.format('MMM') }}</a>
+    <div class="month-display" ng-cloak>
+        <div ng-show="!isTextSearch && !uiState.showSearchExtras">
+            <a class="month-nav-scroll prev" ng-click="scrollMonth('prev')">
+                <i class="icon-angle-left"></i>
+            </a>
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-lg" ng-repeat="moment in monthsToView" ng-class="{'active':moment._selected}" ng-click="selectMonth($index)">{{ moment.format('MMM') }} <sup>{{ moment.format('YY') }}</sup></a>
+            </div>
+            <a class="month-nav-scroll next" ng-click="scrollMonth('next')">
+                <i class="icon-angle-right"></i>
+            </a>
         </div>
+
         <div class="text-center lead range-msg" ng-show="isTextSearch || uiState.showSearchExtras">
             Text Search Looks Through {{ overrideDateRange.end.format('MMM YY') }}
         </div>
