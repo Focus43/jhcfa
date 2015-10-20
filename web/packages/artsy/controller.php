@@ -39,7 +39,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.32';
+        protected $pkgVersion 			        = '0.34';
 
 
         /**
@@ -184,6 +184,15 @@
                 CollectionAttributeKey::add($this->attributeType('image_file'), array(
                     'akHandle'  => self::ATTR_COLLECTION_PAGE_IMAGE,
                     'akName'    => 'Page Image'
+                ), $this->packageObject());
+            }
+
+            // Exclude nav subpages (eg. blog posts)
+            if( !is_object(CollectionAttributeKey::getByHandle('exclude_subpages_from_nav')) ){
+                CollectionAttributeKey::add($this->attributeType('boolean'), array(
+                    'akHandle'  => 'exclude_subpages_from_nav',
+                    'akName'    => 'Exclude Subpages From Nav',
+                    'asID'      => \Concrete\Core\Attribute\Set::getByHandle('navigation')->getAttributeSetID()
                 ), $this->packageObject());
             }
 
