@@ -40,7 +40,7 @@
     </form>
 
     <div class="month-display" ng-cloak>
-        <div ng-show="!isTextSearch && !uiState.showSearchExtras">
+        <div class="month-inline-list" ng-show="!isTextSearch && !uiState.showSearchExtras">
             <a class="month-nav-scroll prev" ng-click="scrollMonth('prev')">
                 <i class="icon-angle-left"></i>
             </a>

@@ -34,13 +34,15 @@
     }
   }
 
-  .month-display {padding:0;position:relative;
+  .month-display {
+    .month-inline-list {position:relative;}
     .btn-group {width:calc(100% - 64px);margin:0 auto;}
     .btn {border:0;border-left:1px solid lighten($theme-dark-color,10%);background:$theme-dark-color;color:$theme-extra-light-color;font-family:$theme-font-family-bold;text-transform:uppercase;
       &:first-of-type {border-left:0;}
       &:hover {background:lighten($theme-dark-color,10%);color:$theme-primary-color;}
       &.active {background:darken($theme-extra-light-color,2%);color:$theme-dark-color;@include box-shadow(0 0 15px $theme-primary-color);z-index:2;}
       sup {font-size:55%;top:-0.9em;left:-0.4em;}
+      &:nth-child(n+5){display:none;}
     }
     .month-nav-scroll {line-height:0;font-size:200%;width:32px;position:absolute;top:0;bottom:0;display:inline-block;background:lighten($theme-dark-color,20%);color:#fff;vertical-align:middle;
       &:hover {background:lighten($theme-dark-color,30%);}
@@ -143,7 +145,11 @@
       .form-control[type="text"]{display:inline-block;width:auto;vertical-align:middle;}
       .text-input-wrap, .select-wrap {display:inline-block;vertical-align:middle;}
     }
-    //.month-display {padding:0 15px;}
+    .month-display {max-width:$screen-lg;margin:0 auto;padding:0 15px;
+      .btn {
+        &:nth-child(n+5){display:table-cell;}
+      }
+    }
     [event-list] {
       .event-result {width:33.33%;
         .event-content {padding-bottom:68%;}

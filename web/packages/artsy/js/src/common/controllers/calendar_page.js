@@ -76,7 +76,7 @@ angular.module('artsy.common').
             function generateMonthList(){
                 monthListStart._selected = true;
                 $scope.monthsToView = [monthListStart];
-                for(var i = 1; i < 4; i++){
+                for(var i = 1; i < 6; i++){
                     var next = monthListStart.clone().add(i, 'month');
                     next._selected = false;
                     $scope.monthsToView.push(next);
