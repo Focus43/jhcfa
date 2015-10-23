@@ -23,6 +23,8 @@
     use Concrete\Core\Page\Type\PublishTarget\Type\Type as PublishTargetType;
     use SinglePage;
 
+    use Cookie;
+
     class Controller extends Package {
 
         const PACKAGE_HANDLE                    = 'artsy';
@@ -39,7 +41,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.34';
+        protected $pkgVersion 			        = '0.36';
 
 
         /**
@@ -55,6 +57,35 @@
          */
         public function getPackageDescription() {
             return t('Center For the Arts');
+        }
+
+
+        /**
+         * Password protection for pages...
+         */
+        protected function passwordValidation(){
+            /** @var $request \Concrete\Core\Http\Request */
+            $request    = \Concrete\Core\Http\Request::getInstance();
+            /** @var $current \Concrete\Core\Page\Page */
+            $current    = \Concrete\Core\Page\Page::getByPath( $request->getPath() );
+            /** @var $isPassword string|null */
+            $isPassword = $current->getAttribute('password_protected');
+            // Check if page is password protected...
+            if( ! empty($isPassword) ){
+                // Check if authentication happened
+                if( $tracker = Cookie::get('_protection') ){
+                    $decoded   = json_decode(base64_decode($tracker));
+                    $tokenized = $decoded->{$request->getPathInfo()};
+                    if( $tokenized === md5($isPassword . '$p3pp3R') ){
+                        return;
+                    }
+                }
+
+                \Concrete\Core\Controller\Controller::redirect('/password_required?' . \http_build_query(array(
+                    'return' => $request->getPathInfo()
+                )));
+                exit;
+            }
         }
 
 
@@ -76,6 +107,9 @@
                 Router::route(array('email_list_signup', 'artsy')),
                 '\Concrete\Package\Artsy\Controller\EmailListSignup::complete'
             );
+
+            // Custom password validation functionality
+            $this->passwordValidation();
         }
 
 
@@ -193,6 +227,14 @@
                     'akHandle'  => 'exclude_subpages_from_nav',
                     'akName'    => 'Exclude Subpages From Nav',
                     'asID'      => \Concrete\Core\Attribute\Set::getByHandle('navigation')->getAttributeSetID()
+                ), $this->packageObject());
+            }
+
+            // Password protect pages
+            if( !is_object(CollectionAttributeKey::getByHandle('password_protected')) ){
+                CollectionAttributeKey::add($this->attributeType('text'), array(
+                    'akHandle'  => 'password_protected',
+                    'akName'    => 'Password Protected'
                 ), $this->packageObject());
             }
 
@@ -426,6 +468,7 @@
         private function setupSinglePages(){
             SinglePage::add('/calendar', $this->packageObject());
             SinglePage::add('/blog', $this->packageObject());
+            SinglePage::add('/password_required', $this->packageObject());
 
             return $this;
         }
