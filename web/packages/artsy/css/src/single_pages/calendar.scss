@@ -158,19 +158,49 @@
   }
 }
 
-
-//@media screen and (min-width:$screen-md){
-//  .pg-calendar #c-level-1 main {
-//    .event-search {
-//      .select-wrap {display:inline-block;}
-//    }
-//  }
-//}
-
-//@media screen and (min-width:($screen-lg + 200px)){
-//  .pg-calendar #c-level-1 main {
-//    [event-list] {padding-top:3%;
-//      .event-result {width:18%;margin:2% 1%;padding-bottom:16%;}
-//    }
-//  }
-//}
+@media print {
+  .pg-calendar {height:auto !important;overflow:visible;
+    #c-level-1 {height:auto !important;overflow:visible;
+      nav {display:none !important;}
+      main {
+        header {padding:0;
+          .logo {display:none;}
+          h1 {color:#000;font-size:160%;}
+        }
+        footer {display:none !important;}
+        .event-search {display:none;}
+        .month-display {
+          .month-nav-scroll {display:none;}
+          .btn {display:none !important;
+            &.active {display:block !important;width:100%;}
+          }
+        }
+        .prev-next {display:none !important;}
+        [event-list]{
+          .event-result {display:block;float:none;width:100%;height:auto;border-bottom:2px solid #000;
+            .event-content {padding:0;width:100%;display:table;background:none !important;
+              .layer-1 {color:#000;display:block;position:relative;padding:0;display:table-cell;width:70%;height:auto;vertical-align:top;
+                .bottomize {position:relative;padding:0;display:table;table-layout:fixed;background:none;
+                  span {display:table-cell;}
+                  .date {padding:0 10px;}
+                }
+              }
+              .layer-2 {color:#000;background:none;display:table-cell;width:auto;height:auto;position:relative;visibility:visible;opacity:1;@include transform(scale(1));
+                .tabular {display:block;
+                  .cellular {text-align:left;display:block;padding:0;
+                    h5 {margin-top:3px;}
+                  }
+                }
+              }
+            }
+            .tql {display:none;}
+            &:hover {
+              .layer-1 {@include transform(translateZ(0) scale(1,1));opacity:1;visibility:visible;}
+              .layer-2 {@include transform(translateZ(0) scale(1,1));opacity:1;visibility:visible;}
+            }
+          }
+        }
+      }
+    }
+  }
+}
