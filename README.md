@@ -18,3 +18,4 @@ you run Vagrant, it will take a while to provision itself and you'll see output 
 ---
 
 Once Vagrant is up and running, `$: vagrant ssh` into the machine. You'll be dropped into /home/vagrant directory. Move into the `app` directory then run `$: gulp`; which will watch your project for changes to JS/SCSS files and automatically run builds. Off to the races.
+
