@@ -115,10 +115,20 @@ body[data-handle="page_not_found"]{
 
 // When in edit mode specifically
 .cms-edit-mode {
+  #c-level-1 main .area-main {padding-bottom:3.5rem;}
   &.ccm-panel-open {height:auto;}
   [data-area-handle*="Main"]:not([data-area-handle*=":"]) {margin:-($grid-gutter-width/3) 0;padding:($grid-gutter-width/3) 0;}
   .ccm-block-edit-layout {padding:($grid-gutter-width/4);
     [class*="col-"]{padding-left:$grid-gutter-width/2 !important;padding-right:$grid-gutter-width/2 !important;}
+  }
+  .ccm-block-edit {
+    .row {padding-bottom:2.5rem;}
+  }
+  [data-container="block"]{
+    .container {
+      //.row {padding-bottom:3.5rem;}
+      .row {@include clearfix;}
+    }
   }
   footer {margin-top:4rem;}
 }
