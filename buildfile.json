@@ -8,7 +8,5 @@
 			"web/application/files"
 		]
 	},
-	"composer": {
-		"workingDir": "web/concrete"
-	}
+	"composer": false
 }

@@ -18,7 +18,7 @@ composer.phar
 /web/application/files/*
 !/web/application/files/index.html
 
-/web/concrete/vendor
+#/web/concrete/vendor
 
 # ignore updates folder
 /web/updates/*
