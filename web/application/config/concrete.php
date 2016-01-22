@@ -91,20 +91,20 @@ return array(
     'debug' => array(
         'detail' => 'message' // debug|message
     )
-    ,'cache' => array(
-        'pages' => 'all',
-        'levels' => array(
-            'expensive' => array(
-                'drivers' => array(
-                    $ephemeralStashCacheDriver,
-                    (defined('EPHEMERAL_ONLY_DURING_INSTALL') ? $ephemeralStashCacheDriver : $redisStashCacheDriver)
-                )
-            ),
-            'object' => array(
-                'drivers' => array(
-                    $ephemeralStashCacheDriver
-                )
-            )
-        )
-    )
+    // ,'cache' => array(
+    //     'pages' => 'all',
+    //     'levels' => array(
+    //         'expensive' => array(
+    //             'drivers' => array(
+    //                 $ephemeralStashCacheDriver,
+    //                 (defined('EPHEMERAL_ONLY_DURING_INSTALL') ? $ephemeralStashCacheDriver : $redisStashCacheDriver)
+    //             )
+    //         ),
+    //         'object' => array(
+    //             'drivers' => array(
+    //                 $ephemeralStashCacheDriver
+    //             )
+    //         )
+    //     )
+    // )
 );
