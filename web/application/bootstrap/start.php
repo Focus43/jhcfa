@@ -18,12 +18,16 @@ $app = new Application();
 $app->detectEnvironment(
     array(
         'local' => array(
-            'hostname'
+            'vagrant-ubuntu-vivid-64'
+        ),
+        'stage' => array(
+            'stage01.focusfortythree.com'
         ),
         'production' => array(
-            'live.site'
+            'prod01.focusfortythree.com'
         )
-    ));
+    )
+);
 
 /**
  * Override Concrete5's config persistence method.

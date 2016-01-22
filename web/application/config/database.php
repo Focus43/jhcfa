@@ -1,5 +1,4 @@
 <?php
-<?php
 return array(
     'default-connection' => 'concrete',
     'connections' => array(
