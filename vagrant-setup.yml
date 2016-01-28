@@ -1,6 +1,8 @@
 ---
 - hosts: all
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
 
 ######################################################################
 # Vast majority of the time, you should only need to customize
