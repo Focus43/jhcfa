@@ -30,8 +30,9 @@ $app->detectEnvironment(
 );
 
 /**
+* Sam disabled 01/27/16
  * Override Concrete5's config persistence method.
  */
-\Application\Src\Config\Ephemeral::bindToApp($app);
+// \Application\Src\Config\Ephemeral::bindToApp($app);
 
 return $app;
