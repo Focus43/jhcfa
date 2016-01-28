@@ -16,7 +16,7 @@
     install_redis: false
     install_php: true
     install_nodejs: true
-    install_ruby: true
+    install_ruby: false
     autoinstall_C5: false
     custom_role_path: "vagrant/roles"
     # Edit these if you prefer
@@ -116,9 +116,9 @@
     #   - { k: 'short_open_tag', v: 'Off' }
     ######################################################################
     - role: "{{ custom_role_path }}/php"
-      php_install_xdebug: true
-      php_install_phpunit: true
-      php_install_composer: true
+      php_install_xdebug: false
+      php_install_phpunit: false
+      php_install_composer: false
       php_install_redis_ext: false
       php_sessions_use_redis: false
       when: install_php == true
