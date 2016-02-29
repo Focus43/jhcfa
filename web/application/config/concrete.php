@@ -78,7 +78,7 @@ return array(
         'model' => 'advanced'
     ),
     'marketplace' => array(
-        'enabled' => false
+        'enabled' => true
     ),
     'external' => array(
         'intelligent_search_help' => false,
