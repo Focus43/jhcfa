@@ -42,7 +42,7 @@
         ?>
 
         <div class="bottom" slideable>
-            <a class="btn btn-block btn-lg btn-primary" href="https://18957.blackbaudhosting.com/18957/General-Operating-Account" target="_blank">Donate</a>
+            <a class="btn btn-block btn-lg btn-primary" href="https://apps.vendini.com/donation-software.html?d=7d53ce493d7bf407e2c7f731efff130f&t=donation" target="_blank">Donate</a>
             <div class="btn-group btn-group-justified">
                 <a class="btn btn-dark" href="/box-office">Box Office</a>
                 <a class="btn btn-dark" href="/contact">Contact</a>

@@ -15,7 +15,7 @@
                         <li><i class="icon-circle"></i><a href="/about">About</a></li>
                         <li><i class="icon-circle"></i><a href="/residents">Residents</a></li>
                         <li><i class="icon-circle"></i><a href="/support">Support</a></li>
-                        <li><i class="icon-circle"></i><a href="https://18957.blackbaudhosting.com/18957/General-Operating-Account" target="_blank">Donate</a></li>
+                        <li><i class="icon-circle"></i><a href="https://apps.vendini.com/donation-software.html?d=7d53ce493d7bf407e2c7f731efff130f&t=donation" target="_blank">Donate</a></li>
                     </ul>
                 </div>
             </div>
