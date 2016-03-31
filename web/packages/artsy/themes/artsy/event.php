@@ -94,7 +94,7 @@
                                 <?php $location = $eventObj->getAttribute('location');
                                 if( method_exists($location, '__toString') && !empty($location->__toString()) ){ ?>
                                     <hr/>
-                                    <p><?php echo $location; ?></p>
+                                    <p><span itemprop="location"><?php echo $location; ?></span></p>
                                 <?php } ?>
                             </div>
                             <div class="sidebar-box">
