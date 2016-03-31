@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="<?php echo LANGUAGE; ?>" class="<?php echo $documentClasses; ?>">
 <?php $this->inc('elements/head.php'); ?>
-<body class="<?php echo $templateHandle; ?>">
+<body itemscope itemtype="http://schema.org/Event" class="<?php echo $templateHandle; ?>">
 
 <div id="c-level-1" class="<?php echo $c->getPageWrapperClass(); ?>">
     <?php $this->inc('elements/nav.php'); ?>
