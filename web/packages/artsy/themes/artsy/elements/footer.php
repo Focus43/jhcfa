@@ -1,8 +1,8 @@
 <footer>
-    <div itemscope itemtype="http//schema.org/Event" class="inner">
+    <div class="inner">
         <div class="row">
             <div class="col-sm-6 col-md-3">
-                <div class="inner-content">
+                <div itemscope itemtype="http//schema.org/Event" class="inner-content">
                     <h3>The Center</h3>
                     <address><span itemprop="address">240 S. Glenwood St.<br/>PO Box 860<br/>Jackson, WY 83001</span></address>
                 </div>
