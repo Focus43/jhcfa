@@ -2,7 +2,7 @@
     <div class="inner">
         <div class="row">
             <div class="col-sm-6 col-md-3">
-                <div itemscope itemtype="http://schema.org/PostalAddress" class="inner-content">
+                <div itemscope itemtype="http://schema.org/location" class="inner-content">
                     <h3>The Center</h3>
                     <address><span itemprop="streetAddress">240 S. Glenwood St.</span><br/><span itemprop="postOfficeBoxNumber">PO Box 860</span><br/><span itemprop="addressLocality">Jackson</span>, <span itemprop="addressRegion">WY</span> <span itemprop="postalCode">83001</span></address>
                 </div>
