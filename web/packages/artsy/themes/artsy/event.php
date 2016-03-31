@@ -58,7 +58,7 @@
                     <?php } ?>
 
                     <div class="headline">
-                        <h1> itemprop="name"<?php echo $eventObj; ?></h1>
+                        <h1><span itemprop="name"><?php echo $eventObj; ?></span><?php echo $eventObj; ?></h1>
                     </div>
                 </div>
             </header>
