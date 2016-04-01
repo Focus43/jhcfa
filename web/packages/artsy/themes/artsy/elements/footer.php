@@ -2,9 +2,9 @@
     <div class="inner">
         <div class="row">
             <div class="col-sm-6 col-md-3">
-                <div itemscope itemtype="http//schema.org/Event" class="inner-content">
+                <div class="inner-content">
                     <h3>The Center</h3>
-                    <address><span itemprop="address">240 S. Glenwood St.<br/>PO Box 860<br/>Jackson, WY 83001</span></address>
+                    <address>240 S. Glenwood St.<br/>PO Box 860<br/>Jackson, WY 83001</address>
                 </div>
             </div>
             <div class="col-sm-6 col-md-3">
