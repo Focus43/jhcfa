@@ -1,10 +1,11 @@
+<?php $location = $eventObj->getAttribute('location'); ?>
 <?php
 // JSON-LD for Wordpress Home Articles and Author Pages written by Pete Wailes and Richard Baxter
 //function get_post_data() {
 //  global $post;
 //  return $post;
 // }
-$location = $eventObj->getAttribute('location');
+
 // stuff for any page
   $payload["@context"] = "http://schema.org/";
     $payload["@type"] = "Event";
