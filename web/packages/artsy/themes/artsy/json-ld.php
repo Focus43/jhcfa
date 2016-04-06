@@ -17,8 +17,8 @@ $category = get_the_category();
 // this is where I will construct the Event Information
 
   // this is all the event specific data that gets placed
-  $payload["@type"] = "Event";
-  $payload["name"] = $eventObj;
+//  $payload["@type"] = "Event";
+//  $payload["name"] = $eventObj;
 
 // stuff for specific pages
 if (is_single()) {
