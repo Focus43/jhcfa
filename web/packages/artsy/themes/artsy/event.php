@@ -2,7 +2,7 @@
 <html lang="<?php echo LANGUAGE; ?>" class="<?php echo $documentClasses; ?>">
 <?php $this->inc('elements/head.php'); ?>
 
-<?php include('json-ld.php'); ?>
+<?php $this->inc()'/elements/json-ld.php'); ?>
 <script type="application/ld+json"><?php echo json_encode($payload); ?></script>
 
 <body class="<?php echo $templateHandle; ?>">
