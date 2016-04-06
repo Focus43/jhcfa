@@ -5,6 +5,8 @@
 //  return $post;
 // }
 
+function echo $eventObj;
+
 // stuff for any page
   $payload["@context"] = "http://schema.org/";
     $payload["@type"] = "Event";
