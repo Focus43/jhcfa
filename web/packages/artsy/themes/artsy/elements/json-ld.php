@@ -9,7 +9,7 @@
 // stuff for any page
   $payload["@context"] = "http://schema.org/";
     $payload["@type"] = "Event";
-      $payload["@Name"] = echo $eventObj->getAttribute('presenting_organization');
+      $payload["@Name"] = "this the name of the event";
 
 // this has all the data of the post/page etc
 // $post_data = get_post_data();
