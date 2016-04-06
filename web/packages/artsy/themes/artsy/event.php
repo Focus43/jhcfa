@@ -138,6 +138,8 @@
 
         <?php endif; ?>
 
+        <?php include('elements/json-ld.php'); ?>
+        <script type="application/ld+json"><?php echo json_encode($payload); ?></script>
         <?php $this->inc('elements/footer.php'); ?>
     </main>
 </div>
