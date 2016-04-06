@@ -6,8 +6,9 @@
 // }
 
 // stuff for any page
-$payload["@context"] = "http://schema.org/";
-$payload["@type"] = "Event";
+  $payload["@context"] = "http://schema.org/";
+    $payload["@type"] = "Event";
+      $payload["@Name"] = $eventObj;
 
 // this has all the data of the post/page etc
 // $post_data = get_post_data();
