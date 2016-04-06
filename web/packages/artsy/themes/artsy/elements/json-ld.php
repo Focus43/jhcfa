@@ -4,12 +4,12 @@
 //  global $post;
 //  return $post;
 // }
-
+$location = $eventObj->getAttribute('location');
 // stuff for any page
   $payload["@context"] = "http://schema.org/";
     $payload["@type"] = "Event";
       $payload["name"] = $eventObj;
-      $payload["location"] = $eventObj->getAttribute('location');
+      $payload["location"] = echo $location;
 
 // this has all the data of the post/page etc
 // $post_data = get_post_data();
