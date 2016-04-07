@@ -10,9 +10,10 @@
 // stuff for any page
   $payload["@context"] = "http://schema.org/";
     $payload["@type"] = "Event";
-      $payload["name"] = "name of the event"; // need to pull this
-      $payload["startDate"] = "2016-05-14T21:30"; // need to pull this
-//      $payload["location"] = array(
+      $payload["name"] = "name of the event"; // need to pull this from actual event
+      $payload["startDate"] = "2016-05-14T21:30"; // need to pull this from actual event
+      $payload["address"] = "240 S. Glenwood St., Jackson, WY 83001";
+//      array(
 //        array(
 //        "@type" => "location",
 //        "sameAs" => "http://jhcenterforthearts.org/"
