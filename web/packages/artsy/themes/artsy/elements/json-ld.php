@@ -10,7 +10,7 @@ $eventObject = get_eventObject();
 
   $payload["@context"] = "http://schema.org/";
     $payload["@type"] = "Event";
-      $payload["name"] = $eventObject->getAttribute('presenting_organization')  //"name of the event"; // need to pull this from actual event
+      $payload["name"] = $eventObject  //"name of the event"; // need to pull this from actual event
       $payload["startDate"] = "2016-05-14T21:30"; // need to pull this from actual event
 
       $payload["location"] = array(
