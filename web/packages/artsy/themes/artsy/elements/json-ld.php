@@ -12,14 +12,13 @@
     $payload["@type"] = "Event";
       $payload["name"] = "name of the event"; // need to pull this from actual event
       $payload["startDate"] = "2016-05-14T21:30"; // need to pull this from actual event
-      $payload["address"] = "240 S. Glenwood St., Jackson, WY 83001";
-//      array(
-//        array(
-//        "@type" => "location",
-//        "sameAs" => "http://jhcenterforthearts.org/"
-//        "name" => "The Center",
-//        "address" => "240 S. Glenwood St., Jackson, WY 83001"
-//        )
+
+      $payload["@type"] = "location";
+        array(
+        "sameAs" => "http://jhcenterforthearts.org/"
+        "name" => "The Center",
+        "address" => "240 S. Glenwood St., Jackson, WY 83001"
+        )
 //      );
 
 // this has all the data of the post/page etc
