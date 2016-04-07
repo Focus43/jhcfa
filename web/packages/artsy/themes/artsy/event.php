@@ -98,9 +98,6 @@
                                     <p><?php echo $location; ?></p>
                                 <?php } ?>
 
-                                <?php include('elements/json-ld.php'); ?>
-                                <script type="application/ld+json"><?php echo json_encode($payload); ?></script>
-
                             </div>
                             <div class="sidebar-box">
                                 <label>Event Time(s)</label>
@@ -142,6 +139,8 @@
 
         <?php endif; ?>
 
+        <?php include('elements/json-ld.php'); ?>
+        <script type="application/ld+json"><?php echo json_encode($payload); ?></script>
 
         <?php $this->inc('elements/footer.php'); ?>
     </main>
