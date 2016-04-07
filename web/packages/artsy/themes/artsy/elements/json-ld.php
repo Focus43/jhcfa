@@ -13,10 +13,12 @@
       $payload["name"] = "name of the event"; // need to pull this
       $payload["startDate"] = "2016-05-14T21:30", // need to pull this
       $payload["location"] = array(
+        array(
         "@type" => "Place",
         "sameAs" => "http://jhcenterforthearts.org/"
         "name" => "The Center",
         "address" => "240 S. Glenwood St., Jackson, WY 83001"
+        )
       );
       
 // this has all the data of the post/page etc
