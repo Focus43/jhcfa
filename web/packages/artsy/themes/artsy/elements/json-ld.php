@@ -15,10 +15,10 @@
 
       $payload["@type"] = "location";
         array(
-        "sameAs" => "http://jhcenterforthearts.org/"
+        "sameAs" => "http://jhcenterforthearts.org/",
         "name" => "The Center",
-        "address" => "240 S. Glenwood St., Jackson, WY 83001"
-        )
+        "address" => "240 S. Glenwood St., Jackson, WY 83001",
+      );
 //      );
 
 // this has all the data of the post/page etc
