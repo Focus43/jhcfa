@@ -57,7 +57,7 @@
             "name" => "The Center",
             "address" => "240 S. Glenwood St., Jackson, WY 83001",
           );
-
+          print_r($first10EventTimes[0]);
           $this->set('googleJsonPayload', json_encode($payload));
         }
 
