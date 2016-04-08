@@ -50,7 +50,7 @@
           $payload["@context"] = "http://schema.org/";
           $payload["@type"] = "Event";
           $payload["name"] = $eventObj->getTitle();
-          $payload["startDate"] = $first10EventTimes[0];
+          $payload["startDate"] = $first10EventTimes[0]->computedStartUTC;
           $payload["location"] = array(
             "@type" => "Place",
             "sameAs" => "http://jhcenterforthearts.org/",
@@ -96,7 +96,9 @@
             // $eventObj->getEarliestStartTime() returns a filtered DateTime object representing earliest occurrence of the event
             //$eventListObj->setStartDate($eventObj->getEarliestStartTime());
             $eventListObj->setDaysIntoFuture(365);
-            $eventListObj->includeColumns(array('computedStartLocal'));
+            $eventListObj->includeColumns(array(
+              'computedStartLocal', 'computedStartUTC'
+            ));
 
             // Get event times and split into first 10 and then the rest
             $allEventTimes      = (array) $eventListObj->get();
