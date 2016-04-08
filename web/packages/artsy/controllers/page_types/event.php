@@ -62,7 +62,7 @@
         }
 
         protected function formatAsUTC($dateString){
-          $dateObj = new DateTime($dateString, new DateTimeZone('UTC'));
+          $dateObj = new \DateTime($dateString, new \DateTimeZone('UTC'));
           return $dateObj->format('YYYY-MM-DDTHH:mm');
         }
 
