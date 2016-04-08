@@ -34,4 +34,5 @@
     <?php if( !empty($mastheadImageCredit) ): ?>
         <span class="photo-credit">Photo Credit: <?php echo $mastheadImageCredit; ?></span>
     <?php endif; ?>
+    <meta name="google-site-verification" content="CBBLQn2GZkXqX0QOx3KvR6w5UhxzbT-jdVQZAmbUJdo" />
 </header>
