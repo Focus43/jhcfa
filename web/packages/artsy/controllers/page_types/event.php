@@ -50,15 +50,20 @@
           $payload["@context"] = "http://schema.org/";
           $payload["@type"] = "Event";
           $payload["name"] = $eventObj->getTitle();
-          $payload["startDate"] = $first10EventTimes[0]->computedStartUTC;
+          $payload["startDate"] = $this->formatAsUTC($first10EventTimes[0]['computedStartUTC']);
           $payload["location"] = array(
             "@type" => "Place",
             "sameAs" => "http://jhcenterforthearts.org/",
             "name" => "The Center",
             "address" => "240 S. Glenwood St., Jackson, WY 83001",
           );
-          print_r($first10EventTimes[0]);
+        //  print_r($first10EventTimes[0]);
           $this->set('googleJsonPayload', json_encode($payload));
+        }
+
+        protected function formatAsUTC($dateString){
+          $dateObj = new DateTime($dateString, new DateTimeZone('UTC'));
+          return $dateObj->format('YYYY-MM-DDTHH:mm');
         }
 
         /**
