@@ -141,8 +141,8 @@
 
         <?php $this->inc('elements/footer.php'); ?>
 
-        <?php include('elements/json-ld.php'); ?>
-        <script type="application/ld+json"><?php echo json_encode($payload); ?></script>
+        <?php //include('elements/json-ld.php'); ?>
+        <script type="application/ld+json"><?php echo $googleJsonPayload; ?></script>
 
     </main>
 </div>

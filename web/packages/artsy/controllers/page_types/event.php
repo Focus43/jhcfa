@@ -36,13 +36,30 @@
 
             // If we have a valid object, pass things to the view
             if( is_object($eventObj) ){
+                $first10EventTimes = $this->eventTimes($eventObj);
                 $this->set('eventObj', $eventObj);
                 $this->set('calendarObj', $eventObj->getCalendarObj());
-                $this->eventTimes($eventObj);
+                $this->set('first10EventTimes', $first10EventTimes);
                 $this->thumbnailData($eventObj);
+                $this->getJsonGoogleSearchTags($eventObj, $first10EventTimes);
             }
         }
 
+        // this is the function to dump the JSON-LD info into Events pages
+        protected function getJsonGoogleSearchTags($eventObj, $first10EventTimes){
+          $payload["@context"] = "http://schema.org/";
+          $payload["@type"] = "Event";
+          $payload["name"] = $eventObj->getTitle();
+          $payload["startDate"] = $first10EventTimes[0];
+          $payload["location"] = array(
+            "@type" => "Place",
+            "sameAs" => "http://jhcenterforthearts.org/",
+            "name" => "The Center",
+            "address" => "240 S. Glenwood St., Jackson, WY 83001",
+          );
+
+          $this->set('googleJsonPayload', json_encode($payload));
+        }
 
         /**
          * Get image for event (if exists), and pass its path to the view, as well as setting
@@ -85,8 +102,12 @@
             $allEventTimes      = (array) $eventListObj->get();
             $first10EventTimes  = array_slice($allEventTimes, 0, 10);
             $moreEventTimes     = array_slice($allEventTimes, 10);
-            $this->set('first10EventTimes', (array) $first10EventTimes);
+            // when this function is invoked this will automatically set more event times
+            // on the view, but we return first 10 event times so the data can be used for
+            // other things in the controller
             $this->set('moreEventTimes', (array) $moreEventTimes);
+
+            return $first10EventTimes;
         }
 
 
