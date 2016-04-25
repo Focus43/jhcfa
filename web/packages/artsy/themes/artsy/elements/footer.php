@@ -33,7 +33,7 @@
                             <div class="cellular text-center">
                                 <div class="block-width" ng-hide="(working || confirmed)">
                                     <h3>Be the first to know about our Summer lineup.</h3>
-                                    <p>Sign up for the Center's Newsletter</p>
+                                    <p> Sign up for the Center's Newsletter</p>
                                     <div class="custom-row">
                                         <label class="half"><input required ng-model="fields.first" name="first" type="text" class="form-control" placeholder="First Name"/></label>
                                         <label class="half"><input required ng-model="fields.last" name="last" type="text" class="form-control" placeholder="Last Name"/></label>
