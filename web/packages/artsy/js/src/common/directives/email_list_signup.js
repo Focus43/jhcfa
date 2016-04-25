@@ -1,19 +1,20 @@
 angular.module('artsy.common').
 
     directive('emailListSignup', ['$compile','$templateCache',
-        function( $compile, $templateCache, $cookies ){
+        function( $compile, $templateCache, $cookies, $location ){
 
-            function _link( scope, $elem, attrs, $cookies ){
+            function _link( scope, $elem, attrs, $cookies, $location ){
                 var $view;
                 //check for our cookie that is set when modal is closed
                 var checker;
                 if(document.cookie.indexOf("closedSignup") >= 0){
                     checker = false;
                 } else {
-                    checker = true
+                    checker = true;
                 }
-                console.log(checker)
-                if(checker){
+
+                var currPage = window.location.pathname;
+                if(checker && currPage === '/'){
                     window.setTimeout(function() {
               
                         $view = $compile($templateCache.get('tpl/email-list-signup'))(scope, function( cloned ){
