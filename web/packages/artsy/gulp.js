@@ -7,6 +7,8 @@ module.exports = function( gulp ){
     function _pathTo(_path){
         return __dirname + '/' + _path;
     }
+    // console.log(_pathTo('bower_components/angular-cookies/angular-cookies.js'));
+    // process.exit();
 
     /** Prepends a task name with the parent directory for uniqueness. */
     function _taskName( taskName ){
@@ -30,6 +32,7 @@ module.exports = function( gulp ){
                 core: [
                     _pathTo('bower_components/fastclick/lib/fastclick.js'),
                     _pathTo('bower_components/angular/angular.js'),
+                    _pathTo('bower_components/angular-cookies/angular-cookies.js'),
                     _pathTo('bower_components/angular-sanitize/angular-sanitize.js'),
                     _pathTo('bower_components/gsap/src/uncompressed/TweenMax.js'),
                     _pathTo('bower_components/gsap/src/uncompressed/plugins/ScrollToPlugin.js'),

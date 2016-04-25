@@ -1,11 +1,26 @@
 angular.module('artsy.common').
 
-    directive('emailListSignup', ['$compile', '$templateCache',
-        function( $compile, $templateCache ){
+    directive('emailListSignup', ['$compile','$templateCache',
+        function( $compile, $templateCache, $cookies ){
 
-            function _link( scope, $elem, attrs ){
+            function _link( scope, $elem, attrs, $cookies ){
                 var $view;
-
+                //check for our cookie that is set when modal is closed
+                var checker;
+                if(document.cookie.indexOf("closedSignup") >= 0){
+                    checker = false;
+                } else {
+                    checker = true
+                }
+                console.log(checker)
+                if(checker){
+                    window.setTimeout(function() {
+              
+                        $view = $compile($templateCache.get('tpl/email-list-signup'))(scope, function( cloned ){
+                            angular.element(document.body).append(cloned);
+                        });
+                    },2000);
+               }
                 $elem.on('click', function(){
                     $view = $compile($templateCache.get('tpl/email-list-signup'))(scope, function( cloned ){
                         angular.element(document.body).append(cloned);
@@ -13,6 +28,7 @@ angular.module('artsy.common').
                 });
 
                 scope.close = function(){
+                    document.cookie = "closedSignup=true";
                     $view.remove();
                 };
             }

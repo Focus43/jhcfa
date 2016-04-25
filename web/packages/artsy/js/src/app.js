@@ -1,7 +1,7 @@
 /* global FastClick, FB */
 ;(function( window, angular, undefined ){ 'use strict';
 
-    angular.module('artsy', ['artsy.common', 'ngSanitize']).
+    angular.module('artsy', ['artsy.common', 'ngSanitize', 'ngCookies']).
 
     /**
     * @description App configuration

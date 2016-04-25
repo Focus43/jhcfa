@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="custom-row">
                                         <label><input type="submit" class="btn btn-block btn-success" value="Sign Me Up!"/></label>
-                                        <label class="text-center"><span ng-click="close()" class="nevermind">Changed My Mind</span></label>
+                                        <label class="text-center"><span ng-click="close()" class="nevermind">No thanks</span></label>
                                     </div>
                                 </div>
                                 <div class="block-width logo-load-progress" ng-show="working" ng-class="{working:working}">
