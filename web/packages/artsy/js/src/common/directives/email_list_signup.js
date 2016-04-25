@@ -19,7 +19,7 @@ angular.module('artsy.common').
                         $view = $compile($templateCache.get('tpl/email-list-signup'))(scope, function( cloned ){
                             angular.element(document.body).append(cloned);
                         });
-                    },2000);
+                    },3000);
                }
                 $elem.on('click', function(){
                     $view = $compile($templateCache.get('tpl/email-list-signup'))(scope, function( cloned ){
