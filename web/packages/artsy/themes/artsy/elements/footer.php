@@ -32,7 +32,7 @@
                         <form name="_signupForm" id="emailListSignup" class="tabular" ng-submit="doSignup()">
                             <div class="cellular text-center">
                                 <div class="block-width" ng-hide="(working || confirmed)">
-                                    <h3>Be the first to know about our Summer lineup.</h3>
+                                    <h3>Be the first to know about<br> our Summer lineup!</h3>
                                     <p> Sign up for the Center's Newsletter</p>
                                     <div class="custom-row">
                                         <label class="half"><input required ng-model="fields.first" name="first" type="text" class="form-control" placeholder="First Name"/></label>
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="custom-row">
                                         <label><input type="submit" class="btn btn-block btn-success" value="Sign Me Up!"/></label>
-                                        <label class="text-center"><span ng-click="close()" class="nevermind">No thanks</span></label>
+                                        <label class="text-center"><span ng-click="close()" class="nevermind">No, thanks.</span></label>
                                     </div>
                                 </div>
                                 <div class="block-width logo-load-progress" ng-show="working" ng-class="{working:working}">
