@@ -1,0 +1,16 @@
+# Installation Instructions
+
+1. Unzip this file in your site's packages/ directory.
+2. Login to your site as an administrator.
+3. Find the "Extend Concrete5" from the right hand menu.
+3. Click the "Add Functionality" in the menu.
+4. Find this package in the list of packages awaiting installation.
+5. Click the "install" button.
+
+# Initial setup
+Open the "System & settings" in the right hand menu
+In the Enviromental section
+Click on the "Social Media Meta Tags Settings" option
+Provide the required detail
+
+Click "Save" when finished - thats all there is to it.
