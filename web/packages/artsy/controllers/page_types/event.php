@@ -50,12 +50,18 @@
           $payload["@context"] = "http://schema.org/";
           $payload["@type"] = "Event";
           $payload["name"] = $eventObj->getTitle();
+          //$payload["image"] = $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', $thumbnailPath));
           $payload["startDate"] = $this->formatAsUTC($first10EventTimes[0]['computedStartUTC']);
           $payload["location"] = array(
             "@type" => "Place",
-            "sameAs" => "http://jhcenterforthearts.org/",
             "name" => "The Center",
-            "address" => "240 S. Glenwood St., Jackson, WY 83001",
+            "sameAs" => "http://jhcenterforthearts.org/",
+            "address" => array(
+            "streetAddress" => "240 S. Glenwood St.",
+            "addressLocality" => "Jackson Hole",
+            "addressRegion" => "Wyoming",
+            "postalCode" => "83001",
+            "addressCountry" => "USA"),
           );
         //  print_r($first10EventTimes[0]);
           $this->set('googleJsonPayload', json_encode($payload));
