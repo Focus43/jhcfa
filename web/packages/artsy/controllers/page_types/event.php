@@ -17,7 +17,7 @@
         public function view(){
             parent::view();
             // Set open graph article type
-            $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'article'));
+            $this->addHeaderItem(sprintf('<meta property="og:type" content="%s" />', 'event'));
 
             /** @var int $pageID *THIS* page ID being viewed */
             $pageID = (int) $this->getPageObject()->getCollectionID();
@@ -41,7 +41,7 @@
                 $this->set('calendarObj', $eventObj->getCalendarObj());
                 $this->set('first10EventTimes', $first10EventTimes);
                 $this->thumbnailData($eventObj);
-                $this->getJsonGoogleSearchTags($eventObj, $first10EventTimes);
+                $this->getJsonGoogleSearchTags($eventObj, $first10EventTimes, $thumbnailPath);
             }
         }
 
@@ -50,6 +50,7 @@
           $payload["@context"] = "http://schema.org/";
           $payload["@type"] = "Event";
           $payload["name"] = $eventObj->getTitle();
+          //$payload["image"] = $this->addHeaderItem(sprintf('<meta property="og:image" content="%s" />', $thumbnailPath));
           $payload["startDate"] = $this->formatAsUTC($first10EventTimes[0]['computedStartUTC']);
           $payload["location"] = array(
             "@type" => "Place",
