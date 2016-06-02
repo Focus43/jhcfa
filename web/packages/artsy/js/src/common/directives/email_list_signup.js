@@ -1,9 +1,9 @@
 angular.module('artsy.common').
 
     directive('emailListSignup', ['$compile','$templateCache',
-        function( $compile, $templateCache, $cookies, $location ){
+        function( $compile, $templateCache, $location ){
 
-            function _link( scope, $elem, attrs, $cookies, $location ){
+            function _link( scope, $elem, attrs, $location ){
                 var $view;
                 //check for our cookie that is set when modal is closed
                 
