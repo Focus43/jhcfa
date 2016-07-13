@@ -63,6 +63,7 @@
             "postalCode" => "83001",
             "addressCountry" => "USA"),
           );
+          $payload["image"] = $eventObj->getImageThumbnailPath();
         //  print_r($first10EventTimes[0]);
           $this->set('googleJsonPayload', json_encode($payload));
         }
