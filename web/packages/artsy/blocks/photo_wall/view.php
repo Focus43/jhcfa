@@ -3,9 +3,6 @@
         $imgPath = $fileObj->getThumbnailURL('file_manager_detail');
         $pageObj = Page::getByID($fileObj->getAttribute('link'));
         $link = '';
-        echo '<pre>'
-        var_dump( $fileObj->getAttribute('link') );
-        exit;
         if( is_object($pageObj) && $pageObj->getCollectionID() >= 1 ){
             $link = sprintf('href="%s"', $pageObj->getCollectionPath());
         }
