@@ -18,7 +18,7 @@ $app = new Application();
 $app->detectEnvironment(
     array(
         'local' => array(
-            'vagrant-ubuntu-vivid-64'
+            'dockerlocal'
         ),
         'stage' => array(
             'stage01.focusfortythree.com'
