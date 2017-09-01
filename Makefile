@@ -1,3 +1,5 @@
+# To spin up a local dev environment, run "$: make start". Assuming you have docker and docker compose
+# installed, you should be good to go.
 export COMPOSE_PROJECT_NAME = jhcfa
 SHELL = /bin/bash
 
