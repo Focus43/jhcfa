@@ -21,7 +21,8 @@ $screen-lg:                  1200px !default;
   @media screen and (min-width:$screen-sm){
     .staff-member {width:31%;margin:1%;padding-bottom:27%;}
   }
-  @media screen and (min-width:$screen-md){margin:-1% -1% 0;
-    .staff-member {width:23%;padding-bottom:22%;}
-  }
+  // enable 4-up?
+  // @media screen and (min-width:$screen-md){margin:-1% -1% 0;
+  //   .staff-member {width:23%;padding-bottom:22%;}
+  // }
 }

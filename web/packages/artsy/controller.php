@@ -32,6 +32,7 @@
         const ATTR_FILE_LINK                    = 'link';
         const ATTR_FILE_PHOTO_CREDIT            = 'photo_credit';
         const ATTR_FILE_EMAIL                   = 'email_address';
+        const ATTR_FILE_ALT_PHOTO               = 'alt_photo';
         const FILESET_BACKGROUND_IMG            = 'Random Header Backgrounds';
         const STACK_HOMEPAGE_VIDEO              = 'Homepage_Video';
         const AREA_MAIN                         = 'Main';
@@ -41,7 +42,7 @@
 
         protected $pkgHandle 			        = self::PACKAGE_HANDLE;
         protected $appVersionRequired 	        = '5.7.3.2';
-        protected $pkgVersion 			        = '0.36';
+        protected $pkgVersion 			        = '0.37';
 
 
         /**
@@ -265,6 +266,13 @@
                     'akHandle'  => self::ATTR_FILE_EMAIL,
                     'akName'    => 'Email'
                 ));
+            }
+
+            if( !is_object(FileAttributeKey::getByHandle(self::ATTR_FILE_ALT_PHOTO)) ){
+                FileAttributeKey::add($this->attributeType('image_file'), array(
+                    'akHandle'  => self::ATTR_FILE_ALT_PHOTO,
+                    'akName'    => 'Alt Photo'
+                ), $this->packageObject());
             }
 
             return $this;
